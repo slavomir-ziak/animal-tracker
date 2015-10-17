@@ -1,0 +1,148 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="com.wecode.animaltracker.activity.FindingDetail">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:fillViewport="false">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Type"
+                    android:id="@+id/findingTypeLabel" android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" android:layout_toLeftOf="@+id/findingConfidenceValue"
+                    android:layout_toStartOf="@+id/findingConfidenceValue"/>
+            <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/findingTypeValue" android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/findingTypeLabel"
+                    android:layout_alignBottom="@+id/findingTypeLabel" android:spinnerMode="dialog"
+                    android:layout_toStartOf="@+id/findingHabitatButton" android:gravity="bottom"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Species"
+                      android:id="@+id/findingSpeciesLabel"
+                      android:layout_below="@+id/findingTypeLabel" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true" android:layout_marginTop="24dp"
+                      android:layout_alignRight="@+id/findingConfidenceLabel"
+                      android:layout_alignEnd="@+id/findingConfidenceLabel"/>
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/findingSpeciesValue"
+                     android:spinnerMode="dialog" android:layout_alignTop="@+id/findingSpeciesLabel"
+                     android:layout_toRightOf="@+id/findingSpeciesLabel"
+                     android:layout_alignBottom="@+id/findingSpeciesLabel"
+                     android:layout_toLeftOf="@+id/findingHabitatButton"
+                     android:layout_toStartOf="@+id/findingHabitatButton" android:gravity="bottom"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Habitat"
+                    android:id="@+id/findingHabitatButton" android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" android:onClick="setHabitat"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="add photo"
+                    android:id="@+id/findingTakePhotoButton"
+                    android:layout_below="@+id/findingSamplesButton" android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" android:layout_toRightOf="@+id/findingLocationValue"
+                    android:layout_toEndOf="@+id/findingLocationValue"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="samples"
+                    android:id="@+id/findingSamplesButton"
+                    android:layout_alignTop="@+id/findingSpeciesValue" android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Confidence"
+                      android:id="@+id/findingConfidenceLabel"
+                      android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true" android:layout_below="@+id/findingSpeciesLabel"
+                      android:layout_marginTop="24dp"/>
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/findingConfidenceValue" android:spinnerMode="dialog"
+                     android:layout_toRightOf="@+id/findingConfidenceLabel"
+                     android:layout_alignBottom="@+id/findingConfidenceLabel"
+                     android:layout_toLeftOf="@+id/findingTakePhotoButton"
+                     android:layout_toStartOf="@+id/findingTakePhotoButton"
+                     android:layout_alignTop="@+id/findingConfidenceLabel" android:gravity="top|bottom"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Count"
+                      android:id="@+id/findingCountLabel"
+                      android:layout_below="@+id/findingBeforeAfterRecentSnowValue"
+                      android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                      android:layout_marginTop="24dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Location"
+                      android:id="@+id/findingLocationLabel"
+                      android:layout_alignParentStart="true" android:layout_below="@+id/findingConfidenceValue"
+                      android:layout_alignParentLeft="true" android:layout_alignRight="@+id/findingConfidenceLabel"
+                      android:layout_alignEnd="@+id/findingConfidenceLabel" android:layout_marginTop="24dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/findingLocationValue"
+                      android:text="49.008544, 19.295393"
+                      android:textAlignment="center"
+                      android:layout_toRightOf="@+id/findingLocationLabel"
+                      android:layout_below="@+id/findingConfidenceLabel"
+                      android:layout_above="@+id/findingBeforeAfterRecentSnowValue"
+                      android:layout_alignRight="@+id/findingSpeciesValue"
+                      android:layout_alignEnd="@+id/findingSpeciesValue"
+                      android:paddingLeft="10dp" android:gravity="bottom"/>
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/findingBeforeAfterRecentSnowValue"
+                     android:spinnerMode="dialog"
+                     android:minWidth="200dp"
+                     android:layout_below="@+id/findingLocationLabel" android:layout_alignParentLeft="true"
+                     android:layout_alignParentStart="true"
+                     android:layout_alignBottom="@+id/findingRecentSnow"
+                     android:gravity="bottom" android:layout_marginTop="24dp"
+                     android:layout_toLeftOf="@+id/findingCountValue"
+                     android:layout_toStartOf="@+id/findingCountValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="recent snow"
+                      android:id="@+id/findingRecentSnow"
+                      android:paddingTop="24dp"
+                      android:layout_below="@+id/findingLocationLabel"
+                      android:layout_toRightOf="@+id/findingBeforeAfterRecentSnowValue"
+                      android:layout_toEndOf="@+id/findingBeforeAfterRecentSnowValue"/>
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/findingCountValue"
+                      android:minWidth="50dp"
+                      android:layout_below="@+id/findingRecentSnow" android:layout_alignLeft="@+id/findingLocationValue"
+                      android:layout_alignStart="@+id/findingLocationValue" android:inputType="number"/>
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="photos"
+                    android:id="@+id/button7"
+                    android:layout_below="@+id/findingTakePhotoButton"
+                    android:layout_toRightOf="@+id/findingConfidenceValue"
+                    android:layout_toEndOf="@+id/findingConfidenceValue" android:onClick="showPhotos"/>
+
+            <!-- this RelativeLayout really must stay here -->
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:layout_below="@+id/findingCountValue"
+                    android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                    android:id="@+id/footprintsAttributesContainer">
+
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" android:id="@+id/specificDataContainer">
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

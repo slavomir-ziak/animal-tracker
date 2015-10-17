@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wecode.animaltracker" >
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.TransectDetail"
+            android:label="@string/title_activity_transect_detail"
+            android:parentActivityName=".activity.MainActivity" >
+        </activity>
+        <activity
+            android:name=".activity.WeatherDetail"
+            android:label="@string/title_activity_weather"
+            android:parentActivityName=".activity.TransectDetail" >
+        </activity>
+        <activity
+            android:name=".activity.HabitatDetail"
+            android:label="@string/title_activity_habitat_detail"
+            android:parentActivityName=".activity.TransectDetail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wecode.animaltracker.activity.TransectDetail" />
+        </activity>
+        <activity
+            android:name=".activity.FindingDetail"
+            android:label="@string/title_activity_finding_detail"
+            android:parentActivityName=".activity.TransectDetail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wecode.animaltracker.activity.TransectDetail" />
+        </activity>
+        <activity
+            android:name=".activity.PhotosList"
+            android:label="@string/title_activity_photos_list"
+            android:parentActivityName=".activity.TransectDetail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wecode.animaltracker.activity.TransectDetail" />
+        </activity>
+        <activity
+            android:name=".activity.FindingsList"
+            android:label="@string/title_activity_findings_list"
+            android:parentActivityName=".activity.TransectDetail" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wecode.animaltracker.activity.TransectDetail" />
+        </activity>
+        <activity android:name=".activity.TransectsList"
+                  android:label="@string/title_activity_transects_list"
+                  android:parentActivityName=".activity.TransectDetail" >
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.wecode.animaltracker.activity.TransectDetail" />
+        </activity>
+    </application>
+
+</manifest>

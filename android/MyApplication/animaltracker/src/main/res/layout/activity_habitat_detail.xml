@@ -1,0 +1,87 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="com.wecode.animaltracker.activity.HabitatDetail">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:fillViewport="false">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+            <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/habitatTypeValue"
+                    android:layout_alignTop="@+id/habitatTypeSpinnerLabel"
+                    android:layout_toEndOf="@+id/habitatForestTypeLabel" android:spinnerMode="dialog"
+                    android:layout_alignBottom="@+id/habitatTypeSpinnerLabel"
+                    android:layout_toRightOf="@+id/habitatForestTypeLabel"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Type"
+                    android:id="@+id/habitatTypeSpinnerLabel" android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Track"
+                      android:id="@+id/habitatTrackSpinnerLabel"
+                      android:layout_below="@+id/habitatTypeValue" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true" android:layout_marginTop="24dp"/>
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/habitatTrackValue"
+                     android:spinnerMode="dialog"
+                     android:layout_alignTop="@+id/habitatTrackSpinnerLabel"
+                     android:layout_toEndOf="@+id/habitatTrackSpinnerLabel"
+                     android:layout_alignBottom="@+id/habitatTrackSpinnerLabel"
+                     android:layout_alignLeft="@+id/habitatTypeValue"
+                     android:layout_alignStart="@+id/habitatTypeValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Forest age"
+                      android:id="@+id/forestAgeLabel"
+                      android:layout_marginTop="24dp" android:layout_below="@+id/habitatTrackSpinnerLabel"
+                      android:layout_alignParentLeft="true" android:layout_alignParentStart="true"/>
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/habitatForestAgeValue" android:spinnerMode="dialog"
+                     android:layout_alignTop="@+id/forestAgeLabel"
+                     android:layout_toEndOf="@+id/forestAgeLabel" android:layout_alignBottom="@+id/forestAgeLabel"
+                     android:layout_alignLeft="@+id/habitatTrackValue"
+                     android:layout_alignStart="@+id/habitatTrackValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Tree type"
+                      android:id="@+id/habitatTreeTypeLabel" android:layout_marginTop="24dp"
+                      android:layout_below="@+id/forestAgeLabel" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true"/>
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/habitatTreeTypeValue" android:spinnerMode="dialog"
+                     android:layout_alignTop="@+id/habitatTreeTypeLabel"
+                     android:layout_toEndOf="@+id/habitatForestTypeLabel"
+                     android:layout_alignBottom="@+id/habitatTreeTypeLabel"
+                     android:layout_toRightOf="@+id/habitatForestTypeLabel"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Forest Type"
+                      android:id="@+id/habitatForestTypeLabel" android:layout_marginTop="24dp"
+                      android:layout_below="@+id/habitatTreeTypeLabel" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true"/>
+            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                     android:id="@+id/habitatForestTypeValue" android:spinnerMode="dialog"
+                     android:layout_alignTop="@+id/habitatForestTypeLabel"
+                     android:layout_toEndOf="@+id/habitatForestTypeLabel"
+                     android:layout_alignBottom="@+id/habitatForestTypeLabel"
+                     android:layout_toRightOf="@+id/habitatForestTypeLabel"/>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

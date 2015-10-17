@@ -1,0 +1,104 @@
+<resources>
+    <string name="app_name">AnimalTracker</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_item_detail">ItemDetailActivity</string>
+    <string name="title_activity_item_list">ItemListActivity</string>
+    <string name="title_activity_transect_detail">TransectDetail</string>
+    <string name="title_activity_weather">Weather</string>
+    <string name="title_activity_habitat_detail">HabitatDetail</string>
+    <string name="title_activity_finding_detail">FindingDetail</string>
+
+    <string-array name="habitatTypes">
+        <item>Forest</item>
+        <item>Track</item>
+        <item>Meadow</item>
+        <item>Field</item>
+        <item>Walley</item>
+    </string-array>
+
+    <string-array name="habitatTrackTypes">
+        <item>Asphalt road</item>
+        <item>Forest road</item>
+        <item>Tourist route</item>
+    </string-array>
+
+    <string-array name="habitatForestAgeTypes">
+        <item>Old</item>
+        <item>New</item>
+        <item>Mixed</item>
+    </string-array>
+
+    <string-array name="habitatTreeTypes">
+        <item>Leafless</item>
+        <item>Leafs</item>
+        <item>Needles</item>
+        <item>Mix</item>
+    </string-array>
+
+    <string-array name="habitatForestTypes">
+        <item>Coniferas</item>
+        <item>Pines</item>
+        <item>Oak</item>
+    </string-array>
+
+    <string-array name="findingTypes">
+        <item>Footprints</item>
+        <item>Feces</item>
+        <item>Urine</item>
+        <item>Carcass</item>
+    </string-array>
+	
+    <string-array name="findingSpeciesTypes">
+		<item>Wolf</item>0
+		<item>Lynx</item>
+		<item>Red deer</item>
+		<item>Roe deer</item>
+		<item>Wild boar</item>
+		<item>Brown hare</item>
+		<item>Red fox</item>
+    </string-array>
+
+    <string-array name="findingConfidenceTypes">
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+
+    <string-array name="beforeAfter">
+        <item>Before</item>
+        <item>After</item>
+    </string-array>
+
+    <string-array name="findingFecesState">
+        <item>New</item>
+        <item>Decayed</item>
+    </string-array>
+
+    <string-array name="findingBeforeAfterRecentSnowValues">
+        <item>Before</item>
+        <item>After</item>
+    </string-array>
+
+    <string-array name="footprintsFrontBackValues">
+        <item>Front</item>
+        <item>Back</item>
+    </string-array>
+
+    <string-array name="generalDirection">
+        <item>N</item>
+        <item>S</item>
+        <item>E</item>
+        <item>W</item>
+        <item>NE</item>
+        <item>NW</item>
+        <item>SE</item>
+        <item>SW</item>
+    </string-array>
+
+    <string name="title_activity_photos_list">PhotosList</string>
+    <string name="title_activity_findings_list">FindingsList</string>
+    <string name="title_activity_transects_list">TransectsList</string>
+
+</resources>

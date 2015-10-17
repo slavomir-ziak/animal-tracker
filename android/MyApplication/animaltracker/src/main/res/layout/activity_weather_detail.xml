@@ -1,0 +1,212 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="com.wecode.animaltracker.activity.WeatherDetail" android:id="@+id/weatherDetail">
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" android:fillViewport="false">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Sunshine"
+                    android:id="@+id/sunshineLabel"
+                    android:layout_column="0" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" android:paddingRight="5dp"/>
+            <SeekBar
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sunshineSeekBar"
+                    android:max="100" android:progress="0"
+                    android:indeterminate="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/sunshineValue" android:layout_toRightOf="@+id/sunshineValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="0%"
+                      android:id="@+id/sunshineValue" android:layout_column="0"
+                      android:layout_alignBottom="@+id/sunshineLabel" android:layout_toRightOf="@+id/sunshineLabel"
+                      android:layout_toEndOf="@+id/sunshineLabel"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="cloudy"
+                    android:id="@+id/textView13" android:layout_below="@+id/sunshineValue"
+                    android:layout_toRightOf="@+id/sunshineValue" android:layout_toEndOf="@+id/sunshineValue"
+                    android:paddingRight="75dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="sunny"
+                      android:id="@+id/textView14"
+                      android:layout_alignTop="@+id/textView13" android:layout_alignRight="@+id/sunshineSeekBar"
+                      android:layout_alignEnd="@+id/sunshineSeekBar"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Wind"
+                      android:id="@+id/windLabel" android:layout_column="0"
+                      android:layout_below="@+id/textView13" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true" android:paddingRight="5dp" android:paddingTop="5dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="0%"
+                      android:id="@+id/windValue" android:layout_column="0"
+                      android:layout_alignTop="@+id/windLabel" android:layout_toRightOf="@+id/sunshineLabel"
+                      android:layout_toEndOf="@+id/sunshineLabel" android:paddingTop="5dp"/>
+            <SeekBar android:layout_width="fill_parent" android:layout_height="wrap_content"
+                     android:id="@+id/windSeekBar"
+                     android:max="100" android:progress="0" android:indeterminate="false"
+                     android:layout_alignTop="@+id/windValue" android:layout_toRightOf="@+id/windValue"
+                     android:layout_toEndOf="@+id/windValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="low"
+                      android:id="@+id/windLowLabel"
+                      android:layout_below="@+id/windValue" android:layout_toRightOf="@+id/windValue"
+                      android:layout_toEndOf="@+id/windValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="high"
+                      android:id="@+id/windHighLabel"
+                      android:layout_alignTop="@+id/windLowLabel" android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Raining"
+                      android:id="@+id/rainingLabel" android:layout_column="0"
+                      android:paddingRight="5dp"
+                      android:paddingTop="5dp" android:layout_below="@+id/windLowLabel"
+                      android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="0%"
+                      android:id="@+id/rainingValue"
+                      android:layout_column="0"
+                      android:paddingTop="5dp" android:layout_alignTop="@+id/rainingLabel"
+                      android:layout_toRightOf="@+id/sunshineLabel" android:layout_toEndOf="@+id/sunshineLabel"/>
+            <SeekBar android:layout_width="fill_parent" android:layout_height="wrap_content"
+                     android:id="@+id/rainingSeekBar"
+                     android:max="100" android:progress="0" android:indeterminate="false"
+                     android:layout_alignBottom="@+id/rainingValue" android:layout_toRightOf="@+id/rainingValue"
+                     android:layout_toEndOf="@+id/rainingValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="light"
+                      android:id="@+id/rainingLightLabel"
+                      android:layout_below="@+id/rainingValue" android:layout_toRightOf="@+id/rainingValue"
+                      android:layout_toEndOf="@+id/rainingValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="heavy"
+                      android:id="@+id/textView18"
+                      android:layout_alignBottom="@+id/rainingLightLabel" android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Humidity"
+                      android:id="@+id/textView15" android:layout_column="0" android:paddingRight="5dp"
+                      android:paddingTop="5dp"
+                      android:layout_below="@+id/rainingLightLabel" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="0%"
+                      android:id="@+id/humidityValue" android:layout_column="0" android:paddingTop="5dp"
+                      android:layout_alignTop="@+id/textView15" android:layout_alignLeft="@+id/rainingValue"
+                      android:layout_alignStart="@+id/rainingValue"/>
+            <SeekBar android:layout_width="fill_parent" android:layout_height="wrap_content"
+                     android:id="@+id/humiditySeekBar"
+                     android:max="100" android:progress="0" android:indeterminate="false"
+                     android:layout_alignTop="@+id/humidityValue" android:layout_toRightOf="@+id/humidityValue"
+                     android:layout_toEndOf="@+id/humidityValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="low"
+                      android:id="@+id/textView17"
+                      android:layout_below="@+id/humidityValue" android:layout_toRightOf="@+id/humidityValue"
+                      android:layout_toEndOf="@+id/humidityValue" android:paddingRight="10dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="high"
+                      android:id="@+id/textView19"
+                      android:layout_alignBottom="@+id/textView17" android:layout_alignParentRight="true"
+                      android:layout_alignParentEnd="true"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Visibility"
+                      android:id="@+id/visibilityLabel" android:layout_column="0" android:paddingRight="5dp"
+                      android:paddingTop="5dp"
+                      android:layout_below="@+id/textView17" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true" android:layout_marginTop="21dp"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/visibilityValue" android:layout_alignBottom="@+id/visibilityLabel"
+                    android:layout_alignRight="@+id/textView13" android:layout_alignEnd="@+id/textView13"
+                    android:maxLines="1"
+                    android:numeric="integer" android:layout_toRightOf="@+id/textView17"
+                    android:layout_toEndOf="@+id/textView17"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Snow depth"
+                      android:id="@+id/snowDepthLabel" android:layout_column="0" android:paddingRight="5dp"
+                      android:paddingTop="15dp"
+                      android:layout_below="@+id/visibilityLabel" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true"/>
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/showDepthValue"
+                      android:maxLines="1" android:layout_alignBottom="@+id/snowDepthLabel"
+                      android:layout_alignRight="@+id/visibilityValue"
+                      android:layout_alignEnd="@+id/visibilityValue" android:numeric="integer" android:editable="false"
+                      android:layout_toRightOf="@+id/textView17" android:layout_toEndOf="@+id/textView17"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="m"
+                      android:id="@+id/textView16"
+                      android:layout_above="@+id/showDepthValue" android:layout_toRightOf="@+id/textView13"
+                      android:layout_toEndOf="@+id/textView13"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="cm"
+                      android:id="@+id/textView20"
+                      android:layout_alignBottom="@+id/showDepthValue" android:layout_toRightOf="@+id/showDepthValue"
+                      android:layout_toEndOf="@+id/showDepthValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="New snow depth"
+                      android:id="@+id/textView21" android:layout_column="0" android:paddingRight="5dp"
+                      android:paddingTop="15dp"
+                      android:layout_below="@+id/snowDepthLabel" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true"/>
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/editText"
+                      android:maxLines="1"
+                      android:numeric="integer" android:editable="false"
+                      android:layout_alignBottom="@+id/textView21" android:layout_alignLeft="@+id/showDepthValue"
+                      android:layout_alignStart="@+id/showDepthValue" android:layout_alignRight="@+id/showDepthValue"
+                      android:layout_alignEnd="@+id/showDepthValue"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="cm"
+                      android:id="@+id/textView22"
+                      android:layout_alignBottom="@+id/editText" android:layout_toRightOf="@+id/editText"
+                      android:layout_toEndOf="@+id/editText"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Last time snowed/rained"
+                      android:id="@+id/textView23" android:layout_column="0" android:paddingRight="5dp"
+                      android:paddingTop="15dp"
+                      android:layout_below="@+id/textView21" android:layout_alignParentLeft="true"
+                      android:layout_alignParentStart="true"/>
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/editText2"
+                      android:maxLines="1" android:numeric="integer" android:editable="false"
+                      android:layout_alignBottom="@+id/textView23" android:layout_toRightOf="@+id/textView23"
+                      android:layout_toLeftOf="@+id/textView18" android:layout_toStartOf="@+id/textView18"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:textAppearance="?android:attr/textAppearanceSmall" android:text="hours ago"
+                      android:id="@+id/textView24"
+                      android:layout_alignBottom="@+id/editText2" android:layout_toRightOf="@+id/editText2"
+                      android:layout_toEndOf="@+id/editText2"/>
+            <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="save"
+                    android:id="@+id/saveWeatherButton" android:layout_below="@+id/editText2"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"/>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
