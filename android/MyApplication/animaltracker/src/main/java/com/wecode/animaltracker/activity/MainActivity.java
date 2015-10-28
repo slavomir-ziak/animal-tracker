@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.detail.TransectDetail;
+import com.wecode.animaltracker.activity.list.TransectsList;
 
 public class MainActivity extends AppCompatActivity {
 

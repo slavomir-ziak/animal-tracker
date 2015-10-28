@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity;
+package com.wecode.animaltracker.activity.detail;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

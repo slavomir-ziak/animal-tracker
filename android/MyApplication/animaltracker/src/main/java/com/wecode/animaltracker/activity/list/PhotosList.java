@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity;
+package com.wecode.animaltracker.activity.list;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.ItemsAdapter;
+import com.wecode.animaltracker.activity.util.ListViewDataAdapter;
 
 public class PhotosList extends AppCompatActivity {
 
@@ -28,7 +28,7 @@ public class PhotosList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos_list);
 
-        ItemsAdapter adapter = new ItemsAdapter(this, names, imageId);
+        ListViewDataAdapter adapter = new ListViewDataAdapter(this, names, imageId);
         ListView itemsListView = (ListView) findViewById(R.id.photosList);
 
         itemsListView.setAdapter(adapter);

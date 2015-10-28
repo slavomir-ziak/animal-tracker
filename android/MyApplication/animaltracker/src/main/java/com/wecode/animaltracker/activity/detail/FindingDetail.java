@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity;
+package com.wecode.animaltracker.activity.detail;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -17,6 +17,8 @@ import com.wecode.animaltracker.FacesFragment;
 import com.wecode.animaltracker.FootprintsFragment;
 import com.wecode.animaltracker.OnFragmentInteractionListener;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.MainActivity;
+import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 
 import java.io.File;

@@ -9,15 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
 
-public class ItemsAdapter extends ArrayAdapter<String> {
+public class ListViewDataAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
     private final String[] web;
     private final Integer[] imageId;
 
-    public ItemsAdapter(Activity context,
-                        String[] web,
-                        Integer[] imageId) {
+    public ListViewDataAdapter(Activity context,
+                               String[] web,
+                               Integer[] imageId) {
 
         super(context, R.layout.single_item_layout, web);
         this.context = context;
