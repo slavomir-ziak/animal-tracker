@@ -12,14 +12,44 @@ import android.view.MenuItem;
 import android.view.View;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.FindingsList;
+import com.wecode.animaltracker.activity.util.Action;
+import com.wecode.animaltracker.data.TransectDataService;
+import com.wecode.animaltracker.model.Transect;
 
 public class TransectDetail extends AppCompatActivity implements LocationListener {
 
+    private static TransectDataService service = new TransectDataService();
+    private long id;
+    private Action action;
+    private Transect transect;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_transect_detail, menu);
+        return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_transect_detail);
+
+        String intentAction = getIntent().getAction();
+
+        if ("new".equals(intentAction)) {
+            action = Action.NEW;
+
+        } else if ("edit".equals(intentAction)) {
+            id = getIntent().getLongExtra("id", -1);
+            action = Action.EDIT;
+
+        } else if ("view".equals(intentAction)) {
+            id = getIntent().getLongExtra("id", -1);
+            action = Action.VIEW;
+        }
+
+        initGui(action, id);
 
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -27,28 +57,29 @@ public class TransectDetail extends AppCompatActivity implements LocationListene
         // Register the listener with the Location Manager to receive location updates
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
-        return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private void initGui(Action action, long id) {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id != -1) {
+            transect = service.find(id);
         }
 
-        return super.onOptionsItemSelected(item);
-    }
+        if (action != Action.NEW) {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transect_detail);
+
+        }
+
+        switch (action){
+
+            case EDIT:
+                break;
+            case VIEW:
+                break;
+            case NEW:
+                break;
+        }
+
     }
 
     public void setWeather(View view) {
@@ -70,6 +101,21 @@ public class TransectDetail extends AppCompatActivity implements LocationListene
     public void viewFindings(View view) {
         Intent intent = new Intent(this, FindingsList.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

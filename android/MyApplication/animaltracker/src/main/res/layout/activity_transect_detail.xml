@@ -63,13 +63,13 @@
                       android:layout_below="@+id/startLocationValue" android:layout_alignParentLeft="true"
                       android:layout_alignParentStart="true" android:paddingTop="15dp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Transect route"
-                      android:id="@+id/transectRouteLabale"
+                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Transect route name"
+                      android:id="@+id/transectRouteNameLabale"
                       android:layout_below="@+id/transectNumberLabel"
                       android:paddingTop="20dp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:textAppearance="?android:attr/textAppearanceMedium" android:text="Column in grid"
-                      android:id="@+id/transectColumnLabel" android:layout_below="@+id/transectRouteLabale"
+                      android:id="@+id/transectColumnLabel" android:layout_below="@+id/transectRouteNameLabale"
                       android:layout_alignParentLeft="true"
                       android:layout_alignParentStart="true" android:paddingTop="20dp"/>
             <Button
@@ -103,11 +103,11 @@
             <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:textAppearance="?android:attr/textAppearanceMedium"
                       android:id="@+id/transectColumnValue"
-                      android:layout_below="@+id/transectRouteLabale"
-                      android:paddingTop="15dp" android:layout_alignRight="@+id/transectRouteValue"
-                      android:layout_alignEnd="@+id/transectRouteValue" android:layout_above="@+id/startDateTimeLabel"
-                      android:layout_alignLeft="@+id/transectRouteValue"
-                      android:layout_alignStart="@+id/transectRouteValue" android:inputType="number"/>
+                      android:layout_below="@+id/transectRouteNameLabale"
+                      android:paddingTop="15dp" android:layout_alignRight="@+id/transectRouteNameValue"
+                      android:layout_alignEnd="@+id/transectRouteNameValue" android:layout_above="@+id/startDateTimeLabel"
+                      android:layout_alignLeft="@+id/transectRouteNameValue"
+                      android:layout_alignStart="@+id/transectRouteNameValue" android:inputType="number"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:textAppearance="?android:attr/textAppearanceMedium" android:text="7.10.2015 5:31:11"
                       android:id="@+id/startDateTimeValue"
@@ -138,7 +138,7 @@
             <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/transectRouteValue"
+                    android:id="@+id/transectRouteNameValue"
                     android:layout_below="@+id/transectNumberValue" android:layout_alignLeft="@+id/transectNumberValue"
                     android:layout_alignStart="@+id/transectNumberValue" android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
