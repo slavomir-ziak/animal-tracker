@@ -5,6 +5,7 @@ import android.location.Location;
 import android.text.InputType;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Transect;
 
 import java.text.DateFormat;
@@ -23,7 +24,7 @@ public class TransectDetailView {
     private TextView endLocation;
     private TextView routeName;
 
-    private Long habitatId;
+    private Habitat habitat;
 
     public TransectDetailView(Activity context, Transect transect) {
         id = (TextView) context.findViewById(R.id.transectIdValue);
@@ -115,12 +116,12 @@ public class TransectDetailView {
 
     }
 
-    public Long getHabitatId() {
-        return habitatId;
+    public Habitat getHabitat() {
+        return habitat;
     }
 
-    public void setHabitatId(Long habitatId) {
-        this.habitatId = habitatId;
+    public void setHabitat(Habitat habitat) {
+        this.habitat = habitat;
     }
 
     public TextView getId() {

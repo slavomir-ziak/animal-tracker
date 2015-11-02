@@ -32,15 +32,22 @@ public class HabitatDetailView {
     }
 
     private void bind(Habitat habitat) {
-
         id = habitat.getId();
         SpinnersHelper.setSelected(type, habitat.getType());
         SpinnersHelper.setSelected(track, habitat.getTrack());
         SpinnersHelper.setSelected(forestAge, habitat.getForestAge());
         SpinnersHelper.setSelected(treeType, habitat.getTreeType());
         SpinnersHelper.setSelected(forestType, habitat.getForestType());
-
     }
 
-
+    public Habitat toHabitat() {
+        Habitat habitat = new Habitat();
+        habitat.setId(id);
+        habitat.setType(type.getSelectedItem().toString());
+        habitat.setTrack(type.getSelectedItem().toString());
+        habitat.setForestAge(type.getSelectedItem().toString());
+        habitat.setTreeType(type.getSelectedItem().toString());
+        habitat.setForestType(type.getSelectedItem().toString());
+        return habitat;
+    }
 }

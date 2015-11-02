@@ -16,14 +16,14 @@ public class CommonDetailActivity extends AppCompatActivity {
     protected Long extractParams(Intent intent) {
         String intentAction = intent.getAction();
         Long id = null;
-        if ("new".equals(intentAction)) {
+        if ("new".equalsIgnoreCase(intentAction)) {
             action = Action.NEW;
 
-        } else if ("edit".equals(intentAction)) {
+        } else if ("edit".equalsIgnoreCase(intentAction)) {
             id = (Long) intent.getExtras().get("id");
             action = Action.EDIT;
 
-        } else if ("view".equals(intentAction)) {
+        } else if ("view".equalsIgnoreCase(intentAction)) {
             id = (Long) intent.getExtras().get("id");
             action = Action.VIEW;
         } else {
@@ -37,6 +37,36 @@ public class CommonDetailActivity extends AppCompatActivity {
         }
 
         return id;
+    }
+
+
+    @Override
+    public Intent getSupportParentActivityIntent() {
+        if (parentActivityClass == null) {
+            return super.getSupportParentActivityIntent();
+        } else {
+            return getParentActivityIntentImpl();
+        }
+    }
+
+    @Override
+    public Intent getParentActivityIntent() {
+        if (parentActivityClass == null) {
+            return super.getParentActivityIntent();
+        } else {
+            return getParentActivityIntentImpl();
+        }
+    }
+
+    private Intent getParentActivityIntentImpl() {
+
+        Intent i = new Intent(this, parentActivityClass);
+
+        // If you are reusing the previous Activity (i.e. bringing it to the top
+        // without re-creating a new instance) set these flags:
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        return i;
     }
 
 }

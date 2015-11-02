@@ -14,8 +14,11 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.FindingsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.activity.util.SharedData;
 import com.wecode.animaltracker.data.TransectDataService;
+import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectDetailView;
 
 import java.math.BigDecimal;
@@ -23,6 +26,10 @@ import java.text.DateFormat;
 import java.util.Date;
 
 public class TransectDetailActivity extends CommonDetailActivity implements LocationListener {
+
+    private static final int RESULT_HABITAT_OK = 0;
+    private static final int RESULT_WEATHER_OK = 1;
+    private static final int RESULT_FINDING_OK = 2;
 
     private static TransectDataService service = TransectDataService.INSTANCE;
 
@@ -134,8 +141,15 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     public void setHabitat(View view) {
         Intent intent = new Intent(this, HabitatDetailActivity.class);
-        intent.putExtra(Constants.PARENT_ACTIVITY, FindingDetailActivity.class);
-        startActivity(intent);
+        intent.putExtra(Constants.PARENT_ACTIVITY, TransectDetailActivity.class);
+
+        if (transectDetailView.getHabitat() != null) {
+            intent.setAction(action.toString());
+            intent.putExtra("id", transectDetailView.getHabitat().getId());
+        } else {
+            intent.setAction("new");
+        }
+        startActivityForResult(intent, RESULT_HABITAT_OK);
     }
 
     public void addFinding(View view) {
@@ -146,6 +160,26 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     public void viewFindings(View view) {
         Intent intent = new Intent(this, FindingsList.class);
         startActivity(intent);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        switch(requestCode) {
+            case RESULT_HABITAT_OK:
+                if (resultCode == RESULT_OK) {
+                    Bundle res = data.getExtras();
+                    Habitat habitat = (Habitat) SharedData.INSTANCE.get(Constants.HABITAT_REFERENCE);
+                    Assert.notNull("habitat", habitat);
+                    Toast.makeText(this, "Habitat created.", Toast.LENGTH_SHORT).show();
+                    transectDetailView.setHabitat(habitat);
+                }
+                break;
+        }
     }
 
     @Override
@@ -197,23 +231,4 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     }
 
 
-    @Override
-    public Intent getSupportParentActivityIntent() {
-        return getParentActivityIntentImpl();
-    }
-
-    @Override
-    public Intent getParentActivityIntent() {
-        return getParentActivityIntentImpl();
-    }
-
-    private Intent getParentActivityIntentImpl() {
-        Intent i = new Intent(this, parentActivityClass);
-
-        // If you are reusing the previous Activity (i.e. bringing it to the top
-        // without re-creating a new instance) set these flags:
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-        return i;
-    }
 }

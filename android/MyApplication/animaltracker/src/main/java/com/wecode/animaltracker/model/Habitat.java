@@ -53,4 +53,16 @@ public class Habitat extends Persistable {
     public void setForestType(String forestType) {
         this.forestType = forestType;
     }
+
+    @Override
+    public String toString() {
+        return "Habitat{" +
+                "id='" + getId() + '\'' +
+                "type='" + type + '\'' +
+                ", track='" + track + '\'' +
+                ", forestAge='" + forestAge + '\'' +
+                ", treeType='" + treeType + '\'' +
+                ", forestType='" + forestType + '\'' +
+                '}';
+    }
 }

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.activity.util.SharedData;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.data.HabitatDataService;
 import com.wecode.animaltracker.view.HabitatDetailView;
@@ -16,6 +18,8 @@ public class HabitatDetailActivity extends CommonDetailActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_habitat_detail);
 
         SpinnersHelper.setSpinnerData(this, R.id.habitatTypeValue, R.array.habitatTypes);
@@ -28,6 +32,14 @@ public class HabitatDetailActivity extends CommonDetailActivity {
 
         habitatDetailView = new HabitatDetailView(this, HabitatDataService.INSTANCE.find(habitatId));
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        SharedData.INSTANCE.put(Constants.HABITAT_REFERENCE, habitatDetailView.toHabitat());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override
@@ -44,8 +56,8 @@ public class HabitatDetailActivity extends CommonDetailActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            onBackPressed();
             return true;
         }
 
@@ -53,23 +65,5 @@ public class HabitatDetailActivity extends CommonDetailActivity {
     }
 
 
-    @Override
-    public Intent getSupportParentActivityIntent() {
-        return getParentActivityIntentImpl();
-    }
 
-    @Override
-    public Intent getParentActivityIntent() {
-        return getParentActivityIntentImpl();
-    }
-
-    private Intent getParentActivityIntentImpl() {
-        Intent i = new Intent(this, parentActivityClass);
-
-        // If you are reusing the previous Activity (i.e. bringing it to the top
-        // without re-creating a new instance) set these flags:
-        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
-        return i;
-    }
 }
