@@ -2,17 +2,16 @@ package com.wecode.animaltracker.activity.detail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.data.HabitatDataService;
+import com.wecode.animaltracker.view.HabitatDetailView;
 
-public class HabitatDetail extends AppCompatActivity {
+public class HabitatDetailActivity extends CommonDetailActivity {
 
-    public static final String PARENT_TRANSCET = "PARENT_TRANSCET";
-
-    private boolean parentIsActivityTransect;
+    private HabitatDetailView habitatDetailView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,10 @@ public class HabitatDetail extends AppCompatActivity {
         SpinnersHelper.setSpinnerData(this, R.id.habitatTreeTypeValue, R.array.habitatTreeTypes);
         SpinnersHelper.setSpinnerData(this, R.id.habitatForestTypeValue, R.array.habitatForestTypes);
 
-        parentIsActivityTransect = getIntent().getBooleanExtra(HabitatDetail.PARENT_TRANSCET, false);
+        Long habitatId = extractParams(getIntent());
+
+        habitatDetailView = new HabitatDetailView(this, HabitatDataService.INSTANCE.find(habitatId));
+
     }
 
     @Override
@@ -62,24 +64,11 @@ public class HabitatDetail extends AppCompatActivity {
     }
 
     private Intent getParentActivityIntentImpl() {
-        Intent i = null;
+        Intent i = new Intent(this, parentActivityClass);
 
-        // Here you need to do some logic to determine from which Activity you came.
-        // example: you could pass a variable through your Intent extras and check that.
-        if (parentIsActivityTransect) {
-            i = new Intent(this, TransectDetail.class);
-            // set any flags or extras that you need.
-            // If you are reusing the previous Activity (i.e. bringing it to the top
-            // without re-creating a new instance) set these flags:
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            // if you are re-using the parent Activity you may not need to set any extras
-            //i.putExtra("someExtra", "whateverYouNeed");
-        } else {
-            i = new Intent(this, FindingDetail.class);
-            // same comments as above
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            //i.putExtra("someExtra", "whateverYouNeed");
-        }
+        // If you are reusing the previous Activity (i.e. bringing it to the top
+        // without re-creating a new instance) set these flags:
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         return i;
     }

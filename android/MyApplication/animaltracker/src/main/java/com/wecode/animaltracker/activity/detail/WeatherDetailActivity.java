@@ -1,7 +1,6 @@
 package com.wecode.animaltracker.activity.detail;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
@@ -9,7 +8,7 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.TextChangingSeekBarListener;
 
-public class WeatherDetail extends AppCompatActivity {
+public class WeatherDetailActivity extends CommonDetailActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

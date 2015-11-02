@@ -10,8 +10,13 @@
         <TextView
                 android:id="@+id/txt"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp" android:text="asdf"
-                android:gravity="center_vertical" android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/img" android:layout_toEndOf="@+id/img"/>
+                android:layout_height="50dp" android:text="text"
+                android:gravity="center_vertical"
+                android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectListItemRouteName"
+                android:layout_toEndOf="@+id/transectListItemRouteName"/>
+        <TextView android:id="@+id/transectListItemRouteName" android:layout_width="wrap_content" android:layout_height="50dp"
+                  android:text="id" android:gravity="center_vertical"
+                  android:layout_alignParentTop="true" android:layout_toRightOf="@+id/img"
+                  android:layout_toEndOf="@+id/img"/>
 
 </RelativeLayout>

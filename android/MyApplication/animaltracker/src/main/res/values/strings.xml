@@ -100,5 +100,9 @@
     <string name="title_activity_photos_list">PhotosList</string>
     <string name="title_activity_findings_list">FindingsList</string>
     <string name="title_activity_transects_list">TransectsList</string>
+    <string name="transect_action_habitat">Habitat</string>
+    <string name="transect_action_weather">Weather</string>
+    <string name="transect_action_findings">Findings</string>
+    <string name="transect_action_add_finding">Add finding</string>
 
 </resources>

@@ -22,53 +22,53 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.detail.TransectDetail"
+            android:name=".activity.detail.TransectDetailActivity"
             android:label="@string/title_activity_transect_detail"
             android:parentActivityName=".activity.MainActivity" >
         </activity>
         <activity
-            android:name=".activity.detail.WeatherDetail"
+            android:name=".activity.detail.WeatherDetailActivity"
             android:label="@string/title_activity_weather"
-            android:parentActivityName=".activity.detail.TransectDetail" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity" >
         </activity>
         <activity
-            android:name=".activity.detail.HabitatDetail"
+            android:name=".activity.detail.HabitatDetailActivity"
             android:label="@string/title_activity_habitat_detail"
-            android:parentActivityName=".activity.detail.TransectDetail" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.detail.TransectDetail" />
+                android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
-            android:name=".activity.detail.FindingDetail"
+            android:name=".activity.detail.FindingDetailActivity"
             android:label="@string/title_activity_finding_detail"
-            android:parentActivityName=".activity.detail.TransectDetail" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.detail.TransectDetail" />
+                android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
             android:name=".activity.list.PhotosList"
             android:label="@string/title_activity_photos_list"
-            android:parentActivityName=".activity.detail.TransectDetail" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.detail.TransectDetail" />
+                android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
             android:name=".activity.list.FindingsList"
             android:label="@string/title_activity_findings_list"
-            android:parentActivityName=".activity.detail.TransectDetail" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.detail.TransectDetail" />
+                android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity android:name=".activity.list.TransectsList"
                   android:label="@string/title_activity_transects_list"
-                  android:parentActivityName=".activity.detail.TransectDetail" >
+                  android:parentActivityName=".activity.detail.TransectDetailActivity" >
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".activity.detail.TransectDetail" />
+                    android:value=".activity.detail.TransectDetailActivity" />
         </activity>
     </application>
 

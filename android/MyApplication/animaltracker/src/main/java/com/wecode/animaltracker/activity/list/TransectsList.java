@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.activity.list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -7,28 +8,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.ListViewDataAdapter;
+import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
+import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.activity.util.TransectListViewDataAdapter;
+import com.wecode.animaltracker.data.TransectDataService;
 
 public class TransectsList extends AppCompatActivity {
 
-    String[] names = {
-            "Google Plus",
-            "Twitter"
-    };
-
-    Integer[] imageId = {
-            R.drawable.beer,
-            R.drawable.beer,
-    };
-
+    private static TransectDataService service = TransectDataService.INSTANCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transects_list);
-        ListViewDataAdapter adapter = new ListViewDataAdapter(this, names, imageId);
+        TransectListViewDataAdapter adapter = new TransectListViewDataAdapter(this, service.list());
+
         ListView itemsListView = (ListView) findViewById(R.id.transectsList);
 
         itemsListView.setAdapter(adapter);
@@ -37,12 +33,13 @@ public class TransectsList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                TextView transectId = (TextView) view.findViewById(R.id.transectId);
 
-                Toast.makeText(TransectsList.this, ("You Clicked at " + names[+position]), Toast.LENGTH_SHORT).show();
-                /*Intent intent = new Intent(PhotosList.this, ItemDetailActivity.class);
-
-                intent.putExtra(ItemDetailActivity.ITEM_ID, names[+position]);
-                startActivity(intent);*/
+                Intent intent = new Intent(TransectsList.this, TransectDetailActivity.class);
+                intent.putExtra(Constants.PARENT_ACTIVITY, TransectsList.class);
+                intent.putExtra("id", Long.valueOf(transectId.getText().toString()));
+                intent.setAction("view");
+                startActivity(intent);
             }
 
         });

@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,12 +18,13 @@ import com.wecode.animaltracker.OnFragmentInteractionListener;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.MainActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
+import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 
 import java.io.File;
 import java.io.IOException;
 
-public class FindingDetail extends AppCompatActivity implements OnFragmentInteractionListener {
+public class FindingDetailActivity extends CommonDetailActivity implements OnFragmentInteractionListener {
 
     Fragment fragment = null;
 
@@ -92,8 +92,8 @@ public class FindingDetail extends AppCompatActivity implements OnFragmentIntera
 
 
     public void setHabitat(View view) {
-        Intent intent = new Intent(this, HabitatDetail.class);
-        intent.putExtra(HabitatDetail.PARENT_TRANSCET, false);
+        Intent intent = new Intent(this, HabitatDetailActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, FindingDetailActivity.class);
         startActivity(intent);
     }
 

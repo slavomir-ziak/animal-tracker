@@ -1,9 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.wecode.animaltracker.activity.detail.TransectDetail">
-    <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
+      tools:context="com.wecode.animaltracker.activity.detail.TransectDetailActivity">
+      <item android:id="@+id/transect_action_habitat"
+            android:title="@string/transect_action_habitat"
+            android:orderInCategory="100"
+            app:showAsAction="never"/>
+      <item android:id="@+id/transect_action_weather"
+            android:title="@string/transect_action_weather"
+            android:orderInCategory="100"
+            app:showAsAction="never"/>
+      <item android:id="@+id/transect_action_findings"
+            android:title="@string/transect_action_findings"
+            android:orderInCategory="100"
+            app:showAsAction="never"/>
+      <item android:id="@+id/transect_action_add_finding"
+            android:title="@string/transect_action_add_finding"
+            android:orderInCategory="100"
+            app:showAsAction="never"/>
 </menu>

@@ -7,9 +7,8 @@ import java.util.Date;
 /**
  * Created by sziak on 10/28/2015.
  */
-public class Transect {
+public class Transect extends Persistable {
 
-    private Integer number;
     private Integer column;
     private Date startDateTime;
     private Date endDateTime;
@@ -17,20 +16,22 @@ public class Transect {
     private Location endLocation;
     private String routeName;
 
-    public Transect(Integer number, Integer column, Date startDateTime, Location startLocation, String routeName) {
-        this.number = number;
+    public Transect(Long id, Integer column, Date startDateTime, Location startLocation, String routeName) {
+        setId(id);
         this.column = column;
         this.startDateTime = startDateTime;
         this.startLocation = startLocation;
         this.routeName = routeName;
     }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
+    public Transect(Long id, Integer column, Date startDateTime,Date endDateTime,
+                    Location startLocation, Location endLocation, String routeName) {
+        setId(id);
+        this.column = column;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
+        this.routeName = routeName;
     }
 
     public Integer getColumn() {
@@ -79,5 +80,17 @@ public class Transect {
 
     public void setRouteName(String routeName) {
         this.routeName = routeName;
+    }
+
+    @Override
+    public String toString() {
+        return "Transect{" +
+                "column=" + column+
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                ", startLocation=" + startLocation +
+                ", endLocation=" + endLocation +
+                ", routeName='" + routeName + '\'' +
+                '}';
     }
 }
