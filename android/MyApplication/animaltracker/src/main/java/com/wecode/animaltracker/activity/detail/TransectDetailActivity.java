@@ -14,9 +14,7 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.FindingsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.activity.util.SharedData;
 import com.wecode.animaltracker.data.TransectDataService;
-import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectDetailView;
@@ -27,11 +25,11 @@ import java.util.Date;
 
 public class TransectDetailActivity extends CommonDetailActivity implements LocationListener {
 
-    private static final int RESULT_HABITAT_OK = 0;
+    private static final int SET_HABITAT_REQUEST = 0;
     private static final int RESULT_WEATHER_OK = 1;
     private static final int RESULT_FINDING_OK = 2;
 
-    private static TransectDataService service = TransectDataService.INSTANCE;
+    private static TransectDataService service = TransectDataService.getInstance();
 
     private TransectDetailView transectDetailView;
 
@@ -52,7 +50,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         Intent intent = getIntent();
 
-        Long id = extractParams(intent);
+        extractParams(intent);
 
         Transect transect = null;
         if (id != null) {
@@ -62,15 +60,6 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         initGui(action, transect);
 
         initLocationManager();
-
-    }
-
-    private void initLocationManager() {
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
     }
 
@@ -89,6 +78,15 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                 transectDetailView.getId().setText(service.getNextId().toString());
                 break;
         }
+
+    }
+
+    private void initLocationManager() {
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // Register the listener with the Location Manager to receive location updates
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
     }
 
@@ -111,6 +109,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                 " " + startLocationLongitude.toString());
 
         service.save(transectDetailView.toTransect());
+
+        action = Action.EDIT;
     }
 
     public void endTransect(View view) {
@@ -141,15 +141,15 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     public void setHabitat(View view) {
         Intent intent = new Intent(this, HabitatDetailActivity.class);
-        intent.putExtra(Constants.PARENT_ACTIVITY, TransectDetailActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(action.toString()); // view, edit or new
 
-        if (transectDetailView.getHabitat() != null) {
-            intent.setAction(action.toString());
-            intent.putExtra("id", transectDetailView.getHabitat().getId());
-        } else {
-            intent.setAction("new");
-        }
-        startActivityForResult(intent, RESULT_HABITAT_OK);
+        /*if (transectDetailView.getHabitatDetailView() != null) {
+            SharedData.INSTANCE.put(Constants.HABITAT_REFERENCE, transectDetailView.getHabitatDetailView());
+        }*/
+        intent.putExtra("id", transectDetailView.getHabitatId());
+        intent.putExtra("transectId", transectDetailView.getIdValue());
+        startActivityForResult(intent, SET_HABITAT_REQUEST);
     }
 
     public void addFinding(View view) {
@@ -170,13 +170,14 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         }
 
         switch(requestCode) {
-            case RESULT_HABITAT_OK:
+            case SET_HABITAT_REQUEST:
                 if (resultCode == RESULT_OK) {
                     Bundle res = data.getExtras();
-                    Habitat habitat = (Habitat) SharedData.INSTANCE.get(Constants.HABITAT_REFERENCE);
-                    Assert.notNull("habitat", habitat);
-                    Toast.makeText(this, "Habitat created.", Toast.LENGTH_SHORT).show();
-                    transectDetailView.setHabitat(habitat);
+                    Long id = res.getLong("ID");
+                    Assert.assertNotNull("habitat", id);
+                    Toast.makeText(this, "Habitat created, ID = " + id, Toast.LENGTH_SHORT).show();
+
+                    transectDetailView.setHabitatId(id);
                 }
                 break;
         }

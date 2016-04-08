@@ -11,13 +11,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
+import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.activity.util.TransectListViewDataAdapter;
 import com.wecode.animaltracker.data.TransectDataService;
 
 public class TransectsList extends AppCompatActivity {
 
-    private static TransectDataService service = TransectDataService.INSTANCE;
+    private static TransectDataService service = TransectDataService.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class TransectsList extends AppCompatActivity {
                 Intent intent = new Intent(TransectsList.this, TransectDetailActivity.class);
                 intent.putExtra(Constants.PARENT_ACTIVITY, TransectsList.class);
                 intent.putExtra("id", Long.valueOf(transectId.getText().toString()));
-                intent.setAction("view");
+                intent.setAction(Action.EDIT.toString());
                 startActivity(intent);
             }
 

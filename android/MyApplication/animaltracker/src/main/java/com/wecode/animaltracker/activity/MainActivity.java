@@ -7,9 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.detail.FindingDetailActivity;
 import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
 import com.wecode.animaltracker.activity.list.TransectsList;
+import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public void newTransect(View view){
         Intent intent = new Intent(this, TransectDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, MainActivity.class);
-        intent.setAction("new");
+        intent.setAction(Action.NEW.toString());
         startActivity(intent);
     }
     public void viewTransectsList(View view){

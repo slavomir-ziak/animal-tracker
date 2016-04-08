@@ -5,9 +5,15 @@ package com.wecode.animaltracker.util;
  */
 public class Assert {
 
-    public static void notNull(String message, Object notnull) {
+    public static void assertNotNull(String message, Object notnull) {
         if (notnull == null) {
-            throw new NullPointerException(message);
+            throw new RuntimeException(message);
+        }
+    }
+
+    public static void assertNull(String message, Object notnull) {
+        if (notnull != null) {
+            throw new RuntimeException(message);
         }
     }
 

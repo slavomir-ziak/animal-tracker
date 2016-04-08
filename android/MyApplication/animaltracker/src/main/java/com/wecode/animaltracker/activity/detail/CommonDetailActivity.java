@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.util.Assert;
 
 /**
  * Created by sziak on 11/2/2015.
@@ -12,31 +13,27 @@ public class CommonDetailActivity extends AppCompatActivity {
 
     protected Action action;
     protected Class parentActivityClass;
+    protected Long id;
 
-    protected Long extractParams(Intent intent) {
-        String intentAction = intent.getAction();
-        Long id = null;
-        if ("new".equalsIgnoreCase(intentAction)) {
-            action = Action.NEW;
+    private String getActionForChildActivity(Action action, Long childId) {
+        if (action == Action.VIEW && childId == null) {
 
-        } else if ("edit".equalsIgnoreCase(intentAction)) {
-            id = (Long) intent.getExtras().get("id");
-            action = Action.EDIT;
+        }
+        return null;
+    }
 
-        } else if ("view".equalsIgnoreCase(intentAction)) {
-            id = (Long) intent.getExtras().get("id");
-            action = Action.VIEW;
-        } else {
-            throw new RuntimeException("no action defined!");
+    protected void extractParams(Intent intent) {
+
+        action = Action.fromString(intent.getAction());
+        id = (Long) intent.getExtras().get("id");
+
+        if (action == Action.VIEW) {
+            Assert.assertNotNull("id musi byt zadane", id);
         }
 
         parentActivityClass = (Class) getIntent().getExtras().get(Constants.PARENT_ACTIVITY);
+        Assert.assertNotNull("parentActivityClass musi byt zadane", parentActivityClass);
 
-        if (parentActivityClass == null) {
-            throw new NullPointerException("parentActivityClass is null");
-        }
-
-        return id;
     }
 
 

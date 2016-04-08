@@ -5,15 +5,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.activity.util.SharedData;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.data.HabitatDataService;
+import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.view.HabitatDetailView;
 
 public class HabitatDetailActivity extends CommonDetailActivity {
 
     private HabitatDetailView habitatDetailView;
+
+    private HabitatDataService habitatService = HabitatDataService.getInstance();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +29,24 @@ public class HabitatDetailActivity extends CommonDetailActivity {
         SpinnersHelper.setSpinnerData(this, R.id.habitatTreeTypeValue, R.array.habitatTreeTypes);
         SpinnersHelper.setSpinnerData(this, R.id.habitatForestTypeValue, R.array.habitatForestTypes);
 
-        Long habitatId = extractParams(getIntent());
+        extractParams(getIntent());
 
-        habitatDetailView = new HabitatDetailView(this, HabitatDataService.INSTANCE.find(habitatId));
+        if (id != null) {
+            habitatDetailView = new HabitatDetailView(this, habitatService.find(id));
+        } else {
+            habitatDetailView = new HabitatDetailView(this);
+        }
 
     }
 
     @Override
     public void onBackPressed() {
+        //SharedData.INSTANCE.put(Constants.HABITAT_REFERENCE, );
+        Habitat t = habitatDetailView.toHabitat();
+        habitatService.save(t);
+
         Intent intent = new Intent();
-        SharedData.INSTANCE.put(Constants.HABITAT_REFERENCE, habitatDetailView.toHabitat());
+        intent.putExtra("ID", t.getId());
         setResult(RESULT_OK, intent);
         finish();
     }
