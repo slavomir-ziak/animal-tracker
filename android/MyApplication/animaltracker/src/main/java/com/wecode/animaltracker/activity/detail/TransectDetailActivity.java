@@ -11,23 +11,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.list.FindingsList;
+import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.data.TransectDataService;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectDetailView;
 
-import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.util.Date;
 
 public class TransectDetailActivity extends CommonDetailActivity implements LocationListener {
 
     private static final int SET_HABITAT_REQUEST = 0;
-    private static final int RESULT_WEATHER_OK = 1;
-    private static final int RESULT_FINDING_OK = 2;
+    private static final int SET_WEATHER_REQUEST = 1;
+    private static final int ADD_FINDING_REQUEST = 2;
 
     private static TransectDataService service = TransectDataService.getInstance();
 
@@ -96,17 +96,11 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
             Toast.makeText(this, "Location not acquired, is your GPS on?", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        // TODO refactor this as part of TransectDetailView object
         String startDateTime = DateFormat.getDateTimeInstance().format(new Date());
         transectDetailView.getStartDateTime().setText(startDateTime);
 
-        BigDecimal startLocationLatitude = new BigDecimal(currentLocation.getLatitude());
-        startLocationLatitude = startLocationLatitude.setScale(6, BigDecimal.ROUND_DOWN);
-        BigDecimal startLocationLongitude = new BigDecimal(currentLocation.getLongitude());
-        startLocationLongitude = startLocationLongitude.setScale(6, BigDecimal.ROUND_DOWN);
-
-        transectDetailView.getStartLocation().setText(startLocationLatitude.toString() +
-                " " + startLocationLongitude.toString());
+        transectDetailView.getStartLocation().setText(LocationFormatter.formatLocation(currentLocation));
 
         service.save(transectDetailView.toTransect());
 
@@ -122,64 +116,94 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
         transectDetailView.getEndDateTime().setText(endDateTime);
-
-        BigDecimal endLocationLatitude = new BigDecimal(currentLocation.getLatitude());
-        endLocationLatitude = endLocationLatitude.setScale(6, BigDecimal.ROUND_DOWN);
-        BigDecimal endLocationLongitude = new BigDecimal(currentLocation.getLongitude());
-        endLocationLongitude = endLocationLongitude.setScale(6, BigDecimal.ROUND_DOWN);
-
-        transectDetailView.getEndLocation().setText(endLocationLatitude.toString() +
-                " " + endLocationLongitude.toString());
+        transectDetailView.getEndLocation().setText(LocationFormatter.formatLocation(currentLocation));
 
         service.save(transectDetailView.toTransect());
     }
 
     public void setWeather(View view) {
         Intent intent = new Intent(this, WeatherDetailActivity.class);
-        startActivity(intent);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(action.toString());
+        intent.putExtra("id", transectDetailView.getWeatherId());
+        intent.putExtra("transectId", transectDetailView.getIdValue());
+        startActivityForResult(intent, SET_WEATHER_REQUEST);
     }
 
     public void setHabitat(View view) {
         Intent intent = new Intent(this, HabitatDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(action.toString()); // view, edit or new
-
-        /*if (transectDetailView.getHabitatDetailView() != null) {
-            SharedData.INSTANCE.put(Constants.HABITAT_REFERENCE, transectDetailView.getHabitatDetailView());
-        }*/
+        intent.setAction(action.toString());
         intent.putExtra("id", transectDetailView.getHabitatId());
         intent.putExtra("transectId", transectDetailView.getIdValue());
         startActivityForResult(intent, SET_HABITAT_REQUEST);
     }
 
     public void addFinding(View view) {
-        Intent intent = new Intent(this, FindingDetailActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(this, TransectFindingDetailActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(action.toString());
+        intent.putExtra("transectId", transectDetailView.getIdValue());
+        startActivityForResult(intent, ADD_FINDING_REQUEST);
     }
 
     public void viewFindings(View view) {
-        Intent intent = new Intent(this, FindingsList.class);
+        Intent intent = new Intent(this, TransectFindingsList.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(action.toString());
+        intent.putExtra("transectId", transectDetailView.getIdValue());
         startActivity(intent);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
             return;
         }
 
-        switch(requestCode) {
-            case SET_HABITAT_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    Bundle res = data.getExtras();
-                    Long id = res.getLong("ID");
-                    Assert.assertNotNull("habitat", id);
-                    Toast.makeText(this, "Habitat created, ID = " + id, Toast.LENGTH_SHORT).show();
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(this, "Problem with creating: " + getNameForRequestCode(requestCode), Toast.LENGTH_LONG).show();
+            return;
+        }
 
-                    transectDetailView.setHabitatId(id);
-                }
+        switch (requestCode) {
+            case SET_HABITAT_REQUEST:
+                Long id = data.getExtras().getLong("id");
+                Assert.assertNotNull("Habitat", id);
+                String text = transectDetailView.getHabitatId() == null ? "created" : "modified";
+                Toast.makeText(this, "Habitat " + text + ", ID = " + id, Toast.LENGTH_LONG).show();
+
+                transectDetailView.setHabitatId(id);
                 break;
+
+            case ADD_FINDING_REQUEST:
+                id = data.getExtras().getLong("id");
+                Assert.assertNotNull("Finding", id);
+                Toast.makeText(this, "Finding created, ID = " + id, Toast.LENGTH_LONG).show();
+                break;
+
+            case SET_WEATHER_REQUEST:
+                id = data.getExtras().getLong("id");
+                Assert.assertNotNull("Weather", id);
+                text = transectDetailView.getWeatherId() == null ? "created" : "modified";
+                Toast.makeText(this, "Weather " + text + ", ID = " + id, Toast.LENGTH_LONG).show();
+
+                transectDetailView.setWeatherId(id);
+                break;
+        }
+
+        service.save(transectDetailView.toTransect());
+
+    }
+
+    private String getNameForRequestCode(int requestCode) {
+        switch(requestCode) {
+            case SET_HABITAT_REQUEST: return "habitat";
+            case ADD_FINDING_REQUEST: return "finding";
+            case SET_WEATHER_REQUEST: return "weather";
+            default: return "UNKNOWN";
         }
     }
 

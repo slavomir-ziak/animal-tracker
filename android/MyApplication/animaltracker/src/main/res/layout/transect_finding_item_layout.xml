@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent" >
+
+    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="1" android:id="@+id/transectFindingListItemID"
+              android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectFindingListItemIDLabel"
+              android:layout_toEndOf="@+id/transectFindingListItemIDLabel"/>
+    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="ID:" android:id="@+id/transectFindingListItemIDLabel"
+              android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
+              android:layout_alignParentStart="true"/>
+    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="Footprints" android:id="@+id/transectFindingListItemType"
+              android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectFindingListItemSpecies"
+              android:layout_toEndOf="@+id/transectFindingListItemSpecies"/>
+    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="Wolf"
+              android:id="@+id/transectFindingListItemSpecies"
+              android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectFindingListItemID"
+              android:layout_toEndOf="@+id/transectFindingListItemID"/>
+    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
+              android:layout_height="wrap_content" android:text="Forest"
+              android:id="@+id/transectFindingListItemHabitat"
+              android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectFindingListItemType"
+              android:layout_toEndOf="@+id/transectFindingListItemType"/>
+</RelativeLayout>

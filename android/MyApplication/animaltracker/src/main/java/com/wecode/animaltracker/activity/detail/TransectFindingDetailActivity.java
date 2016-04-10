@@ -2,7 +2,11 @@ package com.wecode.animaltracker.activity.detail;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,48 +16,78 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
-import com.wecode.animaltracker.FacesFragment;
+import com.wecode.animaltracker.FecesFragment;
 import com.wecode.animaltracker.FootprintsFragment;
 import com.wecode.animaltracker.OnFragmentInteractionListener;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.MainActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.data.TransectFindingDataService;
+import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.view.TransectFindingView;
 
 import java.io.File;
 import java.io.IOException;
 
-public class FindingDetailActivity extends CommonDetailActivity implements OnFragmentInteractionListener {
+public class TransectFindingDetailActivity extends CommonDetailActivity implements OnFragmentInteractionListener, LocationListener {
 
-    Fragment fragment = null;
+    private TransectFindingView transectFindingView;
+
+    private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
+
+    private FootprintsFragment footprintsFragment;
+
+    private Fragment activeFragment;
+
+    private FecesFragment fecesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finding_detail);
-        SpinnersHelper.setSpinnerData(this, R.id.findingTypeValue, R.array.findingTypes);
-        SpinnersHelper.setSpinnerData(this, R.id.findingSpeciesValue, R.array.findingSpeciesTypes);
-        SpinnersHelper.setSpinnerData(this, R.id.findingConfidenceValue, R.array.findingConfidenceTypes);
-        SpinnersHelper.setSpinnerData(this, R.id.findingBeforeAfterRecentSnowValue, R.array.findingBeforeAfterRecentSnowValues);
+        initLocationManager();
 
-        Spinner findingTypeValue = (Spinner) findViewById(R.id.findingTypeValue);
+        extractParams(getIntent());
 
+        TransectFinding transectFinding = transectFindingDataService.find(id);
+
+        initialiseFragmentLogic(transectFinding);
+
+        if (id != null) {
+            transectFindingView = new TransectFindingView(this, transectFinding);
+        } else {
+            transectFindingView = new TransectFindingView(this);
+        }
+
+        fecesFragment = new FecesFragment(transectFindingView);
+        footprintsFragment = new FootprintsFragment(transectFindingView);
+    }
+
+    private void initialiseFragmentLogic(final TransectFinding transectFinding) {
+
+        Spinner findingTypeValue = (Spinner) this.findViewById(R.id.findingTypeValue);
         findingTypeValue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 
                 final FragmentTransaction ft = getFragmentManager().beginTransaction();
+
                 if (position == 0) {
-                    fragment = new FootprintsFragment();
-                    ft.replace(R.id.specificDataContainer, fragment);
+
+                    ft.replace(R.id.specificDataContainer, footprintsFragment);
+                    activeFragment = footprintsFragment;
+                    
                 } else if (position == 1) {
-                    fragment = new FacesFragment();
-                    ft.replace(R.id.specificDataContainer, fragment);
+
+                    ft.replace(R.id.specificDataContainer, fecesFragment);
+                    activeFragment = fecesFragment;
+
                 } else {
-                    if (fragment != null) {
-                        ft.remove(fragment);
+                    if (activeFragment != null) {
+                        ft.remove(activeFragment);
+                        activeFragment = null;
                     }
                 }
 
@@ -65,6 +99,7 @@ public class FindingDetailActivity extends CommonDetailActivity implements OnFra
             }
 
         });
+
 
     }
 
@@ -91,9 +126,17 @@ public class FindingDetailActivity extends CommonDetailActivity implements OnFra
     }
 
 
+    private void initLocationManager() {
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // Register the listener with the Location Manager to receive location updates
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+
+    }
     public void setHabitat(View view) {
         Intent intent = new Intent(this, HabitatDetailActivity.class);
-        intent.putExtra(Constants.PARENT_ACTIVITY, FindingDetailActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, TransectFindingDetailActivity.class);
         startActivity(intent);
     }
 
@@ -140,4 +183,34 @@ public class FindingDetailActivity extends CommonDetailActivity implements OnFra
     public void onFragmentInteraction(Uri uri) {
         System.out.println(uri);
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        //this.currentLocation = location;
+        transectFindingView.setLocation(location);
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    public FootprintsFragment getFootprintsFragment() {
+        return footprintsFragment;
+    }
+
+    public FecesFragment getFecesFragment() {
+        return fecesFragment;
+    }
+
 }

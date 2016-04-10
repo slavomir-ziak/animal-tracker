@@ -9,12 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.view.TransectFindingView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FootprintsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link FootprintsFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -30,6 +31,12 @@ public class FootprintsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private TransectFindingView transectFindingView;
+
+    public FootprintsFragment(TransectFindingView transectFindingView) {
+        this();
+        this.transectFindingView = transectFindingView;
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -66,15 +73,17 @@ public class FootprintsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View inflate = inflater.inflate(R.layout.fragment_footprints, container, false);
+        View view = inflater.inflate(R.layout.fragment_footprints, container, false);
 
-        Spinner footprintsFrontBackValue = (Spinner) inflate.findViewById(R.id.footprintsFrontBackValue);
+        Spinner footprintsFrontBackValue = (Spinner) view.findViewById(R.id.footprintsFrontBackValue);
         SpinnersHelper.setSpinnerData(footprintsFrontBackValue, R.array.footprintsFrontBackValues);
 
-        Spinner footprintsDirectionValue = (Spinner) inflate.findViewById(R.id.footprintsDirectionValue);
+        Spinner footprintsDirectionValue = (Spinner) view.findViewById(R.id.footprintsDirectionValue);
         SpinnersHelper.setSpinnerData(footprintsDirectionValue, R.array.generalDirection);
 
-        return inflate;
+        transectFindingView.initFootprintsFragment(view);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

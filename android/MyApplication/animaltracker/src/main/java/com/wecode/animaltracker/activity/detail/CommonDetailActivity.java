@@ -15,13 +15,6 @@ public class CommonDetailActivity extends AppCompatActivity {
     protected Class parentActivityClass;
     protected Long id;
 
-    private String getActionForChildActivity(Action action, Long childId) {
-        if (action == Action.VIEW && childId == null) {
-
-        }
-        return null;
-    }
-
     protected void extractParams(Intent intent) {
 
         action = Action.fromString(intent.getAction());

@@ -30,6 +30,9 @@
             android:name=".activity.detail.WeatherDetailActivity"
             android:label="@string/title_activity_weather"
             android:parentActivityName=".activity.detail.TransectDetailActivity" >
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
             android:name=".activity.detail.HabitatDetailActivity"
@@ -40,7 +43,7 @@
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
-            android:name=".activity.detail.FindingDetailActivity"
+            android:name=".activity.detail.TransectFindingDetailActivity"
             android:label="@string/title_activity_finding_detail"
             android:parentActivityName=".activity.detail.TransectDetailActivity" >
             <meta-data
@@ -56,7 +59,7 @@
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
-            android:name=".activity.list.FindingsList"
+            android:name=".activity.list.TransectFindingsList"
             android:label="@string/title_activity_findings_list"
             android:parentActivityName=".activity.detail.TransectDetailActivity" >
             <meta-data

@@ -34,6 +34,7 @@ public class SpinnersHelper {
 
     @SuppressWarnings("unchecked")
     public static void setSelected(Spinner spinner, String value) {
+        if (value == null) return;
         spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(value));
     }
 }

@@ -14,12 +14,11 @@ public class HabitatDetailActivity extends CommonDetailActivity {
 
     private HabitatDetailView habitatDetailView;
 
-    private HabitatDataService habitatService = HabitatDataService.getInstance();;
+    private HabitatDataService habitatService = HabitatDataService.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Back button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_habitat_detail);
 
@@ -41,12 +40,11 @@ public class HabitatDetailActivity extends CommonDetailActivity {
 
     @Override
     public void onBackPressed() {
-        //SharedData.INSTANCE.put(Constants.HABITAT_REFERENCE, );
         Habitat t = habitatDetailView.toHabitat();
         habitatService.save(t);
 
         Intent intent = new Intent();
-        intent.putExtra("ID", t.getId());
+        intent.putExtra("id", t.getId());
         setResult(RESULT_OK, intent);
         finish();
     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.view.TransectFindingView;
 
 
 /**
@@ -16,10 +17,10 @@ import com.wecode.animaltracker.activity.util.SpinnersHelper;
  * Activities that contain this fragment must implement the
  * {@link OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link FacesFragment#newInstance} factory method to
+ * Use the {@link FecesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FacesFragment extends Fragment {
+public class FecesFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -30,6 +31,11 @@ public class FacesFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private TransectFindingView transectFindingView;
+
+    public FecesFragment(TransectFindingView transectFindingView) {
+        this.transectFindingView = transectFindingView;
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -37,11 +43,11 @@ public class FacesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FacesFragment.
+     * @return A new instance of fragment FecesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static FacesFragment newInstance(String param1, String param2) {
-        FacesFragment fragment = new FacesFragment();
+    public static FecesFragment newInstance(String param1, String param2) {
+        FecesFragment fragment = new FecesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -49,7 +55,7 @@ public class FacesFragment extends Fragment {
         return fragment;
     }
 
-    public FacesFragment() {
+    public FecesFragment() {
         // Required empty public constructor
     }
 
@@ -70,6 +76,8 @@ public class FacesFragment extends Fragment {
         View inflate = inflater.inflate(R.layout.fragment_faces, container, false);
         Spinner findingFecesStateValue = (Spinner) inflate.findViewById(R.id.findingFecesStateValue);
         SpinnersHelper.setSpinnerData(findingFecesStateValue, R.array.findingFecesState);
+
+        transectFindingView.initFecesFragment(inflate);
 
         return inflate;
     }

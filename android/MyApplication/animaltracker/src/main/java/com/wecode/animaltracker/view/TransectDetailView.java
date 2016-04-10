@@ -24,6 +24,7 @@ public class TransectDetailView {
     private TextView routeName;
 
     private Long habitatId;
+    private Long weatherId;
 
     public TransectDetailView(Activity context, Transect transect) {
         id = (TextView) context.findViewById(R.id.transectIdValue);
@@ -181,5 +182,13 @@ public class TransectDetailView {
 
     public long getIdValue() {
         return Long.valueOf(id.getText().toString());
+    }
+
+    public Long getWeatherId() {
+        return weatherId;
+    }
+
+    public void setWeatherId(Long weatherId) {
+        this.weatherId = weatherId;
     }
 }
