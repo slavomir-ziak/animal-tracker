@@ -24,7 +24,7 @@
         <activity
             android:name=".activity.detail.TransectDetailActivity"
             android:label="@string/title_activity_transect_detail"
-            android:parentActivityName=".activity.MainActivity" >
+            android:parentActivityName=".activity.MainActivity" android:launchMode="singleTop" >
         </activity>
         <activity
             android:name=".activity.detail.WeatherDetailActivity"
