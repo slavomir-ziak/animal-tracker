@@ -9,12 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
+import android.widget.ImageView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.adapter.NavigationDrawerAdapter;
 import com.wecode.animaltracker.model.view.NavDrawerItem;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class FragmentDrawer extends Fragment {
@@ -81,6 +84,9 @@ public class FragmentDrawer extends Fragment {
             }
         }));
 
+        View recyclerView2 = layout.findViewById(R.id.nav_header_container_icon);
+        //((ImageView) recyclerView2).setImageResource(R.drawable.wolf1);
+
         return layout;
     }
 
@@ -93,12 +99,24 @@ public class FragmentDrawer extends Fragment {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getActivity().invalidateOptionsMenu();
+
+
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 getActivity().invalidateOptionsMenu();
+                ImageView recyclerView2 = (ImageView) drawerView.findViewById(R.id.nav_header_container_icon);
+
+                try {
+                    int randomWolf = new Random().nextInt(7)+1;
+                    Field wolf2 = R.drawable.class.getField("wolf"+randomWolf);
+                    Integer integ = wolf2.getInt(new R.drawable());
+                    recyclerView2.setImageResource(integ);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
