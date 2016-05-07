@@ -2,125 +2,128 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="com.wecode.animaltracker.activity.detail.TransectDetailActivity"
                 android:id="@+id/activityTransectDetail">
+
+    <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/scrollView" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" android:fillViewport="false">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:focusableInTouchMode="true">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Transect number"
-                    android:id="@+id/transectNumberLabel" android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" android:paddingTop="15dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:id="@+id/transectIdValue"
-                    android:paddingTop="15dp"
-                    android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Start date and time"
-                    android:id="@+id/startDateTimeLabel"
-                    android:layout_below="@+id/transectColumnLabel" android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" android:paddingTop="15dp" android:singleLine="false"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="End date and time"
-                      android:id="@+id/endDateTimeLabel"
-                      android:layout_alignParentStart="true"
-                      android:layout_below="@+id/startDateTimeLabel" android:layout_alignParentLeft="true"
-                      android:paddingTop="15dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Start location"
-                    android:id="@+id/startLocationLabel"
-                    android:layout_alignParentStart="true"
-                    android:layout_below="@+id/endDateTimeLabel" android:layout_alignParentLeft="true"
-                    android:paddingTop="15dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="End location"
-                      android:id="@+id/endLocationLabel"
-                      android:layout_below="@+id/transectStartLocationValue" android:layout_alignParentLeft="true"
-                      android:layout_alignParentStart="true" android:paddingTop="15dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Transect route name"
-                      android:id="@+id/transectRouteNameLabale"
-                      android:layout_below="@+id/transectNumberLabel"
-                      android:paddingTop="20dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Column in grid"
-                      android:id="@+id/transectColumnLabel" android:layout_below="@+id/transectRouteNameLabale"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentStart="true" android:paddingTop="20dp"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Start transect"
-                    android:id="@+id/startTransectButton"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" android:onClick="startTransect"
-                    android:layout_below="@+id/endLocationLabel"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="End transect"
-                    android:id="@+id/endTransectButton"
-                    android:layout_toRightOf="@+id/startTransectButton"
-                    android:layout_toEndOf="@+id/startTransectButton" android:onClick="endTransect"
-                    android:layout_below="@+id/endLocationLabel"/>
-            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:id="@+id/transectColumnValue"
-                      android:layout_below="@+id/transectRouteNameLabale"
-                      android:paddingTop="15dp" android:layout_alignRight="@+id/transectRouteNameValue"
-                      android:layout_alignEnd="@+id/transectRouteNameValue" android:layout_above="@+id/startDateTimeLabel"
-                      android:layout_alignLeft="@+id/transectRouteNameValue"
-                      android:layout_alignStart="@+id/transectRouteNameValue" android:inputType="number"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:id="@+id/transectStartDateTimeValue"
-                      android:paddingTop="15dp" android:layout_below="@+id/transectColumnValue"
-                      android:layout_alignLeft="@+id/transectColumnValue"
-                      android:layout_alignStart="@+id/transectColumnValue" android:inputType="datetime"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium"
-                      android:id="@+id/transectEndDateTimeValue"
-                      android:layout_below="@+id/transectStartDateTimeValue" android:layout_alignLeft="@+id/transectStartDateTimeValue"
-                      android:layout_alignStart="@+id/transectStartDateTimeValue" android:paddingTop="15dp"
-                      android:layout_alignBottom="@+id/endDateTimeLabel" android:inputType="datetime"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceSmall"
-                      android:id="@+id/transectStartLocationValue"
-                      android:layout_below="@+id/transectEndDateTimeValue" android:layout_alignLeft="@+id/transectEndDateTimeValue"
-                      android:layout_alignStart="@+id/transectEndDateTimeValue" android:paddingTop="15dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceSmall"
-                      android:id="@+id/transectEndLocationValue"
-                      android:layout_alignTop="@+id/endLocationLabel" android:layout_alignLeft="@+id/transectStartLocationValue"
-                      android:layout_alignStart="@+id/transectStartLocationValue" android:paddingTop="15dp"
-                      android:layout_alignBottom="@+id/endLocationLabel"/>
-            <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/transectRouteNameValue"
-                    android:layout_below="@+id/transectIdValue" android:layout_alignLeft="@+id/transectIdValue"
-                    android:layout_alignStart="@+id/transectIdValue" android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_above="@+id/transectColumnValue"/>
-        </RelativeLayout>
     </ScrollView>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:focusableInTouchMode="true"
+                    android:layout_below="@+id/toolbar" android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Transect number"
+                android:id="@+id/transectNumberLabel" android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" android:paddingTop="15dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/transectIdValue"
+                android:paddingTop="15dp"
+                android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Start date and time"
+                android:id="@+id/startDateTimeLabel"
+                android:layout_below="@+id/transectColumnLabel" android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" android:paddingTop="15dp" android:singleLine="false"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:text="End date and time"
+                  android:id="@+id/endDateTimeLabel"
+                  android:layout_alignParentStart="true"
+                  android:layout_below="@+id/startDateTimeLabel" android:layout_alignParentLeft="true"
+                  android:paddingTop="15dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Start location"
+                android:id="@+id/startLocationLabel"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/endDateTimeLabel" android:layout_alignParentLeft="true"
+                android:paddingTop="15dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:text="End location"
+                  android:id="@+id/endLocationLabel"
+                  android:layout_below="@+id/transectStartLocationValue" android:layout_alignParentLeft="true"
+                  android:layout_alignParentStart="true" android:paddingTop="15dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:text="Transect route name"
+                  android:id="@+id/transectRouteNameLabale"
+                  android:layout_below="@+id/transectNumberLabel"
+                  android:paddingTop="20dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium" android:text="Column in grid"
+                  android:id="@+id/transectColumnLabel" android:layout_below="@+id/transectRouteNameLabale"
+                  android:layout_alignParentLeft="true"
+                  android:layout_alignParentStart="true" android:paddingTop="20dp"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Start transect"
+                android:id="@+id/startTransectButton"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" android:onClick="startTransect"
+                android:layout_below="@+id/endLocationLabel"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="End transect"
+                android:id="@+id/endTransectButton"
+                android:layout_toRightOf="@+id/startTransectButton"
+                android:layout_toEndOf="@+id/startTransectButton" android:onClick="endTransect"
+                android:layout_below="@+id/endLocationLabel"/>
+        <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:id="@+id/transectColumnValue"
+                  android:layout_below="@+id/transectRouteNameLabale"
+                  android:paddingTop="15dp" android:layout_alignRight="@+id/transectRouteNameValue"
+                  android:layout_alignEnd="@+id/transectRouteNameValue" android:layout_above="@+id/startDateTimeLabel"
+                  android:layout_alignLeft="@+id/transectRouteNameValue"
+                  android:layout_alignStart="@+id/transectRouteNameValue" android:inputType="number"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:id="@+id/transectStartDateTimeValue"
+                  android:paddingTop="15dp" android:layout_below="@+id/transectColumnValue"
+                  android:layout_alignLeft="@+id/transectColumnValue"
+                  android:layout_alignStart="@+id/transectColumnValue" android:inputType="datetime"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:id="@+id/transectEndDateTimeValue"
+                  android:layout_below="@+id/transectStartDateTimeValue" android:layout_alignLeft="@+id/transectStartDateTimeValue"
+                  android:layout_alignStart="@+id/transectStartDateTimeValue" android:paddingTop="15dp"
+                  android:layout_alignBottom="@+id/endDateTimeLabel" android:inputType="datetime"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
+                  android:id="@+id/transectStartLocationValue"
+                  android:layout_below="@+id/transectEndDateTimeValue" android:layout_alignLeft="@+id/transectEndDateTimeValue"
+                  android:layout_alignStart="@+id/transectEndDateTimeValue" android:paddingTop="15dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
+                  android:id="@+id/transectEndLocationValue"
+                  android:layout_alignTop="@+id/endLocationLabel" android:layout_alignLeft="@+id/transectStartLocationValue"
+                  android:layout_alignStart="@+id/transectStartLocationValue" android:paddingTop="15dp"
+                  android:layout_alignBottom="@+id/endLocationLabel"/>
+        <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/transectRouteNameValue"
+                android:layout_below="@+id/transectIdValue" android:layout_alignLeft="@+id/transectIdValue"
+                android:layout_alignStart="@+id/transectIdValue" android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_above="@+id/transectColumnValue"/>
+    </RelativeLayout>
 </RelativeLayout>
