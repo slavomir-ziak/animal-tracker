@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.data;
+package com.wecode.animaltracker.service;
 
 import android.location.Location;
 import com.wecode.animaltracker.model.Transect;

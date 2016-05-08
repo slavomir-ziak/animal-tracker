@@ -25,7 +25,7 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.MainActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.data.TransectFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.model.TransectFinding;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
 
@@ -44,6 +44,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     private FecesFragment fecesFragment;
 
+    private Long transectId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
         extractParams(getIntent());
 
+        transectId = getIntent().getExtras().getLong("transectId");
+
         TransectFinding transectFinding = transectFindingDataService.find(id);
 
         initialiseFragmentLogic();
@@ -69,6 +73,19 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
         fecesFragment = new FecesFragment(transectFindingView);
         footprintsFragment = new FootprintsFragment(transectFindingView);
+    }
+
+    @Override
+    public void onBackPressed() {
+        TransectFinding transectFinding = transectFindingView.toTransectFinding();
+        transectFinding.setTransectId(transectId);
+
+        transectFindingDataService.save(transectFinding);
+
+        Intent intent = new Intent();
+        intent.putExtra("id", transectFinding.getId());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void initialiseFragmentLogic() {

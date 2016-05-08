@@ -16,7 +16,7 @@ import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.activity.util.TransectFindingListViewDataAdapter;
-import com.wecode.animaltracker.data.TransectFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.model.TransectFinding;
 
 import java.util.List;

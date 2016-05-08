@@ -15,7 +15,7 @@ import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.activity.util.TransectListViewDataAdapter;
-import com.wecode.animaltracker.data.TransectDataService;
+import com.wecode.animaltracker.service.TransectDataService;
 
 public class TransectsList extends AppCompatActivity {
 

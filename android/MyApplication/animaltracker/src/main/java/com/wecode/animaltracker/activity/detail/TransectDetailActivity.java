@@ -17,7 +17,7 @@ import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.activity.util.LocationFormatter;
-import com.wecode.animaltracker.data.TransectDataService;
+import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectDetailView;

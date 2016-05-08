@@ -5,6 +5,8 @@ package com.wecode.animaltracker.model;
  */
 public class TransectFinding extends Persistable {
 
+    private Long transectId;
+
     private String type;
     private String species;
     private String confidence;
@@ -145,5 +147,13 @@ public class TransectFinding extends Persistable {
 
     public boolean hasLocation() {
         return getLocationLatitude() != null && getLocationLatitude() != null;
+    }
+
+    public Long getTransectId() {
+        return transectId;
+    }
+
+    public void setTransectId(Long transectId) {
+        this.transectId = transectId;
     }
 }

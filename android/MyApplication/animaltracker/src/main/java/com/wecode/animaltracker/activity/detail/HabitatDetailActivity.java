@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
-import com.wecode.animaltracker.data.HabitatDataService;
+import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.view.HabitatDetailView;
 

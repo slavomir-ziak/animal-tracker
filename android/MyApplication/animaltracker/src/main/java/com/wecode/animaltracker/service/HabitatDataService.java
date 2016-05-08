@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.data;
+package com.wecode.animaltracker.service;
 
 import com.wecode.animaltracker.model.Habitat;
 

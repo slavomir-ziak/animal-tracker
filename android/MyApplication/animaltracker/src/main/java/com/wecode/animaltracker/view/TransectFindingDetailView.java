@@ -10,6 +10,7 @@ import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.TransectFinding;
 import com.wecode.animaltracker.util.Assert;
+import com.wecode.animaltracker.util.ConverterUtil;
 
 /**
  * Created by sziak on 10-Apr-16.
@@ -108,8 +109,27 @@ public class TransectFindingDetailView {
 
     }
 
-
     public void setLocation(Location location) {
         this.location.setText(LocationFormatter.formatLocation(location));
+    }
+
+    public TransectFinding toTransectFinding() {
+        TransectFinding transectFinding = new TransectFinding();
+        transectFinding.setBeforeAfterRecentSnow((String) beforeAfterRecentSnow.getSelectedItem());
+        transectFinding.setConfidence((String) confidence.getSelectedItem());
+
+        transectFinding.setCount(ConverterUtil.toInteger(count.getText().toString()));
+
+        transectFinding.setFecesPrey(fecesPrey.getText().toString());
+        transectFinding.setFecesState(((String) fecesState.getSelectedItem()));
+
+        transectFinding.setFootprintsAge(ConverterUtil.toInteger(footprintsAge.getText().toString()));
+        transectFinding.setFootprintsDirection((String) footprintsDirection.getSelectedItem());
+        transectFinding.setFootprintsFrontBack((String) footprintsFrontBack.getSelectedItem());
+        transectFinding.setFootprintsLength(ConverterUtil.toInteger(footprintsLength.getText().toString()));
+        transectFinding.setFootprintsWidht(ConverterUtil.toInteger(footprintsWidht.getText().toString()));
+        transectFinding.setFootprintsStride(ConverterUtil.toInteger(footprintsStride.getText().toString()));
+
+        return transectFinding;
     }
 }

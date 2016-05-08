@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.data.WeatherDataService;
+import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.view.WeatherDetailView;
 
