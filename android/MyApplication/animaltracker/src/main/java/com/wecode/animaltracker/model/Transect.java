@@ -9,12 +9,14 @@ import java.util.Date;
  */
 public class Transect extends Persistable {
 
+    private Long habitatId;
     private Integer column;
     private Date startDateTime;
     private Date endDateTime;
     private Location startLocation;
     private Location endLocation;
     private String routeName;
+    private Long weatherId;
 
     public Transect(Long id, Integer column, Date startDateTime, Location startLocation, String routeName) {
         setId(id);
@@ -92,5 +94,21 @@ public class Transect extends Persistable {
                 ", endLocation=" + endLocation +
                 ", routeName='" + routeName + '\'' +
                 '}';
+    }
+
+    public void setHabitatId(Long habitatId) {
+        this.habitatId = habitatId;
+    }
+
+    public Long getHabitatId() {
+        return habitatId;
+    }
+
+    public Long getWatherId() {
+        return weatherId;
+    }
+
+    public void setWeatherId(Long weatherId) {
+        this.weatherId = weatherId;
     }
 }

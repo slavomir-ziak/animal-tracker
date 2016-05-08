@@ -10,14 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.activity.util.TransectFindingListViewDataAdapter;
-import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.service.TransectFindingDataService;
 
 import java.util.List;
 
@@ -38,9 +37,9 @@ public class TransectFindingsList extends AppCompatActivity {
 
         Intent intent =  getIntent();
         action = Action.fromString(intent.getAction());
-        transectId = (Long) intent.getExtras().get("id");
+        transectId = (Long) intent.getExtras().get("transectId");
 
-        final List<TransectFinding> list = transectFindingDataService.list();
+        final List<TransectFinding> list = transectFindingDataService.findByTransectId(transectId);
 
         TransectFindingListViewDataAdapter adapter = new TransectFindingListViewDataAdapter(this, list);
         ListView itemsListView = (ListView) findViewById(R.id.transectFindingsList);
@@ -52,13 +51,12 @@ public class TransectFindingsList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
-                Toast.makeText(TransectFindingsList.this, ("You Clicked at " + view), Toast.LENGTH_SHORT).show();
-
                 TextView transectFindingId = (TextView) view.findViewById(R.id.transectFindingListItemID);
 
                 Intent intent = new Intent(TransectFindingsList.this, TransectFindingDetailActivity.class);
                 intent.putExtra(Constants.PARENT_ACTIVITY, TransectFindingsList.class);
                 intent.putExtra("id", Long.valueOf(transectFindingId.getText().toString()));
+                intent.putExtra("transectId", transectId);
                 intent.setAction(action.toString());
                 startActivity(intent);
 

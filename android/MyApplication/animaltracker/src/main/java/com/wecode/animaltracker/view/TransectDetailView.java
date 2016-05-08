@@ -59,7 +59,8 @@ public class TransectDetailView {
             endLocation.setText(transect.getEndLocation().getLongitude()
                     + " " + transect.getEndLocation().getLatitude());
         }
-
+        habitatId = transect.getHabitatId();
+        weatherId = transect.getWatherId();
     }
 
     public void disableAllForView() {
@@ -108,6 +109,8 @@ public class TransectDetailView {
                 transect.setEndDateTime(dateTimeInstance.parse(endDateTime.getText().toString()));
             }
 
+            transect.setHabitatId(habitatId);
+            transect.setWeatherId(weatherId);
             return transect;
 
         } catch (ParseException e) {

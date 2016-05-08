@@ -12,21 +12,7 @@ import java.util.Map;
  */
 public class TransectDataService extends AbstractDataService<Transect> {
 
-    private static final TransectDataService INSTANCE = new TransectDataService();
-
     private Map<Long, Transect> data = new HashMap<>();
-
-    private TransectDataService(){}
-
-    public static TransectDataService getInstance() {
-        return INSTANCE;
-    }
-
-    @Override
-    protected Map<Long, Transect> getData() {
-        return data;
-    }
-
 
     {
         Location startLocation = new Location("default");
@@ -55,4 +41,17 @@ public class TransectDataService extends AbstractDataService<Transect> {
         getData().put(transect.getId(), transect);
 
     }
+    private static final TransectDataService INSTANCE = new TransectDataService();
+
+    private TransectDataService(){}
+
+    public static TransectDataService getInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    protected Map<Long, Transect> getData() {
+        return data;
+    }
+
 }

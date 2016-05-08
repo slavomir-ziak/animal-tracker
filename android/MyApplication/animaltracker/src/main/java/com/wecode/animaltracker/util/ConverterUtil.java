@@ -9,8 +9,15 @@ public class ConverterUtil {
         if (string == null || string.length() == 0) {
             return null;
         }
-
         return Integer.valueOf(string);
+    }
+
+    public static String toString(CharSequence value) {
+        if (value == null) {
+            return null;
+        }
+
+        return value.toString();
     }
 
 }

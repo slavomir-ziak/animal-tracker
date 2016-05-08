@@ -17,6 +17,11 @@ import com.wecode.animaltracker.util.ConverterUtil;
  */
 public class TransectFindingDetailView {
 
+    private Long id;
+
+    private Long habitatId;
+    private Long transectId;
+
     private Spinner type;
     private Spinner species;
     private Spinner confidence;
@@ -35,7 +40,7 @@ public class TransectFindingDetailView {
     private TextView footprintsStride;
     
     private TransectFinding transectFinding;
-            
+
     public TransectFindingDetailView(TransectFindingDetailActivity context, TransectFinding transectFinding) {
         this(context);
         this.transectFinding = transectFinding;
@@ -107,6 +112,9 @@ public class TransectFindingDetailView {
 
         SpinnersHelper.setSelected(beforeAfterRecentSnow, transectFinding.getBeforeAfterRecentSnow());
 
+        habitatId = transectFinding.getHabitatId();
+        transectId = transectFinding.getTransectId();
+        id = transectFinding.getId();
     }
 
     public void setLocation(Location location) {
@@ -115,21 +123,54 @@ public class TransectFindingDetailView {
 
     public TransectFinding toTransectFinding() {
         TransectFinding transectFinding = new TransectFinding();
-        transectFinding.setBeforeAfterRecentSnow((String) beforeAfterRecentSnow.getSelectedItem());
-        transectFinding.setConfidence((String) confidence.getSelectedItem());
 
+        transectFinding.setType((String) type.getSelectedItem());
+        transectFinding.setSpecies((String) species.getSelectedItem());
+        transectFinding.setConfidence((String) confidence.getSelectedItem());
         transectFinding.setCount(ConverterUtil.toInteger(count.getText().toString()));
 
-        transectFinding.setFecesPrey(fecesPrey.getText().toString());
-        transectFinding.setFecesState(((String) fecesState.getSelectedItem()));
+        if (location.getText().toString().length() > 0) {
+            transectFinding.setLocationLongitude(Double.parseDouble(this.location.getText().toString().split(",")[0]));
+            transectFinding.setLocationLatitude(Double.parseDouble(this.location.getText().toString().split(",")[1]));
+        }
 
-        transectFinding.setFootprintsAge(ConverterUtil.toInteger(footprintsAge.getText().toString()));
-        transectFinding.setFootprintsDirection((String) footprintsDirection.getSelectedItem());
-        transectFinding.setFootprintsFrontBack((String) footprintsFrontBack.getSelectedItem());
-        transectFinding.setFootprintsLength(ConverterUtil.toInteger(footprintsLength.getText().toString()));
-        transectFinding.setFootprintsWidht(ConverterUtil.toInteger(footprintsWidht.getText().toString()));
-        transectFinding.setFootprintsStride(ConverterUtil.toInteger(footprintsStride.getText().toString()));
+        transectFinding.setBeforeAfterRecentSnow((String) beforeAfterRecentSnow.getSelectedItem());
 
+        if (type.getSelectedItem().equals("Footprints")) {
+
+            transectFinding.setFootprintsAge(ConverterUtil.toInteger(footprintsAge.getText().toString()));
+            transectFinding.setFootprintsDirection((String) footprintsDirection.getSelectedItem());
+            transectFinding.setFootprintsFrontBack((String) footprintsFrontBack.getSelectedItem());
+            transectFinding.setFootprintsLength(ConverterUtil.toInteger(footprintsLength.getText().toString()));
+            transectFinding.setFootprintsWidht(ConverterUtil.toInteger(footprintsWidht.getText().toString()));
+            transectFinding.setFootprintsStride(ConverterUtil.toInteger(footprintsStride.getText().toString()));
+        }
+
+        if (type.getSelectedItem().equals("Feces")) {
+            transectFinding.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));
+            transectFinding.setFecesState(((String) fecesState.getSelectedItem()));
+
+        }
+
+        transectFinding.setHabitatId(habitatId);
+        transectFinding.setTransectId(transectId);
+        transectFinding.setId(id);
         return transectFinding;
+    }
+
+    public Long getHabitatId() {
+        return habitatId;
+    }
+
+    public void setHabitatId(Long habitatId) {
+        this.habitatId = habitatId;
+    }
+
+    public Long getTransectId() {
+        return transectId;
+    }
+
+    public void setTransectId(Long transectId) {
+        this.transectId = transectId;
     }
 }

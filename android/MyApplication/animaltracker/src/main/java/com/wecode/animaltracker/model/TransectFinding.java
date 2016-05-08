@@ -24,6 +24,7 @@ public class TransectFinding extends Persistable {
     private Integer footprintsWidht;
     private Integer footprintsAge;
     private Integer footprintsStride;
+    private Long habitatId;
 
     public Double getLocationLatitude() {
         return locationLatitude;
@@ -155,5 +156,13 @@ public class TransectFinding extends Persistable {
 
     public void setTransectId(Long transectId) {
         this.transectId = transectId;
+    }
+
+    public void setHabitatId(Long habitatId) {
+        this.habitatId = habitatId;
+    }
+
+    public Long getHabitatId() {
+        return habitatId;
     }
 }

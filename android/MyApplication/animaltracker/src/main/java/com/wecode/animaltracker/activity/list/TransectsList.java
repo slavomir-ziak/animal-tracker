@@ -19,7 +19,7 @@ import com.wecode.animaltracker.service.TransectDataService;
 
 public class TransectsList extends AppCompatActivity {
 
-    private static TransectDataService service = TransectDataService.getInstance();
+    private static TransectDataService transectDataService = TransectDataService.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class TransectsList extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        TransectListViewDataAdapter adapter = new TransectListViewDataAdapter(this, service.list());
+        TransectListViewDataAdapter adapter = new TransectListViewDataAdapter(this, transectDataService.list());
 
         ListView itemsListView = (ListView) findViewById(R.id.transectsList);
 

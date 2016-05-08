@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.Toast;
 import com.wecode.animaltracker.FecesFragment;
 import com.wecode.animaltracker.FootprintsFragment;
 import com.wecode.animaltracker.OnFragmentInteractionListener;
@@ -27,12 +28,17 @@ import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
 
 import java.io.File;
 import java.io.IOException;
 
 public class TransectFindingDetailActivity extends CommonDetailActivity implements OnFragmentInteractionListener, LocationListener {
+
+    private static final int SET_HABITAT_REQUEST = 0;
+    private static final int ADD_SAMPLE_REQUEST = 1;
+    private static final int ADD_PHOTO_REQUEST = 2;
 
     private TransectFindingDetailView transectFindingView;
 
@@ -168,7 +174,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         Intent intent = new Intent(this, HabitatDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, TransectFindingDetailActivity.class);
         intent.setAction(action.toString());
-        startActivity(intent);
+        intent.putExtra("id", transectFindingView.getHabitatId());
+        startActivityForResult(intent, SET_HABITAT_REQUEST);
     }
 
     public void showPhotos(View view) {
@@ -177,7 +184,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     }
 
     private File pictureDirectory;
-    private static int TAKE_PHOTO_CODE = 0;
     private int count;
     private Uri outputFileUri;
 
@@ -195,19 +201,44 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
-        startActivityForResult(cameraIntent, TAKE_PHOTO_CODE);
+        startActivityForResult(cameraIntent, ADD_PHOTO_REQUEST);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == TAKE_PHOTO_CODE && resultCode == RESULT_OK) {
-            Log.d(MainActivity.LOG_TAG, "Pic saved");
-
-            //ImageView photoView = (ImageView) findViewById(R.id.photoView);
-            //photoView.setImageURI(outputFileUri);
+        if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
+            return;
         }
+
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(this, "Problem with creating: " + getNameForRequestCode(requestCode), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        switch(requestCode) {
+            case SET_HABITAT_REQUEST:
+                Long id = data.getExtras().getLong("id");
+                Assert.assertNotNull("HabitatId", id);
+                String text = transectFindingView.getHabitatId() == null ? "created" : "modified";
+                Toast.makeText(this, "Habitat " + text + ", ID = " + id, Toast.LENGTH_LONG).show();
+
+                transectFindingView.setHabitatId(id);
+
+                break;
+
+            case ADD_PHOTO_REQUEST:
+                Log.d(MainActivity.LOG_TAG, "Pic saved");
+
+                //ImageView photoView = (ImageView) findViewById(R.id.photoView);
+                //photoView.setImageURI(outputFileUri);
+                break;
+        }
+
+        transectFindingDataService.save(transectFindingView.toTransectFinding());
+
     }
 
     @Override
@@ -244,4 +275,12 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         return fecesFragment;
     }
 
+    private String getNameForRequestCode(int requestCode) {
+        switch(requestCode) {
+            case SET_HABITAT_REQUEST: return "habitat";
+            case ADD_PHOTO_REQUEST: return "photo";
+            case ADD_SAMPLE_REQUEST: return "sample";
+            default: return "UNKNOWN";
+        }
+    }
 }

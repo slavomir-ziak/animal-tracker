@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.service;
 
+import android.util.Log;
 import com.wecode.animaltracker.model.Persistable;
 
 import java.util.Arrays;
@@ -16,6 +17,9 @@ public abstract class AbstractDataService<T extends Persistable> {
     protected abstract Map<Long, T> getData();
 
     public void save(T t) {
+
+        Log.i(getClass().getSimpleName(), "Saving " + t);
+
         if (t.getId() == null) {
             Long nextId = getNextId();
             t.setId(nextId);

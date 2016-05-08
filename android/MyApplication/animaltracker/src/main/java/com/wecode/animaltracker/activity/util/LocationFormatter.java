@@ -21,6 +21,6 @@ public class LocationFormatter {
         BigDecimal startLocationLongitude = new BigDecimal(locationLongitude);
         startLocationLongitude = startLocationLongitude.setScale(6, BigDecimal.ROUND_DOWN);
 
-        return String.format("%s %s", startLocationLatitude, startLocationLongitude);
+        return String.format("%s, %s", startLocationLatitude, startLocationLongitude);
     }
 }

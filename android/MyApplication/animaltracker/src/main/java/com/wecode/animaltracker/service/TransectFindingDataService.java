@@ -2,7 +2,9 @@ package com.wecode.animaltracker.service;
 
 import com.wecode.animaltracker.model.TransectFinding;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,9 +12,33 @@ import java.util.Map;
  */
 public class TransectFindingDataService extends AbstractDataService<TransectFinding> {
 
-    private static final TransectFindingDataService INSTANCE = new TransectFindingDataService();
-
     private Map<Long, TransectFinding> data = new HashMap<>();
+    {
+        TransectFinding transectFinding = new TransectFinding();
+
+        transectFinding.setId(getNextId());
+        transectFinding.setType("Footprints");
+        transectFinding.setSpecies("Wolf");
+        transectFinding.setTransectId(1L);
+        getData().put(transectFinding.getId(), transectFinding);
+
+        transectFinding = new TransectFinding();
+        transectFinding.setId(getNextId());
+        transectFinding.setType("Feces");
+        transectFinding.setSpecies("Lynx");
+        transectFinding.setTransectId(1L);
+        getData().put(transectFinding.getId(), transectFinding);
+
+        transectFinding = new TransectFinding();
+        transectFinding.setId(getNextId());
+        transectFinding.setType("Urine");
+        transectFinding.setSpecies("Red fox");
+        transectFinding.setTransectId(2L);
+        getData().put(transectFinding.getId(), transectFinding);
+
+    }
+
+    private static final TransectFindingDataService INSTANCE = new TransectFindingDataService();
 
     private TransectFindingDataService(){}
 
@@ -25,26 +51,15 @@ public class TransectFindingDataService extends AbstractDataService<TransectFind
         return data;
     }
 
+    public List<TransectFinding> findByTransectId(Long transectId) {
 
-    {
-        TransectFinding transectFinding = new TransectFinding();
+        List<TransectFinding> results = new ArrayList<>();
 
-        transectFinding.setId(1L);
-        transectFinding.setType("Footprints");
-        transectFinding.setSpecies("Wolf");
-        getData().put(transectFinding.getId(), transectFinding);
-
-        transectFinding = new TransectFinding();
-        transectFinding.setId(2L);
-        transectFinding.setType("Feces");
-        transectFinding.setSpecies("Lynx");
-        getData().put(transectFinding.getId(), transectFinding);
-
-        transectFinding = new TransectFinding();
-        transectFinding.setId(3L);
-        transectFinding.setType("Urine");
-        transectFinding.setSpecies("Red fox");
-        getData().put(transectFinding.getId(), transectFinding);
+        for (TransectFinding transectFinding : data.values()) {
+            if (transectFinding.getTransectId().equals(transectId)) {
+                results.add(transectFinding);
+            }
+        }
+        return results;
     }
-
 }
