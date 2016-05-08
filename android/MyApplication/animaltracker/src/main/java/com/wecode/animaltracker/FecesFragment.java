@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
-import com.wecode.animaltracker.view.TransectFindingView;
+import com.wecode.animaltracker.view.TransectFindingDetailView;
 
 
 /**
@@ -31,9 +31,9 @@ public class FecesFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private TransectFindingView transectFindingView;
+    private TransectFindingDetailView transectFindingView;
 
-    public FecesFragment(TransectFindingView transectFindingView) {
+    public FecesFragment(TransectFindingDetailView transectFindingView) {
         this.transectFindingView = transectFindingView;
     }
 

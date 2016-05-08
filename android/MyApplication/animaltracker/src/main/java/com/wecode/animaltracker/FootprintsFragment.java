@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
-import com.wecode.animaltracker.model.TransectFinding;
-import com.wecode.animaltracker.view.TransectFindingView;
+import com.wecode.animaltracker.view.TransectFindingDetailView;
 
 
 /**
@@ -31,9 +30,9 @@ public class FootprintsFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
-    private TransectFindingView transectFindingView;
+    private TransectFindingDetailView transectFindingView;
 
-    public FootprintsFragment(TransectFindingView transectFindingView) {
+    public FootprintsFragment(TransectFindingDetailView transectFindingView) {
         this();
         this.transectFindingView = transectFindingView;
     }

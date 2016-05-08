@@ -27,14 +27,14 @@ import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.data.TransectFindingDataService;
 import com.wecode.animaltracker.model.TransectFinding;
-import com.wecode.animaltracker.view.TransectFindingView;
+import com.wecode.animaltracker.view.TransectFindingDetailView;
 
 import java.io.File;
 import java.io.IOException;
 
 public class TransectFindingDetailActivity extends CommonDetailActivity implements OnFragmentInteractionListener, LocationListener {
 
-    private TransectFindingView transectFindingView;
+    private TransectFindingDetailView transectFindingView;
 
     private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
 
@@ -59,19 +59,19 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
         TransectFinding transectFinding = transectFindingDataService.find(id);
 
-        initialiseFragmentLogic(transectFinding);
+        initialiseFragmentLogic();
 
         if (id != null) {
-            transectFindingView = new TransectFindingView(this, transectFinding);
+            transectFindingView = new TransectFindingDetailView(this, transectFinding);
         } else {
-            transectFindingView = new TransectFindingView(this);
+            transectFindingView = new TransectFindingDetailView(this);
         }
 
         fecesFragment = new FecesFragment(transectFindingView);
         footprintsFragment = new FootprintsFragment(transectFindingView);
     }
 
-    private void initialiseFragmentLogic(final TransectFinding transectFinding) {
+    private void initialiseFragmentLogic() {
 
         Spinner findingTypeValue = (Spinner) this.findViewById(R.id.findingTypeValue);
         findingTypeValue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

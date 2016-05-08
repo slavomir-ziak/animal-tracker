@@ -9,12 +9,12 @@ import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.util.Assert;
 
 /**
  * Created by sziak on 10-Apr-16.
  */
-public class TransectFindingView {
-
+public class TransectFindingDetailView {
 
     private Spinner type;
     private Spinner species;
@@ -35,14 +35,15 @@ public class TransectFindingView {
     
     private TransectFinding transectFinding;
             
-    public TransectFindingView(TransectFindingDetailActivity context, TransectFinding transectFinding) {
+    public TransectFindingDetailView(TransectFindingDetailActivity context, TransectFinding transectFinding) {
         this(context);
         this.transectFinding = transectFinding;
-        
+
+        Assert.assertNotNull("transectFinding cannot be null!", transectFinding);
         bind(transectFinding);
     }
 
-    public TransectFindingView(TransectFindingDetailActivity context) {
+    public TransectFindingDetailView(TransectFindingDetailActivity context) {
 
         SpinnersHelper.setSpinnerData(context, R.id.findingTypeValue, R.array.findingTypes);
         SpinnersHelper.setSpinnerData(context, R.id.findingSpeciesValue, R.array.findingSpeciesTypes);
@@ -66,6 +67,9 @@ public class TransectFindingView {
         footprintsAge = (TextView) context.findViewById(R.id.footprintsAgeValue);
         footprintsStride = (TextView) context.findViewById(R.id.footprintsStrideValue);
 
+        if (transectFinding == null) {
+            return;
+        }
 
         SpinnersHelper.setSelected(footprintsDirection, transectFinding.getFootprintsDirection());
         SpinnersHelper.setSelected(footprintsFrontBack, transectFinding.getFootprintsFrontBack());
@@ -79,6 +83,10 @@ public class TransectFindingView {
     public void initFecesFragment(View context) {
         fecesState = (Spinner) context.findViewById(R.id.findingFecesStateValue);
         fecesPrey = (TextView) context.findViewById(R.id.findingFecesPreyValue);
+
+        if (transectFinding == null) {
+            return;
+        }
 
         SpinnersHelper.setSelected(fecesState, transectFinding.getFecesState());
         fecesPrey.setText(transectFinding.getFecesPrey() == null ? "" : transectFinding.getFecesPrey());
