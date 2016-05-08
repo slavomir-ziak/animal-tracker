@@ -3,6 +3,7 @@ package com.wecode.animaltracker.activity.list;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +25,11 @@ public class TransectsList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transects_list);
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         TransectListViewDataAdapter adapter = new TransectListViewDataAdapter(this, service.list());
 
         ListView itemsListView = (ListView) findViewById(R.id.transectsList);

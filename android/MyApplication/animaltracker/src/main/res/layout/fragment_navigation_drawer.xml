@@ -15,7 +15,7 @@
                 android:id="@+id/nav_header_container_icon"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_profile"
+                android:src="@drawable/wolf1"
                 android:scaleType="fitCenter"
                 android:layout_centerInParent="true" />
 

@@ -18,12 +18,4 @@
             android:title="@string/transect_action_add_finding"
             android:orderInCategory="100"
             app:showAsAction="never"/>
-      <item android:id="@+id/transect_action_followings"
-            android:title="@string/transect_action_findings"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
-      <item android:id="@+id/transect_action_add_following"
-            android:title="@string/transect_action_add_finding"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
 </menu>

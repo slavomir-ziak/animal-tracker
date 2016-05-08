@@ -4,12 +4,14 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +48,11 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finding_detail);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         initLocationManager();
 
         extractParams(getIntent());
@@ -130,13 +137,20 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+        String provider = locationManager.getBestProvider(criteria, true);
+
+        if (provider != null) {
+            locationManager.requestLocationUpdates(provider, 0, 0, this);
+        }
 
     }
+
     public void setHabitat(View view) {
         Intent intent = new Intent(this, HabitatDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, TransectFindingDetailActivity.class);
+        intent.setAction(action.toString());
         startActivity(intent);
     }
 
