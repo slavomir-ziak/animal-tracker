@@ -48,7 +48,11 @@ public class TransectDetailView {
         DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
 
         startDateTime.setText(dateTimeInstance.format(transect.getStartDateTime()));
-        startLocation.setText(transect.getStartLocation().getLongitude() + " " + transect.getStartLocation().getLatitude());
+
+        if (transect.getStartLocation() != null) {
+            startLocation.setText(transect.getStartLocation().getLongitude() + " " + transect.getStartLocation().getLatitude());
+        }
+
         routeName.setText(transect.getRouteName());
 
         if (transect.getEndDateTime() != null) {
@@ -86,8 +90,11 @@ public class TransectDetailView {
         try {
 
             Location startLocation = new Location("");
-            startLocation.setLongitude(Double.parseDouble(this.startLocation.getText().toString().split(" ")[0]));
-            startLocation.setLatitude(Double.parseDouble(this.startLocation.getText().toString().split(" ")[1]));
+
+            if (this.startLocation.getText().length() > 0) {
+                startLocation.setLongitude(Double.parseDouble(this.startLocation.getText().toString().split(" ")[0]));
+                startLocation.setLatitude(Double.parseDouble(this.startLocation.getText().toString().split(" ")[1]));
+            }
 
             Transect transect = new Transect(
                     Long.parseLong(id.getText().toString()),

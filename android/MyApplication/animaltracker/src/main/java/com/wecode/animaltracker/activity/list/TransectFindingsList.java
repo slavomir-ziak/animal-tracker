@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
@@ -21,6 +22,8 @@ import com.wecode.animaltracker.service.TransectFindingDataService;
 import java.util.List;
 
 public class TransectFindingsList extends AppCompatActivity {
+
+    private static final int DISPLAY_TRANSECT_FINDING_DETAIL = 0;
 
     private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
     private Action action;
@@ -39,6 +42,11 @@ public class TransectFindingsList extends AppCompatActivity {
         action = Action.fromString(intent.getAction());
         transectId = (Long) intent.getExtras().get("transectId");
 
+        refreshTransectFindings();
+
+    }
+
+    private void refreshTransectFindings() {
         final List<TransectFinding> list = transectFindingDataService.findByTransectId(transectId);
 
         TransectFindingListViewDataAdapter adapter = new TransectFindingListViewDataAdapter(this, list);
@@ -58,13 +66,13 @@ public class TransectFindingsList extends AppCompatActivity {
                 intent.putExtra("id", Long.valueOf(transectFindingId.getText().toString()));
                 intent.putExtra("transectId", transectId);
                 intent.setAction(action.toString());
-                startActivity(intent);
+                startActivityForResult(intent, DISPLAY_TRANSECT_FINDING_DETAIL);
 
             }
 
         });
-
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -86,4 +94,29 @@ public class TransectFindingsList extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(this, "Problem with displying tranect finding detail.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        switch(requestCode) {
+            case DISPLAY_TRANSECT_FINDING_DETAIL:
+                Long id = data.getExtras().getLong("id");
+                Toast.makeText(this, "Transect finding saved, ID = " + id, Toast.LENGTH_LONG).show();
+                refreshTransectFindings();
+        }
+
+    }
+
 }

@@ -2,10 +2,7 @@ package com.wecode.animaltracker.activity.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.location.*;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -17,8 +14,8 @@ import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.activity.util.LocationFormatter;
-import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectDetailView;
 
@@ -31,7 +28,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     private static final int SET_WEATHER_REQUEST = 1;
     private static final int ADD_FINDING_REQUEST = 2;
 
-    private static TransectDataService service = TransectDataService.getInstance();
+    private static TransectDataService transectDataService = TransectDataService.getInstance();
 
     private TransectDetailView transectDetailView;
 
@@ -62,7 +59,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         Transect transect = null;
         if (id != null) {
-            transect = service.find(id);
+            transect = transectDataService.find(id);
         }
 
         initGui(action, transect);
@@ -83,7 +80,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                 transectDetailView.disableAllForView();
                 break;
             case NEW:
-                transectDetailView.getId().setText(service.getNextId().toString());
+                transectDetailView.getId().setText(transectDataService.getNextId().toString());
                 break;
         }
 
@@ -92,13 +89,9 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     private void initLocationManager() {
         // Acquire a reference to the system Location Manager
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
-        String provider = locationManager.getBestProvider(criteria, true);
-
-        if (provider != null) {
-            locationManager.requestLocationUpdates(provider, 0, 0, this);
+        LocationProvider gps = locationManager.getProvider("gps");
+        if (gps != null) {
+            locationManager.requestLocationUpdates("gps", 60000, 10, this);
         }
 
     }
@@ -106,16 +99,16 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     public void startTransect(View view) {
 
         if (currentLocation == null) {
-            Toast.makeText(this, "Location not acquired, is your GPS on?", Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this, "Location not acquired.", Toast.LENGTH_SHORT).show();
+        } else {
+            transectDetailView.getStartLocation().setText(LocationFormatter.formatLocation(currentLocation));
         }
+
         // TODO refactor this as part of TransectDetailView object
         String startDateTime = DateFormat.getDateTimeInstance().format(new Date());
         transectDetailView.getStartDateTime().setText(startDateTime);
 
-        transectDetailView.getStartLocation().setText(LocationFormatter.formatLocation(currentLocation));
-
-        service.save(transectDetailView.toTransect());
+        transectDataService.save(transectDetailView.toTransect());
 
         action = Action.EDIT;
     }
@@ -123,15 +116,15 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     public void endTransect(View view) {
 
         if (currentLocation == null) {
-            Toast.makeText(this, "Location not acquired, is your GPS on?", Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this, "Location not acquired.", Toast.LENGTH_SHORT).show();
+        } else {
+            transectDetailView.getEndLocation().setText(LocationFormatter.formatLocation(currentLocation));
         }
 
         String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
         transectDetailView.getEndDateTime().setText(endDateTime);
-        transectDetailView.getEndLocation().setText(LocationFormatter.formatLocation(currentLocation));
 
-        service.save(transectDetailView.toTransect());
+        transectDataService.save(transectDetailView.toTransect());
     }
 
     public void setWeather(View view) {
@@ -207,7 +200,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                 break;
         }
 
-        service.save(transectDetailView.toTransect());
+        transectDataService.save(transectDetailView.toTransect());
 
     }
 
@@ -246,6 +239,18 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Transect transect = transectDetailView.toTransect();
+        transectDataService.save(transect);
+
+        Intent intent = new Intent();
+        intent.putExtra("id", transect.getId());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
@@ -19,6 +20,7 @@ import com.wecode.animaltracker.service.TransectDataService;
 
 public class TransectsList extends AppCompatActivity {
 
+    private static final int DISPLAY_TRANSECT_DETAIL = 0;
     private static TransectDataService transectDataService = TransectDataService.getInstance();
 
     @Override
@@ -30,6 +32,11 @@ public class TransectsList extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        refreshTransects();
+
+    }
+
+    private void refreshTransects() {
         TransectListViewDataAdapter adapter = new TransectListViewDataAdapter(this, transectDataService.list());
 
         ListView itemsListView = (ListView) findViewById(R.id.transectsList);
@@ -46,11 +53,10 @@ public class TransectsList extends AppCompatActivity {
                 intent.putExtra(Constants.PARENT_ACTIVITY, TransectsList.class);
                 intent.putExtra("id", Long.valueOf(transectId.getText().toString()));
                 intent.setAction(Action.EDIT.toString());
-                startActivity(intent);
+                startActivityForResult(intent, DISPLAY_TRANSECT_DETAIL);
             }
 
         });
-
     }
 
     @Override
@@ -73,5 +79,29 @@ public class TransectsList extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(this, "Problem with displying tranect finding detail.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        switch (requestCode) {
+            case DISPLAY_TRANSECT_DETAIL:
+                Long id = data.getExtras().getLong("id");
+                Toast.makeText(this, "Transect saved, ID = " + id, Toast.LENGTH_LONG).show();
+                refreshTransects();
+                break;
+        }
+
     }
 }

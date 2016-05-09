@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.wecode.animaltracker.FecesFragment;
@@ -26,13 +28,13 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.MainActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.UUID;
 
 public class TransectFindingDetailActivity extends CommonDetailActivity implements OnFragmentInteractionListener, LocationListener {
 
@@ -161,7 +163,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
         String provider = locationManager.getBestProvider(criteria, true);
 
         if (provider != null) {
@@ -183,18 +185,17 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         startActivity(intent);
     }
 
-    private File pictureDirectory;
-    private int count;
     private Uri outputFileUri;
 
     public void addPhoto(View view) {
-        File newfile = new File(pictureDirectory, count + ".jpg");
+        /*File newfile = new File(getFilesDir(), UUID.randomUUID() + ".jpg");
         try {
             newfile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
+            return;
+        }*/
+        File newfile = new File(getAlbumStorageDir("AnimalTracker"), UUID.randomUUID() + ".jpg");
         outputFileUri = Uri.fromFile(newfile);
         System.out.println(outputFileUri);
 
@@ -203,7 +204,16 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
         startActivityForResult(cameraIntent, ADD_PHOTO_REQUEST);
     }
+    public File getAlbumStorageDir(String albumName) {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), albumName);
 
+        if (!file.exists() && !file.mkdirs()) {
+            Log.e("", "Directory not created");
+        }
+        return file;
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -232,8 +242,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
             case ADD_PHOTO_REQUEST:
                 Log.d(MainActivity.LOG_TAG, "Pic saved");
 
-                //ImageView photoView = (ImageView) findViewById(R.id.photoView);
-                //photoView.setImageURI(outputFileUri);
+                ImageView photoView = (ImageView) findViewById(R.id.photoView);
+                photoView.setImageURI(outputFileUri);
                 break;
         }
 
