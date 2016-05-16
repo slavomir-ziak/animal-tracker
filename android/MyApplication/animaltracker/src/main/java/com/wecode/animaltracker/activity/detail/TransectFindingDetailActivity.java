@@ -10,7 +10,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,17 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import com.wecode.animaltracker.FecesFragment;
-import com.wecode.animaltracker.FootprintsFragment;
-import com.wecode.animaltracker.OnFragmentInteractionListener;
-import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.*;
 import com.wecode.animaltracker.activity.MainActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
@@ -42,9 +39,11 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     private static final int ADD_SAMPLE_REQUEST = 1;
     private static final int ADD_PHOTO_REQUEST = 2;
 
-    private TransectFindingDetailView transectFindingView;
-
     private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
+
+    private PhotosDataService photosDataService = PhotosDataService.getInstance();
+
+    private TransectFindingDetailView transectFindingView;
 
     private FootprintsFragment footprintsFragment;
 
@@ -53,6 +52,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     private FecesFragment fecesFragment;
 
     private Long transectId;
+
+    private File outputPhotoFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +111,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
                     ft.replace(R.id.specificDataContainer, footprintsFragment);
                     activeFragment = footprintsFragment;
-                    
+
                 } else if (position == 1) {
 
                     ft.replace(R.id.specificDataContainer, fecesFragment);
@@ -182,38 +183,22 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     public void showPhotos(View view) {
         Intent intent = new Intent(this, PhotosList.class);
+        intent.putExtra("transectDetailId", id);
         startActivity(intent);
     }
 
-    private Uri outputFileUri;
 
     public void addPhoto(View view) {
-        /*File newfile = new File(getFilesDir(), UUID.randomUUID() + ".jpg");
-        try {
-            newfile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }*/
-        File newfile = new File(getAlbumStorageDir("AnimalTracker"), UUID.randomUUID() + ".jpg");
-        outputFileUri = Uri.fromFile(newfile);
-        System.out.println(outputFileUri);
+
+        outputPhotoFile = new File(Globals.getPhotosStorageDir(), "T" + transectId + "F" + id + "-photo-" + UUID.randomUUID() + ".jpg");
+
+        Log.d(MainActivity.LOG_TAG, "Picture will be saved:" + outputPhotoFile);
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputPhotoFile));
         startActivityForResult(cameraIntent, ADD_PHOTO_REQUEST);
     }
-    public File getAlbumStorageDir(String albumName) {
-        // Get the directory for the user's public pictures directory.
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), albumName);
 
-        if (!file.exists() && !file.mkdirs()) {
-            Log.e("", "Directory not created");
-        }
-        return file;
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -228,7 +213,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
             return;
         }
 
-        switch(requestCode) {
+        switch (requestCode) {
             case SET_HABITAT_REQUEST:
                 Long id = data.getExtras().getLong("id");
                 Assert.assertNotNull("HabitatId", id);
@@ -240,10 +225,13 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 break;
 
             case ADD_PHOTO_REQUEST:
-                Log.d(MainActivity.LOG_TAG, "Pic saved");
+                Log.d(MainActivity.LOG_TAG, "Pic saved, intent: " + data);
+                Photo photo = new Photo(this.id, outputPhotoFile.getName());
+                photosDataService.save(photo);
 
-                ImageView photoView = (ImageView) findViewById(R.id.photoView);
-                photoView.setImageURI(outputFileUri);
+                transectFindingView.addPhoto(photo);
+                transectFindingDataService.save(transectFindingView.toTransectFinding());
+
                 break;
         }
 
@@ -286,11 +274,15 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     }
 
     private String getNameForRequestCode(int requestCode) {
-        switch(requestCode) {
-            case SET_HABITAT_REQUEST: return "habitat";
-            case ADD_PHOTO_REQUEST: return "photo";
-            case ADD_SAMPLE_REQUEST: return "sample";
-            default: return "UNKNOWN";
+        switch (requestCode) {
+            case SET_HABITAT_REQUEST:
+                return "habitat";
+            case ADD_PHOTO_REQUEST:
+                return "photo";
+            case ADD_SAMPLE_REQUEST:
+                return "sample";
+            default:
+                return "UNKNOWN";
         }
     }
 }

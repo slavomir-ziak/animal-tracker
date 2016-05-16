@@ -6,45 +6,43 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.GridView;
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.ListViewDataAdapter;
+import com.wecode.animaltracker.adapter.ImageAdapter;
+import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.service.PhotosDataService;
+import com.wecode.animaltracker.util.Assert;
+
+import java.io.File;
+import java.util.List;
 
 public class PhotosList extends AppCompatActivity {
 
-    String[] names = {
-            "Google Plus",
-            "Twitter"
-    };
+    private PhotosDataService photosDataService = PhotosDataService.getInstance();
 
-    Integer[] imageId = {
-            R.drawable.beer,
-            R.drawable.beer,
-    };
+    private File picturesDirectory = Globals.getPhotosStorageDir();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photos_list);
+        setContentView(R.layout.activity_photo_tiles);
 
-        ListViewDataAdapter adapter = new ListViewDataAdapter(this, names, imageId);
-        ListView itemsListView = (ListView) findViewById(R.id.photosList);
+        Long transectDetailId = getIntent().getLongExtra("transectDetailId", 0);
+        Assert.isTrue("transectDetailId missing ", transectDetailId > 0);
 
-        itemsListView.setAdapter(adapter);
-        itemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        List<Photo> photos = photosDataService.getPhotosForTransect(transectDetailId);
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+        GridView gridView = (GridView) findViewById(R.id.activity_photo_tiles_gridview);
+        Assert.assertNotNull("gridView missing ", gridView);
 
-                Toast.makeText(PhotosList.this, ("You Clicked at " + names[+position]), Toast.LENGTH_SHORT).show();
-                /*Intent intent = new Intent(PhotosList.this, ItemDetailActivity.class);
-
-                intent.putExtra(ItemDetailActivity.ITEM_ID, names[+position]);
-                startActivity(intent);*/
+        gridView.setAdapter(new ImageAdapter(this, photos, picturesDirectory));
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            public void onItemClick(AdapterView<?> parent,
+                                    View v, int position, long id)
+            {
             }
-
         });
 
 

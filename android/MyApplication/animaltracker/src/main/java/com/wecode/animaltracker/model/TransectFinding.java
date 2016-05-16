@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.model;
 
+import java.util.List;
+
 /**
  * Created by sziak on 10-Apr-16.
  */
@@ -25,6 +27,8 @@ public class TransectFinding extends Persistable {
     private Integer footprintsAge;
     private Integer footprintsStride;
     private Long habitatId;
+
+    private List<Photo> photos;
 
     public Double getLocationLatitude() {
         return locationLatitude;
@@ -164,5 +168,13 @@ public class TransectFinding extends Persistable {
 
     public Long getHabitatId() {
         return habitatId;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
 }

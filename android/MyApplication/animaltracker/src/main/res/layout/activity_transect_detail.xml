@@ -129,5 +129,24 @@
                 android:layout_alignStart="@+id/transectIdValue" android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:layout_above="@+id/transectColumnValue"/>
+        <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add finding"
+                android:id="@+id/addFindingButton" android:layout_below="@+id/startTransectButton"
+                android:layout_alignParentLeft="true" android:layout_alignParentStart="true"/>
+        <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="View findings" android:id="@+id/listFindingsButton"
+                android:layout_alignTop="@+id/addFindingButton" android:layout_toRightOf="@+id/transectColumnLabel"
+                android:layout_toEndOf="@+id/transectColumnLabel"/>
+        <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Habitat" android:id="@+id/habitatButton"
+                android:layout_below="@+id/addFindingButton" android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"/>
+        <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Weather" android:id="@+id/weatherButton"
+                android:layout_alignBottom="@+id/habitatButton" android:layout_toRightOf="@+id/habitatButton"
+                android:layout_toEndOf="@+id/habitatButton"/>
     </RelativeLayout>
 </RelativeLayout>

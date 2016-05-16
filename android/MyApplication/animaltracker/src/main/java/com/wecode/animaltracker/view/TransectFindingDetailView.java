@@ -8,9 +8,13 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.TransectFinding;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by sziak on 10-Apr-16.
@@ -40,6 +44,8 @@ public class TransectFindingDetailView {
     private TextView footprintsStride;
     
     private TransectFinding transectFinding;
+
+    private List<Photo> photos = new ArrayList<>();
 
     public TransectFindingDetailView(TransectFindingDetailActivity context, TransectFinding transectFinding) {
         this(context);
@@ -155,7 +161,13 @@ public class TransectFindingDetailView {
         transectFinding.setHabitatId(habitatId);
         transectFinding.setTransectId(transectId);
         transectFinding.setId(id);
+        transectFinding.setPhotos(photos);
+
         return transectFinding;
+    }
+
+    public void addPhoto(Photo photo) {
+        photos.add(photo);
     }
 
     public Long getHabitatId() {
@@ -172,5 +184,9 @@ public class TransectFindingDetailView {
 
     public void setTransectId(Long transectId) {
         this.transectId = transectId;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
     }
 }

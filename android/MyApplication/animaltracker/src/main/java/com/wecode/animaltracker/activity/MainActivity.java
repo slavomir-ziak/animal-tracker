@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
+import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.list.TransectsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
@@ -18,6 +19,14 @@ import com.wecode.animaltracker.activity.util.Constants;
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     public static final String LOG_TAG = "AnimalTracker";
+
+    public void fd(View view){
+        Intent intent = new Intent(this, TransectFindingDetailActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, MainActivity.class);
+        intent.setAction(Action.EDIT.toString());
+        intent.putExtra("id", 1L);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.*;
 import android.widget.ImageView;
 import com.wecode.animaltracker.R;
@@ -109,11 +110,23 @@ public class FragmentDrawer extends Fragment {
                 getActivity().invalidateOptionsMenu();
                 ImageView recyclerView2 = (ImageView) drawerView.findViewById(R.id.nav_header_container_icon);
 
+                long start = System.currentTimeMillis();
+
                 try {
                     int randomWolf = new Random().nextInt(7)+1;
                     Field wolf2 = R.drawable.class.getField("wolf"+randomWolf);
                     Integer integ = wolf2.getInt(new R.drawable());
-                    recyclerView2.setImageResource(integ);
+
+                    long fieldAccess = System.currentTimeMillis() - start;
+
+                    start = System.currentTimeMillis();
+                    // TODO this needs to be done via cached bitmap or background loading
+                    // recyclerView2.setImageResource(integ);
+
+                    long setImage = System.currentTimeMillis() - start;
+
+                    Log.i(TAG, "fieldAccess: " + fieldAccess + ", " + setImage);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
