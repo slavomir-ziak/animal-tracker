@@ -21,11 +21,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 import com.wecode.animaltracker.*;
 import com.wecode.animaltracker.activity.MainActivity;
+import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
+import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.Sample;
 import com.wecode.animaltracker.model.TransectFinding;
 import com.wecode.animaltracker.service.PhotosDataService;
+import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
@@ -42,6 +46,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
 
     private PhotosDataService photosDataService = PhotosDataService.getInstance();
+
+    private SampleDataService sampleDataService = SampleDataService.getInstance();
 
     private TransectFindingDetailView transectFindingView;
 
@@ -187,6 +193,16 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         startActivity(intent);
     }
 
+    public void showSamples(View view) {
+        Intent intent = new Intent(this, TransectFindingSamplesList.class);
+        intent.putExtra("transectDetailId", id);
+        startActivity(intent);
+    }
+
+    public void addSample(View view) {
+        Intent intent = new Intent(this, TransectFindingAddSampleActivity.class);
+        startActivityForResult(intent, ADD_SAMPLE_REQUEST);
+    }
 
     public void addPhoto(View view) {
 
@@ -228,11 +244,16 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 Log.d(MainActivity.LOG_TAG, "Pic saved, intent: " + data);
                 Photo photo = new Photo(this.id, outputPhotoFile.getName());
                 photosDataService.save(photo);
-
                 transectFindingView.addPhoto(photo);
-                transectFindingDataService.save(transectFindingView.toTransectFinding());
 
                 break;
+
+            case ADD_SAMPLE_REQUEST:
+                String sampleNumber = data.getExtras().getString("sampleNumber");
+                Log.d(MainActivity.LOG_TAG, "sampleNumber: " + sampleNumber);
+                sampleDataService.save(new Sample(null, sampleNumber, transectFindingView.getId()));
+                break;
+
         }
 
         transectFindingDataService.save(transectFindingView.toTransectFinding());

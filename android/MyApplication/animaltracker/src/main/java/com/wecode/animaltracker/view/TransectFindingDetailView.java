@@ -47,6 +47,10 @@ public class TransectFindingDetailView {
 
     private List<Photo> photos = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
     public TransectFindingDetailView(TransectFindingDetailActivity context, TransectFinding transectFinding) {
         this(context);
         this.transectFinding = transectFinding;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wecode.animaltracker" >
+    package="com.wecode.animaltracker">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -12,10 +12,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MyMaterialTheme" >
+        android:theme="@style/MyMaterialTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,20 +25,20 @@
         <activity
             android:name=".activity.detail.TransectDetailActivity"
             android:label="@string/title_activity_transect_detail"
-            android:parentActivityName=".activity.MainActivity" android:launchMode="singleTop" >
-        </activity>
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.MainActivity" />
         <activity
             android:name=".activity.detail.WeatherDetailActivity"
             android:label="@string/title_activity_weather"
-            android:parentActivityName=".activity.detail.TransectDetailActivity" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity">
             <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".activity.detail.TransectDetailActivity" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
             android:name=".activity.detail.HabitatDetailActivity"
             android:label="@string/title_activity_habitat_detail"
-            android:parentActivityName=".activity.detail.TransectDetailActivity" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -46,7 +46,7 @@
         <activity
             android:name=".activity.detail.TransectFindingDetailActivity"
             android:label="@string/title_activity_finding_detail"
-            android:parentActivityName=".activity.detail.TransectDetailActivity" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -54,7 +54,7 @@
         <activity
             android:name=".activity.list.PhotosList"
             android:label="@string/title_activity_photos_list"
-            android:parentActivityName=".activity.detail.TransectDetailActivity" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -62,18 +62,28 @@
         <activity
             android:name=".activity.list.TransectFindingsList"
             android:label="@string/title_activity_findings_list"
-            android:parentActivityName=".activity.detail.TransectDetailActivity" >
+            android:parentActivityName=".activity.detail.TransectDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
-        <activity android:name=".activity.list.TransectsList"
-                  android:label="@string/title_activity_transects_list"
-                  android:parentActivityName=".activity.detail.TransectDetailActivity" >
+        <activity
+            android:name=".activity.list.TransectsList"
+            android:label="@string/title_activity_transects_list"
+            android:parentActivityName=".activity.detail.TransectDetailActivity">
             <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".activity.detail.TransectDetailActivity" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.detail.TransectDetailActivity" />
         </activity>
+        <activity
+            android:name=".activity.list.TransectFindingSamplesList"
+            android:label="@string/samples"
+            android:parentActivityName=".activity.detail.TransectDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.detail.TransectDetailActivity" />
+        </activity>
+        <activity android:name=".activity.TransectFindingAddSampleActivity"></activity>
     </application>
 
 </manifest>

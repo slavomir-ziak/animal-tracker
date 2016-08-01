@@ -37,7 +37,8 @@
                     android:id="@+id/findingTypeValue" android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/findingTypeLabel"
                     android:layout_alignBottom="@+id/findingTypeLabel" android:spinnerMode="dialog"
-                    android:layout_toStartOf="@+id/findingHabitatButton" android:gravity="bottom"/>
+                    android:layout_toStartOf="@+id/findingHabitatButton" android:gravity="bottom"
+                    android:layout_toLeftOf="@+id/findingHabitatButton" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:textAppearance="?android:attr/textAppearanceMedium" android:text="Species"
                       android:id="@+id/findingSpeciesLabel"
@@ -67,7 +68,8 @@
             <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="samples"
                     android:id="@+id/findingSamplesButton"
                     android:layout_alignTop="@+id/findingSpeciesValue" android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"/>
+                    android:layout_alignParentEnd="true"
+                android:onClick="showSamples" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:textAppearance="?android:attr/textAppearanceMedium" android:text="Confidence"
                       android:id="@+id/findingConfidenceLabel"
@@ -145,6 +147,17 @@
                 </FrameLayout>
 
             </RelativeLayout>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add sample"
+                android:id="@+id/addNewSampleButton"
+                android:layout_below="@+id/button7"
+                android:layout_alignLeft="@+id/button7"
+                android:layout_alignStart="@+id/button7"
+                android:onClick="addSample" />
 
         </RelativeLayout>
     </ScrollView>

@@ -68,15 +68,15 @@
         <item>Urine</item>
         <item>Carcass</item>
     </string-array>
-	
+
     <string-array name="findingSpeciesTypes">
-		<item>Wolf</item>0
-		<item>Lynx</item>
-		<item>Red deer</item>
-		<item>Roe deer</item>
-		<item>Wild boar</item>
-		<item>Brown hare</item>
-		<item>Red fox</item>
+        <item>Wolf</item>0
+        <item>Lynx</item>
+        <item>Red deer</item>
+        <item>Roe deer</item>
+        <item>Wild boar</item>
+        <item>Brown hare</item>
+        <item>Red fox</item>
     </string-array>
 
     <string-array name="findingConfidenceTypes">
@@ -126,5 +126,6 @@
     <string name="transect_finding_action_add_photo">Add photo</string>
     <string name="transect_finding_action_sampes">Samples</string>
     <string name="transect_finding_action_photos">Photos</string>
+    <string name="samples">Samples</string>
 
 </resources>
