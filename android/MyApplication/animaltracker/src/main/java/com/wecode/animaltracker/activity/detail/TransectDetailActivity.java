@@ -80,7 +80,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                 transectDetailView.disableAllForView();
                 break;
             case NEW:
-                transectDetailView.getId().setText(transectDataService.getNextId().toString());
+                //transectDetailView.getId().setText(transectDataService.getNextId().toString());
                 break;
         }
 

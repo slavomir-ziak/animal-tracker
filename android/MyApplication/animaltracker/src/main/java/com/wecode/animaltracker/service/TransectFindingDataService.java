@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by sziak on 10/28/2015.
  */
 public class TransectFindingDataService extends AbstractDataService<TransectFinding> {
-
+/*
     private Map<Long, TransectFinding> data = new HashMap<>();
     {
         TransectFinding transectFinding = new TransectFinding();
@@ -36,30 +36,19 @@ public class TransectFindingDataService extends AbstractDataService<TransectFind
         transectFinding.setTransectId(2L);
         getData().put(transectFinding.getId(), transectFinding);
 
-    }
+    }*/
 
     private static final TransectFindingDataService INSTANCE = new TransectFindingDataService();
 
-    private TransectFindingDataService(){}
+    private TransectFindingDataService(){
+        super(TransectFinding.class);
+    }
 
     public static TransectFindingDataService getInstance() {
         return INSTANCE;
     }
 
-    @Override
-    protected Map<Long, TransectFinding> getData() {
-        return data;
-    }
-
     public List<TransectFinding> findByTransectId(Long transectId) {
-
-        List<TransectFinding> results = new ArrayList<>();
-
-        for (TransectFinding transectFinding : data.values()) {
-            if (transectFinding.getTransectId().equals(transectId)) {
-                results.add(transectFinding);
-            }
-        }
-        return results;
+        return TransectFinding.find(TransectFinding.class, "transect_id=?", transectId.toString());
     }
 }

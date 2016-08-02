@@ -30,6 +30,9 @@ public class TransectFinding extends Persistable {
 
     private List<Photo> photos;
 
+    public TransectFinding() {
+    }
+
     public Double getLocationLatitude() {
         return locationLatitude;
     }

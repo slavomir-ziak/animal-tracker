@@ -10,18 +10,14 @@ import java.util.Map;
  */
 public class HabitatDataService extends AbstractDataService<Habitat> {
 
-    private Map<Long, Habitat> data = new HashMap<>();
-
     private static final HabitatDataService INSTANCE = new HabitatDataService();
 
-    private HabitatDataService(){}
+    private HabitatDataService(){
+        super(Habitat.class);
+    }
 
     public static HabitatDataService getInstance() {
         return INSTANCE;
     }
 
-    @Override
-    protected Map<Long, Habitat> getData() {
-        return data;
-    }
 }

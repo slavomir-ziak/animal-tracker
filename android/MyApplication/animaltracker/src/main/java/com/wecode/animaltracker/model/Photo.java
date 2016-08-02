@@ -9,6 +9,8 @@ public class Photo extends Persistable {
     private String fileName;
     private String thumbnail;
 
+    public Photo() {
+    }
     public Photo(Long id, Long transectFindingId, String fileName, String thumbnail) {
         setId(id);
         this.transectFindingId = transectFindingId;

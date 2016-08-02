@@ -18,6 +18,9 @@ public class Transect extends Persistable {
     private String routeName;
     private Long weatherId;
 
+    public Transect() {
+    }
+
     public Transect(Long id, Integer column, Date startDateTime, Location startLocation, String routeName) {
         setId(id);
         this.column = column;

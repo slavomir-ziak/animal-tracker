@@ -38,10 +38,14 @@ public class TransectListViewDataAdapter extends ArrayAdapter<Transect> {
         transectId.setText(transect.getId().toString());
 
         TextView startDateTime = (TextView) rowView.findViewById(R.id.transectListItemStartDateTime);
-        startDateTime.setText(dateTimeInstance.format(transect.getStartDateTime()));
+        if (transect.getStartDateTime() != null) {
+            startDateTime.setText(dateTimeInstance.format(transect.getStartDateTime()));
+        }
 
         TextView endDateTime = (TextView) rowView.findViewById(R.id.transectListItemEndDateTime);
-        endDateTime.setText(dateTimeInstance.format(transect.getEndDateTime()));
+        if (transect.getEndDateTime() != null) {
+            endDateTime.setText(dateTimeInstance.format(transect.getEndDateTime()));
+        }
 
         TextView routeName = (TextView) rowView.findViewById(R.id.transectListItemRouteName);
         routeName.setText(transect.getRouteName());

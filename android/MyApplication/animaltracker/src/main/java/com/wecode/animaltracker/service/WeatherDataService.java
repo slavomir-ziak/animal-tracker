@@ -10,18 +10,14 @@ import java.util.Map;
  */
 public class WeatherDataService extends AbstractDataService<Weather> {
 
-    private Map<Long, Weather> data = new HashMap<>();
-
     private static final WeatherDataService INSTANCE = new WeatherDataService();
 
-    private WeatherDataService(){}
+    private WeatherDataService(){
+        super(Weather.class);
+    }
 
     public static WeatherDataService getInstance() {
         return INSTANCE;
     }
 
-    @Override
-    protected Map<Long, Weather> getData() {
-        return data;
-    }
 }

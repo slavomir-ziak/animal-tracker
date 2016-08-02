@@ -16,44 +16,23 @@ public class PhotosDataService extends AbstractDataService<Photo> {
 
     private static final PhotosDataService INSTANCE = new PhotosDataService();
 
-    {
-        Photo photo = new Photo(getNextId(), 1L, "cdb3bfc8-9ede-4fda-909b-61ac7dc17606.jpg", "");
-        data.put(photo.getId(), photo);
-
-        photo = new Photo(getNextId(), 1L, "e96e5ed4-0fb7-45ee-9907-bd6789f74dcf.jpg", "");
-        data.put(photo.getId(), photo);
-
-        photo = new Photo(getNextId(), 1L, "f3549868-8397-434a-8aa7-904a751c65c4.jpg", "");
-        data.put(photo.getId(), photo);
-        
-        photo = new Photo(getNextId(), 2L, "e96e5ed4-0fb7-45ee-9907-bd6789f74dcf.jpg", "");
-        data.put(photo.getId(), photo);
-
-        photo = new Photo(getNextId(), 2L, "f3549868-8397-434a-8aa7-904a751c65c4.jpg", "");
-        data.put(photo.getId(), photo);
-        
-    }
+    /*{
+        new Photo(null, 1L, "cdb3bfc8-9ede-4fda-909b-61ac7dc17606.jpg", "").save();
+        new Photo(null, 1L, "e96e5ed4-0fb7-45ee-9907-bd6789f74dcf.jpg", "").save();
+        new Photo(null, 1L, "f3549868-8397-434a-8aa7-904a751c65c4.jpg", "").save();
+        new Photo(null, 2L, "e96e5ed4-0fb7-45ee-9907-bd6789f74dcf.jpg", "").save();
+        new Photo(null, 2L, "f3549868-8397-434a-8aa7-904a751c65c4.jpg", "").save();
+    }*/
 
     private PhotosDataService() {
+        super(Photo.class);
     }
 
     public static PhotosDataService getInstance() {
         return INSTANCE;
     }
 
-    @Override
-    protected Map<Long, Photo> getData() {
-        return data;
-    }
-
     public List<Photo> getPhotosForTransect(Long transectDetailId) {
-        List<Photo> results = new ArrayList<>();
-
-        for (Photo photo : data.values()) {
-            if (photo.getTransectFindingId().equals(transectDetailId)) {
-                results.add(photo);
-            }
-        }
-        return results;
+        return Photo.findWithQuery(Photo.class, "transect_finding_id = ?", transectDetailId.toString());
     }
 }

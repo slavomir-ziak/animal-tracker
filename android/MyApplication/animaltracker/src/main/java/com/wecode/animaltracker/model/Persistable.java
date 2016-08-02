@@ -1,17 +1,11 @@
 package com.wecode.animaltracker.model;
 
+import com.orm.SugarRecord;
+
 /**
  * Created by sziak on 11/1/2015.
  */
-public class Persistable {
+public class Persistable extends SugarRecord {
 
-    private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

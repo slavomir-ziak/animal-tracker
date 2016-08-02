@@ -135,18 +135,22 @@
                 android:layout_height="wrap_content"
                 android:text="Add finding"
                 android:id="@+id/addFindingButton" android:layout_below="@+id/startTransectButton"
-                android:layout_alignParentLeft="true" android:layout_alignParentStart="true"/>
+                android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+            android:onClick="addFinding" />
         <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:text="View findings" android:id="@+id/listFindingsButton"
                 android:layout_alignTop="@+id/addFindingButton" android:layout_toRightOf="@+id/transectColumnLabel"
-                android:layout_toEndOf="@+id/transectColumnLabel"/>
+                android:layout_toEndOf="@+id/transectColumnLabel"
+            android:onClick="viewFindings" />
         <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:text="Habitat" android:id="@+id/habitatButton"
                 android:layout_below="@+id/addFindingButton" android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+            android:onClick="setHabitat" />
         <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:text="Weather" android:id="@+id/weatherButton"
                 android:layout_alignBottom="@+id/habitatButton" android:layout_toRightOf="@+id/habitatButton"
-                android:layout_toEndOf="@+id/habitatButton"/>
+                android:layout_toEndOf="@+id/habitatButton"
+            android:onClick="setWeather" />
     </RelativeLayout>
 </RelativeLayout>

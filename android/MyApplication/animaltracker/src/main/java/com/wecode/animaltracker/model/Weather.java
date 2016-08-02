@@ -14,6 +14,9 @@ public class Weather extends Persistable {
     private Integer newSnowDepth;
     private Integer lastTimeSnowedRained;
 
+    public Weather() {
+    }
+
     public Weather(Long id, Integer sunshineIntensity, Integer windIntensity, Integer rainIntensity, Integer humidity, Integer visibility, Integer showDepth, Integer newSnowDepth, Integer lastTimeSnowedRained) {
         this.setId(id);
         this.sunshineIntensity = sunshineIntensity;

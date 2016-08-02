@@ -1,9 +1,13 @@
 package com.wecode.animaltracker.service;
 
 import android.util.Log;
+
+import com.orm.SugarRecord;
 import com.wecode.animaltracker.model.Persistable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -12,37 +16,28 @@ import java.util.Map;
  */
 public abstract class AbstractDataService<T extends Persistable> {
 
-    private Long nextId = 1L;
+    private Class<T> persistentClass;
 
-    protected abstract Map<Long, T> getData();
+    protected AbstractDataService(Class<T> persistentClass) {
+        this.persistentClass = persistentClass;
+    }
 
     public void save(T t) {
-
         Log.i(getClass().getSimpleName(), "Saving " + t);
-
-        if (t.getId() == null) {
-            Long nextId = getNextId();
-            t.setId(nextId);
-        }
-        getData().put(t.getId(), t);
+        t.save();
     }
 
     public T find(Long id) {
-        return getData().get(id);
-
-/*
-
-        return (T) transect;*/
+        return SugarRecord.findById(persistentClass, id);
     }
 
     public List<T> list() {
-        Persistable[] t = new Persistable[0];
-        return (List<T>) Arrays.asList(getData().values().toArray(t));
+        List<T> result = new ArrayList<>();
+        Iterator<T> all = SugarRecord.findAll(persistentClass);
+        while(all.hasNext()) {
+            result.add(all.next());
+        }
+        return result;
     }
-
-    public Long getNextId() {
-        return nextId++;
-    }
-
 
 }
