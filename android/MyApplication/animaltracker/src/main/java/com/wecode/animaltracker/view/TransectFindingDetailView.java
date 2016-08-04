@@ -45,8 +45,6 @@ public class TransectFindingDetailView {
     
     private TransectFinding transectFinding;
 
-    private List<Photo> photos = new ArrayList<>();
-
     public Long getId() {
         return id;
     }
@@ -165,13 +163,8 @@ public class TransectFindingDetailView {
         transectFinding.setHabitatId(habitatId);
         transectFinding.setTransectId(transectId);
         transectFinding.setId(id);
-        transectFinding.setPhotos(photos);
 
         return transectFinding;
-    }
-
-    public void addPhoto(Photo photo) {
-        photos.add(photo);
     }
 
     public Long getHabitatId() {
@@ -190,7 +183,7 @@ public class TransectFindingDetailView {
         this.transectId = transectId;
     }
 
-    public List<Photo> getPhotos() {
-        return photos;
+    public void setId(Long id) {
+        this.id = id;
     }
 }

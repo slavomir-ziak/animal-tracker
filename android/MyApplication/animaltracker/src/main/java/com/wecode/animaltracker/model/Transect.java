@@ -13,19 +13,21 @@ public class Transect extends Persistable {
     private Integer column;
     private Date startDateTime;
     private Date endDateTime;
-    private Location startLocation;
-    private Location endLocation;
     private String routeName;
     private Long weatherId;
+
+    private Double startLongitude;
+    private Double startLatitude;
+    private Double endLongitude;
+    private Double endLatitude;
 
     public Transect() {
     }
 
-    public Transect(Long id, Integer column, Date startDateTime, Location startLocation, String routeName) {
+    public Transect(Long id, Integer column, Date startDateTime, String routeName) {
         setId(id);
         this.column = column;
         this.startDateTime = startDateTime;
-        this.startLocation = startLocation;
         this.routeName = routeName;
     }
     public Transect(Long id, Integer column, Date startDateTime,Date endDateTime,
@@ -34,8 +36,6 @@ public class Transect extends Persistable {
         this.column = column;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-        this.startLocation = startLocation;
-        this.endLocation = endLocation;
         this.routeName = routeName;
     }
 
@@ -63,22 +63,6 @@ public class Transect extends Persistable {
         this.endDateTime = endDateTime;
     }
 
-    public Location getStartLocation() {
-        return startLocation;
-    }
-
-    public void setStartLocation(Location startLocation) {
-        this.startLocation = startLocation;
-    }
-
-    public Location getEndLocation() {
-        return endLocation;
-    }
-
-    public void setEndLocation(Location endLocation) {
-        this.endLocation = endLocation;
-    }
-
     public String getRouteName() {
         return routeName;
     }
@@ -93,8 +77,6 @@ public class Transect extends Persistable {
                 "column=" + column+
                 ", startDateTime=" + startDateTime +
                 ", endDateTime=" + endDateTime +
-                ", startLocation=" + startLocation +
-                ", endLocation=" + endLocation +
                 ", routeName='" + routeName + '\'' +
                 '}';
     }
@@ -113,5 +95,45 @@ public class Transect extends Persistable {
 
     public void setWeatherId(Long weatherId) {
         this.weatherId = weatherId;
+    }
+
+    public void setStartLongitude(double startLongitude) {
+        this.startLongitude = startLongitude;
+    }
+
+    public Double getStartLongitude() {
+        return startLongitude;
+    }
+
+    public void setStartLatitude(Double startLatitude) {
+        this.startLatitude = startLatitude;
+    }
+
+    public Double getStartLatitude() {
+        return startLatitude;
+    }
+
+    public void setEndLongitude(Double endLongitude) {
+        this.endLongitude = endLongitude;
+    }
+
+    public void setEndLatitude(Double endLatitude) {
+        this.endLatitude = endLatitude;
+    }
+
+    public Long getWeatherId() {
+        return weatherId;
+    }
+
+    public void setStartLongitude(Double startLongitude) {
+        this.startLongitude = startLongitude;
+    }
+
+    public Double getEndLongitude() {
+        return endLongitude;
+    }
+
+    public Double getEndLatitude() {
+        return endLatitude;
     }
 }

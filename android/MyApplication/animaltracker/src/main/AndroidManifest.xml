@@ -15,7 +15,7 @@
         android:theme="@style/MyMaterialTheme"
         android:name="com.orm.SugarApp" >
 
-        <meta-data android:name="DATABASE" android:value="sugar_db_beta.db" />
+        <meta-data android:name="DATABASE" android:value="sugar_db_beta2.db" />
         <meta-data android:name="VERSION" android:value="1" />
         <meta-data android:name="QUERY_LOG" android:value="true" />
         <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.wecode.animaltracker.model" />

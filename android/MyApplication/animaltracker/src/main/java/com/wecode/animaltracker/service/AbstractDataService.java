@@ -22,9 +22,11 @@ public abstract class AbstractDataService<T extends Persistable> {
         this.persistentClass = persistentClass;
     }
 
-    public void save(T t) {
+    public T save(T t) {
         Log.i(getClass().getSimpleName(), "Saving " + t);
-        t.save();
+        long id = t.save();
+        t.setId(id);
+        return t;
     }
 
     public T find(Long id) {

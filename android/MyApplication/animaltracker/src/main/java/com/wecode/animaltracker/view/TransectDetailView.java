@@ -1,10 +1,14 @@
 package com.wecode.animaltracker.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.text.InputType;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.model.Transect;
 
 import java.text.DateFormat;
@@ -26,7 +30,10 @@ public class TransectDetailView {
     private Long habitatId;
     private Long weatherId;
 
+    private Activity parentActivity;
+
     public TransectDetailView(Activity context, Transect transect) {
+        this.parentActivity = context;
         id = (TextView) context.findViewById(R.id.transectIdValue);
         column = (TextView) context.findViewById(R.id.transectColumnValue);
         startDateTime = (TextView) context.findViewById(R.id.transectStartDateTimeValue);
@@ -43,7 +50,7 @@ public class TransectDetailView {
     public void bind(Transect transect) {
 
         id.setText(transect.getId().toString());
-        column.setText(transect.getColumn().toString());
+        column.setText(transect.getColumn() != null ? transect.getColumn().toString() : "");
 
         DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
 
@@ -51,8 +58,10 @@ public class TransectDetailView {
             startDateTime.setText(dateTimeInstance.format(transect.getStartDateTime()));
         }
 
-        if (transect.getStartLocation() != null) {
-            startLocation.setText(transect.getStartLocation().getLongitude() + " " + transect.getStartLocation().getLatitude());
+        if (transect.getStartLongitude() != null) {
+            startLocation.setText(
+                    LocationFormatter.formatLocation(transect.getStartLongitude(), transect.getStartLatitude())
+            );
         }
 
         routeName.setText(transect.getRouteName());
@@ -61,10 +70,12 @@ public class TransectDetailView {
             endDateTime.setText(dateTimeInstance.format(transect.getEndDateTime()));
         }
 
-        if (transect.getEndLocation() != null) {
-            endLocation.setText(transect.getEndLocation().getLongitude()
-                    + " " + transect.getEndLocation().getLatitude());
+        if (transect.getEndLongitude() != null) {
+            endLocation.setText(
+                    LocationFormatter.formatLocation(transect.getEndLongitude(), transect.getEndLatitude())
+            );
         }
+
         habitatId = transect.getHabitatId();
         weatherId = transect.getWatherId();
     }
@@ -91,27 +102,24 @@ public class TransectDetailView {
 
         try {
 
-            Location startLocation = new Location("");
 
-            if (this.startLocation.getText().length() > 0) {
-                startLocation.setLongitude(Double.parseDouble(this.startLocation.getText().toString().split(" ")[0]));
-                startLocation.setLatitude(Double.parseDouble(this.startLocation.getText().toString().split(" ")[1]));
-            }
 
             Transect transect = new Transect(
                     id.getText().length() > 0 ? Long.parseLong(id.getText().toString()) : null,
-                    Integer.parseInt(column.getText().toString()),
+                    column.getText().length() > 0 ? Integer.parseInt(column.getText().toString()) : null,
                     startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null,
-                    startLocation,
                     routeName.getText().toString()
             );
 
-            if (endLocation.getText().length() != 0) {
+            if (this.startLocation.getText().length() > 0) {
+                transect.setStartLongitude(getLongitude(this.startLocation.getText().toString()));
+                transect.setStartLatitude(getLatitude(this.startLocation.getText().toString()));
 
-                Location endLocation = new Location("");
-                endLocation.setLongitude(Double.parseDouble(this.endLocation.getText().toString().split(" ")[0]));
-                endLocation.setLatitude(Double.parseDouble(this.endLocation.getText().toString().split(" ")[1]));
-                transect.setEndLocation(endLocation);
+            }
+
+            if (endLocation.getText().length() != 0) {
+                transect.setEndLongitude(getLongitude(this.endLocation.getText().toString()));
+                transect.setEndLatitude(getLatitude(this.endLocation.getText().toString()));
             }
 
             if (endDateTime.getText().length() != 0) {
@@ -126,6 +134,14 @@ public class TransectDetailView {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private double getLatitude(String location) {
+        return Double.parseDouble(location.split(", ")[1]);
+    }
+
+    private double getLongitude(String location) {
+        return Double.parseDouble(location.split(", ")[0]);
     }
 
     public Long getHabitatId() {
@@ -202,5 +218,17 @@ public class TransectDetailView {
 
     public void setWeatherId(Long weatherId) {
         this.weatherId = weatherId;
+    }
+
+    public void setIdValue(Long idValue) {
+        this.id.setText(idValue.toString());
+    }
+
+    public boolean isValid() {
+        if (getRouteName().getText().length() == 0) {
+            Toast.makeText(parentActivity, "Enter Route name before saving.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
     }
 }

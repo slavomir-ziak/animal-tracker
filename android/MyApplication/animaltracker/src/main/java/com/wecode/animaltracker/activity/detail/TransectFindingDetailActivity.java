@@ -95,7 +95,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         TransectFinding transectFinding = transectFindingView.toTransectFinding();
         transectFinding.setTransectId(transectId);
 
-        transectFindingDataService.save(transectFinding);
+        saveTransectFinding();
 
         Intent intent = new Intent();
         intent.putExtra("id", transectFinding.getId());
@@ -244,7 +244,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 Log.d(MainActivity.LOG_TAG, "Pic saved, intent: " + data);
                 Photo photo = new Photo(this.id, outputPhotoFile.getName());
                 photosDataService.save(photo);
-                transectFindingView.addPhoto(photo);
 
                 break;
 
@@ -256,8 +255,12 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
         }
 
-        transectFindingDataService.save(transectFindingView.toTransectFinding());
+        saveTransectFinding();
+    }
 
+    private void saveTransectFinding() {
+        TransectFinding transectFinding = transectFindingDataService.save(transectFindingView.toTransectFinding());
+        transectFindingView.setId(transectFinding.getId());
     }
 
     @Override

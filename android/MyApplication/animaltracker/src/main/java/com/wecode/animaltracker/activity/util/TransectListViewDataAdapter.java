@@ -51,7 +51,7 @@ public class TransectListViewDataAdapter extends ArrayAdapter<Transect> {
         routeName.setText(transect.getRouteName());
 
         TextView column = (TextView) rowView.findViewById(R.id.transectListItemColumn);
-        column.setText(transect.getColumn().toString());
+        column.setText(transect.getColumn() != null ? transect.getColumn().toString() : "");
 
         System.out.println("rowView: " + rowView);
 

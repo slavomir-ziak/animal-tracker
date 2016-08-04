@@ -28,8 +28,6 @@ public class TransectFinding extends Persistable {
     private Integer footprintsStride;
     private Long habitatId;
 
-    private List<Photo> photos;
-
     public TransectFinding() {
     }
 
@@ -173,11 +171,4 @@ public class TransectFinding extends Persistable {
         return habitatId;
     }
 
-    public List<Photo> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
-    }
 }

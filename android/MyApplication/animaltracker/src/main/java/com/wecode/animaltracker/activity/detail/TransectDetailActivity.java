@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.orm.SugarRecord;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.util.Action;
@@ -99,7 +101,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     public void startTransect(View view) {
 
         if (currentLocation == null) {
-            Toast.makeText(this, "Location not acquired.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Location not acquired. ", Toast.LENGTH_SHORT).show();
         } else {
             transectDetailView.getStartLocation().setText(LocationFormatter.formatLocation(currentLocation));
         }
@@ -108,7 +110,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         String startDateTime = DateFormat.getDateTimeInstance().format(new Date());
         transectDetailView.getStartDateTime().setText(startDateTime);
 
-        transectDataService.save(transectDetailView.toTransect());
+        saveTransect();
 
         action = Action.EDIT;
     }
@@ -124,7 +126,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
         transectDetailView.getEndDateTime().setText(endDateTime);
 
-        transectDataService.save(transectDetailView.toTransect());
+        saveTransect();
+
     }
 
     public void setWeather(View view) {
@@ -200,8 +203,20 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                 break;
         }
 
-        transectDataService.save(transectDetailView.toTransect());
+        saveTransect();
 
+    }
+
+    private void saveTransect() {
+        if (transectDetailView.isValid()) {
+            Transect transect = transectDataService.save(transectDetailView.toTransect());
+            transectDetailView.setIdValue(transect.getId());
+            Toast.makeText(this, "Transect saved.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void saveTransect(View view) {
+        saveTransect();
     }
 
     private String getNameForRequestCode(int requestCode) {
@@ -244,8 +259,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     @Override
     public void onBackPressed() {
 
-        Transect transect = transectDetailView.toTransect();
-        transectDataService.save(transect);
+        Transect transect = transectDataService.save(transectDetailView.toTransect());
+        transectDetailView.setIdValue(transect.getId());
 
         Intent intent = new Intent();
         intent.putExtra("id", transect.getId());
