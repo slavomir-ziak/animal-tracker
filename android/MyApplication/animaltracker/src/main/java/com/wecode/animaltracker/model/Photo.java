@@ -46,4 +46,13 @@ public class Photo extends Persistable {
     public void setTransectFindingId(Long transectFindingId) {
         this.transectFindingId = transectFindingId;
     }
+
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "transectFindingId=" + transectFindingId +
+                ", fileName='" + fileName + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                '}';
+    }
 }

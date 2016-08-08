@@ -92,4 +92,18 @@ public class Weather extends Persistable {
     public void setLastTimeSnowedRained(Integer lastTimeSnowedRained) {
         this.lastTimeSnowedRained = lastTimeSnowedRained;
     }
+
+    @Override
+    public String toString() {
+        return "Weather{" +
+                "sunshineIntensity=" + sunshineIntensity +
+                ", windIntensity=" + windIntensity +
+                ", rainIntensity=" + rainIntensity +
+                ", humidity=" + humidity +
+                ", visibility=" + visibility +
+                ", showDepth=" + showDepth +
+                ", newSnowDepth=" + newSnowDepth +
+                ", lastTimeSnowedRained=" + lastTimeSnowedRained +
+                '}';
+    }
 }

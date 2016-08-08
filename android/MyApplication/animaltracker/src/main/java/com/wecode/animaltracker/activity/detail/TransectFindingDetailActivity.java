@@ -24,6 +24,7 @@ import com.wecode.animaltracker.activity.MainActivity;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
+import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Sample;
@@ -76,34 +77,49 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
         transectId = getIntent().getExtras().getLong("transectId");
 
-        TransectFinding transectFinding = transectFindingDataService.find(id);
-
-        initialiseFragmentLogic();
 
         if (id != null) {
+            TransectFinding transectFinding = transectFindingDataService.find(id);
             transectFindingView = new TransectFindingDetailView(this, transectFinding);
         } else {
-            transectFindingView = new TransectFindingDetailView(this);
+            transectFindingView = new TransectFindingDetailView(this, transectId);
         }
 
-        fecesFragment = new FecesFragment(transectFindingView);
-        footprintsFragment = new FootprintsFragment(transectFindingView);
+        initialiseFragmentLogic(transectFindingView);
+
+        initGui(transectFindingView);
+    }
+
+    private void initGui(TransectFindingDetailView transectFindingView) {
+
+        switch (action) {
+
+            case EDIT:
+                transectFindingView.initGuiForEdit();
+                break;
+            case VIEW:
+                transectFindingView.initGuiForView();
+                break;
+            case NEW:
+                transectFindingView.initGuiForNew();
+                break;
+        }
     }
 
     @Override
     public void onBackPressed() {
-        TransectFinding transectFinding = transectFindingView.toTransectFinding();
-        transectFinding.setTransectId(transectId);
-
-        saveTransectFinding();
+  //      saveTransectFinding();
 
         Intent intent = new Intent();
-        intent.putExtra("id", transectFinding.getId());
-        setResult(RESULT_OK, intent);
+//        intent.putExtra("id", transectFindingView.getId());
+        setResult(RESULT_CANCELED, intent);
         finish();
     }
 
-    private void initialiseFragmentLogic() {
+    private void initialiseFragmentLogic(TransectFindingDetailView transectFindingView) {
+
+        fecesFragment = new FecesFragment(transectFindingView);
+        footprintsFragment = new FootprintsFragment(transectFindingView);
 
         Spinner findingTypeValue = (Spinner) this.findViewById(R.id.findingTypeValue);
         findingTypeValue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -182,20 +198,27 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     public void setHabitat(View view) {
         Intent intent = new Intent(this, HabitatDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, TransectFindingDetailActivity.class);
-        intent.setAction(action.toString());
-        intent.putExtra("id", transectFindingView.getHabitatId());
+
+        Long habitatId = transectFindingView.getHabitatId();
+        if (habitatId != null) {
+            intent.setAction(action.toString()); // edit or view
+            intent.putExtra("id", habitatId);
+        } else {
+            intent.setAction(Action.NEW.toString());
+        }
+
         startActivityForResult(intent, SET_HABITAT_REQUEST);
     }
 
     public void showPhotos(View view) {
         Intent intent = new Intent(this, PhotosList.class);
-        intent.putExtra("transectDetailId", id);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
         startActivity(intent);
     }
 
     public void showSamples(View view) {
         Intent intent = new Intent(this, TransectFindingSamplesList.class);
-        intent.putExtra("transectDetailId", id);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
         startActivity(intent);
     }
 
@@ -242,7 +265,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
             case ADD_PHOTO_REQUEST:
                 Log.d(MainActivity.LOG_TAG, "Pic saved, intent: " + data);
-                Photo photo = new Photo(this.id, outputPhotoFile.getName());
+                Photo photo = new Photo(transectFindingView.getId(), outputPhotoFile.getName());
                 photosDataService.save(photo);
 
                 break;
@@ -261,6 +284,12 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     private void saveTransectFinding() {
         TransectFinding transectFinding = transectFindingDataService.save(transectFindingView.toTransectFinding());
         transectFindingView.setId(transectFinding.getId());
+        transectFindingView.initGuiForEdit();
+        this.id = transectFinding.getId();
+    }
+
+    public void saveTransectFinding(View view) {
+        saveTransectFinding();
     }
 
     @Override

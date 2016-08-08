@@ -20,6 +20,7 @@ public class Globals {
         if (!file.exists() && !file.mkdirs()) {
             Log.e("", "Directory not created");
         }
+        Log.i("getPhotosStorageDir: ", file.getAbsolutePath());
         return file;
     }
 

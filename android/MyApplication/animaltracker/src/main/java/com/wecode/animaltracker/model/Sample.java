@@ -33,6 +33,14 @@ public class Sample extends Persistable {
     public void setSampleNumber(String sampleNumber) {
         this.sampleNumber = sampleNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Sample{" +
+                "sampleNumber='" + sampleNumber + '\'' +
+                ", transectFindingId=" + transectFindingId +
+                '}';
+    }
 }
 
 

@@ -78,18 +78,20 @@
                   android:layout_alignParentLeft="true"
                   android:layout_alignParentStart="true" android:paddingTop="20dp"/>
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Start tranect"
+                android:text="Start transect"
                 android:id="@+id/startTransectButton"
             android:onClick="startTransect"
-            android:layout_below="@+id/transectEndLocationValue"
-            android:layout_toRightOf="@+id/button2"
-            android:layout_toEndOf="@+id/button2" />
+            android:layout_toRightOf="@+id/transectDetailSaveButton"
+            android:layout_toEndOf="@+id/transectDetailSaveButton"
+            android:layout_below="@+id/endLocationLabel"
+            style="?android:attr/buttonStyleSmall" />
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="End transect"
                 android:id="@+id/endTransectButton"
                 android:layout_toRightOf="@+id/startTransectButton"
                 android:layout_toEndOf="@+id/startTransectButton" android:onClick="endTransect"
                 android:layout_below="@+id/endLocationLabel"
-            android:layout_above="@+id/listFindingsButton" />
+            style="?android:attr/buttonStyleSmall"
+            android:layout_above="@+id/transectDetailViewFindingsButton" />
         <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:textAppearance="?android:attr/textAppearanceMedium"
                   android:id="@+id/transectColumnValue"
@@ -130,45 +132,52 @@
                 android:layout_alignParentEnd="true"
                 android:layout_above="@+id/transectColumnValue"/>
         <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+            android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add finding"
-                android:id="@+id/addFindingButton" android:layout_below="@+id/startTransectButton"
+                android:id="@+id/transectDetailAddFindingButton" android:layout_below="@+id/startTransectButton"
                 android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
             android:onClick="addFinding"
             android:layout_alignRight="@+id/transectColumnLabel"
-            android:layout_alignEnd="@+id/transectColumnLabel" />
-        <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="View findings" android:id="@+id/listFindingsButton"
+            android:layout_alignEnd="@+id/transectColumnLabel"
+            style="?android:attr/buttonStyleSmall" />
+        <Button
+            android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="View findings" android:id="@+id/transectDetailViewFindingsButton"
             android:onClick="viewFindings"
             android:layout_below="@+id/startTransectButton"
-            android:layout_toRightOf="@+id/habitatButton"
-            android:layout_toEndOf="@+id/habitatButton" />
-        <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="set Habitat" android:id="@+id/habitatButton"
-                android:layout_below="@+id/addFindingButton" android:layout_alignParentLeft="true"
+            android:layout_toRightOf="@+id/transectDetailSetHabitatButton"
+            android:layout_toEndOf="@+id/transectDetailSetHabitatButton"
+            style="?android:attr/buttonStyleSmall" />
+        <Button
+            android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Habitat" android:id="@+id/transectDetailSetHabitatButton"
+                android:layout_below="@+id/transectDetailAddFindingButton" android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
             android:onClick="setHabitat"
-            android:layout_alignRight="@+id/addFindingButton"
-            android:layout_alignEnd="@+id/addFindingButton" />
-        <Button style="?android:attr/buttonStyleSmall" android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="set Weather" android:id="@+id/weatherButton"
-                android:layout_alignBottom="@+id/habitatButton" android:layout_toRightOf="@+id/habitatButton"
+            android:layout_alignRight="@+id/transectDetailAddFindingButton"
+            android:layout_alignEnd="@+id/transectDetailAddFindingButton"
+            style="?android:attr/buttonStyleSmall" />
+        <Button
+            android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="Weather" android:id="@+id/transectDetailSetWeatherButton"
+                android:layout_alignBottom="@+id/transectDetailSetHabitatButton" android:layout_toRightOf="@+id/transectDetailSetHabitatButton"
             android:onClick="setWeather"
-            android:layout_alignRight="@+id/listFindingsButton"
-            android:layout_alignEnd="@+id/listFindingsButton" />
+            android:layout_alignRight="@+id/transectDetailViewFindingsButton"
+            android:layout_alignEnd="@+id/transectDetailViewFindingsButton"
+            style="?android:attr/buttonStyleSmall" />
 
         <Button
-            style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Save"
-            android:id="@+id/button2"
-            android:layout_above="@+id/addFindingButton"
+            android:id="@+id/transectDetailSaveButton"
+            android:layout_above="@+id/transectDetailAddFindingButton"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:onClick="saveTransect" />
+            android:onClick="saveTransect"
+            android:layout_below="@+id/endLocationLabel"
+            style="?android:attr/buttonStyleSmall" />
     </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

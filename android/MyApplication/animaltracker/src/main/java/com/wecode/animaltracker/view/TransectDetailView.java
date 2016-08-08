@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.text.InputType;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +34,14 @@ public class TransectDetailView {
 
     private Activity parentActivity;
 
+    private Button endTransectButton;
+    private Button startTransectButton;
+    private Button transectDetailAddFindingButton;
+    private Button transectDetailSetHabitatButton;
+    private Button transectDetailSetWeatherButton;
+    private Button transectDetailViewFindingsButton;
+    private Button transectDetailSaveButton;
+
     public TransectDetailView(Activity context, Transect transect) {
         this.parentActivity = context;
         id = (TextView) context.findViewById(R.id.transectIdValue);
@@ -45,6 +55,13 @@ public class TransectDetailView {
         if (transect != null) {
             bind(transect);
         }
+        endTransectButton = (Button) context.findViewById(R.id.endTransectButton);
+        startTransectButton = (Button) context.findViewById(R.id.startTransectButton);
+        transectDetailAddFindingButton = (Button) context.findViewById(R.id.transectDetailAddFindingButton);
+        transectDetailSetHabitatButton = (Button) context.findViewById(R.id.transectDetailSetHabitatButton);
+        transectDetailSetWeatherButton = (Button) context.findViewById(R.id.transectDetailSetWeatherButton);
+        transectDetailViewFindingsButton = (Button) context.findViewById(R.id.transectDetailViewFindingsButton);
+        transectDetailSaveButton = (Button) context.findViewById(R.id.transectDetailSaveButton);
     }
 
     public void bind(Transect transect) {
@@ -80,7 +97,7 @@ public class TransectDetailView {
         weatherId = transect.getWatherId();
     }
 
-    public void disableAllForView() {
+    public void initGuiForView() {
          id.setInputType(InputType.TYPE_NULL);
          column.setInputType(InputType.TYPE_NULL);
          startDateTime.setInputType(InputType.TYPE_NULL);
@@ -88,13 +105,30 @@ public class TransectDetailView {
          startLocation.setInputType(InputType.TYPE_NULL);
          endLocation.setInputType(InputType.TYPE_NULL);
          routeName.setInputType(InputType.TYPE_NULL);
+
+        enableAllButtons(true);
     }
 
-    public void disableAllForEdit() {
+    public void initGuiForEdit() {
+        enableAllButtons(true);
         id.setInputType(InputType.TYPE_NULL);
-        startLocation.setInputType(InputType.TYPE_NULL);
-        endLocation.setInputType(InputType.TYPE_NULL);
     }
+
+    public void initGuiForNew() {
+        enableAllButtons(false);
+        transectDetailSaveButton.setEnabled(true);
+    }
+
+    private void enableAllButtons(boolean enable) {
+        endTransectButton.setEnabled(enable);
+        startTransectButton.setEnabled(enable);
+        transectDetailAddFindingButton.setEnabled(enable);
+        transectDetailSetHabitatButton.setEnabled(enable);
+        transectDetailSetWeatherButton.setEnabled(enable);
+        transectDetailViewFindingsButton.setEnabled(enable);
+        transectDetailSaveButton.setEnabled(enable);
+    }
+
 
     public Transect toTransect() {
 
@@ -231,4 +265,5 @@ public class TransectDetailView {
         }
         return true;
     }
+
 }

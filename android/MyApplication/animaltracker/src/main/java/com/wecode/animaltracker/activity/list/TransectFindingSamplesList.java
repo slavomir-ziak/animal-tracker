@@ -27,10 +27,10 @@ public class TransectFindingSamplesList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transect_finding_sample_list);
 
-        Long transectDetailId = getIntent().getLongExtra("transectDetailId", 0);
-        Assert.isTrue("transectDetailId missing ", transectDetailId > 0);
+        Long transectFindingId = getIntent().getLongExtra("transectFindingId", 0);
+        Assert.isTrue("transectFindingId missing ", transectFindingId > 0);
 
-        List<Sample> samples = sampleDataService.findByTransectFindingId(transectDetailId);
+        List<Sample> samples = sampleDataService.findByTransectFindingId(transectFindingId);
 
         ListView listView = (ListView) findViewById(R.id.transectFindingDetailSamplesListView);
 

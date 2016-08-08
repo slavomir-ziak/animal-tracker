@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.orm.SugarRecord;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.util.Action;
@@ -59,30 +58,30 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         extractParams(intent);
 
-        Transect transect = null;
-        if (id != null) {
-            transect = transectDataService.find(id);
-        }
-
-        initGui(action, transect);
+        initGui();
 
         initLocationManager();
 
     }
 
-    private void initGui(Action action, Transect transect) {
+    private void initGui() {
+
+        Transect transect = null;
+        if (id != null) {
+            transect = transectDataService.find(id);
+        }
 
         transectDetailView = new TransectDetailView(this, transect);
 
         switch (action){
             case EDIT:
-                transectDetailView.disableAllForEdit();
+                transectDetailView.initGuiForEdit();
                 break;
             case VIEW:
-                transectDetailView.disableAllForView();
+                transectDetailView.initGuiForView();
                 break;
             case NEW:
-                //transectDetailView.getId().setText(transectDataService.getNextId().toString());
+                transectDetailView.initGuiForNew();
                 break;
         }
 
@@ -112,7 +111,6 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         saveTransect();
 
-        action = Action.EDIT;
     }
 
     public void endTransect(View view) {
@@ -133,8 +131,16 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     public void setWeather(View view) {
         Intent intent = new Intent(this, WeatherDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(action.toString());
-        intent.putExtra("id", transectDetailView.getWeatherId());
+        intent.setAction(Action.NEW.toString());
+
+        Long weatherId = transectDetailView.getWeatherId();
+        if (weatherId != null) {
+            intent.setAction(action.toString()); // edit or view
+            intent.putExtra("id", weatherId);
+        } else {
+            intent.setAction(Action.NEW.toString());
+        }
+
         intent.putExtra("transectId", transectDetailView.getIdValue());
         startActivityForResult(intent, SET_WEATHER_REQUEST);
     }
@@ -142,8 +148,15 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     public void setHabitat(View view) {
         Intent intent = new Intent(this, HabitatDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(action.toString());
-        intent.putExtra("id", transectDetailView.getHabitatId());
+
+        Long habitatId = transectDetailView.getHabitatId();
+        if (habitatId != null) {
+            intent.setAction(action.toString()); // edit or view
+            intent.putExtra("id", habitatId);
+        } else {
+            intent.setAction(Action.NEW.toString());
+        }
+
         intent.putExtra("transectId", transectDetailView.getIdValue());
         startActivityForResult(intent, SET_HABITAT_REQUEST);
     }
@@ -151,7 +164,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     public void addFinding(View view) {
         Intent intent = new Intent(this, TransectFindingDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(action.toString());
+        intent.setAction(Action.NEW.toString());
         intent.putExtra("transectId", transectDetailView.getIdValue());
         startActivityForResult(intent, ADD_FINDING_REQUEST);
     }
@@ -211,8 +224,12 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         if (transectDetailView.isValid()) {
             Transect transect = transectDataService.save(transectDetailView.toTransect());
             transectDetailView.setIdValue(transect.getId());
+            this.id = transect.getId();
             Toast.makeText(this, "Transect saved.", Toast.LENGTH_SHORT).show();
         }
+
+        action = Action.EDIT;
+        transectDetailView.initGuiForEdit();
     }
 
     public void saveTransect(View view) {

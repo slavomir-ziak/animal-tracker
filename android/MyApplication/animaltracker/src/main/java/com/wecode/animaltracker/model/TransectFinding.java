@@ -171,4 +171,26 @@ public class TransectFinding extends Persistable {
         return habitatId;
     }
 
+    @Override
+    public String toString() {
+        return "TransectFinding{" +
+                "transectId=" + transectId +
+                ", type='" + type + '\'' +
+                ", species='" + species + '\'' +
+                ", confidence='" + confidence + '\'' +
+                ", count=" + count +
+                ", locationLatitude=" + locationLatitude +
+                ", locationLongitude=" + locationLongitude +
+                ", beforeAfterRecentSnow='" + beforeAfterRecentSnow + '\'' +
+                ", fecesState='" + fecesState + '\'' +
+                ", fecesPrey='" + fecesPrey + '\'' +
+                ", footprintsFrontBack='" + footprintsFrontBack + '\'' +
+                ", footprintsDirection='" + footprintsDirection + '\'' +
+                ", footprintsLength=" + footprintsLength +
+                ", footprintsWidht=" + footprintsWidht +
+                ", footprintsAge=" + footprintsAge +
+                ", footprintsStride=" + footprintsStride +
+                ", habitatId=" + habitatId +
+                '}';
+    }
 }

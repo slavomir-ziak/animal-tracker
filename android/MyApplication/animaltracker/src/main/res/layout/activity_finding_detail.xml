@@ -20,7 +20,8 @@
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                         xmlns:tools="http://schemas.android.com/tools"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:focusableInTouchMode="true">
+                        android:layout_height="match_parent" android:focusableInTouchMode="true"
+            android:longClickable="false">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -37,8 +38,8 @@
                     android:id="@+id/findingTypeValue" android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/findingTypeLabel"
                     android:layout_alignBottom="@+id/findingTypeLabel" android:spinnerMode="dialog"
-                    android:layout_toStartOf="@+id/findingHabitatButton" android:gravity="bottom"
-                    android:layout_toLeftOf="@+id/findingHabitatButton" />
+                    android:layout_toStartOf="@+id/transectFindingHabitatButton" android:gravity="bottom"
+                    android:layout_toLeftOf="@+id/transectFindingHabitatButton" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:textAppearance="?android:attr/textAppearanceMedium" android:text="Species"
                       android:id="@+id/findingSpeciesLabel"
@@ -51,25 +52,34 @@
                      android:spinnerMode="dialog" android:layout_alignTop="@+id/findingSpeciesLabel"
                      android:layout_toRightOf="@+id/findingSpeciesLabel"
                      android:layout_alignBottom="@+id/findingSpeciesLabel"
-                     android:layout_toLeftOf="@+id/findingHabitatButton"
-                     android:layout_toStartOf="@+id/findingHabitatButton" android:gravity="bottom"/>
+                     android:layout_toLeftOf="@+id/transectFindingHabitatButton"
+                     android:layout_toStartOf="@+id/transectFindingHabitatButton" android:gravity="bottom"/>
             <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Habitat"
-                    android:id="@+id/findingHabitatButton" android:layout_alignParentTop="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" android:onClick="setHabitat"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="add photo"
-                    android:id="@+id/findingTakePhotoButton"
-                    android:layout_below="@+id/findingSamplesButton" android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" android:layout_toRightOf="@+id/findingLocationValue"
-                    android:layout_toEndOf="@+id/findingLocationValue" android:onClick="addPhoto"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="samples"
-                    android:id="@+id/findingSamplesButton"
-                    android:layout_alignTop="@+id/findingSpeciesValue" android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                android:onClick="showSamples" />
+                    android:id="@+id/transectFindingHabitatButton" android:layout_alignParentTop="true"
+                android:onClick="setHabitat"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                style="?android:attr/buttonStyleSmall" />
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Add photo"
+                    android:id="@+id/transectFindingAddPhotoButton"
+                    android:layout_below="@+id/transectFindingListSamplesButton"
+                android:layout_toRightOf="@+id/findingLocationValue"
+                android:onClick="addPhoto"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Samples"
+                    android:id="@+id/transectFindingListSamplesButton"
+                    android:layout_alignTop="@+id/findingSpeciesValue"
+                android:onClick="showSamples"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_alignLeft="@+id/transectFindingHabitatButton"
+                android:layout_alignStart="@+id/transectFindingHabitatButton" />
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:textAppearance="?android:attr/textAppearanceMedium" android:text="Confidence"
                       android:id="@+id/findingConfidenceLabel"
@@ -80,8 +90,8 @@
                      android:id="@+id/findingConfidenceValue" android:spinnerMode="dialog"
                      android:layout_toRightOf="@+id/findingConfidenceLabel"
                      android:layout_alignBottom="@+id/findingConfidenceLabel"
-                     android:layout_toLeftOf="@+id/findingTakePhotoButton"
-                     android:layout_toStartOf="@+id/findingTakePhotoButton"
+                     android:layout_toLeftOf="@+id/transectFindingAddPhotoButton"
+                     android:layout_toStartOf="@+id/transectFindingAddPhotoButton"
                      android:layout_alignTop="@+id/findingConfidenceLabel" android:gravity="top|bottom"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                       android:textAppearance="?android:attr/textAppearanceMedium" android:text="Count"
@@ -127,11 +137,14 @@
                       android:minWidth="50dp"
                       android:layout_below="@+id/findingRecentSnow" android:layout_alignLeft="@+id/findingLocationValue"
                       android:layout_alignStart="@+id/findingLocationValue" android:inputType="number"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="photos"
-                    android:id="@+id/button7"
-                    android:layout_below="@+id/findingTakePhotoButton"
+            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Photos"
+                    android:id="@+id/transectFindingListPhotosButton"
+                    android:layout_below="@+id/transectFindingAddPhotoButton"
                     android:layout_toRightOf="@+id/findingConfidenceValue"
-                    android:layout_toEndOf="@+id/findingConfidenceValue" android:onClick="showPhotos"/>
+                android:onClick="showPhotos"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <!-- this RelativeLayout really must stay here -->
             <RelativeLayout
@@ -153,12 +166,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add sample"
-                android:id="@+id/addNewSampleButton"
-                android:layout_below="@+id/button7"
-                android:layout_alignLeft="@+id/button7"
-                android:layout_alignStart="@+id/button7"
-                android:onClick="addSample" />
+                android:id="@+id/transectFindingAddSampleButton"
+                android:layout_below="@+id/transectFindingListPhotosButton"
+                android:layout_alignLeft="@+id/transectFindingListPhotosButton"
+                android:layout_alignStart="@+id/transectFindingListPhotosButton"
+                android:onClick="addSample"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:id="@+id/transectFindingSaveButton"
+                android:layout_below="@+id/findingCountValue"
+                android:layout_alignLeft="@+id/transectFindingAddSampleButton"
+                android:layout_alignStart="@+id/transectFindingAddSampleButton"
+                android:onClick="saveTransectFinding"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
     </ScrollView>
+
 </RelativeLayout>

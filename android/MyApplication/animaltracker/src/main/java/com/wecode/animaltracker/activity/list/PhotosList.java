@@ -2,6 +2,7 @@ package com.wecode.animaltracker.activity.list;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,10 +29,14 @@ public class PhotosList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_tiles);
 
-        Long transectDetailId = getIntent().getLongExtra("transectDetailId", 0);
-        Assert.isTrue("transectDetailId missing ", transectDetailId > 0);
+        Long transectFindingId = getIntent().getLongExtra("transectFindingId", 0);
+        Assert.isTrue("transectFindingId missing ", transectFindingId > 0);
 
-        List<Photo> photos = photosDataService.getPhotosForTransect(transectDetailId);
+        List<Photo> photos = photosDataService.findByTransectFindingId(transectFindingId);
+
+        for (int i = 0; i < photos.size(); i++) {
+            Log.i("photo["+i+"]: ", photos.get(i).toString());
+        }
 
         GridView gridView = (GridView) findViewById(R.id.activity_photo_tiles_gridview);
         Assert.assertNotNull("gridView missing ", gridView);

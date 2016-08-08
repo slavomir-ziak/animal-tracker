@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.orm.SugarRecord;
 import com.wecode.animaltracker.model.Persistable;
+import com.wecode.animaltracker.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,6 +31,7 @@ public abstract class AbstractDataService<T extends Persistable> {
     }
 
     public T find(Long id) {
+        Assert.assertNotNull("id cannot be null", id);
         return SugarRecord.findById(persistentClass, id);
     }
 

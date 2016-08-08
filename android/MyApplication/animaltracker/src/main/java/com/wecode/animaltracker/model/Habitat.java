@@ -57,7 +57,6 @@ public class Habitat extends Persistable {
     @Override
     public String toString() {
         return "Habitat{" +
-                "id='" + getId() + '\'' +
                 "type='" + type + '\'' +
                 ", track='" + track + '\'' +
                 ", forestAge='" + forestAge + '\'' +

@@ -71,16 +71,6 @@ public class Transect extends Persistable {
         this.routeName = routeName;
     }
 
-    @Override
-    public String toString() {
-        return "Transect{" +
-                "column=" + column+
-                ", startDateTime=" + startDateTime +
-                ", endDateTime=" + endDateTime +
-                ", routeName='" + routeName + '\'' +
-                '}';
-    }
-
     public void setHabitatId(Long habitatId) {
         this.habitatId = habitatId;
     }
@@ -135,5 +125,21 @@ public class Transect extends Persistable {
 
     public Double getEndLatitude() {
         return endLatitude;
+    }
+
+    @Override
+    public String toString() {
+        return "Transect{" +
+                "habitatId=" + habitatId +
+                ", column=" + column +
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                ", routeName='" + routeName + '\'' +
+                ", weatherId=" + weatherId +
+                ", startLongitude=" + startLongitude +
+                ", startLatitude=" + startLatitude +
+                ", endLongitude=" + endLongitude +
+                ", endLatitude=" + endLatitude +
+                '}';
     }
 }

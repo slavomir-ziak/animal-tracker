@@ -24,7 +24,7 @@ public class PhotosDataService extends AbstractDataService<Photo> {
         return INSTANCE;
     }
 
-    public List<Photo> getPhotosForTransect(Long transectId) {
-        return Photo.findWithQuery(Photo.class, "transect_finding_id = ?", transectId.toString());
+    public List<Photo> findByTransectFindingId(Long transectId) {
+        return Photo.find(Photo.class, "transect_finding_id = ?", transectId.toString());
     }
 }

@@ -2,19 +2,16 @@ package com.wecode.animaltracker.view;
 
 import android.location.Location;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
-import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.TransectFinding;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by sziak on 10-Apr-16.
@@ -22,42 +19,44 @@ import java.util.List;
 public class TransectFindingDetailView {
 
     private Long id;
-
     private Long habitatId;
-    private Long transectId;
 
+    private Long transectId;
     private Spinner type;
+
     private Spinner species;
     private Spinner confidence;
     private TextView count;
     private TextView location;
     private Spinner beforeAfterRecentSnow;
-
     private Spinner fecesState;
-    private TextView fecesPrey;
 
+    private TextView fecesPrey;
     private Spinner footprintsFrontBack;
+
     private Spinner footprintsDirection;
     private TextView footprintsLength;
     private TextView footprintsWidht;
     private TextView footprintsAge;
     private TextView footprintsStride;
-    
     private TransectFinding transectFinding;
 
-    public Long getId() {
-        return id;
-    }
+    private final Button transectFindingHabitatButton;
+    private final Button transectFindingSamplesButton;
+    private final Button transectFindingAddPhotoButton;
+    private final Button transectFindingListPhotosButton;
+    private final Button transectFindingAddSampleButton;
+    private final Button transectFindingSaveButton;
 
     public TransectFindingDetailView(TransectFindingDetailActivity context, TransectFinding transectFinding) {
-        this(context);
+        this(context, transectFinding.getId());
         this.transectFinding = transectFinding;
 
         Assert.assertNotNull("transectFinding cannot be null!", transectFinding);
         bind(transectFinding);
     }
 
-    public TransectFindingDetailView(TransectFindingDetailActivity context) {
+    public TransectFindingDetailView(TransectFindingDetailActivity context, Long transectId) {
 
         SpinnersHelper.setSpinnerData(context, R.id.findingTypeValue, R.array.findingTypes);
         SpinnersHelper.setSpinnerData(context, R.id.findingSpeciesValue, R.array.findingSpeciesTypes);
@@ -70,6 +69,17 @@ public class TransectFindingDetailView {
         count = (TextView) context.findViewById(R.id.findingCountValue);
         location = (TextView) context.findViewById(R.id.findingLocationValue);
         beforeAfterRecentSnow = (Spinner) context.findViewById(R.id.findingBeforeAfterRecentSnowValue);
+
+        this.transectId = transectId;
+
+        transectFindingHabitatButton = (Button) context.findViewById(R.id.transectFindingHabitatButton);
+        transectFindingSamplesButton = (Button) context.findViewById(R.id.transectFindingListSamplesButton);
+        transectFindingAddPhotoButton = (Button) context.findViewById(R.id.transectFindingAddPhotoButton);
+        transectFindingListPhotosButton = (Button) context.findViewById(R.id.transectFindingListPhotosButton);
+        transectFindingAddSampleButton = (Button) context.findViewById(R.id.transectFindingAddSampleButton);
+        transectFindingSaveButton = (Button) context.findViewById(R.id.transectFindingSaveButton);
+
+
 
     }
 
@@ -167,6 +177,15 @@ public class TransectFindingDetailView {
         return transectFinding;
     }
 
+    public void enableAllButtons(boolean enable) {
+        transectFindingHabitatButton.setEnabled(enable);
+        transectFindingSamplesButton.setEnabled(enable);
+        transectFindingAddPhotoButton.setEnabled(enable);
+        transectFindingListPhotosButton.setEnabled(enable);
+        transectFindingAddSampleButton.setEnabled(enable);
+        transectFindingSaveButton.setEnabled(enable);
+    }
+
     public Long getHabitatId() {
         return habitatId;
     }
@@ -185,5 +204,22 @@ public class TransectFindingDetailView {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void initGuiForEdit() {
+        enableAllButtons(true);
+    }
+
+    public void initGuiForView() {
+        enableAllButtons(false);
+    }
+
+    public void initGuiForNew() {
+        enableAllButtons(false);
+        transectFindingSaveButton.setEnabled(true);
     }
 }

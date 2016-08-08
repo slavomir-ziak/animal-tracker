@@ -19,7 +19,7 @@ public class CommonDetailActivity extends android.support.v7.app.AppCompatActivi
         action = Action.fromString(intent.getAction());
         id = (Long) intent.getExtras().get("id");
 
-        if (action == Action.VIEW) {
+        if (action != Action.NEW ) {
             Assert.assertNotNull("id musi byt zadane", id);
         }
 
