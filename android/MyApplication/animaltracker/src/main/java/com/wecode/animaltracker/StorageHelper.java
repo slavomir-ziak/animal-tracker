@@ -30,7 +30,7 @@ public class StorageHelper {
 
         if (!xmlDataFile.mkdirs()) {
             Toast.makeText(context, "could not create " + xmlDataFile, Toast.LENGTH_LONG).show();
-            Log.d(MainActivity.LOG_TAG, "could not create " + xmlDataFile);
+            Log.d(Globals.APP_NAME, "could not create " + xmlDataFile);
             //throw new RuntimeException("could not create " + xmlDataFile);
         }*/
     }
@@ -60,7 +60,7 @@ public class StorageHelper {
             if (!mExternalStorageWriteable) {
 
                 Toast.makeText(context, "!mExternalStorageWriteable", Toast.LENGTH_LONG).show();
-                Log.d(MainActivity.LOG_TAG, "!mExternalStorageWriteable");
+                Log.d(Globals.APP_NAME, "!mExternalStorageWriteable");
 
                 return ;
             }
@@ -69,7 +69,7 @@ public class StorageHelper {
             File animalTrackerdir = new File (sdCard, "AnimalTracker");
             if (!animalTrackerdir.mkdirs()) {
                 Toast.makeText(context, "could not create " + animalTrackerdir, Toast.LENGTH_LONG).show();
-                Log.d(MainActivity.LOG_TAG, "could not create " + animalTrackerdir);
+                Log.d(Globals.APP_NAME, "could not create " + animalTrackerdir);
                 //throw new RuntimeException("could not create " + xmlDataFile);
             }
 
@@ -104,11 +104,11 @@ public class StorageHelper {
                 fos.close();
             }
 
-            Log.d(MainActivity.LOG_TAG, "Saved to " +context.getFilesDir());
+            Log.d(Globals.APP_NAME, "Saved to " +context.getFilesDir());
             Toast.makeText(context, "Successfully added animal track.", Toast.LENGTH_LONG).show();
 
         } catch (IOException e) {
-            Log.e(MainActivity.LOG_TAG, "IOException while saving " + xmlDataFile, e);
+            Log.e(Globals.APP_NAME, "IOException while saving " + xmlDataFile, e);
         } finally {
             try {
                 if (fos != null) {

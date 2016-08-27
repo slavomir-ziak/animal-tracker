@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.*;
 import android.widget.ImageView;
+
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.adapter.NavigationDrawerAdapter;
 import com.wecode.animaltracker.model.view.NavDrawerItem;
@@ -22,8 +24,6 @@ import java.util.Random;
 
 
 public class FragmentDrawer extends Fragment {
-
-    private static String TAG = FragmentDrawer.class.getSimpleName();
 
     private RecyclerView recyclerView;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -125,7 +125,7 @@ public class FragmentDrawer extends Fragment {
 
                     long setImage = System.currentTimeMillis() - start;
 
-                    Log.i(TAG, "fieldAccess: " + fieldAccess + ", " + setImage);
+                    Log.i(Globals.APP_NAME, "fieldAccess: " + fieldAccess + ", " + setImage);
 
                 } catch (Exception e) {
                     e.printStackTrace();

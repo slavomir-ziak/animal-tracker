@@ -35,7 +35,7 @@ public class PhotosList extends AppCompatActivity {
         List<Photo> photos = photosDataService.findByTransectFindingId(transectFindingId);
 
         for (int i = 0; i < photos.size(); i++) {
-            Log.i("photo["+i+"]: ", photos.get(i).toString());
+            Log.i(Globals.APP_NAME, "photo["+i+"]: " + photos.get(i).toString());
         }
 
         GridView gridView = (GridView) findViewById(R.id.activity_photo_tiles_gridview);

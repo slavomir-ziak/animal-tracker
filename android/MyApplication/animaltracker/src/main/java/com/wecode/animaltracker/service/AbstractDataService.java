@@ -3,6 +3,7 @@ package com.wecode.animaltracker.service;
 import android.util.Log;
 
 import com.orm.SugarRecord;
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.util.Assert;
 
@@ -24,7 +25,7 @@ public abstract class AbstractDataService<T extends Persistable> {
     }
 
     public T save(T t) {
-        Log.i(getClass().getSimpleName(), "Saving " + t);
+        Log.i(Globals.APP_NAME, "Saving " + t);
         long id = t.save();
         t.setId(id);
         return t;

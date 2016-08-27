@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.model.Photo;
 
 import java.io.File;
@@ -54,7 +56,7 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         File file = new File(photoDirectory, photos.get(position).getFileName());
-        Log.i("ImageAdapter file: ", file.getAbsolutePath());
+        Log.i(Globals.APP_NAME, "ImageAdapter file: " + file.getAbsolutePath());
         imageView.setImageURI(Uri.fromFile(file));
         return imageView;
     }
