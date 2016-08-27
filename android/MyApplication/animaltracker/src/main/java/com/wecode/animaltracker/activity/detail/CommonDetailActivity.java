@@ -1,6 +1,8 @@
 package com.wecode.animaltracker.activity.detail;
 
 import android.content.Intent;
+
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.util.Assert;
@@ -9,6 +11,8 @@ import com.wecode.animaltracker.util.Assert;
  * Created by sziak on 11/2/2015.
  */
 public class CommonDetailActivity extends android.support.v7.app.AppCompatActivity {
+
+    public static String TAG = Globals.APP_NAME;
 
     protected Action action;
     protected Class parentActivityClass;

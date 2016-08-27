@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.activity.detail;
 
+import android.Manifest;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -20,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.wecode.animaltracker.*;
-import com.wecode.animaltracker.activity.MainActivity;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
@@ -33,6 +34,8 @@ import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.util.Assert;
+import com.wecode.animaltracker.util.LocationUtil;
+import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
 
 import java.io.File;
@@ -43,6 +46,9 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     private static final int SET_HABITAT_REQUEST = 0;
     private static final int ADD_SAMPLE_REQUEST = 1;
     private static final int ADD_PHOTO_REQUEST = 2;
+
+    private static final int ADD_PHOTO_PERMISSION_REQUEST = 3;
+    private static final int ACCESS_FINE_LOCATION_REQUEST = 4;
 
     private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
 
@@ -71,7 +77,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        initLocationManager();
+        LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
 
         extractParams(getIntent());
 
@@ -229,14 +235,44 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     public void addPhoto(View view) {
 
+        if (!Permissions.grantedOrRequestPermissions(this, ADD_PHOTO_PERMISSION_REQUEST,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA)) {
+            return;
+        }
+
         outputPhotoFile = new File(Globals.getPhotosStorageDir(), "T" + transectId + "F" + id + "-photo-" + UUID.randomUUID() + ".jpg");
 
-        Log.d(MainActivity.LOG_TAG, "Picture will be saved:" + outputPhotoFile);
+        Log.d(Globals.APP_NAME, "Picture will be saved:" + outputPhotoFile);
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputPhotoFile));
+
         startActivityForResult(cameraIntent, ADD_PHOTO_REQUEST);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == ADD_PHOTO_PERMISSION_REQUEST) {
+            if (Permissions.grantResults(grantResults)) {
+                addPhoto(null);
+            }
+        }
+
+        if (requestCode == ACCESS_FINE_LOCATION_REQUEST) {
+            if (Permissions.grantResults(grantResults)) {
+                Log.i(Globals.APP_NAME, "ACCESS_FINE_LOCATION granted");
+                LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
+            } else {
+                Log.w(Globals.APP_NAME, "ACCESS_FINE_LOCATION NOT granted");
+            }
+        }
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -264,7 +300,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 break;
 
             case ADD_PHOTO_REQUEST:
-                Log.d(MainActivity.LOG_TAG, "Pic saved, intent: " + data);
+                Log.d(Globals.APP_NAME, "Pic saved, intent: " + data);
                 Photo photo = new Photo(transectFindingView.getId(), outputPhotoFile.getName());
                 photosDataService.save(photo);
 
@@ -272,7 +308,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
             case ADD_SAMPLE_REQUEST:
                 String sampleNumber = data.getExtras().getString("sampleNumber");
-                Log.d(MainActivity.LOG_TAG, "sampleNumber: " + sampleNumber);
+                Log.d(Globals.APP_NAME, "sampleNumber: " + sampleNumber);
                 sampleDataService.save(new Sample(null, sampleNumber, transectFindingView.getId()));
                 break;
 

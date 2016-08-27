@@ -1,15 +1,18 @@
 package com.wecode.animaltracker.activity.detail;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.*;
+import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.util.Action;
@@ -17,7 +20,7 @@ import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
-import com.wecode.animaltracker.util.Assert;
+import com.wecode.animaltracker.util.*;
 import com.wecode.animaltracker.view.TransectDetailView;
 
 import java.text.DateFormat;
@@ -25,9 +28,14 @@ import java.util.Date;
 
 public class TransectDetailActivity extends CommonDetailActivity implements LocationListener {
 
+
     private static final int SET_HABITAT_REQUEST = 0;
     private static final int SET_WEATHER_REQUEST = 1;
     private static final int ADD_FINDING_REQUEST = 2;
+
+    private static final int ACCESS_FINE_LOCATION_REQUEST = 3;
+
+    private static String TAG = TransectDetailActivity.class.getSimpleName();
 
     private static TransectDataService transectDataService = TransectDataService.getInstance();
 
@@ -60,7 +68,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         initGui();
 
-        initLocationManager();
+        LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
 
     }
 
@@ -73,7 +81,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         transectDetailView = new TransectDetailView(this, transect);
 
-        switch (action){
+        switch (action) {
             case EDIT:
                 transectDetailView.initGuiForEdit();
                 break;
@@ -87,14 +95,18 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     }
 
-    private void initLocationManager() {
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        LocationProvider gps = locationManager.getProvider("gps");
-        if (gps != null) {
-            locationManager.requestLocationUpdates("gps", 60000, 10, this);
-        }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+        if (requestCode == ACCESS_FINE_LOCATION_REQUEST) {
+            if (grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                Log.i(Globals.APP_NAME, "ACCESS_FINE_LOCATION granted");
+                LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
+            } else {
+                Log.w(Globals.APP_NAME, "ACCESS_FINE_LOCATION NOT granted");
+            }
+        }
     }
 
     public void startTransect(View view) {
@@ -226,6 +238,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
             transectDetailView.setIdValue(transect.getId());
             this.id = transect.getId();
             Toast.makeText(this, "Transect saved.", Toast.LENGTH_SHORT).show();
+        } else {
+            return;
         }
 
         action = Action.EDIT;
