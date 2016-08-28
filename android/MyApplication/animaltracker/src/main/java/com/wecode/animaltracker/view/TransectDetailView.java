@@ -10,8 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.util.LocationUtil;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -77,7 +77,7 @@ public class TransectDetailView {
 
         if (transect.getStartLongitude() != null) {
             startLocation.setText(
-                    LocationFormatter.formatLocation(transect.getStartLongitude(), transect.getStartLatitude())
+                    LocationUtil.formatLocation(transect.getStartLongitude(), transect.getStartLatitude())
             );
         }
 
@@ -89,7 +89,7 @@ public class TransectDetailView {
 
         if (transect.getEndLongitude() != null) {
             endLocation.setText(
-                    LocationFormatter.formatLocation(transect.getEndLongitude(), transect.getEndLatitude())
+                    LocationUtil.formatLocation(transect.getEndLongitude(), transect.getEndLatitude())
             );
         }
 

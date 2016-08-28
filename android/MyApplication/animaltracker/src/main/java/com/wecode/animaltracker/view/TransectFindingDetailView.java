@@ -7,11 +7,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
-import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.TransectFinding;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
+import com.wecode.animaltracker.util.LocationUtil;
 
 /**
  * Created by sziak on 10-Apr-16.
@@ -125,7 +125,7 @@ public class TransectFindingDetailView {
         count.setText(transectFinding.getCount() == null ? "" : transectFinding.getCount().toString());
 
         if (transectFinding.hasLocation()) {
-            location.setText(LocationFormatter.formatLocation(transectFinding.getLocationLongitude(), transectFinding.getLocationLatitude()));
+            location.setText(LocationUtil.formatLocation(transectFinding.getLocationLongitude(), transectFinding.getLocationLatitude()));
         }
 
         SpinnersHelper.setSelected(beforeAfterRecentSnow, transectFinding.getBeforeAfterRecentSnow());
@@ -136,7 +136,7 @@ public class TransectFindingDetailView {
     }
 
     public void setLocation(Location location) {
-        this.location.setText(LocationFormatter.formatLocation(location));
+        this.location.setText(LocationUtil.formatLocation(location));
     }
 
     public TransectFinding toTransectFinding() {

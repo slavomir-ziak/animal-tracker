@@ -3,10 +3,13 @@ package com.wecode.animaltracker.util;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.widget.Toast;
+
+import java.math.BigDecimal;
 
 /**
  * Created by SZIAK on 8/28/2016.
@@ -35,5 +38,18 @@ public class LocationUtil {
 
     }
 
+    public static String formatLocation(Location location) {
+        return formatLocation(location.getLatitude(), location.getLongitude());
+    }
 
+    public static String formatLocation(Double locationLatitude, Double locationLongitude) {
+
+        BigDecimal startLocationLatitude = new BigDecimal(locationLatitude);
+        startLocationLatitude = startLocationLatitude.setScale(6, BigDecimal.ROUND_DOWN);
+
+        BigDecimal startLocationLongitude = new BigDecimal(locationLongitude);
+        startLocationLongitude = startLocationLongitude.setScale(6, BigDecimal.ROUND_DOWN);
+
+        return String.format("%s, %s", startLocationLatitude, startLocationLongitude);
+    }
 }

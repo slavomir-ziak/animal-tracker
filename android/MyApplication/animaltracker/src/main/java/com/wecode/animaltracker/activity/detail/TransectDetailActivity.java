@@ -17,7 +17,6 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.activity.util.LocationFormatter;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.*;
@@ -114,7 +113,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         if (currentLocation == null) {
             Toast.makeText(this, "Location not acquired. ", Toast.LENGTH_SHORT).show();
         } else {
-            transectDetailView.getStartLocation().setText(LocationFormatter.formatLocation(currentLocation));
+            transectDetailView.getStartLocation().setText(LocationUtil.formatLocation(currentLocation));
         }
 
         // TODO refactor this as part of TransectDetailView object
@@ -130,7 +129,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         if (currentLocation == null) {
             Toast.makeText(this, "Location not acquired.", Toast.LENGTH_SHORT).show();
         } else {
-            transectDetailView.getEndLocation().setText(LocationFormatter.formatLocation(currentLocation));
+            transectDetailView.getEndLocation().setText(LocationUtil.formatLocation(currentLocation));
         }
 
         String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
