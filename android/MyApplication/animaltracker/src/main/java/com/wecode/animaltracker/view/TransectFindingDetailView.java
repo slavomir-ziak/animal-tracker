@@ -148,8 +148,9 @@ public class TransectFindingDetailView {
         transectFinding.setCount(ConverterUtil.toInteger(count.getText().toString()));
 
         if (location.getText().toString().length() > 0) {
-            transectFinding.setLocationLongitude(Double.parseDouble(this.location.getText().toString().split(",")[0]));
-            transectFinding.setLocationLatitude(Double.parseDouble(this.location.getText().toString().split(",")[1]));
+            double[] parsed = LocationUtil.parseLocation(location.getText().toString());
+            transectFinding.setLocationLatitude(parsed[0]);
+            transectFinding.setLocationLongitude(parsed[1]);
         }
 
         transectFinding.setBeforeAfterRecentSnow((String) beforeAfterRecentSnow.getSelectedItem());

@@ -113,6 +113,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         if (currentLocation == null) {
             Toast.makeText(this, "Location not acquired. ", Toast.LENGTH_SHORT).show();
         } else {
+            Log.i(Globals.APP_NAME, "Location: " + currentLocation.getLatitude() + ", " + currentLocation.getLongitude());
             transectDetailView.getStartLocation().setText(LocationUtil.formatLocation(currentLocation));
         }
 

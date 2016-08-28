@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -89,7 +90,7 @@ public class TransectDetailView {
 
         if (transect.getEndLongitude() != null) {
             endLocation.setText(
-                    LocationUtil.formatLocation(transect.getEndLongitude(), transect.getEndLatitude())
+                    LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude())
             );
         }
 
@@ -146,14 +147,15 @@ public class TransectDetailView {
             );
 
             if (this.startLocation.getText().length() > 0) {
-                transect.setStartLongitude(getLongitude(this.startLocation.getText().toString()));
-                transect.setStartLatitude(getLatitude(this.startLocation.getText().toString()));
-
+                double[] location = LocationUtil.parseLocation(this.startLocation.getText().toString());
+                transect.setStartLatitude(location[0]);
+                transect.setStartLongitude(location[1]);
             }
 
             if (endLocation.getText().length() != 0) {
-                transect.setEndLongitude(getLongitude(this.endLocation.getText().toString()));
-                transect.setEndLatitude(getLatitude(this.endLocation.getText().toString()));
+                double[] location = LocationUtil.parseLocation(this.endLocation.getText().toString());
+                transect.setEndLatitude(location[0]);
+                transect.setEndLongitude(location[1]);
             }
 
             if (endDateTime.getText().length() != 0) {
