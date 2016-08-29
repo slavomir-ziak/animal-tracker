@@ -2,23 +2,37 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity">
+
+    <item android:id="@+id/action_save"
+        android:title="@string/action_save"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="ifRoom" />
+
       <item android:id="@+id/transect_finding_action_habitat"
             android:title="@string/action_habitat"
             android:orderInCategory="100"
             app:showAsAction="never"/>
 
-      <item android:id="@+id/transect_finding_action_samples"
-            android:title="@string/transect_finding_action_sampes"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
+    <item android:id="@+id/transect_finding_action_photos"
+        android:title="@string/transect_finding_action_photos"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
 
-      <item android:id="@+id/transect_finding_action_add_photo"
-            android:title="@string/transect_finding_action_add_photo"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
+    <item android:id="@+id/transect_finding_action_add_photo"
+        android:title="@string/transect_finding_action_add_photo"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
 
-      <item android:id="@+id/transect_finding_action_photos"
-            android:title="@string/transect_finding_action_photos"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
+    <item android:id="@+id/transect_finding_action_samples"
+        android:title="@string/transect_finding_action_sampes"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/transect_finding_action_add_sample"
+        android:title="@string/transect_finding_action_add_sample"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
+
 </menu>

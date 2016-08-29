@@ -9,9 +9,11 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.model.Habitat;
+import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.view.HabitatDetailView;
 
 public class HabitatDetailActivity extends CommonDetailActivity {
+
 
     private HabitatDetailView habitatDetailView;
 

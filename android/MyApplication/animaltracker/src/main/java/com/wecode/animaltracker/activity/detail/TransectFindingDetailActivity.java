@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.wecode.animaltracker.*;
@@ -49,6 +50,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     private static final int ADD_PHOTO_PERMISSION_REQUEST = 3;
     private static final int ACCESS_FINE_LOCATION_REQUEST = 4;
+
+    private static final int EDIT_LOCATION_REQUEST = 5;
 
     private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
 
@@ -179,7 +182,28 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.transect_finding_action_add_photo) {
+            addPhoto(null);
+            return true;
+        }
+        if (id == R.id.transect_finding_action_photos) {
+            showPhotos(null);
+            return true;
+        }
+        if (id == R.id.transect_finding_action_add_sample) {
+            addSample(null);
+            return true;
+        }
+        if (id == R.id.transect_finding_action_samples) {
+            showSamples(null);
+            return true;
+        }
+        if (id == R.id.transect_finding_action_habitat) {
+            setHabitat(null);
+            return true;
+        }
+        if (id == R.id.action_save) {
+            saveTransectFinding();
             return true;
         }
 
@@ -312,6 +336,10 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 sampleDataService.save(new Sample(null, sampleNumber, transectFindingView.getId()));
                 break;
 
+            case EDIT_LOCATION_REQUEST:
+                String location = data.getExtras().getString("location");
+                transectFindingView.getLocation().setText(location);
+                break;
         }
 
         saveTransectFinding();
@@ -322,11 +350,9 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         transectFindingView.setId(transectFinding.getId());
         transectFindingView.initGuiForEdit();
         this.id = transectFinding.getId();
+        Toast.makeText(TransectFindingDetailActivity.this, "Finding saved.", Toast.LENGTH_SHORT).show();
     }
 
-    public void saveTransectFinding(View view) {
-        saveTransectFinding();
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -335,8 +361,9 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     @Override
     public void onLocationChanged(Location location) {
-        //this.currentLocation = location;
-        transectFindingView.setLocation(location);
+        if (transectFindingView.getTransectFinding() == null || !transectFindingView.getTransectFinding().hasLocation()) {
+            transectFindingView.setLocation(location);
+        }
     }
 
     @Override
@@ -373,5 +400,38 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
             default:
                 return "UNKNOWN";
         }
+    }
+
+    public void editLocation(View view) {
+        Intent intent = new Intent(this, EditLocationActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.NEW.toString());
+        intent.putExtra("location", transectFindingView.getLocation().getText().toString());
+        startActivityForResult(intent, EDIT_LOCATION_REQUEST);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem transect_finding_action_add_sample = menu.findItem(R.id.transect_finding_action_add_sample);
+        MenuItem transect_finding_action_add_photo = menu.findItem(R.id.transect_finding_action_add_photo);
+        MenuItem transect_finding_action_habitat = menu.findItem(R.id.transect_finding_action_habitat);
+        MenuItem transect_finding_action_samples = menu.findItem(R.id.transect_finding_action_samples);
+        MenuItem transect_finding_action_photos = menu.findItem(R.id.transect_finding_action_photos);
+
+        if (transectFindingView.getId() == null) {
+            transect_finding_action_add_sample.setEnabled(false);
+            transect_finding_action_add_photo.setEnabled(false);
+            transect_finding_action_habitat.setEnabled(false);
+            transect_finding_action_samples.setEnabled(false);
+            transect_finding_action_photos.setEnabled(false);
+        } else {
+            transect_finding_action_add_sample.setEnabled(true);
+            transect_finding_action_add_photo.setEnabled(true);
+            transect_finding_action_habitat.setEnabled(true);
+            transect_finding_action_samples.setEnabled(true);
+            transect_finding_action_photos.setEnabled(true);
+        }
+        return true;
     }
 }

@@ -98,7 +98,8 @@
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity android:name=".activity.TransectFindingAddSampleActivity" />
-        <activity android:name=".activity.detail.EditLocationActivity"></activity>
+        <activity android:name=".activity.detail.EditLocationActivity"/>
+
     </application>
 
 </manifest>

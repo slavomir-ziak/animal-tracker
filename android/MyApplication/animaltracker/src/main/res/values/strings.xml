@@ -138,5 +138,7 @@
     <string name="transect_finding_action_photos">Photos</string>
     <string name="samples">Samples</string>
     <string name="action_save">Save</string>
+    <string name="transect_finding_action_add_sample">Add sample</string>
+    <string name="action_location_acquire">LOcation</string>
 
 </resources>

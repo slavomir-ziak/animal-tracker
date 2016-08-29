@@ -2,10 +2,11 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity">
+                tools:context="com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity2">
     <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
+
     <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -17,176 +18,200 @@
             android:fillViewport="false" android:layout_below="@+id/toolbar" android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:focusableInTouchMode="true"
-            android:longClickable="false">
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Type"
-                    android:id="@+id/findingTypeLabel" android:layout_alignParentTop="true"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:id="@+id/outerLinearLayout"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Type"
+                        android:id="@+id/findingTypeLabel"
+                        android:layout_gravity="center_vertical" />
+
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/findingTypeValue"
+                        android:gravity="left|center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:spinnerMode="dialog" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignTop="@+id/scrollView"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" android:layout_toLeftOf="@+id/findingConfidenceValue"
-                    android:layout_toStartOf="@+id/findingConfidenceValue"/>
-            <Spinner
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/findingTypeValue" android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/findingTypeLabel"
-                    android:layout_alignBottom="@+id/findingTypeLabel" android:spinnerMode="dialog"
-                    android:layout_toStartOf="@+id/transectFindingHabitatButton" android:gravity="bottom"
-                    android:layout_toLeftOf="@+id/transectFindingHabitatButton" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Species"
-                      android:id="@+id/findingSpeciesLabel"
-                      android:layout_below="@+id/findingTypeLabel" android:layout_alignParentLeft="true"
-                      android:layout_alignParentStart="true" android:layout_marginTop="24dp"
-                      android:layout_alignRight="@+id/findingConfidenceLabel"
-                      android:layout_alignEnd="@+id/findingConfidenceLabel"/>
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:id="@+id/findingSpeciesValue"
-                     android:spinnerMode="dialog" android:layout_alignTop="@+id/findingSpeciesLabel"
-                     android:layout_toRightOf="@+id/findingSpeciesLabel"
-                     android:layout_alignBottom="@+id/findingSpeciesLabel"
-                     android:layout_toLeftOf="@+id/transectFindingHabitatButton"
-                     android:layout_toStartOf="@+id/transectFindingHabitatButton" android:gravity="bottom"/>
-            <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Habitat"
-                    android:id="@+id/transectFindingHabitatButton" android:layout_alignParentTop="true"
-                android:onClick="setHabitat"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                style="?android:attr/buttonStyleSmall" />
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Add photo"
-                    android:id="@+id/transectFindingAddPhotoButton"
-                    android:layout_below="@+id/transectFindingListSamplesButton"
-                android:layout_toRightOf="@+id/findingLocationValue"
-                android:onClick="addPhoto"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Samples"
-                    android:id="@+id/transectFindingListSamplesButton"
-                    android:layout_alignTop="@+id/findingSpeciesValue"
-                android:onClick="showSamples"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_alignLeft="@+id/transectFindingHabitatButton"
-                android:layout_alignStart="@+id/transectFindingHabitatButton" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Confidence"
-                      android:id="@+id/findingConfidenceLabel"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentStart="true" android:layout_below="@+id/findingSpeciesLabel"
-                      android:layout_marginTop="24dp"/>
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:id="@+id/findingConfidenceValue" android:spinnerMode="dialog"
-                     android:layout_toRightOf="@+id/findingConfidenceLabel"
-                     android:layout_alignBottom="@+id/findingConfidenceLabel"
-                     android:layout_toLeftOf="@+id/transectFindingAddPhotoButton"
-                     android:layout_toStartOf="@+id/transectFindingAddPhotoButton"
-                     android:layout_alignTop="@+id/findingConfidenceLabel" android:gravity="top|bottom"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Count"
-                      android:id="@+id/findingCountLabel"
-                      android:layout_below="@+id/findingBeforeAfterRecentSnowValue"
-                      android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
-                      android:layout_marginTop="24dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="Location"
-                      android:id="@+id/findingLocationLabel"
-                      android:layout_alignParentStart="true" android:layout_below="@+id/findingConfidenceValue"
-                      android:layout_alignParentLeft="true" android:layout_alignRight="@+id/findingConfidenceLabel"
-                      android:layout_alignEnd="@+id/findingConfidenceLabel" android:layout_marginTop="24dp"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceSmall" android:id="@+id/findingLocationValue"
-                      android:textAlignment="center"
-                      android:layout_toRightOf="@+id/findingLocationLabel"
-                      android:layout_below="@+id/findingConfidenceLabel"
-                      android:layout_above="@+id/findingBeforeAfterRecentSnowValue"
-                      android:layout_alignRight="@+id/findingSpeciesValue"
-                      android:layout_alignEnd="@+id/findingSpeciesValue"
-                      android:paddingLeft="10dp" android:gravity="bottom"/>
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:id="@+id/findingBeforeAfterRecentSnowValue"
-                     android:spinnerMode="dialog"
-                     android:minWidth="200dp"
-                     android:layout_below="@+id/findingLocationLabel" android:layout_alignParentLeft="true"
-                     android:layout_alignParentStart="true"
-                     android:layout_alignBottom="@+id/findingRecentSnow"
-                     android:gravity="bottom" android:layout_marginTop="24dp"
-                     android:layout_toLeftOf="@+id/findingCountValue"
-                     android:layout_toStartOf="@+id/findingCountValue"/>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:textAppearance="?android:attr/textAppearanceMedium" android:text="recent snow"
-                      android:id="@+id/findingRecentSnow"
-                      android:paddingTop="24dp"
-                      android:layout_below="@+id/findingLocationLabel"
-                      android:layout_toRightOf="@+id/findingBeforeAfterRecentSnowValue"
-                      android:layout_toEndOf="@+id/findingBeforeAfterRecentSnowValue"/>
-            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/findingCountValue"
-                      android:minWidth="50dp"
-                      android:layout_below="@+id/findingRecentSnow" android:layout_alignLeft="@+id/findingLocationValue"
-                      android:layout_alignStart="@+id/findingLocationValue" android:inputType="number"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Photos"
-                    android:id="@+id/transectFindingListPhotosButton"
-                    android:layout_below="@+id/transectFindingAddPhotoButton"
-                    android:layout_toRightOf="@+id/findingConfidenceValue"
-                android:onClick="showPhotos"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                    android:layout_alignParentStart="true">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Species"
+                        android:id="@+id/findingSpeciesLabel"
+                        android:layout_gravity="center_vertical" />
+
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/findingSpeciesValue"
+                        android:gravity="left|center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:spinnerMode="dialog" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignTop="@+id/scrollView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" >
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Confidence"
+                        android:id="@+id/findingConfidenceLabel"
+                        android:layout_gravity="center_vertical" />
+
+                    <Spinner
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/findingConfidenceValue"
+                        android:gravity="left|center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:spinnerMode="dialog" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_alignTop="@+id/scrollView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:weightSum="1">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="110dp"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Location"
+                            android:id="@+id/findingLocationLabel"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="5dp" />
+
+                        <Button
+                            style="?android:attr/buttonStyleSmall"
+                            android:layout_width="27dp"
+                            android:layout_height="27dp"
+                            android:id="@+id/findingEditLocationButton"
+                            android:background="@drawable/ic_edit"
+                            android:layout_gravity="center_vertical|right"
+                            android:onClick="editLocation" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/findingLocationValue"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="5dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Count"
+                        android:id="@+id/findingCountLabel"
+                        android:layout_gravity="center_vertical" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        android:id="@+id/findingCountValue"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center_vertical">
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_vertical">
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Before first snow"
+                            android:id="@+id/findingBeforeRecentSnow"
+                            android:checked="false" />
+
+                        <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="After first snow"
+                            android:id="@+id/findingAfterRecentSnow"
+                            android:checked="false" />
+                    </RadioGroup>
+                </LinearLayout>
+            </LinearLayout>
 
             <!-- this RelativeLayout really must stay here -->
             <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:layout_below="@+id/findingCountValue"
-                    android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
-                    android:id="@+id/footprintsAttributesContainer">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" android:layout_below="@+id/outerLinearLayout"
+                android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
+                android:id="@+id/footprintsAttributesContainer">
 
                 <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:id="@+id/specificDataContainer">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:id="@+id/specificDataContainer">
 
                 </FrameLayout>
 
             </RelativeLayout>
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add sample"
-                android:id="@+id/transectFindingAddSampleButton"
-                android:layout_below="@+id/transectFindingListPhotosButton"
-                android:layout_alignLeft="@+id/transectFindingListPhotosButton"
-                android:layout_alignStart="@+id/transectFindingListPhotosButton"
-                android:onClick="addSample"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save"
-                android:id="@+id/transectFindingSaveButton"
-                android:layout_below="@+id/findingCountValue"
-                android:layout_alignLeft="@+id/transectFindingAddSampleButton"
-                android:layout_alignStart="@+id/transectFindingAddSampleButton"
-                android:onClick="saveTransectFinding"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
         </RelativeLayout>
     </ScrollView>
-
 </RelativeLayout>

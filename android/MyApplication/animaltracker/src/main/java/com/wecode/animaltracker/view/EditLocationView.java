@@ -1,12 +1,14 @@
 package com.wecode.animaltracker.view;
 
 import android.app.Activity;
+import android.location.Location;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
+import com.wecode.animaltracker.util.LocationUtil;
 
 import java.util.Locale;
 
@@ -101,5 +103,14 @@ public class EditLocationView {
                 degreesLatitude.getText(), minutesLatitude.getText(), latitudeSeconds, directionLatitude.getSelectedItem(),
                 degreesLongitude.getText(), minutesLongitude.getText(), longitudeSeconds, directionLongitude.getSelectedItem()
                 );
+    }
+
+    public void initFromLocation(Location location) {
+        String locationFormatted = LocationUtil.formatLocation(location.getLatitude(), location.getLongitude());
+
+        String[] coordinates = locationFormatted.split(",");
+
+        init(coordinates[0].trim(), degreesLatitude, minutesLatitude, secondsLatitude, directionLatitude);
+        init(coordinates[1].trim(), degreesLongitude, minutesLongitude, secondsLongitude, directionLongitude);
     }
 }

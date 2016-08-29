@@ -2,9 +2,10 @@ package com.wecode.animaltracker.view;
 
 import android.location.Location;
 import android.view.View;
-import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
@@ -28,7 +29,6 @@ public class TransectFindingDetailView {
     private Spinner confidence;
     private TextView count;
     private TextView location;
-    private Spinner beforeAfterRecentSnow;
     private Spinner fecesState;
 
     private TextView fecesPrey;
@@ -39,7 +39,11 @@ public class TransectFindingDetailView {
     private TextView footprintsWidht;
     private TextView footprintsAge;
     private TextView footprintsStride;
-    private TransectFinding transectFinding;
+
+    private RadioButton findingBeforeRecentSnow;
+    private RadioButton findingAfterRecentSnow;
+
+    private TransectFinding transectFinding;/*
 
     private final Button transectFindingHabitatButton;
     private final Button transectFindingSamplesButton;
@@ -47,7 +51,7 @@ public class TransectFindingDetailView {
     private final Button transectFindingListPhotosButton;
     private final Button transectFindingAddSampleButton;
     private final Button transectFindingSaveButton;
-
+*/
     public TransectFindingDetailView(TransectFindingDetailActivity context, TransectFinding transectFinding) {
         this(context, transectFinding.getId());
         this.transectFinding = transectFinding;
@@ -61,25 +65,23 @@ public class TransectFindingDetailView {
         SpinnersHelper.setSpinnerData(context, R.id.findingTypeValue, R.array.findingTypes);
         SpinnersHelper.setSpinnerData(context, R.id.findingSpeciesValue, R.array.findingSpeciesTypes);
         SpinnersHelper.setSpinnerData(context, R.id.findingConfidenceValue, R.array.findingConfidenceTypes);
-        SpinnersHelper.setSpinnerData(context, R.id.findingBeforeAfterRecentSnowValue, R.array.findingBeforeAfterRecentSnowValues);
 
         type = (Spinner) context.findViewById(R.id.findingTypeValue);
         species = (Spinner) context.findViewById(R.id.findingSpeciesValue);
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
         count = (TextView) context.findViewById(R.id.findingCountValue);
         location = (TextView) context.findViewById(R.id.findingLocationValue);
-        beforeAfterRecentSnow = (Spinner) context.findViewById(R.id.findingBeforeAfterRecentSnowValue);
+        findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
+        findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
 
         this.transectId = transectId;
 
-        transectFindingHabitatButton = (Button) context.findViewById(R.id.transectFindingHabitatButton);
-        transectFindingSamplesButton = (Button) context.findViewById(R.id.transectFindingListSamplesButton);
-        transectFindingAddPhotoButton = (Button) context.findViewById(R.id.transectFindingAddPhotoButton);
-        transectFindingListPhotosButton = (Button) context.findViewById(R.id.transectFindingListPhotosButton);
-        transectFindingAddSampleButton = (Button) context.findViewById(R.id.transectFindingAddSampleButton);
-        transectFindingSaveButton = (Button) context.findViewById(R.id.transectFindingSaveButton);
-
-
+       /* transectFindingHabitatButton = (Button) toolbar.findViewById(R.id.transect_finding_action_habitat);
+        transectFindingSamplesButton = (Button) toolbar.findViewById(R.id.transect_finding_action_samples);
+        transectFindingAddPhotoButton = (Button) toolbar.findViewById(R.id.transect_finding_action_add_photo);
+        transectFindingListPhotosButton = (Button) toolbar.findViewById(R.id.transect_finding_action_photos);
+        transectFindingAddSampleButton = (Button) toolbar.findViewById(R.id.transect_finding_action_add_sample);
+        transectFindingSaveButton = (Button) toolbar.findViewById(R.id.action_save);*/
 
     }
 
@@ -124,11 +126,12 @@ public class TransectFindingDetailView {
 
         count.setText(transectFinding.getCount() == null ? "" : transectFinding.getCount().toString());
 
-        if (transectFinding.hasLocation()) {
-            location.setText(LocationUtil.formatLocation(transectFinding.getLocationLongitude(), transectFinding.getLocationLatitude()));
-        }
+        findingBeforeRecentSnow.setChecked("BEFORE".equals(transectFinding.getBeforeAfterRecentSnow()));
+        findingAfterRecentSnow.setChecked("AFTER".equals(transectFinding.getBeforeAfterRecentSnow()));
 
-        SpinnersHelper.setSelected(beforeAfterRecentSnow, transectFinding.getBeforeAfterRecentSnow());
+        if (transectFinding.hasLocation()) {
+            location.setText(LocationUtil.formatLocation(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude()));
+        }
 
         habitatId = transectFinding.getHabitatId();
         transectId = transectFinding.getTransectId();
@@ -153,7 +156,14 @@ public class TransectFindingDetailView {
             transectFinding.setLocationLongitude(parsed[1]);
         }
 
-        transectFinding.setBeforeAfterRecentSnow((String) beforeAfterRecentSnow.getSelectedItem());
+
+        if (findingBeforeRecentSnow.isChecked()) {
+            transectFinding.setBeforeAfterRecentSnow("BEFORE");
+        }
+
+        if (findingAfterRecentSnow.isChecked()) {
+            transectFinding.setBeforeAfterRecentSnow("AFTER");
+        }
 
         if (type.getSelectedItem().equals("Footprints")) {
 
@@ -179,12 +189,12 @@ public class TransectFindingDetailView {
     }
 
     public void enableAllButtons(boolean enable) {
-        transectFindingHabitatButton.setEnabled(enable);
+        /*transectFindingHabitatButton.setEnabled(enable);
         transectFindingSamplesButton.setEnabled(enable);
         transectFindingAddPhotoButton.setEnabled(enable);
         transectFindingListPhotosButton.setEnabled(enable);
         transectFindingAddSampleButton.setEnabled(enable);
-        transectFindingSaveButton.setEnabled(enable);
+        transectFindingSaveButton.setEnabled(enable);*/
     }
 
     public Long getHabitatId() {
@@ -221,6 +231,14 @@ public class TransectFindingDetailView {
 
     public void initGuiForNew() {
         enableAllButtons(false);
-        transectFindingSaveButton.setEnabled(true);
+        //transectFindingSaveButton.setEnabled(true);
+    }
+
+    public TextView getLocation() {
+        return location;
+    }
+
+    public TransectFinding getTransectFinding() {
+        return transectFinding;
     }
 }

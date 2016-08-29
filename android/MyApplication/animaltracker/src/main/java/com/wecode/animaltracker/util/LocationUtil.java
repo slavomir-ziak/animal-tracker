@@ -20,9 +20,9 @@ import java.util.Locale;
  */
 public class LocationUtil {
 
-    private static final long MIN_TIME_CHANGE = 60000;
+    private static final long MIN_TIME_CHANGE = 5000;
 
-    private static final float MIN_DISTANCE_CHANGED = 10;
+    private static final float MIN_DISTANCE_CHANGED = 1;
 
     public static void initLocationManager(Activity context, int requestCode) {
 
