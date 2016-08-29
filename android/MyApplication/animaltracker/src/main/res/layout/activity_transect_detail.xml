@@ -31,24 +31,29 @@
                 android:text="Transect number"
                 android:id="@+id/transectNumberLabel" android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" android:paddingTop="15dp"/>
+                android:layout_alignParentStart="true" android:paddingTop="20dp"/>
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:id="@+id/transectIdValue"
                 android:paddingTop="15dp"
-                android:layout_alignParentTop="true" android:layout_centerHorizontal="true"/>
+            android:layout_alignBottom="@+id/transectNumberLabel"
+            android:layout_alignLeft="@+id/transectStartDateTimeValue"
+            android:layout_alignStart="@+id/transectStartDateTimeValue"
+            android:layout_marginLeft="20dp"
+            android:foregroundGravity="left|bottom"
+            android:paddingLeft="3dp" />
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Start date and time"
                 android:id="@+id/startDateTimeLabel"
                 android:layout_below="@+id/transectColumnLabel" android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" android:paddingTop="15dp" android:singleLine="false"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:textAppearance="?android:attr/textAppearanceMedium" android:text="End date and time"
+                  android:textAppearance="?android:attr/textAppearanceSmall" android:text="End date and time"
                   android:id="@+id/endDateTimeLabel"
                   android:layout_alignParentStart="true"
                   android:layout_below="@+id/startDateTimeLabel" android:layout_alignParentLeft="true"
@@ -56,14 +61,14 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Start location"
                 android:id="@+id/startLocationLabel"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/endDateTimeLabel" android:layout_alignParentLeft="true"
                 android:paddingTop="15dp"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:textAppearance="?android:attr/textAppearanceMedium" android:text="End location"
+                  android:textAppearance="?android:attr/textAppearanceSmall" android:text="End location"
                   android:id="@+id/endLocationLabel"
                   android:layout_below="@+id/transectStartLocationValue" android:layout_alignParentLeft="true"
                   android:layout_alignParentStart="true" android:paddingTop="15dp"/>
@@ -84,14 +89,16 @@
             android:layout_toRightOf="@+id/transectDetailSaveButton"
             android:layout_toEndOf="@+id/transectDetailSaveButton"
             android:layout_below="@+id/endLocationLabel"
-            style="?android:attr/buttonStyleSmall" />
+            style="?android:attr/buttonStyleSmall"
+            android:layout_marginTop="20dp" />
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="End transect"
                 android:id="@+id/endTransectButton"
                 android:layout_toRightOf="@+id/startTransectButton"
-                android:layout_toEndOf="@+id/startTransectButton" android:onClick="endTransect"
+            android:onClick="endTransect"
                 android:layout_below="@+id/endLocationLabel"
             style="?android:attr/buttonStyleSmall"
-            android:layout_above="@+id/transectDetailViewFindingsButton" />
+            android:layout_above="@+id/transectDetailViewFindingsButton"
+            android:layout_marginTop="20dp" />
         <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:textAppearance="?android:attr/textAppearanceMedium"
                   android:id="@+id/transectColumnValue"
@@ -101,28 +108,50 @@
                   android:layout_alignLeft="@+id/transectRouteNameValue"
                   android:layout_alignStart="@+id/transectRouteNameValue" android:inputType="number"/>
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
                   android:id="@+id/transectStartDateTimeValue"
-                  android:paddingTop="15dp" android:layout_below="@+id/transectColumnValue"
-                  android:layout_alignLeft="@+id/transectColumnValue"
-                  android:layout_alignStart="@+id/transectColumnValue" android:inputType="datetime"/>
+            android:inputType="datetime"
+            android:textAlignment="gravity"
+            android:layout_alignBottom="@+id/startDateTimeLabel"
+            android:layout_alignTop="@+id/startDateTimeLabel"
+            android:gravity="left|bottom"
+            android:layout_toRightOf="@+id/startDateTimeLabel"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="20dp" />
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:textAppearance="?android:attr/textAppearanceMedium"
+                  android:textAppearance="?android:attr/textAppearanceSmall"
                   android:id="@+id/transectEndDateTimeValue"
-                  android:layout_below="@+id/transectStartDateTimeValue" android:layout_alignLeft="@+id/transectStartDateTimeValue"
-                  android:layout_alignStart="@+id/transectStartDateTimeValue" android:paddingTop="15dp"
-                  android:layout_alignBottom="@+id/endDateTimeLabel" android:inputType="datetime"/>
+            android:layout_alignBottom="@+id/endDateTimeLabel" android:inputType="datetime"
+            android:textAlignment="gravity"
+            android:layout_alignTop="@+id/endDateTimeLabel"
+            android:layout_alignRight="@+id/transectStartDateTimeValue"
+            android:layout_alignEnd="@+id/transectStartDateTimeValue"
+            android:gravity="left|bottom"
+            android:layout_toEndOf="@+id/startDateTimeLabel"
+            android:layout_alignLeft="@+id/transectStartDateTimeValue"
+            android:layout_alignStart="@+id/transectStartDateTimeValue" />
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:textAppearance="?android:attr/textAppearanceSmall"
                   android:id="@+id/transectStartLocationValue"
-                  android:layout_below="@+id/transectEndDateTimeValue" android:layout_alignLeft="@+id/transectEndDateTimeValue"
-                  android:layout_alignStart="@+id/transectEndDateTimeValue" android:paddingTop="15dp"/>
+                  android:layout_below="@+id/transectEndDateTimeValue"
+            android:paddingTop="15dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/transectNumberLabel"
+            android:layout_alignLeft="@+id/transectEndDateTimeValue"
+            android:layout_alignStart="@+id/transectEndDateTimeValue" />
         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                   android:textAppearance="?android:attr/textAppearanceSmall"
                   android:id="@+id/transectEndLocationValue"
-                  android:layout_alignTop="@+id/endLocationLabel" android:layout_alignLeft="@+id/transectStartLocationValue"
-                  android:layout_alignStart="@+id/transectStartLocationValue" android:paddingTop="15dp"
-                  android:layout_alignBottom="@+id/endLocationLabel"/>
+                  android:layout_alignTop="@+id/endLocationLabel"
+            android:paddingTop="15dp"
+                  android:layout_alignBottom="@+id/endLocationLabel"
+            android:layout_alignRight="@+id/transectStartLocationValue"
+            android:layout_alignEnd="@+id/transectStartLocationValue"
+            android:layout_toEndOf="@+id/transectDetailAddFindingButton"
+            android:layout_alignLeft="@+id/transectStartLocationValue"
+            android:layout_alignStart="@+id/transectStartLocationValue" />
         <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,7 +169,8 @@
             android:onClick="addFinding"
             android:layout_alignRight="@+id/transectColumnLabel"
             android:layout_alignEnd="@+id/transectColumnLabel"
-            style="?android:attr/buttonStyleSmall" />
+            style="?android:attr/buttonStyleSmall"
+            android:layout_marginTop="20dp" />
         <Button
             android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:text="View findings" android:id="@+id/transectDetailViewFindingsButton"
@@ -148,7 +178,8 @@
             android:layout_below="@+id/startTransectButton"
             android:layout_toRightOf="@+id/transectDetailSetHabitatButton"
             android:layout_toEndOf="@+id/transectDetailSetHabitatButton"
-            style="?android:attr/buttonStyleSmall" />
+            style="?android:attr/buttonStyleSmall"
+            android:layout_marginTop="20dp" />
         <Button
             android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:text="Habitat" android:id="@+id/transectDetailSetHabitatButton"
@@ -177,7 +208,35 @@
             android:layout_alignParentStart="true"
             android:onClick="saveTransect"
             android:layout_below="@+id/endLocationLabel"
-            style="?android:attr/buttonStyleSmall" />
+            style="?android:attr/buttonStyleSmall"
+            android:layout_marginTop="20dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editStartLocation"
+            android:layout_toRightOf="@+id/startLocationLabel"
+            android:background="@drawable/ic_edit"
+            android:layout_alignBottom="@+id/startLocationLabel"
+            android:layout_alignRight="@+id/button2"
+            android:layout_alignEnd="@+id/button2"
+            android:layout_alignTop="@+id/startLocationLabel"
+            android:onClick="editStartLocation" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:background="@drawable/ic_edit"
+            android:layout_toRightOf="@+id/startLocationLabel"
+            android:layout_alignTop="@+id/endLocationLabel"
+            android:clickable="false"
+            android:layout_alignBottom="@+id/endLocationLabel"
+            android:layout_alignRight="@+id/endDateTimeLabel"
+            android:layout_alignEnd="@+id/endDateTimeLabel"
+            android:onClick="editEndLocation" />
     </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

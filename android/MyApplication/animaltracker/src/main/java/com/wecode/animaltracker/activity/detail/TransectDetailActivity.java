@@ -34,7 +34,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     private static final int ACCESS_FINE_LOCATION_REQUEST = 3;
 
-    private static String TAG = TransectDetailActivity.class.getSimpleName();
+    private static final int EDIT_START_LOCATION_REQUEST = 4;
+    private static final int EDIT_END_LOCATION_REQUEST = 5;
 
     private static TransectDataService transectDataService = TransectDataService.getInstance();
 
@@ -226,6 +227,16 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
                 transectDetailView.setWeatherId(id);
                 break;
+
+            case EDIT_START_LOCATION_REQUEST:
+                String location = data.getExtras().getString("location");
+                transectDetailView.getStartLocation().setText(location);
+                break;
+
+            case EDIT_END_LOCATION_REQUEST:
+                location = data.getExtras().getString("location");
+                transectDetailView.getEndLocation().setText(location);
+                break;
         }
 
         saveTransect();
@@ -297,6 +308,23 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         intent.putExtra("id", transect.getId());
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    public void editStartLocation(View view) {
+        Intent intent = new Intent(this, EditLocationActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.NEW.toString());
+        intent.putExtra("location", transectDetailView.getStartLocation().getText().toString());
+        startActivityForResult(intent, EDIT_START_LOCATION_REQUEST);
+    }
+
+
+    public void editEndLocation(View view) {
+        Intent intent = new Intent(this, EditLocationActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.NEW.toString());
+        intent.putExtra("location", transectDetailView.getEndLocation().getText().toString());
+        startActivityForResult(intent, EDIT_END_LOCATION_REQUEST);
     }
 
     @Override

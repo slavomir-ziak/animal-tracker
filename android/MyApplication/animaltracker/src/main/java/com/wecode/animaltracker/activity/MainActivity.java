@@ -68,8 +68,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             return;
         }
 
-        testExcel();
-
     }
 
     private void testExcel() {

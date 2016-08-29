@@ -1,16 +1,12 @@
 package com.wecode.animaltracker.view;
 
 import android.app.Activity;
-import android.content.Context;
-import android.location.Location;
 import android.text.InputType;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.util.LocationUtil;
 
@@ -78,7 +74,7 @@ public class TransectDetailView {
 
         if (transect.getStartLongitude() != null) {
             startLocation.setText(
-                    LocationUtil.formatLocation(transect.getStartLongitude(), transect.getStartLatitude())
+                    LocationUtil.formatLocation(transect.getStartLatitude(), transect.getStartLongitude())
             );
         }
 
@@ -261,11 +257,7 @@ public class TransectDetailView {
     }
 
     public boolean isValid() {
-        if (getRouteName().getText().length() == 0) {
-            Toast.makeText(parentActivity, "Enter Route name before saving.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
+        return ValidationHelper.isNotEmpty(routeName);
     }
 
 }
