@@ -72,8 +72,8 @@
     <string-array name="findingSpeciesTypes">
         <item>Wolf</item>0
         <item>Lynx</item>
-        <item>Red deer</item>
-        <item>Roe deer</item>
+        <item>Red deer (jeleň)</item>
+        <item>Roe deer (srnec)</item>
         <item>Wild boar</item>
         <item>Brown hare</item>
         <item>Red fox</item>
