@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.TransectFinding;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
@@ -21,11 +22,11 @@ public class TransectFindingDetailView {
 
     private Long id;
     private Long habitatId;
-
     private Long transectId;
-    private Spinner type;
 
-    private Spinner species;
+    private CodeListSpinnerView type;
+    private CodeListSpinnerView species;
+
     private Spinner confidence;
     private TextView count;
     private TextView location;
@@ -62,17 +63,16 @@ public class TransectFindingDetailView {
 
     public TransectFindingDetailView(TransectFindingDetailActivity context, Long transectId) {
 
-        SpinnersHelper.setSpinnerData(context, R.id.findingTypeValue, R.array.findingTypes);
-        SpinnersHelper.setSpinnerData(context, R.id.findingSpeciesValue, R.array.findingSpeciesTypes);
-        SpinnersHelper.setSpinnerData(context, R.id.findingConfidenceValue, R.array.findingConfidenceTypes);
+        type = new CodeListSpinnerView(R.id.findingTypeValue, "findingTypes", context);
+        species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context);
 
-        type = (Spinner) context.findViewById(R.id.findingTypeValue);
-        species = (Spinner) context.findViewById(R.id.findingSpeciesValue);
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
         count = (TextView) context.findViewById(R.id.findingCountValue);
         location = (TextView) context.findViewById(R.id.findingLocationValue);
         findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
         findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
+
+        SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
         this.transectId = transectId;
 
@@ -120,8 +120,8 @@ public class TransectFindingDetailView {
 
     private void bind(TransectFinding transectFinding) {
 
-        SpinnersHelper.setSelected(type, transectFinding.getType());
-        SpinnersHelper.setSelected(species, transectFinding.getSpecies());
+        type.select(transectFinding.getType());
+        species.select(transectFinding.getSpecies());
         SpinnersHelper.setSelected(confidence, transectFinding.getConfidence());
 
         count.setText(transectFinding.getCount() == null ? "" : transectFinding.getCount().toString());
@@ -145,8 +145,8 @@ public class TransectFindingDetailView {
     public TransectFinding toTransectFinding() {
         TransectFinding transectFinding = new TransectFinding();
 
-        transectFinding.setType((String) type.getSelectedItem());
-        transectFinding.setSpecies((String) species.getSelectedItem());
+        transectFinding.setType(type.getSelectedCodeListValue());
+        transectFinding.setSpecies(species.getSelectedCodeListValue());
         transectFinding.setConfidence((String) confidence.getSelectedItem());
         transectFinding.setCount(ConverterUtil.toInteger(count.getText().toString()));
 
@@ -165,7 +165,7 @@ public class TransectFindingDetailView {
             transectFinding.setBeforeAfterRecentSnow("AFTER");
         }
 
-        if (type.getSelectedItem().equals("Footprints")) {
+        if (type.getSelectedCodeListValue().equals("Footprints")) {
 
             transectFinding.setFootprintsAge(ConverterUtil.toInteger(footprintsAge.getText().toString()));
             transectFinding.setFootprintsDirection((String) footprintsDirection.getSelectedItem());
@@ -175,7 +175,7 @@ public class TransectFindingDetailView {
             transectFinding.setFootprintsStride(ConverterUtil.toInteger(footprintsStride.getText().toString()));
         }
 
-        if (type.getSelectedItem().equals("Feces")) {
+        if (type.getSelectedCodeListValue().equals("Feces")) {
             transectFinding.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));
             transectFinding.setFecesState(((String) fecesState.getSelectedItem()));
 

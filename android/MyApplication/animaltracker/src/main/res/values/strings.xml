@@ -29,56 +29,6 @@
     <string name="title_activity_habitat_detail">HabitatDetail</string>
     <string name="title_activity_finding_detail">FindingDetail</string>
 
-    <string-array name="habitatTypes">
-        <item>Forest</item>
-        <item>Track</item>
-        <item>Meadow</item>
-        <item>Field</item>
-        <item>Walley</item>
-    </string-array>
-
-    <string-array name="habitatTrackTypes">
-        <item>Asphalt road</item>
-        <item>Forest road</item>
-        <item>Tourist route</item>
-    </string-array>
-
-    <string-array name="habitatForestAgeTypes">
-        <item>Old</item>
-        <item>New</item>
-        <item>Mixed</item>
-    </string-array>
-
-    <string-array name="habitatTreeTypes">
-        <item>Leafless</item>
-        <item>Leafs</item>
-        <item>Needles</item>
-        <item>Mix</item>
-    </string-array>
-
-    <string-array name="habitatForestTypes">
-        <item>Coniferas</item>
-        <item>Pines</item>
-        <item>Oak</item>
-    </string-array>
-
-    <string-array name="findingTypes">
-        <item>Footprints</item>
-        <item>Feces</item>
-        <item>Urine</item>
-        <item>Carcass</item>
-    </string-array>
-
-    <string-array name="findingSpeciesTypes">
-        <item>Wolf</item>0
-        <item>Lynx</item>
-        <item>Red deer (jeleň)</item>
-        <item>Roe deer (srnec)</item>
-        <item>Wild boar</item>
-        <item>Brown hare</item>
-        <item>Red fox</item>
-    </string-array>
-
     <string-array name="findingConfidenceTypes">
         <item>Low</item>
         <item>Medium</item>

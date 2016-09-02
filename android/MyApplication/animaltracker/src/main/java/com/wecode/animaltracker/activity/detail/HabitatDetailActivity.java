@@ -27,12 +27,6 @@ public class HabitatDetailActivity extends CommonDetailActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SpinnersHelper.setSpinnerData(this, R.id.habitatTypeValue, R.array.habitatTypes);
-        SpinnersHelper.setSpinnerData(this, R.id.habitatTrackValue, R.array.habitatTrackTypes);
-        SpinnersHelper.setSpinnerData(this, R.id.habitatForestAgeValue, R.array.habitatForestAgeTypes);
-        SpinnersHelper.setSpinnerData(this, R.id.habitatTreeTypeValue, R.array.habitatTreeTypes);
-        SpinnersHelper.setSpinnerData(this, R.id.habitatForestTypeValue, R.array.habitatForestTypes);
-
         extractParams(getIntent());
 
         if (id != null) {

@@ -12,6 +12,8 @@ public class Globals {
 
     public static final String APP_NAME = "AnimalTracker";
 
+    public static final int SPINNER_ITEM_MIN_HEIGHT = 190;
+
     public static File getPhotosStorageDir() {
        return getStorageDir(APP_NAME);
     }

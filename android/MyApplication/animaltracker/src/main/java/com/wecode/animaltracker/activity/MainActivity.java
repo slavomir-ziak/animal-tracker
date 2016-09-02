@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
@@ -19,6 +21,8 @@ import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.list.TransectsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.model.CodeList;
+import com.wecode.animaltracker.service.CodeListService;
 import com.wecode.animaltracker.util.Permissions;
 
 import java.io.File;
@@ -64,9 +68,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
+        for (CodeList codeList : CodeListService.getInstance().list()) {
+            System.out.println(codeList);
+        }
+
         if (!Permissions.grantedOrRequestPermissions(this, 0, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
             return;
         }
+
+
 
     }
 

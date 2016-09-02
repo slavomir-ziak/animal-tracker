@@ -1,19 +1,27 @@
 package com.wecode.animaltracker.activity.util;
 
 import android.app.Activity;
+import android.os.Handler;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.wecode.animaltracker.Globals;
+import com.wecode.animaltracker.activity.adapter.CodeListEditingAdapter;
+import com.wecode.animaltracker.model.CodeList;
 
 /**
  * Created by sziak on 10/8/2015.
  */
 public class SpinnersHelper {
 
-    public static void setSpinnerData(Activity context, int spinner, int arrayResource) {
+    public static void setSpinnerData(Activity context, int spinnerViewId, String codeListName) {
 
-        Spinner spinnerView = (Spinner) context.findViewById(spinner);
-        setSpinnerData(spinnerView, arrayResource);
+        CodeListEditingAdapter codeListEditingAdapter = new CodeListEditingAdapter(context, codeListName);
 
+        Spinner spinnerView = (Spinner) context.findViewById(spinnerViewId);
+        spinnerView.setOnItemSelectedListener(codeListEditingAdapter);
+        spinnerView.setAdapter(codeListEditingAdapter);
     }
 
 
@@ -33,8 +41,30 @@ public class SpinnersHelper {
     }
 
     @SuppressWarnings("unchecked")
-    public static void setSelected(Spinner spinner, String value) {
-        if (value == null) return;
-        spinner.setSelection(((ArrayAdapter<String>) spinner.getAdapter()).getPosition(value));
+    public static void setSelected(final Spinner spinner, String value) {
+        if (value == null) {
+            Log.w(Globals.APP_NAME, spinner + " null value");
+            return;
+        }
+
+        if (spinner.getAdapter() instanceof ArrayAdapter) {
+            int position = ((ArrayAdapter<String>) spinner.getAdapter()).getPosition(value);
+            spinner.setSelection(position, true);
+        } else if (spinner.getAdapter() instanceof CodeListEditingAdapter) {
+            final int position = ((CodeListEditingAdapter) spinner.getAdapter()).getPosition(value);
+            Log.i(Globals.APP_NAME, value + " has position " + position);
+
+            spinner.post(new Runnable() {
+                public void run() {
+                    spinner.setSelection(position, true);
+                }
+            });
+
+        } else {
+            throw new RuntimeException("cannot handle " + spinner.getAdapter());
+        }
+
     }
+
+
 }

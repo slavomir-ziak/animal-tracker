@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity.util;
+package com.wecode.animaltracker.activity.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -52,8 +52,6 @@ public class TransectListViewDataAdapter extends ArrayAdapter<Transect> {
 
         TextView column = (TextView) rowView.findViewById(R.id.transectListItemColumn);
         column.setText(transect.getColumn() != null ? transect.getColumn().toString() : "");
-
-        System.out.println("rowView: " + rowView);
 
         return rowView;
     }

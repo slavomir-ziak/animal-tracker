@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity.util;
+package com.wecode.animaltracker.activity.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
