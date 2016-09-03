@@ -77,7 +77,7 @@ public class FecesFragment extends Fragment {
         Spinner findingFecesStateValue = (Spinner) inflate.findViewById(R.id.findingFecesStateValue);
         SpinnersHelper.setSpinnerData(findingFecesStateValue, R.array.findingFecesState);
 
-        transectFindingView.initFecesFragment(inflate);
+        //transectFindingView.initFecesFragment(inflate);
 
         return inflate;
     }

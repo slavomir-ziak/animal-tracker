@@ -77,10 +77,8 @@ public class FootprintsFragment extends Fragment {
         Spinner footprintsFrontBackValue = (Spinner) view.findViewById(R.id.footprintsFrontBackValue);
         SpinnersHelper.setSpinnerData(footprintsFrontBackValue, R.array.footprintsFrontBackValues);
 
-        Spinner footprintsDirectionValue = (Spinner) view.findViewById(R.id.footprintsDirectionValue);
-        SpinnersHelper.setSpinnerData(footprintsDirectionValue, R.array.generalDirection);
 
-        transectFindingView.initFootprintsFragment(view);
+        //transectFindingView.initFootprintsFragment(view);
 
         return view;
     }

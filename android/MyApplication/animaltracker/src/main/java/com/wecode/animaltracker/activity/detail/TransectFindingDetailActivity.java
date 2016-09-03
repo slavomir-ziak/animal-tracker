@@ -1,14 +1,9 @@
 package com.wecode.animaltracker.activity.detail;
 
 import android.Manifest;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,9 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.RadioButton;
-import android.widget.Spinner;
+import android.widget.ScrollView;
 import android.widget.Toast;
 import com.wecode.animaltracker.*;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
@@ -61,15 +54,13 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     private TransectFindingDetailView transectFindingView;
 
-    private FootprintsFragment footprintsFragment;
-
-    private Fragment activeFragment;
-
-    private FecesFragment fecesFragment;
-
     private Long transectId;
 
     private File outputPhotoFile;
+
+    private View findingsFecesView;
+
+    private View findingsOtherView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +85,45 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
             transectFindingView = new TransectFindingDetailView(this, transectId);
         }
 
-        initialiseFragmentLogic(transectFindingView);
+        //initialiseFragmentLogic(transectFindingView);
 
         initGui(transectFindingView);
+
+        findingsFecesView = findViewById(R.id.findingsFecesView);
+        findingsOtherView = findViewById(R.id.findingsOtherVIew);
+    }
+
+    public void toggleFecesView(View view){
+        toggleVisibility(findingsFecesView);
+        scrollToBotom();
+    }
+
+    public void toggleOtherView(View view){
+        toggleVisibility(findingsOtherView);
+        scrollToBotom();
+    }
+
+    private void scrollToBotom() {
+        final ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+
+        scrollView.postOnAnimationDelayed(new Runnable() {
+            public void run() {
+                scrollView.fullScroll(View.FOCUS_DOWN );
+            }
+        }, 300L);
+    }
+
+    private void toggleVisibility(View view) {
+        switch(view.getVisibility()) {
+            case View.VISIBLE:
+                view.setVisibility(View.GONE);
+                break;
+            case View.GONE:
+                view.setVisibility(View.VISIBLE);
+                break;
+            default:
+                view.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initGui(TransectFindingDetailView transectFindingView) {
@@ -117,54 +144,9 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     @Override
     public void onBackPressed() {
-  //      saveTransectFinding();
-
         Intent intent = new Intent();
-//        intent.putExtra("id", transectFindingView.getId());
         setResult(RESULT_CANCELED, intent);
         finish();
-    }
-
-    private void initialiseFragmentLogic(TransectFindingDetailView transectFindingView) {
-
-        fecesFragment = new FecesFragment(transectFindingView);
-        footprintsFragment = new FootprintsFragment(transectFindingView);
-
-        Spinner findingTypeValue = (Spinner) this.findViewById(R.id.findingTypeValue);
-        findingTypeValue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-
-                final FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-                if (position == 0) {
-
-                    ft.replace(R.id.specificDataContainer, footprintsFragment);
-                    activeFragment = footprintsFragment;
-
-                } else if (position == 1) {
-
-                    ft.replace(R.id.specificDataContainer, fecesFragment);
-                    activeFragment = fecesFragment;
-
-                } else {
-                    if (activeFragment != null) {
-                        ft.remove(activeFragment);
-                        activeFragment = null;
-                    }
-                }
-
-                ft.commit();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-            }
-
-        });
-
-
     }
 
     @Override
@@ -208,21 +190,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void initLocationManager() {
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        String provider = locationManager.getBestProvider(criteria, true);
-
-        if (provider != null) {
-            locationManager.requestLocationUpdates(provider, 0, 0, this);
-        }
-
     }
 
     public void setHabitat(View view) {
@@ -379,14 +346,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     @Override
     public void onProviderDisabled(String provider) {
 
-    }
-
-    public FootprintsFragment getFootprintsFragment() {
-        return footprintsFragment;
-    }
-
-    public FecesFragment getFecesFragment() {
-        return fecesFragment;
     }
 
     private String getNameForRequestCode(int requestCode) {

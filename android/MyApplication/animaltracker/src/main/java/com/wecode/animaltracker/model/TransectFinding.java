@@ -1,32 +1,35 @@
 package com.wecode.animaltracker.model;
 
-import java.util.List;
-
 /**
  * Created by sziak on 10-Apr-16.
  */
 public class TransectFinding extends Persistable {
 
     private Long transectId;
+    private Long habitatId;
 
-    private String type;
     private String species;
-    private String confidence;
-    private Integer count;
+    private Integer numberOfAnimals;
     private Double locationLatitude;
     private Double locationLongitude;
     private String beforeAfterRecentSnow;
+    private String confidence;
 
     private String fecesState;
     private String fecesPrey;
 
-    private String footprintsFrontBack;
     private String footprintsDirection;
-    private Integer footprintsLength;
-    private Integer footprintsWidht;
-    private Integer footprintsAge;
-    private Integer footprintsStride;
-    private Long habitatId;
+    private Float footprintsFrontLength;
+    private Float footprintsFrontWidht;
+    private Float footprintsBackLength;
+    private Float footprintsBackWidht;
+    private Float footprintsAge;
+    private Float footprintsStride;
+
+    private String urineLocation;
+
+    private String otherEvidence;
+    private String otherObservations;
 
     public TransectFinding() {
     }
@@ -47,14 +50,6 @@ public class TransectFinding extends Persistable {
         this.locationLongitude = locationLongitude;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getSpecies() {
         return species;
     }
@@ -71,12 +66,12 @@ public class TransectFinding extends Persistable {
         this.confidence = confidence;
     }
 
-    public Integer getCount() {
-        return count;
+    public Integer getNumberOfAnimals() {
+        return numberOfAnimals;
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
+    public void setNumberOfAnimals(Integer numberOfAnimals) {
+        this.numberOfAnimals = numberOfAnimals;
     }
 
     public String getBeforeAfterRecentSnow() {
@@ -103,14 +98,6 @@ public class TransectFinding extends Persistable {
         this.fecesPrey = fecesPrey;
     }
 
-    public String getFootprintsFrontBack() {
-        return footprintsFrontBack;
-    }
-
-    public void setFootprintsFrontBack(String footprintsFrontBack) {
-        this.footprintsFrontBack = footprintsFrontBack;
-    }
-
     public String getFootprintsDirection() {
         return footprintsDirection;
     }
@@ -119,35 +106,51 @@ public class TransectFinding extends Persistable {
         this.footprintsDirection = footprintsDirection;
     }
 
-    public Integer getFootprintsLength() {
-        return footprintsLength;
+    public Float getFootprintsFrontLength() {
+        return footprintsFrontLength;
     }
 
-    public void setFootprintsLength(Integer footprintsLength) {
-        this.footprintsLength = footprintsLength;
+    public void setFootprintsFrontLength(Float footprintsFrontLength) {
+        this.footprintsFrontLength = footprintsFrontLength;
     }
 
-    public Integer getFootprintsWidht() {
-        return footprintsWidht;
+    public Float getFootprintsFrontWidht() {
+        return footprintsFrontWidht;
     }
 
-    public void setFootprintsWidht(Integer footprintsWidht) {
-        this.footprintsWidht = footprintsWidht;
+    public void setFootprintsFrontWidht(Float footprintsFrontWidht) {
+        this.footprintsFrontWidht = footprintsFrontWidht;
     }
 
-    public Integer getFootprintsAge() {
+    public Float getFootprintsBackLength() {
+        return footprintsBackLength;
+    }
+
+    public void setFootprintsBackLength(Float footprintsBackLength) {
+        this.footprintsBackLength = footprintsBackLength;
+    }
+
+    public Float getFootprintsBackWidht() {
+        return footprintsBackWidht;
+    }
+
+    public void setFootprintsBackWidht(Float footprintsBackWidht) {
+        this.footprintsBackWidht = footprintsBackWidht;
+    }
+
+    public Float getFootprintsAge() {
         return footprintsAge;
     }
 
-    public void setFootprintsAge(Integer footprintsAge) {
+    public void setFootprintsAge(Float footprintsAge) {
         this.footprintsAge = footprintsAge;
     }
 
-    public Integer getFootprintsStride() {
+    public Float getFootprintsStride() {
         return footprintsStride;
     }
 
-    public void setFootprintsStride(Integer footprintsStride) {
+    public void setFootprintsStride(Float footprintsStride) {
         this.footprintsStride = footprintsStride;
     }
 
@@ -171,26 +174,69 @@ public class TransectFinding extends Persistable {
         return habitatId;
     }
 
+    public String getUrineLocation() {
+        return urineLocation;
+    }
+
+    public void setUrineLocation(String urineLocation) {
+        this.urineLocation = urineLocation;
+    }
+
+    public String getOtherEvidence() {
+        return otherEvidence;
+    }
+
+    public void setOtherEvidence(String otherEvidence) {
+        this.otherEvidence = otherEvidence;
+    }
+
+    public String getOtherObservations() {
+        return otherObservations;
+    }
+
+    public void setOtherObservations(String otherObservations) {
+        this.otherObservations = otherObservations;
+    }
+
     @Override
     public String toString() {
         return "TransectFinding{" +
                 "transectId=" + transectId +
-                ", type='" + type + '\'' +
+                ", habitatId=" + habitatId +
                 ", species='" + species + '\'' +
-                ", confidence='" + confidence + '\'' +
-                ", count=" + count +
+                ", numberOfAnimals=" + numberOfAnimals +
                 ", locationLatitude=" + locationLatitude +
                 ", locationLongitude=" + locationLongitude +
                 ", beforeAfterRecentSnow='" + beforeAfterRecentSnow + '\'' +
+                ", confidence='" + confidence + '\'' +
                 ", fecesState='" + fecesState + '\'' +
                 ", fecesPrey='" + fecesPrey + '\'' +
-                ", footprintsFrontBack='" + footprintsFrontBack + '\'' +
                 ", footprintsDirection='" + footprintsDirection + '\'' +
-                ", footprintsLength=" + footprintsLength +
-                ", footprintsWidht=" + footprintsWidht +
+                ", footprintsFrontLength=" + footprintsFrontLength +
+                ", footprintsFrontWidht=" + footprintsFrontWidht +
+                ", footprintsBackLength=" + footprintsBackLength +
+                ", footprintsBackWidht=" + footprintsBackWidht +
                 ", footprintsAge=" + footprintsAge +
                 ", footprintsStride=" + footprintsStride +
-                ", habitatId=" + habitatId +
+                ", urineLocation='" + urineLocation + '\'' +
+                ", otherEvidence='" + otherEvidence + '\'' +
+                ", otherObservations='" + otherObservations + '\'' +
                 '}';
+    }
+
+    public String getFootprintsFrontLengthValue() {
+        return getFootprintsFrontLength() == null ? "" : getFootprintsFrontLength().toString();
+    }
+
+    public String getFootprintsFrontWidthValue() {
+        return getFootprintsFrontWidht() == null ? "" : getFootprintsFrontWidht().toString();
+    }
+
+    public String getFootprintsBackLengthValue() {
+        return getFootprintsBackLength() == null ? "" : getFootprintsBackLength().toString();
+    }
+
+    public String getFootprintsBackWidthValue() {
+        return getFootprintsBackWidht() == null ? "" : getFootprintsBackWidht().toString();
     }
 }

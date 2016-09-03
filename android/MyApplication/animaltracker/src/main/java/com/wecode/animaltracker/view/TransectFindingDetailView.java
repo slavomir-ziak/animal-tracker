@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.view;
 
+import android.app.Activity;
 import android.location.Location;
 import android.view.View;
 import android.widget.RadioButton;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
-import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.TransectFinding;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
@@ -24,27 +24,32 @@ public class TransectFindingDetailView {
     private Long habitatId;
     private Long transectId;
 
-    private CodeListSpinnerView type;
     private CodeListSpinnerView species;
 
     private Spinner confidence;
-    private TextView count;
+    private TextView numberOfAnimals;
     private TextView location;
-    private Spinner fecesState;
 
+    private Spinner fecesState;
     private TextView fecesPrey;
-    private Spinner footprintsFrontBack;
 
     private Spinner footprintsDirection;
-    private TextView footprintsLength;
-    private TextView footprintsWidht;
+
+    private TextView footprintsBackLength;
+    private TextView footprintsBackWidht;
+    private TextView footprintsFrontLength;
+    private TextView footprintsFrontWidht;
+
     private TextView footprintsAge;
     private TextView footprintsStride;
 
     private RadioButton findingBeforeRecentSnow;
     private RadioButton findingAfterRecentSnow;
 
-    private TransectFinding transectFinding;/*
+    private TransectFinding transectFinding;
+
+
+    /*
 
     private final Button transectFindingHabitatButton;
     private final Button transectFindingSamplesButton;
@@ -53,7 +58,7 @@ public class TransectFindingDetailView {
     private final Button transectFindingAddSampleButton;
     private final Button transectFindingSaveButton;
 */
-    public TransectFindingDetailView(TransectFindingDetailActivity context, TransectFinding transectFinding) {
+    public TransectFindingDetailView(Activity context, TransectFinding transectFinding) {
         this(context, transectFinding.getId());
         this.transectFinding = transectFinding;
 
@@ -61,18 +66,34 @@ public class TransectFindingDetailView {
         bind(transectFinding);
     }
 
-    public TransectFindingDetailView(TransectFindingDetailActivity context, Long transectId) {
+    public TransectFindingDetailView(Activity context, Long transectId) {
 
-        type = new CodeListSpinnerView(R.id.findingTypeValue, "findingTypes", context);
         species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context);
 
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
-        count = (TextView) context.findViewById(R.id.findingCountValue);
+        numberOfAnimals = (TextView) context.findViewById(R.id.findingCountValue);
         location = (TextView) context.findViewById(R.id.findingLocationValue);
         findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
         findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
 
+        footprintsDirection = (Spinner) context.findViewById(R.id.footprintsDirectionValue);
+        footprintsFrontLength = (TextView) context.findViewById(R.id.footprintsLengthValue);
+        footprintsFrontWidht = (TextView) context.findViewById(R.id.footprintsWidthValue);
+        footprintsBackLength = (TextView) context.findViewById(R.id.footprintsLengthValue);
+        footprintsBackWidht = (TextView) context.findViewById(R.id.footprintsWidthValue);
+        footprintsAge = (TextView) context.findViewById(R.id.footprintsAgeValue);
+        footprintsStride = (TextView) context.findViewById(R.id.footprintsStrideValue);
+
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
+
+        Spinner footprintsDirectionValue = (Spinner) context.findViewById(R.id.footprintsDirectionValue);
+        SpinnersHelper.setSpinnerData(footprintsDirectionValue, R.array.generalDirection);
+
+        fecesState = (Spinner) context.findViewById(R.id.findingFecesStateValue);
+        fecesPrey = (TextView) context.findViewById(R.id.findingFecesPreyValue);
+
+
+        SpinnersHelper.setSpinnerData(fecesState, R.array.findingFecesState);
 
         this.transectId = transectId;
 
@@ -85,46 +106,12 @@ public class TransectFindingDetailView {
 
     }
 
-    public void initFootprintsFragment(View context) {
-        footprintsFrontBack = (Spinner) context.findViewById(R.id.footprintsFrontBackValue);
-        footprintsDirection = (Spinner) context.findViewById(R.id.footprintsDirectionValue);
-        footprintsLength = (TextView) context.findViewById(R.id.footprintsLengthValue);
-        footprintsWidht = (TextView) context.findViewById(R.id.footprintsWidthValue);
-        footprintsAge = (TextView) context.findViewById(R.id.footprintsAgeValue);
-        footprintsStride = (TextView) context.findViewById(R.id.footprintsStrideValue);
-
-        if (transectFinding == null) {
-            return;
-        }
-
-        SpinnersHelper.setSelected(footprintsDirection, transectFinding.getFootprintsDirection());
-        SpinnersHelper.setSelected(footprintsFrontBack, transectFinding.getFootprintsFrontBack());
-
-        footprintsLength.setText(transectFinding.getFootprintsLength() == null ? "" : transectFinding.getFootprintsWidht().toString());
-        footprintsWidht.setText(transectFinding.getFootprintsWidht() == null ? "" : transectFinding.getFootprintsWidht().toString());
-        footprintsAge.setText(transectFinding.getFootprintsAge() == null ? "" : transectFinding.getFootprintsAge().toString());
-        footprintsStride.setText(transectFinding.getFootprintsStride() == null ? "" : transectFinding.getFootprintsStride().toString());
-    }
-
-    public void initFecesFragment(View context) {
-        fecesState = (Spinner) context.findViewById(R.id.findingFecesStateValue);
-        fecesPrey = (TextView) context.findViewById(R.id.findingFecesPreyValue);
-
-        if (transectFinding == null) {
-            return;
-        }
-
-        SpinnersHelper.setSelected(fecesState, transectFinding.getFecesState());
-        fecesPrey.setText(transectFinding.getFecesPrey() == null ? "" : transectFinding.getFecesPrey());
-    }
-
     private void bind(TransectFinding transectFinding) {
 
-        type.select(transectFinding.getType());
         species.select(transectFinding.getSpecies());
         SpinnersHelper.setSelected(confidence, transectFinding.getConfidence());
 
-        count.setText(transectFinding.getCount() == null ? "" : transectFinding.getCount().toString());
+        numberOfAnimals.setText(transectFinding.getNumberOfAnimals() == null ? "" : transectFinding.getNumberOfAnimals().toString());
 
         findingBeforeRecentSnow.setChecked("BEFORE".equals(transectFinding.getBeforeAfterRecentSnow()));
         findingAfterRecentSnow.setChecked("AFTER".equals(transectFinding.getBeforeAfterRecentSnow()));
@@ -132,6 +119,18 @@ public class TransectFindingDetailView {
         if (transectFinding.hasLocation()) {
             location.setText(LocationUtil.formatLocation(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude()));
         }
+
+        SpinnersHelper.setSelected(footprintsDirection, transectFinding.getFootprintsDirection());
+
+        footprintsFrontLength.setText(transectFinding.getFootprintsFrontLengthValue());
+        footprintsFrontWidht.setText(transectFinding.getFootprintsFrontWidthValue());
+        footprintsBackLength.setText(transectFinding.getFootprintsBackLengthValue());
+        footprintsBackWidht.setText(transectFinding.getFootprintsBackWidthValue());
+        footprintsAge.setText(transectFinding.getFootprintsAge() == null ? "" : transectFinding.getFootprintsAge().toString());
+        footprintsStride.setText(transectFinding.getFootprintsStride() == null ? "" : transectFinding.getFootprintsStride().toString());
+
+        SpinnersHelper.setSelected(fecesState, transectFinding.getFecesState());
+        fecesPrey.setText(transectFinding.getFecesPrey() == null ? "" : transectFinding.getFecesPrey());
 
         habitatId = transectFinding.getHabitatId();
         transectId = transectFinding.getTransectId();
@@ -145,10 +144,9 @@ public class TransectFindingDetailView {
     public TransectFinding toTransectFinding() {
         TransectFinding transectFinding = new TransectFinding();
 
-        transectFinding.setType(type.getSelectedCodeListValue());
         transectFinding.setSpecies(species.getSelectedCodeListValue());
         transectFinding.setConfidence((String) confidence.getSelectedItem());
-        transectFinding.setCount(ConverterUtil.toInteger(count.getText().toString()));
+        transectFinding.setNumberOfAnimals(ConverterUtil.toInteger(numberOfAnimals.getText().toString()));
 
         if (location.getText().toString().length() > 0) {
             double[] parsed = LocationUtil.parseLocation(location.getText().toString());
@@ -165,21 +163,18 @@ public class TransectFindingDetailView {
             transectFinding.setBeforeAfterRecentSnow("AFTER");
         }
 
-        if (type.getSelectedCodeListValue().equals("Footprints")) {
+        transectFinding.setFootprintsAge(ConverterUtil.toFloat(footprintsAge.getText().toString()));
+        transectFinding.setFootprintsDirection((String) footprintsDirection.getSelectedItem());
 
-            transectFinding.setFootprintsAge(ConverterUtil.toInteger(footprintsAge.getText().toString()));
-            transectFinding.setFootprintsDirection((String) footprintsDirection.getSelectedItem());
-            transectFinding.setFootprintsFrontBack((String) footprintsFrontBack.getSelectedItem());
-            transectFinding.setFootprintsLength(ConverterUtil.toInteger(footprintsLength.getText().toString()));
-            transectFinding.setFootprintsWidht(ConverterUtil.toInteger(footprintsWidht.getText().toString()));
-            transectFinding.setFootprintsStride(ConverterUtil.toInteger(footprintsStride.getText().toString()));
-        }
+        transectFinding.setFootprintsFrontLength(ConverterUtil.toFloat(footprintsFrontLength.getText().toString()));
+        transectFinding.setFootprintsFrontWidht(ConverterUtil.toFloat(footprintsFrontWidht.getText().toString()));
+        transectFinding.setFootprintsBackLength(ConverterUtil.toFloat(footprintsBackLength.getText().toString()));
+        transectFinding.setFootprintsBackWidht(ConverterUtil.toFloat(footprintsBackWidht.getText().toString()));
 
-        if (type.getSelectedCodeListValue().equals("Feces")) {
-            transectFinding.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));
-            transectFinding.setFecesState(((String) fecesState.getSelectedItem()));
+        transectFinding.setFootprintsStride(ConverterUtil.toFloat(footprintsStride.getText().toString()));
 
-        }
+        transectFinding.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));
+        transectFinding.setFecesState(((String) fecesState.getSelectedItem()));
 
         transectFinding.setHabitatId(habitatId);
         transectFinding.setTransectId(transectId);

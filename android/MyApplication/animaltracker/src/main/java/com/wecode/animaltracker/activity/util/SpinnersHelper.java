@@ -1,14 +1,12 @@
 package com.wecode.animaltracker.activity.util;
 
 import android.app.Activity;
-import android.os.Handler;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.wecode.animaltracker.Globals;
-import com.wecode.animaltracker.activity.adapter.CodeListEditingAdapter;
-import com.wecode.animaltracker.model.CodeList;
+import com.wecode.animaltracker.adapter.CodeListEditingAdapter;
 
 /**
  * Created by sziak on 10/8/2015.
@@ -43,7 +41,6 @@ public class SpinnersHelper {
     @SuppressWarnings("unchecked")
     public static void setSelected(final Spinner spinner, String value) {
         if (value == null) {
-            Log.w(Globals.APP_NAME, spinner + " null value");
             return;
         }
 

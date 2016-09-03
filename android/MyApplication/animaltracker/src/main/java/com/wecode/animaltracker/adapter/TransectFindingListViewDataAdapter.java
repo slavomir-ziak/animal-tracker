@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity.adapter;
+package com.wecode.animaltracker.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -39,9 +39,6 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
 
         TextView speciesView = (TextView) rowView.findViewById(R.id.transectFindingListItemSpecies);
         speciesView.setText(transectFinding.getSpecies());
-
-        TextView typeView = (TextView) rowView.findViewById(R.id.transectFindingListItemType);
-        typeView.setText(transectFinding.getType());
 
         return rowView;
     }

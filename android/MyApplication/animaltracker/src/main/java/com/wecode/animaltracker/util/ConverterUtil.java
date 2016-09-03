@@ -12,6 +12,13 @@ public class ConverterUtil {
         return Integer.valueOf(string);
     }
 
+    public static Float toFloat(String string) {
+        if (string == null || string.length() == 0) {
+            return null;
+        }
+        return Float.valueOf(string);
+    }
+
     public static String toString(CharSequence value) {
         if (value == null) {
             return null;
