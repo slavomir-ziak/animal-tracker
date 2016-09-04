@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
-import android.util.StateSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.wecode.animaltracker.Globals;
-import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.service.CodeListService;
 
@@ -76,15 +76,14 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
         LayoutInflater inflater = context.getLayoutInflater();
 
-        CheckedTextView textView;
+        TextView textView;
         if (view != null) {
-            textView = (CheckedTextView) view.findViewById(android.R.id.text1);
+            textView = (TextView) view.findViewById(R.id.text1);
         }  else {
-            textView = (CheckedTextView) inflater.inflate(android.R.layout.simple_spinner_dropdown_item, null, true);
+            textView = (TextView) inflater.inflate(R.layout.spinner_dropdown_item, viewGroup, false);
         }
 
         textView.setText(codeList.get(i).getValue());
-        textView.setMinimumHeight(Globals.SPINNER_ITEM_MIN_HEIGHT);
 
         return textView;
     }

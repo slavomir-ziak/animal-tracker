@@ -157,8 +157,8 @@ public class TransectFindingDetailView {
     }
 
     public TransectFinding toTransectFinding() {
-        TransectFinding transectFinding = new TransectFinding();
 
+        TransectFinding transectFinding = new TransectFinding();
         transectFinding.setSpecies(species.getSelectedCodeListValue());
         transectFinding.setConfidence((String) confidence.getSelectedItem());
         transectFinding.setNumberOfAnimals(ConverterUtil.toInteger(numberOfAnimals.getText().toString()));
@@ -168,7 +168,6 @@ public class TransectFindingDetailView {
             transectFinding.setLocationLatitude(parsed[0]);
             transectFinding.setLocationLongitude(parsed[1]);
         }
-
 
         if (findingBeforeRecentSnow.isChecked()) {
             transectFinding.setBeforeAfterRecentSnow("BEFORE");
@@ -180,22 +179,16 @@ public class TransectFindingDetailView {
 
         transectFinding.setFootprintsAge(ConverterUtil.toFloat(footprintsAge.getText().toString()));
         transectFinding.setFootprintsDirection((String) footprintsDirection.getSelectedItem());
-
         transectFinding.setFootprintsFrontLength(ConverterUtil.toFloat(footprintsFrontLength.getText().toString()));
         transectFinding.setFootprintsFrontWidht(ConverterUtil.toFloat(footprintsFrontWidht.getText().toString()));
         transectFinding.setFootprintsBackLength(ConverterUtil.toFloat(footprintsBackLength.getText().toString()));
         transectFinding.setFootprintsBackWidht(ConverterUtil.toFloat(footprintsBackWidht.getText().toString()));
-
         transectFinding.setFootprintsStride(ConverterUtil.toFloat(footprintsStride.getText().toString()));
-
         transectFinding.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));
         transectFinding.setFecesState(((String) fecesState.getSelectedItem()));
-
         transectFinding.setUrineLocation(urineLocation.getText().toString());
-
-        //transectFinding.setOtherEvidence();
-        //transectFinding.setOtherObservations();
-
+        transectFinding.setOtherEvidence(ConverterUtil.toString(otherEvidence.getText()));
+        transectFinding.setOtherObservations(ConverterUtil.toString(otherObservations.getText()));
         transectFinding.setHabitatId(habitatId);
         transectFinding.setTransectId(transectId);
         transectFinding.setId(id);

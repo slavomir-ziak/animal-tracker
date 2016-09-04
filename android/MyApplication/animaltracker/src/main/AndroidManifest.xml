@@ -40,7 +40,8 @@
             android:name=".activity.detail.TransectDetailActivity"
             android:label="@string/title_activity_transect_detail"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.MainActivity" />
+            android:parentActivityName=".activity.MainActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".activity.detail.WeatherDetailActivity"
             android:label="@string/title_activity_weather"
@@ -60,7 +61,8 @@
         <activity
             android:name=".activity.detail.TransectFindingDetailActivity"
             android:label="@string/title_activity_finding_detail"
-            android:parentActivityName=".activity.detail.TransectDetailActivity">
+            android:parentActivityName=".activity.detail.TransectDetailActivity"
+            android:windowSoftInputMode="stateHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
