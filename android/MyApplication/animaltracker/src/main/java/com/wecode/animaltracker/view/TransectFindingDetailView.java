@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.location.Location;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
@@ -28,6 +30,7 @@ public class TransectFindingDetailView {
 
     private Spinner confidence;
     private TextView numberOfAnimals;
+    private TextView urineLocation;
     private TextView location;
 
     private Spinner fecesState;
@@ -46,18 +49,19 @@ public class TransectFindingDetailView {
     private RadioButton findingBeforeRecentSnow;
     private RadioButton findingAfterRecentSnow;
 
+    private TextView otherEvidence;
+    private TextView otherObservations;
+
     private TransectFinding transectFinding;
 
+    private final ScrollView scrollView;
 
-    /*
+    private View findingsFecesView;
+    private View findingsOtherView;
 
-    private final Button transectFindingHabitatButton;
-    private final Button transectFindingSamplesButton;
-    private final Button transectFindingAddPhotoButton;
-    private final Button transectFindingListPhotosButton;
-    private final Button transectFindingAddSampleButton;
-    private final Button transectFindingSaveButton;
-*/
+    private Switch findingFecesSwitch;
+    private Switch findingOtherSwitch;
+
     public TransectFindingDetailView(Activity context, TransectFinding transectFinding) {
         this(context, transectFinding.getId());
         this.transectFinding = transectFinding;
@@ -68,42 +72,39 @@ public class TransectFindingDetailView {
 
     public TransectFindingDetailView(Activity context, Long transectId) {
 
-        species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context);
+        this.transectId = transectId;
 
+        species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context);
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
         numberOfAnimals = (TextView) context.findViewById(R.id.findingCountValue);
+        urineLocation = (TextView) context.findViewById(R.id.findingUrineLocation);
         location = (TextView) context.findViewById(R.id.findingLocationValue);
         findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
         findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
-
         footprintsDirection = (Spinner) context.findViewById(R.id.footprintsDirectionValue);
-        footprintsFrontLength = (TextView) context.findViewById(R.id.footprintsLengthValue);
-        footprintsFrontWidht = (TextView) context.findViewById(R.id.footprintsWidthValue);
-        footprintsBackLength = (TextView) context.findViewById(R.id.footprintsLengthValue);
-        footprintsBackWidht = (TextView) context.findViewById(R.id.footprintsWidthValue);
+        footprintsFrontLength = (TextView) context.findViewById(R.id.footprintsFrontLengthValue);
+        footprintsFrontWidht = (TextView) context.findViewById(R.id.footprintsFrontWidthValue);
+        footprintsBackLength = (TextView) context.findViewById(R.id.footprintsBackLengthValue);
+        footprintsBackWidht = (TextView) context.findViewById(R.id.footprintsBackWidthValue);
         footprintsAge = (TextView) context.findViewById(R.id.footprintsAgeValue);
         footprintsStride = (TextView) context.findViewById(R.id.footprintsStrideValue);
-
-        SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
-
-        Spinner footprintsDirectionValue = (Spinner) context.findViewById(R.id.footprintsDirectionValue);
-        SpinnersHelper.setSpinnerData(footprintsDirectionValue, R.array.generalDirection);
 
         fecesState = (Spinner) context.findViewById(R.id.findingFecesStateValue);
         fecesPrey = (TextView) context.findViewById(R.id.findingFecesPreyValue);
 
-
+        SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
+        SpinnersHelper.setSpinnerData(footprintsDirection, R.array.generalDirection);
         SpinnersHelper.setSpinnerData(fecesState, R.array.findingFecesState);
 
-        this.transectId = transectId;
+        findingsFecesView = context.findViewById(R.id.findingsFecesView);
+        findingsOtherView = context.findViewById(R.id.findingsOtherVIew);
+        scrollView = (ScrollView) context.findViewById(R.id.scrollView);
 
-       /* transectFindingHabitatButton = (Button) toolbar.findViewById(R.id.transect_finding_action_habitat);
-        transectFindingSamplesButton = (Button) toolbar.findViewById(R.id.transect_finding_action_samples);
-        transectFindingAddPhotoButton = (Button) toolbar.findViewById(R.id.transect_finding_action_add_photo);
-        transectFindingListPhotosButton = (Button) toolbar.findViewById(R.id.transect_finding_action_photos);
-        transectFindingAddSampleButton = (Button) toolbar.findViewById(R.id.transect_finding_action_add_sample);
-        transectFindingSaveButton = (Button) toolbar.findViewById(R.id.action_save);*/
+        findingFecesSwitch = (Switch) context.findViewById(R.id.findingFecesSwitch);
+        findingOtherSwitch = (Switch) context.findViewById(R.id.findingOtherSwitch);
 
+        otherEvidence = (TextView) context.findViewById(R.id.findingOtherEvidenceValue);
+        otherObservations = (TextView) context.findViewById(R.id.findingOtherObservationsValue);
     }
 
     private void bind(TransectFinding transectFinding) {
@@ -131,6 +132,20 @@ public class TransectFindingDetailView {
 
         SpinnersHelper.setSelected(fecesState, transectFinding.getFecesState());
         fecesPrey.setText(transectFinding.getFecesPrey() == null ? "" : transectFinding.getFecesPrey());
+
+        if (transectFinding.hasFecesData()) {
+            toggleVisibility(findingsFecesView);
+            findingFecesSwitch.setChecked(true);
+        }
+
+        if (transectFinding.hasOtherData()) {
+            toggleVisibility(findingsOtherView);
+            findingOtherSwitch.setChecked(true);
+        }
+
+        urineLocation.setText(transectFinding.getUrineLocation() == null? "" : transectFinding.getUrineLocation());
+        otherEvidence.setText(transectFinding.getOtherEvidence() == null? "" : transectFinding.getOtherEvidence());
+        otherObservations.setText(transectFinding.getOtherObservations() == null? "" : transectFinding.getOtherObservations());
 
         habitatId = transectFinding.getHabitatId();
         transectId = transectFinding.getTransectId();
@@ -176,6 +191,11 @@ public class TransectFindingDetailView {
         transectFinding.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));
         transectFinding.setFecesState(((String) fecesState.getSelectedItem()));
 
+        transectFinding.setUrineLocation(urineLocation.getText().toString());
+
+        //transectFinding.setOtherEvidence();
+        //transectFinding.setOtherObservations();
+
         transectFinding.setHabitatId(habitatId);
         transectFinding.setTransectId(transectId);
         transectFinding.setId(id);
@@ -183,13 +203,36 @@ public class TransectFindingDetailView {
         return transectFinding;
     }
 
-    public void enableAllButtons(boolean enable) {
-        /*transectFindingHabitatButton.setEnabled(enable);
-        transectFindingSamplesButton.setEnabled(enable);
-        transectFindingAddPhotoButton.setEnabled(enable);
-        transectFindingListPhotosButton.setEnabled(enable);
-        transectFindingAddSampleButton.setEnabled(enable);
-        transectFindingSaveButton.setEnabled(enable);*/
+
+    public void toggleFecesView(){
+        toggleVisibility(findingsFecesView);
+        scrollToBotom();
+    }
+
+    public void toggleOtherView(){
+        toggleVisibility(findingsOtherView);
+        scrollToBotom();
+    }
+
+    private void scrollToBotom() {
+        scrollView.postOnAnimationDelayed(new Runnable() {
+            public void run() {
+                scrollView.fullScroll(View.FOCUS_DOWN );
+            }
+        }, 300L);
+    }
+
+    private void toggleVisibility(View view) {
+        switch(view.getVisibility()) {
+            case View.VISIBLE:
+                view.setVisibility(View.GONE);
+                break;
+            case View.GONE:
+                view.setVisibility(View.VISIBLE);
+                break;
+            default:
+                view.setVisibility(View.VISIBLE);
+        }
     }
 
     public Long getHabitatId() {
@@ -217,16 +260,15 @@ public class TransectFindingDetailView {
     }
 
     public void initGuiForEdit() {
-        enableAllButtons(true);
+
     }
 
     public void initGuiForView() {
-        enableAllButtons(false);
+
     }
 
     public void initGuiForNew() {
-        enableAllButtons(false);
-        //transectFindingSaveButton.setEnabled(true);
+
     }
 
     public TextView getLocation() {

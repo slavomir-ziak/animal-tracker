@@ -30,32 +30,32 @@
     <string name="title_activity_finding_detail">FindingDetail</string>
 
     <string-array name="findingConfidenceTypes">
+        <item></item>
         <item>Low</item>
         <item>Medium</item>
         <item>High</item>
     </string-array>
 
     <string-array name="beforeAfter">
+        <item></item>
         <item>Before</item>
         <item>After</item>
     </string-array>
 
     <string-array name="findingFecesState">
+        <item></item>
         <item>New</item>
         <item>Decayed</item>
     </string-array>
 
     <string-array name="findingBeforeAfterRecentSnowValues">
+        <item></item>
         <item>Before</item>
         <item>After</item>
     </string-array>
 
-    <string-array name="footprintsFrontBackValues">
-        <item>Front</item>
-        <item>Back</item>
-    </string-array>
-
     <string-array name="generalDirection">
+        <item></item>
         <item>N</item>
         <item>S</item>
         <item>E</item>

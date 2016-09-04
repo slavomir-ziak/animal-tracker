@@ -14,11 +14,13 @@
             android:layout_alignParentStart="true" android:layout_toLeftOf="@+id/transectListItemEndDateTime"
             android:layout_toStartOf="@+id/transectListItemEndDateTime"/>
     <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
-              android:layout_height="wrap_content" android:text="StartDateTime" android:id="@+id/transectListItemStartDateTime"
+              android:layout_height="wrap_content"
+        android:id="@+id/transectListItemStartDateTime"
               android:layout_alignParentTop="true" android:layout_alignParentRight="true"
               android:layout_alignParentEnd="true"/>
     <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
-              android:layout_height="wrap_content" android:text="EndDateTime" android:id="@+id/transectListItemEndDateTime"
+              android:layout_height="wrap_content"
+        android:id="@+id/transectListItemEndDateTime"
               android:layout_below="@+id/transectListItemStartDateTime" android:layout_alignParentRight="true"
               android:layout_alignParentEnd="true"/>
     <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"

@@ -28,8 +28,10 @@ import java.util.Stack;
 public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.OnItemSelectedListener {
 
     private static final Long NEW_ITEM_ID = -1L;
+    private static final Long EMPTY_ITEM_ID = -2L;
 
-    private static String NEW_ITEM_TEXT = "New...";
+    private static final String EMPTY_ITEM_TEXT = "";
+    private static final String NEW_ITEM_TEXT = "New...";
 
     private Activity context;
 
@@ -50,6 +52,7 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
     private void reloadCodeListValues() {
         codeList = codeListService.findByName(codeListName);
+        codeList.add(0, new CodeList(EMPTY_ITEM_ID, EMPTY_ITEM_TEXT));
         codeList.add(new CodeList(NEW_ITEM_ID, NEW_ITEM_TEXT));
     }
 

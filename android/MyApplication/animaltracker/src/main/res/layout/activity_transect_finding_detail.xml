@@ -37,10 +37,7 @@
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_alignTop="@+id/scrollView"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true">
+                    android:layout_height="50dp">
 
                     <TextView
                         android:layout_width="110dp"
@@ -51,7 +48,7 @@
                         android:layout_gravity="center_vertical" />
 
                     <Spinner
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/findingSpeciesValue"
                         android:gravity="left|center_vertical"
@@ -63,9 +60,6 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_alignTop="@+id/scrollView"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
                     android:weightSum="1">
 
                     <LinearLayout
@@ -111,7 +105,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Count"
+                        android:text="Number of animals"
                         android:id="@+id/findingCountLabel"
                         android:layout_gravity="center_vertical" />
 
@@ -137,26 +131,10 @@
                         android:id="@+id/footprintsDirectionLabel"/>
 
                     <Spinner
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/footprintsDirectionValue" android:spinnerMode="dialog"
                         android:gravity="center_vertical" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <TextView android:layout_width="110dp" android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium" android:text="Age"
-                        android:id="@+id/footprintsAgeLabel"/>
-
-                    <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
-                        android:id="@+id/footprintsAgeValue"
-                        android:inputType="number"
-                        android:gravity="center_vertical"
-                        android:layout_marginLeft="3dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -172,8 +150,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/footprintsStrideValue" android:layout_alignBottom="@+id/footprintsStrideLabel"
-                        android:layout_alignLeft="@+id/footprintsAgeValue" android:layout_alignStart="@+id/footprintsAgeValue"
+                        android:id="@+id/footprintsStrideValue"
                         android:inputType="number"
                         android:layout_marginLeft="3dp" />
                 </LinearLayout>
@@ -186,7 +163,7 @@
 
                     <TextView
                         android:layout_width="110dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Size"
                         android:id="@+id/textView26"
@@ -196,7 +173,7 @@
 
                     <TextView
                         android:layout_width="110dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Front"
                         android:id="@+id/textView11"
@@ -207,7 +184,7 @@
 
                     <TextView
                         android:layout_width="110dp"
-                        android:layout_height="50dp"
+                        android:layout_height="40dp"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Back"
                         android:id="@+id/textView25"
@@ -232,7 +209,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:ems="10"
-                        android:id="@+id/editText"
+                        android:id="@+id/footprintsFrontLengthValue"
                         android:layout_row="1"
                         android:layout_column="1"
                         android:layout_gravity="center" />
@@ -242,7 +219,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:ems="10"
-                        android:id="@+id/editText3"
+                        android:id="@+id/footprintsBackLengthValue"
                         android:layout_row="1"
                         android:layout_column="2"
                         android:layout_gravity="center" />
@@ -262,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:ems="10"
-                        android:id="@+id/editText2"
+                        android:id="@+id/footprintsFrontWidthValue"
                         android:layout_row="3"
                         android:layout_column="1"
                         android:layout_gravity="center" />
@@ -272,11 +249,32 @@
                         android:layout_height="wrap_content"
                         android:inputType="number"
                         android:ems="10"
-                        android:id="@+id/editText4"
+                        android:id="@+id/footprintsBackWidthValue"
                         android:layout_row="3"
                         android:layout_column="2"
                         android:layout_gravity="center" />
                 </GridLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <TextView
+                        android:layout_width="110dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Urine location"
+                        android:id="@+id/textView29"
+                        android:layout_gravity="center_vertical" />
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/findingUrineLocation"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="3dp" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -288,7 +286,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Feces"
-                        android:id="@+id/findingFecesSwitcher"
+                        android:id="@+id/findingFecesSwitch"
                         android:checked="false"
                         android:onClick="toggleFecesView" />
                 </LinearLayout>
@@ -297,51 +295,11 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
                     android:id="@+id/findingsFecesView"
                     android:visibility="gone">
 
-                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        tools:context="com.wecode.animaltracker.FecesFragment">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Feces prey"
-                            android:id="@+id/findingFecesPreyLabel" android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true" android:paddingTop="24dp"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Feces state"
-                            android:id="@+id/findingFecesStateLabel" android:layout_below="@+id/findingFecesPreyLabel"
-                            android:layout_alignParentLeft="true" android:layout_alignParentStart="true" android:paddingTop="24dp"/>
-                        <Spinner
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/findingFecesStateValue"
-                            android:gravity="bottom"
-                            android:spinnerMode="dialog"
-                            android:layout_alignTop="@+id/findingFecesStateLabel"
-                            android:layout_toRightOf="@+id/findingFecesStateLabel"
-                            android:layout_toEndOf="@+id/findingFecesStateLabel" android:paddingTop="24dp"
-                            android:layout_alignBottom="@+id/findingFecesStateLabel"/>
-                        <EditText
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/findingFecesPreyValue" android:layout_above="@+id/findingFecesStateLabel"
-                            android:layout_toRightOf="@+id/findingFecesPreyLabel"
-                            android:layout_alignRight="@+id/findingFecesStateValue"
-                            android:layout_alignEnd="@+id/findingFecesStateValue"/>
-                    </RelativeLayout>
-
+                    <include
+                        layout="@layout/activity_transect_finding_feces" />
 
                 </LinearLayout>
 
@@ -358,6 +316,7 @@
                         android:id="@+id/findingOtherSwitch"
                         android:checked="false"
                         android:onClick="toggleOtherView" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -367,60 +326,11 @@
                     android:id="@+id/findingsOtherVIew"
                     android:visibility="gone">
 
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_alignTop="@+id/scrollView"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" >
 
-                        <TextView
-                            android:layout_width="110dp"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Confidence"
-                            android:id="@+id/findingConfidenceLabel"
-                            android:layout_gravity="center_vertical" />
+                    <include
+                        layout="@layout/activity_transect_finding_other" />
 
-                        <Spinner
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/findingConfidenceValue"
-                            android:gravity="left|center_vertical"
-                            android:layout_gravity="center_vertical"
-                            android:spinnerMode="dialog" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:gravity="center_vertical">
-
-                        <RadioGroup
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical">
-
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Before first snow"
-                                android:id="@+id/findingBeforeRecentSnow"
-                                android:checked="false" />
-
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="After first snow"
-                                android:id="@+id/findingAfterRecentSnow"
-                                android:checked="false" />
-                        </RadioGroup>
-                    </LinearLayout>
                 </LinearLayout>
-
 
             </LinearLayout>
 

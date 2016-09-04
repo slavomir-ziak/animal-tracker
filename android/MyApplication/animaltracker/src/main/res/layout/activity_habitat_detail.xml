@@ -25,7 +25,7 @@
                         android:layout_height="match_parent">
 
             <Spinner
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/habitatTypeValue"
                     android:layout_alignTop="@+id/habitatTypeSpinnerLabel"
@@ -46,7 +46,7 @@
                       android:id="@+id/habitatTrackSpinnerLabel"
                       android:layout_below="@+id/habitatTypeValue" android:layout_alignParentLeft="true"
                       android:layout_alignParentStart="true" android:layout_marginTop="24dp"/>
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
                      android:id="@+id/habitatTrackValue"
                      android:spinnerMode="dialog"
                      android:layout_alignTop="@+id/habitatTrackSpinnerLabel"
@@ -59,7 +59,7 @@
                       android:id="@+id/forestAgeLabel"
                       android:layout_marginTop="24dp" android:layout_below="@+id/habitatTrackSpinnerLabel"
                       android:layout_alignParentLeft="true" android:layout_alignParentStart="true"/>
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
                      android:id="@+id/habitatForestAgeValue" android:spinnerMode="dialog"
                      android:layout_alignTop="@+id/forestAgeLabel"
                      android:layout_toEndOf="@+id/forestAgeLabel" android:layout_alignBottom="@+id/forestAgeLabel"
@@ -70,7 +70,7 @@
                       android:id="@+id/habitatTreeTypeLabel" android:layout_marginTop="24dp"
                       android:layout_below="@+id/forestAgeLabel" android:layout_alignParentLeft="true"
                       android:layout_alignParentStart="true"/>
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
                      android:id="@+id/habitatTreeTypeValue" android:spinnerMode="dialog"
                      android:layout_alignTop="@+id/habitatTreeTypeLabel"
                      android:layout_toEndOf="@+id/habitatForestTypeLabel"
@@ -81,7 +81,7 @@
                       android:id="@+id/habitatForestTypeLabel" android:layout_marginTop="24dp"
                       android:layout_below="@+id/habitatTreeTypeLabel" android:layout_alignParentLeft="true"
                       android:layout_alignParentStart="true"/>
-            <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+            <Spinner android:layout_width="fill_parent" android:layout_height="wrap_content"
                      android:id="@+id/habitatForestTypeValue" android:spinnerMode="dialog"
                      android:layout_alignTop="@+id/habitatForestTypeLabel"
                      android:layout_toEndOf="@+id/habitatForestTypeLabel"

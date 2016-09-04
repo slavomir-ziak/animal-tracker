@@ -174,14 +174,6 @@ public class TransectFinding extends Persistable {
         return habitatId;
     }
 
-    public String getUrineLocation() {
-        return urineLocation;
-    }
-
-    public void setUrineLocation(String urineLocation) {
-        this.urineLocation = urineLocation;
-    }
-
     public String getOtherEvidence() {
         return otherEvidence;
     }
@@ -205,6 +197,7 @@ public class TransectFinding extends Persistable {
                 ", habitatId=" + habitatId +
                 ", species='" + species + '\'' +
                 ", numberOfAnimals=" + numberOfAnimals +
+                ", urineLocation='" + urineLocation + '\'' +
                 ", locationLatitude=" + locationLatitude +
                 ", locationLongitude=" + locationLongitude +
                 ", beforeAfterRecentSnow='" + beforeAfterRecentSnow + '\'' +
@@ -218,10 +211,17 @@ public class TransectFinding extends Persistable {
                 ", footprintsBackWidht=" + footprintsBackWidht +
                 ", footprintsAge=" + footprintsAge +
                 ", footprintsStride=" + footprintsStride +
-                ", urineLocation='" + urineLocation + '\'' +
                 ", otherEvidence='" + otherEvidence + '\'' +
                 ", otherObservations='" + otherObservations + '\'' +
                 '}';
+    }
+
+    public String getUrineLocation() {
+        return urineLocation;
+    }
+
+    public void setUrineLocation(String urineLocation) {
+        this.urineLocation = urineLocation;
     }
 
     public String getFootprintsFrontLengthValue() {
@@ -238,5 +238,18 @@ public class TransectFinding extends Persistable {
 
     public String getFootprintsBackWidthValue() {
         return getFootprintsBackWidht() == null ? "" : getFootprintsBackWidht().toString();
+    }
+
+    public boolean hasFecesData() {
+        return (fecesPrey != null && fecesPrey.length() > 0) || (fecesState != null && fecesState.length() > 0);
+    }
+
+    public boolean hasOtherData() {
+        return (otherEvidence != null && otherEvidence.length() > 0) ||
+                (otherObservations != null && otherObservations.length() > 0) ||
+                (footprintsAge != null) ||
+                (beforeAfterRecentSnow != null && beforeAfterRecentSnow.length() > 0) ||
+                (confidence != null && confidence.length() > 0);
+
     }
 }

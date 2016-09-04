@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.Toast;
 import com.wecode.animaltracker.*;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
@@ -35,7 +34,7 @@ import com.wecode.animaltracker.view.TransectFindingDetailView;
 import java.io.File;
 import java.util.UUID;
 
-public class TransectFindingDetailActivity extends CommonDetailActivity implements OnFragmentInteractionListener, LocationListener {
+public class TransectFindingDetailActivity extends CommonDetailActivity implements LocationListener {
 
     private static final int SET_HABITAT_REQUEST = 0;
     private static final int ADD_SAMPLE_REQUEST = 1;
@@ -58,14 +57,10 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     private File outputPhotoFile;
 
-    private View findingsFecesView;
-
-    private View findingsOtherView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_finding_detail);
+        setContentView(R.layout.activity_transect_finding_detail);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
@@ -77,7 +72,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
         transectId = getIntent().getExtras().getLong("transectId");
 
-
         if (id != null) {
             TransectFinding transectFinding = transectFindingDataService.find(id);
             transectFindingView = new TransectFindingDetailView(this, transectFinding);
@@ -85,45 +79,16 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
             transectFindingView = new TransectFindingDetailView(this, transectId);
         }
 
-        //initialiseFragmentLogic(transectFindingView);
+        //initGui(transectFindingView);
 
-        initGui(transectFindingView);
-
-        findingsFecesView = findViewById(R.id.findingsFecesView);
-        findingsOtherView = findViewById(R.id.findingsOtherVIew);
     }
 
     public void toggleFecesView(View view){
-        toggleVisibility(findingsFecesView);
-        scrollToBotom();
+        transectFindingView.toggleFecesView();
     }
 
     public void toggleOtherView(View view){
-        toggleVisibility(findingsOtherView);
-        scrollToBotom();
-    }
-
-    private void scrollToBotom() {
-        final ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
-
-        scrollView.postOnAnimationDelayed(new Runnable() {
-            public void run() {
-                scrollView.fullScroll(View.FOCUS_DOWN );
-            }
-        }, 300L);
-    }
-
-    private void toggleVisibility(View view) {
-        switch(view.getVisibility()) {
-            case View.VISIBLE:
-                view.setVisibility(View.GONE);
-                break;
-            case View.GONE:
-                view.setVisibility(View.VISIBLE);
-                break;
-            default:
-                view.setVisibility(View.VISIBLE);
-        }
+        transectFindingView.toggleOtherView();
     }
 
     private void initGui(TransectFindingDetailView transectFindingView) {
@@ -140,6 +105,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 transectFindingView.initGuiForNew();
                 break;
         }
+
     }
 
     @Override
@@ -320,11 +286,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         Toast.makeText(TransectFindingDetailActivity.this, "Finding saved.", Toast.LENGTH_SHORT).show();
     }
 
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        System.out.println(uri);
-    }
 
     @Override
     public void onLocationChanged(Location location) {

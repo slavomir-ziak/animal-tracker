@@ -13,14 +13,7 @@ import com.wecode.animaltracker.adapter.CodeListEditingAdapter;
  */
 public class SpinnersHelper {
 
-    public static void setSpinnerData(Activity context, int spinnerViewId, String codeListName) {
 
-        CodeListEditingAdapter codeListEditingAdapter = new CodeListEditingAdapter(context, codeListName);
-
-        Spinner spinnerView = (Spinner) context.findViewById(spinnerViewId);
-        spinnerView.setOnItemSelectedListener(codeListEditingAdapter);
-        spinnerView.setAdapter(codeListEditingAdapter);
-    }
 
 
     public static void setSpinnerData(Spinner spinnerView, int arrayResource) {
