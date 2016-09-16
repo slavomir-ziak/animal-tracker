@@ -85,6 +85,6 @@ public class TransectFinding extends Persistable {
                 ", locationLatitude=" + locationLatitude +
                 ", locationLongitude=" + locationLongitude +
                 ", beforeAfterRecentSnow='" + beforeAfterRecentSnow + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

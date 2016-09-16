@@ -62,6 +62,6 @@ public class Habitat extends Persistable {
                 ", forestAge='" + forestAge + '\'' +
                 ", treeType='" + treeType + '\'' +
                 ", forestType='" + forestType + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

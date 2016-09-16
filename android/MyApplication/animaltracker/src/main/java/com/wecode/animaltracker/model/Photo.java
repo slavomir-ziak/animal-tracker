@@ -53,6 +53,6 @@ public class Photo extends Persistable {
                 "transectFindingId=" + transectFindingId +
                 ", fileName='" + fileName + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

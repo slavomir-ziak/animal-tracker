@@ -74,7 +74,7 @@ public class CodeList extends Persistable{
                 ", value='" + value + '\'' +
                 ", icon='" + icon + '\'' +
                 ", source='" + source + '\'' +
-                '}';
+                "} " + super.toString();
     }
 
 }

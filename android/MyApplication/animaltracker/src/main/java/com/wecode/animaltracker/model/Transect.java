@@ -145,7 +145,8 @@ public class Transect extends Persistable {
                 ", startLatitude=" + startLatitude +
                 ", endLongitude=" + endLongitude +
                 ", endLatitude=" + endLatitude +
-                '}';
+                ", findings=" + findings +
+                "} " + super.toString();
     }
 
     public List<TransectFinding> getFindings() {

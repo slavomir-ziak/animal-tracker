@@ -104,6 +104,6 @@ public class Weather extends Persistable {
                 ", showDepth=" + showDepth +
                 ", newSnowDepth=" + newSnowDepth +
                 ", lastTimeSnowedRained=" + lastTimeSnowedRained +
-                '}';
+                "} " + super.toString();
     }
 }

@@ -60,8 +60,8 @@ public class TransectFindingOther extends Persistable {
                 ", otherEvidence='" + otherEvidence + '\'' +
                 ", otherObservations='" + otherObservations + '\'' +
                 ", confidence='" + confidence + '\'' +
-                ", age=" + age +
-                '}';
+                ", age='" + age + '\'' +
+                "} " + super.toString();
     }
 
     public void setAge(String age) {

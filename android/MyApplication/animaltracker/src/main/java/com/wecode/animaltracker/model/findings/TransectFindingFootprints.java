@@ -141,6 +141,6 @@ public class TransectFindingFootprints extends Persistable {
                 ", stride=" + stride +
                 ", confidence='" + confidence + '\'' +
                 ", direction='" + direction + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

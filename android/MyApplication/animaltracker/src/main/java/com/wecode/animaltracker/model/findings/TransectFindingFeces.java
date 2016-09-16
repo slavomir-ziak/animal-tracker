@@ -61,7 +61,7 @@ public class TransectFindingFeces extends Persistable {
                 ", fecesPrey='" + fecesPrey + '\'' +
                 ", confidence='" + confidence + '\'' +
                 ", age=" + age +
-                '}';
+                "} " + super.toString();
     }
 
     public void setAge(String age) {
