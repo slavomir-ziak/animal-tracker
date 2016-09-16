@@ -90,5 +90,8 @@
     <string name="action_save">Save</string>
     <string name="transect_finding_action_add_sample">Add sample</string>
     <string name="action_location_acquire">LOcation</string>
+    <string name="feces_finding_detail">Feces finding</string>
+    <string name="footprints_finding_detail">Footprint finding</string>
+    <string name="other_finding_detail">Other finding</string>
 
 </resources>

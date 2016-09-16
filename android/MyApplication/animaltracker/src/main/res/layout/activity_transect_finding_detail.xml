@@ -1,338 +1,184 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity"
-    android:animateLayoutChanges="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    tools:context=".activity.detail.findings.TransectFindingDetailActivity">
+
     <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:id="@+id/scrollView"
-            android:fillViewport="false" android:layout_below="@+id/toolbar" android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-        android:animateLayoutChanges="true">
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar"
+        android:animateLayoutChanges="true"
+        android:fillViewport="false"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:animateLayoutChanges="true">
 
 
             <LinearLayout
                 android:id="@+id/outerLinearLayout"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:animateLayoutChanges="true">
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="@dimen/animal_tracker_row_height"
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/findingSpeciesLabel"
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_gravity="center_vertical"
                         android:text="Species"
-                        android:id="@+id/findingSpeciesLabel"
-                        android:layout_gravity="center_vertical" />
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <Spinner
+                        android:id="@+id/findingSpeciesValue"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/findingSpeciesValue"
-                        android:gravity="left|center_vertical"
                         android:layout_gravity="center_vertical"
+                        android:gravity="left|center_vertical"
                         android:spinnerMode="dialog" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="@dimen/animal_tracker_row_height"
+                    android:orientation="horizontal"
                     android:weightSum="1">
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="110dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/findingLocationLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Location"
-                            android:id="@+id/findingLocationLabel"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginRight="5dp" />
+                            android:layout_marginRight="5dp"
+                            android:text="Location"
+                            android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <Button
+                            android:id="@+id/findingEditLocationButton"
                             style="?android:attr/buttonStyleSmall"
                             android:layout_width="27dp"
                             android:layout_height="27dp"
-                            android:id="@+id/findingEditLocationButton"
-                            android:background="@drawable/ic_edit"
                             android:layout_gravity="center_vertical|right"
+                            android:background="@drawable/ic_edit"
                             android:onClick="editLocation" />
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/findingLocationValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:id="@+id/findingLocationValue"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp" />
+                        android:layout_marginLeft="5dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="@dimen/animal_tracker_row_height"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="110dp"
+                    <RadioGroup
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Number of animals"
-                        android:id="@+id/findingCountLabel"
-                        android:layout_gravity="center_vertical" />
-
-                    <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/findingCountValue"
-                        android:layout_weight="1"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="3dp" />
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/findingBeforeRecentSnow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:text="Before first snow" />
+
+                        <RadioButton
+                            android:id="@+id/findingAfterRecentSnow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:text="After first snow" />
+                    </RadioGroup>
                 </LinearLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical">
+                    android:layout_height="match_parent"
+                    android:gravity="center_horizontal">
 
-                    <TextView android:layout_width="110dp" android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium" android:text="Direction"
-                        android:id="@+id/footprintsDirectionLabel"/>
-
-                    <Spinner
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/footprintsDirectionValue" android:spinnerMode="dialog"
-                        android:gravity="center_vertical" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-
-                    <TextView android:layout_width="110dp" android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium" android:text="Stride"
-                        android:id="@+id/footprintsStrideLabel"
-                         />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/footprintsStrideValue"
-                        android:inputType="number"
-                        android:layout_marginLeft="3dp" />
                 </LinearLayout>
 
                 <GridLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:rowCount="4"
-                    android:columnCount="4">
+                    android:layout_height="match_parent"
+                    android:columnCount="3"
+                    android:rowCount="1">
 
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="40dp"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Size"
-                        android:id="@+id/textView26"
-                        android:layout_row="0"
-                        android:layout_column="0"
-                        android:gravity="center_vertical" />
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="40dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Front"
-                        android:id="@+id/textView11"
-                        android:layout_row="0"
-                        android:layout_column="1"
-                        android:gravity="bottom|center_horizontal"
-                        android:layout_gravity="bottom" />
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="40dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Back"
-                        android:id="@+id/textView25"
-                        android:layout_row="0"
-                        android:layout_column="2"
-                        android:gravity="bottom|center_horizontal"
-                        android:layout_gravity="bottom" />
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="50dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Length"
-                        android:id="@+id/textView10"
-                        android:layout_row="1"
-                        android:layout_column="0"
-                        android:gravity="center_vertical|right"
-                        android:elegantTextHeight="false" />
-
-                    <EditText
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/footprintsFrontLengthValue"
-                        android:layout_row="1"
-                        android:layout_column="1"
-                        android:layout_gravity="center" />
-
-                    <EditText
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/footprintsBackLengthValue"
-                        android:layout_row="1"
-                        android:layout_column="2"
-                        android:layout_gravity="center" />
-
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="50dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Width"
-                        android:id="@+id/textView12"
-                        android:layout_row="3"
-                        android:layout_column="0"
-                        android:gravity="center_vertical|right" />
-
-                    <EditText
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/footprintsFrontWidthValue"
-                        android:layout_row="3"
-                        android:layout_column="1"
-                        android:layout_gravity="center" />
-
-                    <EditText
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:ems="10"
-                        android:id="@+id/footprintsBackWidthValue"
-                        android:layout_row="3"
-                        android:layout_column="2"
-                        android:layout_gravity="center" />
                 </GridLayout>
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="110dp"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Urine location"
-                        android:id="@+id/textView29"
-                        android:layout_gravity="center_vertical" />
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:text="Add Footprints"
+                        android:id="@+id/button3"
+                        android:layout_weight=".30"
+                        android:onClick="addFootprints" />
 
-                    <EditText
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/findingUrineLocation"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="3dp" />
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:text="Add Feces"
+                        android:id="@+id/button4"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".30"
+                        android:onClick="addFeces" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:text="Add Other"
+                        android:id="@+id/button5"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".30"
+                        android:onClick="addOthers" />
                 </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical">
-
-                    <Switch
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Feces"
-                        android:id="@+id/findingFecesSwitch"
-                        android:checked="false"
-                        android:onClick="toggleFecesView" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/findingsFecesView"
-                    android:visibility="gone">
-
-                    <include
-                        layout="@layout/activity_transect_finding_feces" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical">
-
-                    <Switch
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Other"
-                        android:id="@+id/findingOtherSwitch"
-                        android:checked="false"
-                        android:onClick="toggleOtherView" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/findingsOtherVIew"
-                    android:visibility="gone">
-
-
-                    <include
-                        layout="@layout/activity_transect_finding_other" />
-
-                </LinearLayout>
-
             </LinearLayout>
+
 
             <!-- this RelativeLayout really must stay here -->
         </RelativeLayout>

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.model.findings.TransectFinding;
 
 import java.util.List;
 

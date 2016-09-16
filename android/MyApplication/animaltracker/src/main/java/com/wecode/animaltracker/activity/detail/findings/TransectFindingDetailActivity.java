@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity.detail;
+package com.wecode.animaltracker.activity.detail.findings;
 
 import android.Manifest;
 import android.content.Intent;
@@ -16,13 +16,16 @@ import android.view.View;
 import android.widget.Toast;
 import com.wecode.animaltracker.*;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
+import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
+import com.wecode.animaltracker.activity.detail.EditLocationActivity;
+import com.wecode.animaltracker.activity.detail.HabitatDetailActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Sample;
-import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
@@ -81,14 +84,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
         //initGui(transectFindingView);
 
-    }
-
-    public void toggleFecesView(View view){
-        transectFindingView.toggleFecesView();
-    }
-
-    public void toggleOtherView(View view){
-        transectFindingView.toggleOtherView();
     }
 
     private void initGui(TransectFindingDetailView transectFindingView) {
@@ -173,6 +168,33 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         startActivityForResult(intent, SET_HABITAT_REQUEST);
     }
 
+    public void addFootprints(View view) {
+        Intent intent = new Intent(this, TransectFindingFootprintsDetailActivity.class);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.NEW.toString());
+        startActivity(intent);
+    }
+
+    public void addFeces(View view) {
+        Intent intent = new Intent(this, TransectFindingFecesDetailActivity.class);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.NEW.toString());
+        startActivity(intent);
+    }
+
+    public void addOthers(View view) {
+        Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.NEW.toString());
+        startActivity(intent);
+    }
+
+
+
+
     public void showPhotos(View view) {
         Intent intent = new Intent(this, PhotosList.class);
         intent.putExtra("transectFindingId", transectFindingView.getId());
@@ -216,6 +238,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         if (requestCode == ADD_PHOTO_PERMISSION_REQUEST) {
             if (Permissions.grantResults(grantResults)) {
                 addPhoto(null);
+            } else {
+                Log.w(Globals.APP_NAME, "ADD_PHOTO_PERMISSION_REQUEST NOT granted");
             }
         }
 
@@ -227,7 +251,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 Log.w(Globals.APP_NAME, "ACCESS_FINE_LOCATION NOT granted");
             }
         }
-
     }
 
 

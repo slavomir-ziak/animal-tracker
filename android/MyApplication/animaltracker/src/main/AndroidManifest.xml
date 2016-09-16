@@ -16,7 +16,7 @@
         android:theme="@style/MyMaterialTheme">
         <meta-data
             android:name="DATABASE"
-            android:value="sugar_db_beta11.db" />
+            android:value="sugar_db_beta12.db" />
         <meta-data
             android:name="VERSION"
             android:value="1" />
@@ -59,7 +59,7 @@
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
-            android:name=".activity.detail.TransectFindingDetailActivity"
+            android:name=".activity.detail.findings.TransectFindingDetailActivity"
             android:label="@string/title_activity_finding_detail"
             android:parentActivityName=".activity.detail.TransectDetailActivity"
             android:windowSoftInputMode="stateHidden" >
@@ -99,8 +99,34 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
+
         <activity android:name=".activity.TransectFindingAddSampleActivity" />
+
         <activity android:name=".activity.detail.EditLocationActivity"/>
+
+        <activity android:name=".activity.detail.findings.TransectFindingFecesDetailActivity"
+            android:label="@string/feces_finding_detail"
+            android:parentActivityName=".activity.detail.findings.TransectFindingDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.detail.findings.TransectFindingDetailActivity" />
+        </activity>
+
+        <activity android:name=".activity.detail.findings.TransectFindingFootprintsDetailActivity"
+            android:label="@string/footprints_finding_detail"
+            android:parentActivityName=".activity.detail.findings.TransectFindingDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.detail.findings.TransectFindingDetailActivity" />
+        </activity>
+
+        <activity android:name=".activity.detail.findings.TransectFindingOtherDetailActivity"
+            android:label="@string/other_finding_detail"
+            android:parentActivityName=".activity.detail.findings.TransectFindingDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.detail.findings.TransectFindingDetailActivity" />
+        </activity>
 
     </application>
 

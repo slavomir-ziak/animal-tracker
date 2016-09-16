@@ -11,13 +11,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
-import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
+import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.list.TransectsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
@@ -27,21 +25,13 @@ import com.wecode.animaltracker.util.Permissions;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Locale;
 
-import jxl.CellView;
 import jxl.Workbook;
-import jxl.WorkbookSettings;
-import jxl.format.UnderlineStyle;
-import jxl.write.Formula;
+import jxl.read.biff.BiffException;
 import jxl.write.Label;
-import jxl.write.Number;
-import jxl.write.WritableCellFormat;
-import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-import jxl.write.biff.RowsExceededException;
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
@@ -76,24 +66,23 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             return;
         }
 
-
-
+        testExcel();
     }
 
     private void testExcel() {
         //
-        File storageDir = Globals.getStorageDir("excel_test");
+        File excelTestDit = new File(Globals.getAppRootDir(), "excel_test");
+
+        File input = new File(excelTestDit, "Transects-report.xls");
+        File output = new File(excelTestDit, "Transects-report_2.xls");
+
         try {
 
-            write(new File(storageDir, "test.xls"));
+            write(input, output);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (WriteException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        //
     }
 
 
@@ -106,102 +95,18 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             }
     }
 
+    public void write(File input, File output) throws IOException, WriteException, BiffException {
 
-    private WritableCellFormat timesBoldUnderline;
-    private WritableCellFormat times;
-    private String inputFile;
+        Workbook wk = Workbook.getWorkbook(input);
 
-    public void write(File file) throws IOException, WriteException {
+        WritableWorkbook wkr = Workbook.createWorkbook(output, wk);
 
-        WorkbookSettings wbSettings = new WorkbookSettings();
+        WritableSheet sheet = wkr.getSheet(0);
 
-        wbSettings.setLocale(new Locale("en", "EN"));
+        sheet.addCell(new Label(0, 0, "hi there"));
 
-        WritableWorkbook workbook = Workbook.createWorkbook(file, wbSettings);
-        workbook.createSheet("Report", 0);
-        WritableSheet excelSheet = workbook.getSheet(0);
-        createLabel(excelSheet);
-        createContent(excelSheet);
-
-        workbook.write();
-        workbook.close();
-    }
-
-    private void createLabel(WritableSheet sheet)
-            throws WriteException {
-        // Lets create a times font
-        WritableFont times10pt = new WritableFont(WritableFont.TIMES, 10);
-        // Define the cell format
-        times = new WritableCellFormat(times10pt);
-        // Lets automatically wrap the cells
-        times.setWrap(true);
-
-        // create create a bold font with unterlines
-        WritableFont times10ptBoldUnderline = new WritableFont(WritableFont.TIMES, 10, WritableFont.BOLD, false,
-                UnderlineStyle.SINGLE);
-        timesBoldUnderline = new WritableCellFormat(times10ptBoldUnderline);
-        // Lets automatically wrap the cells
-        timesBoldUnderline.setWrap(true);
-
-        CellView cv = new CellView();
-        cv.setFormat(times);
-        cv.setFormat(timesBoldUnderline);
-        cv.setAutosize(true);
-
-        // Write a few headers
-        addCaption(sheet, 0, 0, "Header 1");
-        addCaption(sheet, 1, 0, "This is another header");
-
-
-    }
-
-    private void createContent(WritableSheet sheet) throws WriteException,
-            RowsExceededException {
-        // Write a few number
-        for (int i = 1; i < 10; i++) {
-            // First column
-            addNumber(sheet, 0, i, i + 10);
-            // Second column
-            addNumber(sheet, 1, i, i * i);
-        }
-        // Lets calculate the sum of it
-        StringBuffer buf = new StringBuffer();
-        buf.append("SUM(A2:A10)");
-        Formula f = new Formula(0, 10, buf.toString());
-        sheet.addCell(f);
-        buf = new StringBuffer();
-        buf.append("SUM(B2:B10)");
-        f = new Formula(1, 10, buf.toString());
-        sheet.addCell(f);
-
-        // now a bit of text
-        for (int i = 12; i < 20; i++) {
-            // First column
-            addLabel(sheet, 0, i, "Boring text " + i);
-            // Second column
-            addLabel(sheet, 1, i, "Another text");
-        }
-    }
-
-    private void addCaption(WritableSheet sheet, int column, int row, String s)
-            throws RowsExceededException, WriteException {
-        Label label;
-        label = new Label(column, row, s, timesBoldUnderline);
-        sheet.addCell(label);
-    }
-
-    private void addNumber(WritableSheet sheet, int column, int row,
-                           Integer integer) throws WriteException, RowsExceededException {
-        Number number;
-        number = new Number(column, row, integer, times);
-        sheet.addCell(number);
-    }
-
-    private void addLabel(WritableSheet sheet, int column, int row, String s)
-            throws WriteException, RowsExceededException {
-        Label label;
-        label = new Label(column, row, s, times);
-        sheet.addCell(label);
+        wkr.write();
+        wkr.close();
     }
 
     @Override

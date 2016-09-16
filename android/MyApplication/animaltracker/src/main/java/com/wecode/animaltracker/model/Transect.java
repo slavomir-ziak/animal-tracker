@@ -2,7 +2,11 @@ package com.wecode.animaltracker.model;
 
 import android.location.Location;
 
+import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.service.TransectFindingDataService;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by sziak on 10/28/2015.
@@ -20,6 +24,7 @@ public class Transect extends Persistable {
     private Double startLatitude;
     private Double endLongitude;
     private Double endLatitude;
+    private List<TransectFinding> findings;
 
     public Transect() {
     }
@@ -141,5 +146,12 @@ public class Transect extends Persistable {
                 ", endLongitude=" + endLongitude +
                 ", endLatitude=" + endLatitude +
                 '}';
+    }
+
+    public List<TransectFinding> getFindings() {
+        if (findings == null) {
+            findings = TransectFindingDataService.getInstance().findByTransectId(getId());
+        }
+        return findings;
     }
 }

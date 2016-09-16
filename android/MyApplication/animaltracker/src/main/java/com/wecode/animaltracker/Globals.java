@@ -13,13 +13,14 @@ public class Globals {
     public static final String APP_NAME = "AnimalTracker";
 
     public static File getPhotosStorageDir() {
-       return getStorageDir(APP_NAME);
+        File photosDir = new File(getAppRootDir(), "Photos");
+        createDirectory(photosDir);
+        return photosDir;
     }
 
-    public static File getStorageDir(String name) {
+    public static File getAppRootDir() {
         // Get the directory for the user's public pictures directory.
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), name);
+        File file = new File(Environment.getExternalStorageDirectory(), APP_NAME);
 
         createDirectory(file);
 

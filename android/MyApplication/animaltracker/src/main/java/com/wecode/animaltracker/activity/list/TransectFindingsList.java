@@ -12,11 +12,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
+import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.adapter.TransectFindingListViewDataAdapter;
-import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class TransectFindingsList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transect_findings_list);
+        setContentView(R.layout.activity_transect_finding_list);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);

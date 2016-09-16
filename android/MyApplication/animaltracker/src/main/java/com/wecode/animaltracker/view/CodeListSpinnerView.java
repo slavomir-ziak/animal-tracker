@@ -30,7 +30,7 @@ public class CodeListSpinnerView {
         return ((CodeList) spinner.getSelectedItem()).getValue();
     }
 
-    public static void setSpinnerData(Activity context, int spinnerViewId, String codeListName) {
+    private void setSpinnerData(Activity context, int spinnerViewId, String codeListName) {
 
         CodeListEditingAdapter codeListEditingAdapter = new CodeListEditingAdapter(context, codeListName);
 
