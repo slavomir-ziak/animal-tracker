@@ -177,6 +177,18 @@
                         android:layout_weight=".30"
                         android:onClick="addOthers" />
                 </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ListView
+                        android:layout_width="wrap_content"
+                        android:layout_height="256dp"
+                        android:id="@+id/findingDetails" />
+                </LinearLayout>
+
             </LinearLayout>
 
 

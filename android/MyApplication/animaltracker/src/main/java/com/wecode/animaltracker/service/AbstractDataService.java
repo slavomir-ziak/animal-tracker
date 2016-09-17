@@ -9,6 +9,7 @@ import com.wecode.animaltracker.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,9 @@ public abstract class AbstractDataService<T extends Persistable> {
     }
 
     public T save(T t) {
+        if (t.getId() == null) {
+            t.setCreated(new Date());
+        }
         Log.i(Globals.APP_NAME, "Saving " + t);
         long id = t.save();
         t.setId(id);

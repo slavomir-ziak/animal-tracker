@@ -17,7 +17,7 @@ import com.wecode.animaltracker.view.CodeListSpinnerView;
 public class TransectFindingOtherView {
 
     private Long id;
-    private Long otherFindingId;
+    private Long transectFindingId;
 
     private TextView otherEvidence;
     private TextView otherObservations;
@@ -32,8 +32,8 @@ public class TransectFindingOtherView {
         bind(transectFindingOther);
     }
 
-    public TransectFindingOtherView(Activity context, Long otherFindingId) {
-        this.otherFindingId = otherFindingId;
+    public TransectFindingOtherView(Activity context, Long transectFindingId) {
+        this.transectFindingId = transectFindingId;
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
@@ -43,16 +43,19 @@ public class TransectFindingOtherView {
     }
 
     private void bind(TransectFindingOther transectFindingOther) {
-        otherEvidence.setText(transectFindingOther.getOtherEvidence() == null? "" : transectFindingOther.getOtherEvidence());
-        otherObservations.setText(transectFindingOther.getOtherObservations() == null? "" : transectFindingOther.getOtherObservations());
+        id = transectFindingOther.getId();
+        otherEvidence.setText(transectFindingOther.getEvidence() == null? "" : transectFindingOther.getEvidence());
+        otherObservations.setText(transectFindingOther.getObservations() == null? "" : transectFindingOther.getObservations());
         age.select(transectFindingOther.getAge());
     }
 
     public TransectFindingOther toOtherFinding(){
         TransectFindingOther transectFindingOther = new TransectFindingOther();
+        transectFindingOther.setId(id);
+        transectFindingOther.setTransectFindingId(transectFindingId);
         transectFindingOther.setConfidence((String) confidence.getSelectedItem());
-        transectFindingOther.setOtherEvidence(ConverterUtil.toString(otherEvidence.getText()));
-        transectFindingOther.setOtherObservations(ConverterUtil.toString(otherObservations.getText()));
+        transectFindingOther.setEvidence(ConverterUtil.toString(otherEvidence.getText()));
+        transectFindingOther.setObservations(ConverterUtil.toString(otherObservations.getText()));
         transectFindingOther.setAge(age.getSelectedCodeListValue());
         return transectFindingOther;
     }

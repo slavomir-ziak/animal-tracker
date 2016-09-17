@@ -1,6 +1,7 @@
 package com.wecode.animaltracker.adapter;
 
 import android.app.Activity;
+import android.sax.RootElement;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,12 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
 
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View rowView = inflater.inflate(R.layout.transect_finding_item_layout, null, true);
+        View rowView = null;
+        if (view != null) {
+            rowView = view;
+        } else {
+            rowView = inflater.inflate(R.layout.transect_finding_item_layout, null, true);
+        }
 
         TransectFinding transectFinding = list.get(position);
 

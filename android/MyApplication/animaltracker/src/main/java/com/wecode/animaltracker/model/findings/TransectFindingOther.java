@@ -10,9 +10,9 @@ public class TransectFindingOther extends Persistable {
     //FK
     private Long transectFindingId;
 
-    private String otherEvidence;
+    private String evidence;
 
-    private String otherObservations;
+    private String observations;
 
     private String confidence;
 
@@ -29,20 +29,20 @@ public class TransectFindingOther extends Persistable {
         this.transectFindingId = transectFindingId;
     }
 
-    public String getOtherEvidence() {
-        return otherEvidence;
+    public String getEvidence() {
+        return evidence;
     }
 
-    public void setOtherEvidence(String otherEvidence) {
-        this.otherEvidence = otherEvidence;
+    public void setEvidence(String evidence) {
+        this.evidence = evidence;
     }
 
-    public String getOtherObservations() {
-        return otherObservations;
+    public String getObservations() {
+        return observations;
     }
 
-    public void setOtherObservations(String otherObservations) {
-        this.otherObservations = otherObservations;
+    public void setObservations(String observations) {
+        this.observations = observations;
     }
 
     public String getConfidence() {
@@ -57,8 +57,8 @@ public class TransectFindingOther extends Persistable {
     public String toString() {
         return "TransectFindingOther{" +
                 "transectFindingId=" + transectFindingId +
-                ", otherEvidence='" + otherEvidence + '\'' +
-                ", otherObservations='" + otherObservations + '\'' +
+                ", evidence='" + evidence + '\'' +
+                ", observations='" + observations + '\'' +
                 ", confidence='" + confidence + '\'' +
                 ", age='" + age + '\'' +
                 "} " + super.toString();

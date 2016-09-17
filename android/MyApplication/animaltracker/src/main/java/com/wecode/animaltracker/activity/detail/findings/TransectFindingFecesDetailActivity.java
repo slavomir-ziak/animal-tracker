@@ -37,8 +37,8 @@ public class TransectFindingFecesDetailActivity extends CommonDetailActivity {
         transectFindingId = getIntent().getExtras().getLong("transectFindingId");
 
         if (id != null) {
-            TransectFindingFeces transectFinding = fecesFindingDataService.find(id);
-            transectFindingFecesView = new TransectFindingFecesView(this, transectFinding);
+            TransectFindingFeces transectFindingFeces = fecesFindingDataService.find(id);
+            transectFindingFecesView = new TransectFindingFecesView(this, transectFindingFeces);
         } else {
             transectFindingFecesView = new TransectFindingFecesView(this, transectFindingId);
         }

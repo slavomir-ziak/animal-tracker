@@ -104,19 +104,19 @@ public class TransectFindingFootprints extends Persistable {
         this.confidence = confidence;
     }
 
-    public String getFootprintsFrontLengthValue() {
+    public String getFrontLengthValue() {
         return getFrontLength() == null ? "" : getFrontLength().toString();
     }
 
-    public String getFootprintsFrontWidthValue() {
+    public String getFrontWidthValue() {
         return getFrontWidht() == null ? "" : getFrontWidht().toString();
     }
 
-    public String getFootprintsBackLengthValue() {
+    public String getBackLengthValue() {
         return getBackLength() == null ? "" : getBackLength().toString();
     }
 
-    public String getFootprintsBackWidthValue() {
+    public String getBackWidthValue() {
         return getBackWidht() == null ? "" : getBackWidht().toString();
     }
 
@@ -142,5 +142,9 @@ public class TransectFindingFootprints extends Persistable {
                 ", confidence='" + confidence + '\'' +
                 ", direction='" + direction + '\'' +
                 "} " + super.toString();
+    }
+
+    public String getNumberOfAnimalsValue() {
+        return numberOfAnimals == null ? "" : numberOfAnimals.toString();
     }
 }

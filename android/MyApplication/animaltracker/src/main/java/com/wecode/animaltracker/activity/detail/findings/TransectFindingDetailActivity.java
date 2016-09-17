@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 import com.wecode.animaltracker.*;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
@@ -23,6 +24,8 @@ import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.adapter.TransectFindingDetailsListAdapter;
+import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Sample;
 import com.wecode.animaltracker.model.findings.TransectFinding;
@@ -35,6 +38,7 @@ import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 public class TransectFindingDetailActivity extends CommonDetailActivity implements LocationListener {
@@ -78,11 +82,16 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         if (id != null) {
             TransectFinding transectFinding = transectFindingDataService.find(id);
             transectFindingView = new TransectFindingDetailView(this, transectFinding);
+            List<Persistable> findingDetails = transectFindingDataService.findFindingDetails(id);
+            ListView findingDetailsView = (ListView) findViewById(R.id.findingDetails);
+            findingDetailsView.setAdapter(new TransectFindingDetailsListAdapter(this, findingDetails));
+
         } else {
             transectFindingView = new TransectFindingDetailView(this, transectId);
         }
 
         //initGui(transectFindingView);
+
 
     }
 

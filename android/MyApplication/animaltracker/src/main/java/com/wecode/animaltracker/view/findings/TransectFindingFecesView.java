@@ -26,7 +26,7 @@ public class TransectFindingFecesView {
 
 
     public TransectFindingFecesView(Activity context, TransectFindingFeces transectFindingFeces) {
-        this(context, transectFindingFeces.getId());
+        this(context, transectFindingFeces.getTransectFindingId());
 
         Assert.assertNotNull("transectFindingFeces cannot be null!", transectFindingFeces);
         bind(transectFindingFeces);
@@ -34,6 +34,7 @@ public class TransectFindingFecesView {
 
     public TransectFindingFecesView(Activity context, Long transectFindingId) {
         this.transectFindingId = transectFindingId;
+
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
@@ -49,11 +50,13 @@ public class TransectFindingFecesView {
         SpinnersHelper.setSelected(fecesState, transectFindingFeces.getFecesState());
         fecesPrey.setText(transectFindingFeces.getFecesPrey() == null ? "" : transectFindingFeces.getFecesPrey());
         age.select(transectFindingFeces.getAge());
-
+        id = transectFindingFeces.getId();
     }
 
     public TransectFindingFeces toFecesFinding(){
         TransectFindingFeces transectFindingFeces = new TransectFindingFeces();
+        transectFindingFeces.setId(id);
+        transectFindingFeces.setTransectFindingId(transectFindingId);
         transectFindingFeces.setConfidence((String) confidence.getSelectedItem());
         transectFindingFeces.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));
         transectFindingFeces.setFecesState(((String) fecesState.getSelectedItem()));

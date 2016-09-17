@@ -18,7 +18,7 @@ public class TransectFindingFootprintsView {
 
 
     private Long id;
-    private Long footprintsFindingId;
+    private Long transectFindingId;
 
     private TextView numberOfAnimals;
     private Spinner footprintsDirection;
@@ -32,14 +32,14 @@ public class TransectFindingFootprintsView {
 
 
     public TransectFindingFootprintsView(Activity context, TransectFindingFootprints transectFindingFootprints) {
-        this(context, transectFindingFootprints.getId());
+        this(context, transectFindingFootprints.getTransectFindingId());
 
         Assert.assertNotNull("transectFindingFootprints cannot be null!", transectFindingFootprints);
         bind(transectFindingFootprints);
     }
 
-    public TransectFindingFootprintsView(Activity context, Long footprintsFindingId) {
-        this.footprintsFindingId = footprintsFindingId;
+    public TransectFindingFootprintsView(Activity context, Long transectFindingId) {
+        this.transectFindingId = transectFindingId;
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
         numberOfAnimals = (TextView) context.findViewById(R.id.findingCountValue);
@@ -55,16 +55,17 @@ public class TransectFindingFootprintsView {
     }
 
     private void bind(TransectFindingFootprints transectFindingFootprints) {
+        id = transectFindingFootprints.getId();
         SpinnersHelper.setSelected(confidence, transectFindingFootprints.getConfidence());
 
         numberOfAnimals.setText(transectFindingFootprints.getNumberOfAnimals() == null ? "" : transectFindingFootprints.getNumberOfAnimals().toString());
 
         SpinnersHelper.setSelected(footprintsDirection, transectFindingFootprints.getDirection());
 
-        footprintsFrontLength.setText(transectFindingFootprints.getFootprintsFrontLengthValue());
-        footprintsFrontWidht.setText(transectFindingFootprints.getFootprintsFrontWidthValue());
-        footprintsBackLength.setText(transectFindingFootprints.getFootprintsBackLengthValue());
-        footprintsBackWidht.setText(transectFindingFootprints.getFootprintsBackWidthValue());
+        footprintsFrontLength.setText(transectFindingFootprints.getFrontLengthValue());
+        footprintsFrontWidht.setText(transectFindingFootprints.getFrontWidthValue());
+        footprintsBackLength.setText(transectFindingFootprints.getBackLengthValue());
+        footprintsBackWidht.setText(transectFindingFootprints.getBackWidthValue());
         age.select(transectFindingFootprints.getAge());
         footprintsStride.setText(transectFindingFootprints.getStride() == null ? "" : transectFindingFootprints.getStride().toString());
 
@@ -72,6 +73,8 @@ public class TransectFindingFootprintsView {
 
     public TransectFindingFootprints toFootprintsFinding(){
         TransectFindingFootprints transectFindingFootprints = new TransectFindingFootprints();
+        transectFindingFootprints.setId(id);
+        transectFindingFootprints.setTransectFindingId(transectFindingId);
         transectFindingFootprints.setConfidence((String) confidence.getSelectedItem());
         transectFindingFootprints.setNumberOfAnimals(ConverterUtil.toInteger(numberOfAnimals.getText().toString()));
         transectFindingFootprints.setAge(age.getSelectedCodeListValue());

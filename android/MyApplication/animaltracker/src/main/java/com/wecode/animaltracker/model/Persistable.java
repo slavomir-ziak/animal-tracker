@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by sziak on 11/1/2015.
  */
-public class Persistable extends SugarRecord {
+public class Persistable extends SugarRecord implements Comparable<Persistable> {
 
     private Date created;
 
@@ -24,5 +24,10 @@ public class Persistable extends SugarRecord {
         return "Persistable{" +
                 "created=" + created +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Persistable anotherPersistable) {
+        return this.getCreated().compareTo(anotherPersistable.getCreated());
     }
 }
