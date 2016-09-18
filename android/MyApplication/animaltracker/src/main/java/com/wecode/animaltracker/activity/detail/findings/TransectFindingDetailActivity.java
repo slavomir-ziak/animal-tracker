@@ -107,9 +107,9 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 if (persistable instanceof TransectFindingFootprints) {
                     TransectFindingDetailActivity.this.editFootprints(persistable.getId());
                 } else if (persistable instanceof TransectFindingFeces) {
-                    //viewId = R.layout.activity_transect_finding_feces_item;
+                    TransectFindingDetailActivity.this.editFeces(persistable.getId());
                 } else if (persistable instanceof TransectFindingOther) {
-                    //viewId = R.layout.activity_transect_finding_other_item;
+                    TransectFindingDetailActivity.this.editOther(persistable.getId());
                 } else {
                     throw new RuntimeException("cannot handle " + persistable);
                 }
@@ -198,6 +198,22 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     public void editFootprints(Long footprintsId) {
         Intent intent = new Intent(this, TransectFindingFootprintsDetailActivity.class);
         intent.putExtra("id", footprintsId);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.EDIT.toString());
+        startActivityForResult(intent, 0);
+    }
+
+    public void editFeces(Long fecesId) {
+        Intent intent = new Intent(this, TransectFindingFecesDetailActivity.class);
+        intent.putExtra("id", fecesId);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.EDIT.toString());
+        startActivityForResult(intent, 0);
+    }
+
+    public void editOther(Long otherId) {
+        Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
+        intent.putExtra("id", otherId);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.EDIT.toString());
         startActivityForResult(intent, 0);
