@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
-import com.wecode.animaltracker.service.OtherFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 import com.wecode.animaltracker.view.findings.TransectFindingOtherView;
 
 /**
@@ -19,7 +19,7 @@ public class TransectFindingOtherDetailActivity extends CommonDetailActivity {
 
     private long transectFindingId;
 
-    private OtherFindingDataService otherFindingDataService = OtherFindingDataService.getInstance();
+    private TransectFindingOtherDataService transectFindingOtherDataService = TransectFindingOtherDataService.getInstance();
 
     private TransectFindingOtherView transectFindingOtherView;
 
@@ -37,7 +37,7 @@ public class TransectFindingOtherDetailActivity extends CommonDetailActivity {
         transectFindingId = getIntent().getExtras().getLong("transectFindingId");
 
         if (id != null) {
-            TransectFindingOther transectFinding = otherFindingDataService.find(id);
+            TransectFindingOther transectFinding = transectFindingOtherDataService.find(id);
             transectFindingOtherView = new TransectFindingOtherView(this, transectFinding);
         } else {
             transectFindingOtherView = new TransectFindingOtherView(this, transectFindingId);
@@ -70,7 +70,7 @@ public class TransectFindingOtherDetailActivity extends CommonDetailActivity {
     }
 
     private void saveTransectFinding() {
-        TransectFindingOther transectFindingOther = otherFindingDataService.save(transectFindingOtherView.toOtherFinding());
+        TransectFindingOther transectFindingOther = transectFindingOtherDataService.save(transectFindingOtherView.toOtherFinding());
         transectFindingOther.setId(transectFindingOther.getId());
         this.id = transectFindingOther.getId();
         Toast.makeText(this, "Other saved.", Toast.LENGTH_SHORT).show();

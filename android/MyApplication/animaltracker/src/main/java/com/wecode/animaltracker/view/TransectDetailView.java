@@ -8,6 +8,9 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.model.findings.TransectFindingFeces;
+import com.wecode.animaltracker.service.TransectDataService;
+import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.LocationUtil;
 
 import java.text.DateFormat;
@@ -17,6 +20,7 @@ import java.text.ParseException;
  * Created by sziak on 10/31/2015.
  */
 public class TransectDetailView {
+
 
     private TextView id;
     private TextView column;
@@ -38,6 +42,8 @@ public class TransectDetailView {
     private Button transectDetailSetWeatherButton;
     private Button transectDetailViewFindingsButton;
     private Button transectDetailSaveButton;
+
+    private TransectDataService service = TransectDataService.getInstance();
 
     public TransectDetailView(Activity context, Transect transect) {
         this.parentActivity = context;
@@ -132,15 +138,18 @@ public class TransectDetailView {
         DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
 
         try {
+            Long transectId = id.getText().length() > 0 ? Long.parseLong(id.getText().toString()) : null;
+            Transect transect;
 
+            if (transectId != null) {
+                transect = service.find(transectId);
+            } else {
+                transect = new Transect();
+            }
 
-
-            Transect transect = new Transect(
-                    id.getText().length() > 0 ? Long.parseLong(id.getText().toString()) : null,
-                    column.getText().length() > 0 ? Integer.parseInt(column.getText().toString()) : null,
-                    startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null,
-                    routeName.getText().toString()
-            );
+            transect.setColumn(column.getText().length() > 0 ? Integer.parseInt(column.getText().toString()) : null);
+            transect.setStartDateTime(startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null);
+            transect.setRouteName(routeName.getText().toString());
 
             if (this.startLocation.getText().length() > 0) {
                 double[] location = LocationUtil.parseLocation(this.startLocation.getText().toString());

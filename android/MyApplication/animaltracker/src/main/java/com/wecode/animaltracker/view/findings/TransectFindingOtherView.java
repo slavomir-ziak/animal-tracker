@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
+import com.wecode.animaltracker.model.findings.TransectFindingOther;
+import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
 import com.wecode.animaltracker.view.CodeListSpinnerView;
@@ -24,6 +26,7 @@ public class TransectFindingOtherView {
     private Spinner confidence;
     private CodeListSpinnerView age;
 
+    private TransectFindingOtherDataService service = TransectFindingOtherDataService.getInstance();
 
     public TransectFindingOtherView(Activity context, TransectFindingOther transectFindingOther) {
         this(context, transectFindingOther.getId());
@@ -50,8 +53,14 @@ public class TransectFindingOtherView {
     }
 
     public TransectFindingOther toOtherFinding(){
-        TransectFindingOther transectFindingOther = new TransectFindingOther();
-        transectFindingOther.setId(id);
+
+        TransectFindingOther transectFindingOther;
+
+        if (id != null) {
+            transectFindingOther = service.find(id);
+        } else {
+            transectFindingOther = new TransectFindingOther();
+        }
         transectFindingOther.setTransectFindingId(transectFindingId);
         transectFindingOther.setConfidence((String) confidence.getSelectedItem());
         transectFindingOther.setEvidence(ConverterUtil.toString(otherEvidence.getText()));

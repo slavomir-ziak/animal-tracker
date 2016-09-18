@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.wecode.animaltracker.*;
@@ -29,6 +30,9 @@ import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Sample;
 import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.model.findings.TransectFindingFeces;
+import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
+import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
@@ -82,23 +86,39 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         if (id != null) {
             TransectFinding transectFinding = transectFindingDataService.find(id);
             transectFindingView = new TransectFindingDetailView(this, transectFinding);
-            List<Persistable> findingDetails = transectFindingDataService.findFindingDetails(id);
-            ListView findingDetailsView = (ListView) findViewById(R.id.findingDetails);
-            findingDetailsView.setAdapter(new TransectFindingDetailsListAdapter(this, findingDetails));
+            initFindings();
 
         } else {
             transectFindingView = new TransectFindingDetailView(this, transectId);
         }
 
-        //initGui(transectFindingView);
-
-
+        initGui();
     }
 
-    private void initGui(TransectFindingDetailView transectFindingView) {
+    private void initFindings() {
+        final List<Persistable> findingDetails = transectFindingDataService.findFindingDetails(id);
+        ListView findingDetailsView = (ListView) findViewById(R.id.findingDetails);
+        findingDetailsView.setAdapter(new TransectFindingDetailsListAdapter(this, findingDetails));
+        findingDetailsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Persistable persistable = findingDetails.get(position);
+                if (persistable instanceof TransectFindingFootprints) {
+                    TransectFindingDetailActivity.this.editFootprints(persistable.getId());
+                } else if (persistable instanceof TransectFindingFeces) {
+                    //viewId = R.layout.activity_transect_finding_feces_item;
+                } else if (persistable instanceof TransectFindingOther) {
+                    //viewId = R.layout.activity_transect_finding_other_item;
+                } else {
+                    throw new RuntimeException("cannot handle " + persistable);
+                }
+            }
+        });
+    }
+
+    private void initGui() {
         switch (action) {
-
             case EDIT:
                 transectFindingView.initGuiForEdit();
                 break;
@@ -109,7 +129,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 transectFindingView.initGuiForNew();
                 break;
         }
-
     }
 
     @Override
@@ -133,15 +152,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.transect_finding_action_add_photo) {
-            addPhoto(null);
-            return true;
-        }
-        if (id == R.id.transect_finding_action_photos) {
-            showPhotos(null);
-            return true;
-        }
         if (id == R.id.transect_finding_action_add_sample) {
             addSample(null);
             return true;
@@ -182,7 +192,15 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         intent.putExtra("transectFindingId", transectFindingView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
-        startActivity(intent);
+        startActivityForResult(intent, 0);
+    }
+
+    public void editFootprints(Long footprintsId) {
+        Intent intent = new Intent(this, TransectFindingFootprintsDetailActivity.class);
+        intent.putExtra("id", footprintsId);
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.EDIT.toString());
+        startActivityForResult(intent, 0);
     }
 
     public void addFeces(View view) {
@@ -190,7 +208,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         intent.putExtra("transectFindingId", transectFindingView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
 
     public void addOthers(View view) {
@@ -198,11 +216,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         intent.putExtra("transectFindingId", transectFindingView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
-
-
-
 
     public void showPhotos(View view) {
         Intent intent = new Intent(this, PhotosList.class);
@@ -266,6 +281,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        initFindings();
 
         if (resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();

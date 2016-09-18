@@ -4,6 +4,9 @@ import android.app.Activity;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Habitat;
+import com.wecode.animaltracker.model.findings.TransectFindingFeces;
+import com.wecode.animaltracker.service.HabitatDataService;
+import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.Assert;
 
 /**
@@ -18,6 +21,8 @@ public class HabitatDetailView {
     private CodeListSpinnerView forestAge;
     private CodeListSpinnerView treeType;
     private CodeListSpinnerView forestType;
+
+    private HabitatDataService service = HabitatDataService.getInstance();
 
     public HabitatDetailView(Activity context, Habitat habitat) {
         this(context);
@@ -44,8 +49,13 @@ public class HabitatDetailView {
     }
 
     public Habitat toHabitat() {
-        Habitat habitat = new Habitat();
-        habitat.setId(id);
+        Habitat habitat;
+
+        if (id != null) {
+            habitat = service.find(id);
+        } else {
+            habitat = new Habitat();
+        }
         habitat.setType(type.getSelectedCodeListValue());
         habitat.setTrack(track.getSelectedCodeListValue());
         habitat.setForestAge(forestAge.getSelectedCodeListValue());

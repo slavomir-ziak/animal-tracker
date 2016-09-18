@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
+import com.wecode.animaltracker.service.TransectFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
 import com.wecode.animaltracker.view.CodeListSpinnerView;
@@ -24,6 +26,7 @@ public class TransectFindingFecesView {
     private Spinner confidence;
     private CodeListSpinnerView age;
 
+    private TransectFindingFecesDataService service = TransectFindingFecesDataService.getInstance();
 
     public TransectFindingFecesView(Activity context, TransectFindingFeces transectFindingFeces) {
         this(context, transectFindingFeces.getTransectFindingId());
@@ -54,8 +57,15 @@ public class TransectFindingFecesView {
     }
 
     public TransectFindingFeces toFecesFinding(){
-        TransectFindingFeces transectFindingFeces = new TransectFindingFeces();
-        transectFindingFeces.setId(id);
+
+        TransectFindingFeces transectFindingFeces;
+
+        if (id != null) {
+            transectFindingFeces = service.find(id);
+        } else {
+            transectFindingFeces = new TransectFindingFeces();
+        }
+
         transectFindingFeces.setTransectFindingId(transectFindingId);
         transectFindingFeces.setConfidence((String) confidence.getSelectedItem());
         transectFindingFeces.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));

@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
-import com.wecode.animaltracker.service.FootprintsFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.view.findings.TransectFindingFootprintsView;
 
 /**
@@ -19,7 +19,7 @@ public class TransectFindingFootprintsDetailActivity extends CommonDetailActivit
 
     private long transectFindingId;
 
-    private FootprintsFindingDataService footprintsFindingDataService = FootprintsFindingDataService.getInstance();
+    private TransectFindingFootprintsDataService transectFindingFootprintsDataService = TransectFindingFootprintsDataService.getInstance();
 
     private TransectFindingFootprintsView transectFindingFootprintsView;
 
@@ -37,7 +37,7 @@ public class TransectFindingFootprintsDetailActivity extends CommonDetailActivit
         transectFindingId = getIntent().getExtras().getLong("transectFindingId");
 
         if (id != null) {
-            TransectFindingFootprints transectFinding = footprintsFindingDataService.find(id);
+            TransectFindingFootprints transectFinding = transectFindingFootprintsDataService.find(id);
             transectFindingFootprintsView = new TransectFindingFootprintsView(this, transectFinding);
         } else {
             transectFindingFootprintsView = new TransectFindingFootprintsView(this, transectFindingId);
@@ -70,7 +70,7 @@ public class TransectFindingFootprintsDetailActivity extends CommonDetailActivit
     }
 
     private void saveTransectFinding() {
-        TransectFindingFootprints transectFindingFootprints = footprintsFindingDataService.save(transectFindingFootprintsView.toFootprintsFinding());
+        TransectFindingFootprints transectFindingFootprints = transectFindingFootprintsDataService.save(transectFindingFootprintsView.toFootprintsFinding());
         transectFindingFootprints.setId(transectFindingFootprints.getId());
         this.id = transectFindingFootprints.getId();
         Toast.makeText(this, "Footprints saved.", Toast.LENGTH_SHORT).show();

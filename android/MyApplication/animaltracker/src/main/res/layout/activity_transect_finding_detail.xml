@@ -153,7 +153,7 @@
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         android:text="Add Footprints"
-                        android:id="@+id/button3"
+                        android:id="@+id/transectFindingAddFootprintsButton"
                         android:layout_weight=".30"
                         android:onClick="addFootprints" />
 
@@ -162,7 +162,7 @@
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         android:text="Add Feces"
-                        android:id="@+id/button4"
+                        android:id="@+id/transectFindingAddFecesButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
                         android:onClick="addFeces" />
@@ -172,7 +172,7 @@
                         android:layout_width="0dp"
                         android:layout_height="70dp"
                         android:text="Add Other"
-                        android:id="@+id/button5"
+                        android:id="@+id/transectFindingAddOtherButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
                         android:onClick="addOthers" />

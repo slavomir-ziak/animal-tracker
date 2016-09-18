@@ -2,18 +2,16 @@ package com.wecode.animaltracker.view;
 
 import android.app.Activity;
 import android.location.Location;
-import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.model.findings.TransectFindingFeces;
+import com.wecode.animaltracker.service.TransectFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.Assert;
-import com.wecode.animaltracker.util.ConverterUtil;
 import com.wecode.animaltracker.util.LocationUtil;
 
 /**
@@ -21,14 +19,20 @@ import com.wecode.animaltracker.util.LocationUtil;
  */
 public class TransectFindingDetailView {
 
+    private TransectFindingDataService service = TransectFindingDataService.getInstance();
+
     private Long id;
     private Long habitatId;
     private Long transectId;
-
     private CodeListSpinnerView species;
+
     private TextView location;
     private RadioButton findingBeforeRecentSnow;
     private RadioButton findingAfterRecentSnow;
+
+    private final Button addFececButton;
+    private final Button addFootprintsButton;
+    private final Button addOtherButton;
 
     private TransectFinding transectFinding;
 
@@ -48,7 +52,9 @@ public class TransectFindingDetailView {
         location = (TextView) context.findViewById(R.id.findingLocationValue);
         findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
         findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
-
+        addFececButton = (Button) context.findViewById(R.id.transectFindingAddFecesButton);
+        addFootprintsButton = (Button) context.findViewById(R.id.transectFindingAddFootprintsButton);
+        addOtherButton = (Button) context.findViewById(R.id.transectFindingAddOtherButton);
     }
 
     private void bind(TransectFinding transectFinding) {
@@ -73,7 +79,13 @@ public class TransectFindingDetailView {
 
     public TransectFinding toTransectFinding() {
 
-        TransectFinding transectFinding = new TransectFinding();
+        TransectFinding transectFindingFeces;
+
+        if (id != null) {
+            transectFinding = service.find(id);
+        } else {
+            transectFinding = new TransectFinding();
+        }
         transectFinding.setSpecies(species.getSelectedCodeListValue());
 
         if (location.getText().toString().length() > 0) {
@@ -122,15 +134,21 @@ public class TransectFindingDetailView {
     }
 
     public void initGuiForEdit() {
-
+        enableButtons(true);
     }
 
     public void initGuiForView() {
-
+        enableButtons(false);
     }
 
     public void initGuiForNew() {
+        enableButtons(false);
+    }
 
+    private void enableButtons(boolean enable) {
+        addFececButton.setEnabled(enable);
+        addFootprintsButton.setEnabled(enable);
+        addOtherButton.setEnabled(enable);
     }
 
     public TextView getLocation() {

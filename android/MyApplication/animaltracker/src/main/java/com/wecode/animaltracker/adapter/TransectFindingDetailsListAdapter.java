@@ -81,8 +81,8 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
         TextView backSize = (TextView) rowView.findViewById(R.id.transectFindingFootprintsItemBackSize);
 
         numOfAnimals.setText(detail.getNumberOfAnimalsValue());
-        frontSize.setText(String.format(Locale.US, "(%.1f x %.1f)", detail.getFrontLength(), detail.getFrontWidht()));
-        backSize.setText(String.format(Locale.US, "(%.1f x %.1f)", detail.getBackLength(), detail.getBackWidht()));
+        frontSize.setText(String.format(Locale.US, "%.1f x %.1f", detail.getFrontLength(), detail.getFrontWidht()));
+        backSize.setText(String.format(Locale.US, "%.1f x %.1f", detail.getBackLength(), detail.getBackWidht()));
     }
 
     private void fillRowView(View rowView, TransectFindingFeces detail) {

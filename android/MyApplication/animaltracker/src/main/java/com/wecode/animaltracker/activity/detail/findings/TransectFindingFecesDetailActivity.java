@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
-import com.wecode.animaltracker.service.FecesFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.view.findings.TransectFindingFecesView;
 
 /**
@@ -19,7 +19,7 @@ public class TransectFindingFecesDetailActivity extends CommonDetailActivity {
 
     private long transectFindingId;
 
-    private FecesFindingDataService fecesFindingDataService = FecesFindingDataService.getInstance();
+    private TransectFindingFecesDataService transectFindingFecesDataService = TransectFindingFecesDataService.getInstance();
 
     private TransectFindingFecesView transectFindingFecesView;
 
@@ -37,7 +37,7 @@ public class TransectFindingFecesDetailActivity extends CommonDetailActivity {
         transectFindingId = getIntent().getExtras().getLong("transectFindingId");
 
         if (id != null) {
-            TransectFindingFeces transectFindingFeces = fecesFindingDataService.find(id);
+            TransectFindingFeces transectFindingFeces = transectFindingFecesDataService.find(id);
             transectFindingFecesView = new TransectFindingFecesView(this, transectFindingFeces);
         } else {
             transectFindingFecesView = new TransectFindingFecesView(this, transectFindingId);
@@ -70,7 +70,7 @@ public class TransectFindingFecesDetailActivity extends CommonDetailActivity {
     }
 
     private void saveTransectFinding() {
-        TransectFindingFeces transectFindingFeces = fecesFindingDataService.save(transectFindingFecesView.toFecesFinding());
+        TransectFindingFeces transectFindingFeces = transectFindingFecesDataService.save(transectFindingFecesView.toFecesFinding());
         transectFindingFeces.setId(transectFindingFeces.getId());
         this.id = transectFindingFeces.getId();
         Toast.makeText(this, "Feces saved.", Toast.LENGTH_SHORT).show();

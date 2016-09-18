@@ -6,7 +6,10 @@ import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
+import com.wecode.animaltracker.service.TransectFindingFecesDataService;
+import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
 import com.wecode.animaltracker.view.CodeListSpinnerView;
@@ -30,6 +33,7 @@ public class TransectFindingFootprintsView {
     private Spinner confidence;
     private CodeListSpinnerView age;
 
+    private TransectFindingFootprintsDataService service = TransectFindingFootprintsDataService.getInstance();
 
     public TransectFindingFootprintsView(Activity context, TransectFindingFootprints transectFindingFootprints) {
         this(context, transectFindingFootprints.getTransectFindingId());
@@ -72,8 +76,15 @@ public class TransectFindingFootprintsView {
     }
 
     public TransectFindingFootprints toFootprintsFinding(){
-        TransectFindingFootprints transectFindingFootprints = new TransectFindingFootprints();
-        transectFindingFootprints.setId(id);
+
+        TransectFindingFootprints transectFindingFootprints;
+
+        if (id != null) {
+            transectFindingFootprints = service.find(id);
+        } else {
+            transectFindingFootprints = new TransectFindingFootprints();
+        }
+
         transectFindingFootprints.setTransectFindingId(transectFindingId);
         transectFindingFootprints.setConfidence((String) confidence.getSelectedItem());
         transectFindingFootprints.setNumberOfAnimals(ConverterUtil.toInteger(numberOfAnimals.getText().toString()));
