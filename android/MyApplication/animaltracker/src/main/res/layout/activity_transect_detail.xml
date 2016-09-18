@@ -237,6 +237,18 @@
             android:layout_alignRight="@+id/endDateTimeLabel"
             android:layout_alignEnd="@+id/endDateTimeLabel"
             android:onClick="editEndLocation" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Export"
+            android:id="@+id/button3"
+            android:layout_above="@+id/transectDetailSetWeatherButton"
+            android:layout_toRightOf="@+id/transectDetailViewFindingsButton"
+            android:layout_alignRight="@+id/transectEndLocationValue"
+            android:layout_alignEnd="@+id/transectEndLocationValue"
+            android:onClick="export" />
     </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

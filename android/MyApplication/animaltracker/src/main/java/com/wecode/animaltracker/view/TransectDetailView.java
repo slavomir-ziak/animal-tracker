@@ -15,6 +15,7 @@ import com.wecode.animaltracker.util.LocationUtil;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Created by sziak on 10/31/2015.
@@ -211,6 +212,15 @@ public class TransectDetailView {
 
     public TextView getStartDateTime() {
         return startDateTime;
+    }
+
+    public Date getStartDateTimeParsed() {
+        DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
+        try {
+            return startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setStartDateTime(TextView startDateTime) {

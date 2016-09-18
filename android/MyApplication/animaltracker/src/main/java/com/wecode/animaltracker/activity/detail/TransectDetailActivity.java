@@ -1,8 +1,10 @@
 package com.wecode.animaltracker.activity.detail;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.location.*;
 import android.location.Location;
+import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -20,11 +22,26 @@ import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
-import com.wecode.animaltracker.util.*;
+import com.wecode.animaltracker.util.Assert;
+import com.wecode.animaltracker.util.LocationUtil;
+import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.TransectDetailView;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import jxl.CellType;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableCell;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 
 public class TransectDetailActivity extends CommonDetailActivity implements LocationListener {
 
@@ -37,6 +54,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     private static final int EDIT_START_LOCATION_REQUEST = 4;
     private static final int EDIT_END_LOCATION_REQUEST = 5;
+    private static final int EXPORT_FILE_PERMISSION_REQUEST = 6;
 
     private static TransectDataService transectDataService = TransectDataService.getInstance();
 
@@ -106,6 +124,14 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                 LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
             } else {
                 Log.w(Globals.APP_NAME, "ACCESS_FINE_LOCATION NOT granted");
+            }
+        }
+
+        if (requestCode == EXPORT_FILE_PERMISSION_REQUEST) {
+            if (grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                exportToExcel();
+            } else {
+                Log.w(Globals.APP_NAME, "EXPORT_FILE_PERMISSION_REQUEST NOT granted");
             }
         }
     }
@@ -349,4 +375,96 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     }
 
 
+    public void export(View view) {
+
+        if (!Permissions.grantedOrRequestPermissions(this, EXPORT_FILE_PERMISSION_REQUEST,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            return;
+        }
+
+        exportToExcel();
+
+    }
+
+    private void exportToExcel() {
+
+        File excelFile = getExcelFile();
+        InputStream reportStream = null;
+        try {
+
+            reportStream = getAssets().open("Transects-report.xls");
+
+            Transect transect = transectDataService.find(id);
+
+            createExcel(reportStream, excelFile, transect);
+
+            Toast.makeText(this, "Exported to: " + excelFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            if (reportStream != null) {
+                try {
+                    reportStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+    public void createExcel(InputStream input, File output, Transect transect) throws IOException, WriteException, BiffException {
+
+        Workbook wk = Workbook.getWorkbook(input);
+
+        WritableWorkbook wkr = Workbook.createWorkbook(output, wk);
+
+        WritableSheet sheet = wkr.getSheet(0);
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                WritableCell cell = sheet.getWritableCell(0, 2);
+                if (cell.getContents().equals("{transect.id}")) {
+                    setCellText(transect.getId().toString(), cell);
+                }
+            }
+        }
+
+
+        wkr.write();
+        wkr.close();
+    }
+
+    private void setCellText(String text, WritableCell cell) {
+        if (cell.getType() == CellType.LABEL)
+        {
+            Label l = (Label) cell;
+            l.setString(text);
+        }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private File getTransectRootDirectory() {
+        String date = new SimpleDateFormat("yyyy_MM_dd_").format(transectDetailView.getStartDateTimeParsed());
+        String routeName = transectDetailView.getRouteName().getText().toString().replaceAll(" ", "_");
+        String transectDirName = date + routeName + "_ID_" + transectDetailView.getId().getText();
+
+        File transectRootDir = new File(Globals.getAppRootDir(), transectDirName);
+
+        Globals.createDirectory(transectRootDir);
+        return transectRootDir;
+    }
+
+    private File getExcelFile(){
+        File transectDir = getTransectRootDirectory();
+        File excelName = new File(transectDir, "transect_report.xls");
+        int counter = 1;
+        while(excelName.exists()) {
+            excelName = new File(transectDir, "transect_report_" + counter + ".xls");
+            counter++;
+        }
+        return excelName;
+    }
 }

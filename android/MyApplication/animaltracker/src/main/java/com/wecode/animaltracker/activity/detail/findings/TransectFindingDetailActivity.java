@@ -16,7 +16,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.wecode.animaltracker.*;
+
+import com.wecode.animaltracker.Globals;
+import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
 import com.wecode.animaltracker.activity.detail.EditLocationActivity;
@@ -291,8 +293,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 Log.w(Globals.APP_NAME, "ACCESS_FINE_LOCATION NOT granted");
             }
         }
-    }
 
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

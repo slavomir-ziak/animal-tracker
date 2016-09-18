@@ -19,7 +19,7 @@ public class Globals {
     }
 
     public static File getAppRootDir() {
-        // Get the directory for the user's public pictures directory.
+
         File file = new File(Environment.getExternalStorageDirectory(), APP_NAME);
 
         createDirectory(file);
@@ -28,7 +28,7 @@ public class Globals {
         return file;
     }
 
-    private static void createDirectory(File file) {
+    public static void createDirectory(File file) {
         if (!file.exists() && !file.mkdirs()) {
             String message = "Directory " + file.getAbsolutePath() + " not created";
             Log.e(Globals.APP_NAME, message);

@@ -58,55 +58,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
 
-        for (CodeList codeList : CodeListService.getInstance().list()) {
-            System.out.println(codeList);
-        }
-
-        if (!Permissions.grantedOrRequestPermissions(this, 0, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            return;
-        }
-
-        testExcel();
-    }
-
-    private void testExcel() {
-        //
-        File excelTestDit = new File(Globals.getAppRootDir(), "excel_test");
-
-        File input = new File(excelTestDit, "Transects-report.xls");
-        File output = new File(excelTestDit, "Transects-report_2.xls");
-
-        try {
-
-            write(input, output);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            if (grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                testExcel();
-            }
-    }
-
-    public void write(File input, File output) throws IOException, WriteException, BiffException {
-
-        Workbook wk = Workbook.getWorkbook(input);
-
-        WritableWorkbook wkr = Workbook.createWorkbook(output, wk);
-
-        WritableSheet sheet = wkr.getSheet(0);
-
-        sheet.addCell(new Label(0, 0, "hi there"));
-
-        wkr.write();
-        wkr.close();
     }
 
     @Override
