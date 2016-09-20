@@ -8,9 +8,7 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.model.Transect;
-import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.service.TransectDataService;
-import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.LocationUtil;
 
 import java.text.DateFormat;
@@ -43,6 +41,7 @@ public class TransectDetailView {
     private Button transectDetailSetWeatherButton;
     private Button transectDetailViewFindingsButton;
     private Button transectDetailSaveButton;
+    private Button transectDetailViewExportButton;
 
     private TransectDataService service = TransectDataService.getInstance();
 
@@ -66,6 +65,7 @@ public class TransectDetailView {
         transectDetailSetWeatherButton = (Button) context.findViewById(R.id.transectDetailSetWeatherButton);
         transectDetailViewFindingsButton = (Button) context.findViewById(R.id.transectDetailViewFindingsButton);
         transectDetailSaveButton = (Button) context.findViewById(R.id.transectDetailSaveButton);
+        transectDetailViewExportButton = (Button) context.findViewById(R.id.transectDetailViewExportButton);
     }
 
     public void bind(Transect transect) {
@@ -81,7 +81,7 @@ public class TransectDetailView {
 
         if (transect.getStartLongitude() != null) {
             startLocation.setText(
-                    LocationUtil.formatLocation(transect.getStartLatitude(), transect.getStartLongitude())
+                    LocationUtil.formatLocationToMinutesAndSeconds(transect.getStartLatitude(), transect.getStartLongitude())
             );
         }
 
@@ -93,7 +93,7 @@ public class TransectDetailView {
 
         if (transect.getEndLongitude() != null) {
             endLocation.setText(
-                    LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude())
+                    LocationUtil.formatLocationToMinutesAndSeconds(transect.getEndLatitude(), transect.getEndLongitude())
             );
         }
 
@@ -131,6 +131,7 @@ public class TransectDetailView {
         transectDetailSetWeatherButton.setEnabled(enable);
         transectDetailViewFindingsButton.setEnabled(enable);
         transectDetailSaveButton.setEnabled(enable);
+        transectDetailViewExportButton.setEnabled(enable);
     }
 
 
@@ -276,7 +277,7 @@ public class TransectDetailView {
     }
 
     public boolean isValid() {
-        return ValidationHelper.isNotEmpty(routeName);
+        return ValidationHelper.isNotEmpty(routeName, column);
     }
 
 }

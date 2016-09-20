@@ -98,6 +98,10 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     }
 
     private void initFindings() {
+        if (id == null) {
+            return;
+        }
+
         final List<Persistable> findingDetails = transectFindingDataService.findFindingDetails(id);
         ListView findingDetailsView = (ListView) findViewById(R.id.findingDetails);
         findingDetailsView.setAdapter(new TransectFindingDetailsListAdapter(this, findingDetails));

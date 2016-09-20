@@ -3,7 +3,6 @@ package com.wecode.animaltracker.adapter;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -14,7 +13,6 @@ import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by SZIAK on 9/16/2016.
@@ -81,16 +79,16 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
         TextView backSize = (TextView) rowView.findViewById(R.id.transectFindingFootprintsItemBackSize);
 
         numOfAnimals.setText(detail.getNumberOfAnimalsValue());
-        frontSize.setText(String.format(Locale.US, "%.1f x %.1f", detail.getFrontLength(), detail.getFrontWidht()));
-        backSize.setText(String.format(Locale.US, "%.1f x %.1f", detail.getBackLength(), detail.getBackWidht()));
+        frontSize.setText(detail.getFrontSizeFormatted());
+        backSize.setText(detail.getBackSizeFormatted());
     }
 
     private void fillRowView(View rowView, TransectFindingFeces detail) {
         TextView pray = (TextView) rowView.findViewById(R.id.transectFindingFecesItemPrey);
         TextView state = (TextView) rowView.findViewById(R.id.transectFindingFecesItemState);
 
-        pray.setText(detail.getFecesPrey());
-        state.setText(detail.getFecesState());
+        pray.setText(detail.getPrey());
+        state.setText(detail.getState());
     }
 
     private void fillRowView(View rowView, TransectFindingOther detail) {

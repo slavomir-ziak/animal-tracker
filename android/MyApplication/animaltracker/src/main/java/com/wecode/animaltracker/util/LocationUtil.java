@@ -3,16 +3,13 @@ package com.wecode.animaltracker.util;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Locale;
 
 /**
@@ -41,16 +38,18 @@ public class LocationUtil {
         }
     }
 
-    public static String formatLocation(Location location) {
-
-        return formatLocation(location.getLatitude(), location.getLongitude());
+    public static String formatLocationToMinutesAndSeconds(Location location) {
+        return formatLocationToMinutesAndSeconds(location.getLatitude(), location.getLongitude());
     }
 
-    public static String formatLocation(Double locationLatitude, Double locationLongitude) {
+    public static String formatLocationToMinutesAndSeconds(Double locationLatitude, Double locationLongitude) {
         String latitudeStr = convertLocation(locationLatitude, false);
         String longitudeStr = convertLocation(locationLongitude, true);
-
         return String.format("%s, %s", latitudeStr, longitudeStr);
+    }
+
+    public static String formatLocationToDecimals(Double locationLatitude, Double locationLongitude) {
+        return String.format(Locale.US, "%.5f, %.5f", locationLatitude, locationLongitude);
     }
 
     public static double[] parseLocation(String location) {
@@ -63,6 +62,7 @@ public class LocationUtil {
 
         return new double[]{latitude, longitude};
     }
+
     private static String convertLocation(double coordinate, boolean longitude) {
 
         String direction;

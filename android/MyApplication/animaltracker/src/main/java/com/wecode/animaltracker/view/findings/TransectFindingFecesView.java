@@ -7,7 +7,6 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
-import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
@@ -50,8 +49,8 @@ public class TransectFindingFecesView {
 
     private void bind(TransectFindingFeces transectFindingFeces) {
 
-        SpinnersHelper.setSelected(fecesState, transectFindingFeces.getFecesState());
-        fecesPrey.setText(transectFindingFeces.getFecesPrey() == null ? "" : transectFindingFeces.getFecesPrey());
+        SpinnersHelper.setSelected(fecesState, transectFindingFeces.getState());
+        fecesPrey.setText(transectFindingFeces.getPrey() == null ? "" : transectFindingFeces.getPrey());
         age.select(transectFindingFeces.getAge());
         id = transectFindingFeces.getId();
     }
@@ -68,8 +67,8 @@ public class TransectFindingFecesView {
 
         transectFindingFeces.setTransectFindingId(transectFindingId);
         transectFindingFeces.setConfidence((String) confidence.getSelectedItem());
-        transectFindingFeces.setFecesPrey(ConverterUtil.toString(fecesPrey.getText()));
-        transectFindingFeces.setFecesState(((String) fecesState.getSelectedItem()));
+        transectFindingFeces.setPrey(ConverterUtil.toString(fecesPrey.getText()));
+        transectFindingFeces.setState(((String) fecesState.getSelectedItem()));
         transectFindingFeces.setAge(age.getSelectedCodeListValue());
         return transectFindingFeces;
     }

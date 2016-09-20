@@ -5,6 +5,8 @@ package com.wecode.animaltracker.model;
  */
 public class Habitat extends Persistable {
 
+    public static final String FOREST = "Forest";
+
     private String type;
     private String track;
     private String forestAge;
@@ -63,5 +65,9 @@ public class Habitat extends Persistable {
                 ", treeType='" + treeType + '\'' +
                 ", forestType='" + forestType + '\'' +
                 "} " + super.toString();
+    }
+
+    public boolean isForest() {
+        return Habitat.FOREST.equals(getType());
     }
 }

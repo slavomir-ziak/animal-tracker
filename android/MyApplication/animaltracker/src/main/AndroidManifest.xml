@@ -16,7 +16,7 @@
         android:theme="@style/MyMaterialTheme">
         <meta-data
             android:name="DATABASE"
-            android:value="sugar_db_beta_2.db" />
+            android:value="sugar_db_beta_23.db" />
         <meta-data
             android:name="VERSION"
             android:value="1" />

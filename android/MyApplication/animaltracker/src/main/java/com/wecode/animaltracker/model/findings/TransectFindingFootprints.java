@@ -2,6 +2,8 @@ package com.wecode.animaltracker.model.findings;
 
 import com.wecode.animaltracker.model.Persistable;
 
+import java.util.Locale;
+
 /**
  * Created by SZIAK on 9/15/2016.
  */
@@ -146,5 +148,13 @@ public class TransectFindingFootprints extends Persistable {
 
     public String getNumberOfAnimalsValue() {
         return numberOfAnimals == null ? "" : numberOfAnimals.toString();
+    }
+
+    public String getFrontSizeFormatted() {
+        return String.format(Locale.US, "%.1f x %.1f", getFrontLength(), getFrontWidht());
+    }
+
+    public String getBackSizeFormatted() {
+        return String.format(Locale.US, "%.1f x %.1f", getBackLength(), getBackWidht());
     }
 }

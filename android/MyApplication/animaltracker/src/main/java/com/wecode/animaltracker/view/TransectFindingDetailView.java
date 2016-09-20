@@ -8,9 +8,7 @@ import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.findings.TransectFinding;
-import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.service.TransectFindingDataService;
-import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 
@@ -65,7 +63,7 @@ public class TransectFindingDetailView {
         findingAfterRecentSnow.setChecked("AFTER".equals(transectFinding.getBeforeAfterRecentSnow()));
 
         if (transectFinding.hasLocation()) {
-            location.setText(LocationUtil.formatLocation(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude()));
+            location.setText(LocationUtil.formatLocationToMinutesAndSeconds(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude()));
         }
 
         habitatId = transectFinding.getHabitatId();
@@ -74,7 +72,7 @@ public class TransectFindingDetailView {
     }
 
     public void setLocation(Location location) {
-        this.location.setText(LocationUtil.formatLocation(location));
+        this.location.setText(LocationUtil.formatLocationToMinutesAndSeconds(location));
     }
 
     public TransectFinding toTransectFinding() {

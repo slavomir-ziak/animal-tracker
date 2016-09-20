@@ -10,9 +10,9 @@ public class TransectFindingFeces extends Persistable {
     //FK
     private Long transectFindingId;
 
-    private String fecesState;
+    private String state;
 
-    private String fecesPrey;
+    private String prey;
 
     private String confidence;
 
@@ -29,20 +29,20 @@ public class TransectFindingFeces extends Persistable {
         this.transectFindingId = transectFindingId;
     }
 
-    public String getFecesState() {
-        return fecesState;
+    public String getState() {
+        return state;
     }
 
-    public void setFecesState(String fecesState) {
-        this.fecesState = fecesState;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public String getFecesPrey() {
-        return fecesPrey;
+    public String getPrey() {
+        return prey;
     }
 
-    public void setFecesPrey(String fecesPrey) {
-        this.fecesPrey = fecesPrey;
+    public void setPrey(String prey) {
+        this.prey = prey;
     }
 
     public String getConfidence() {
@@ -57,8 +57,8 @@ public class TransectFindingFeces extends Persistable {
     public String toString() {
         return "TransectFindingFeces{" +
                 "transectFindingId=" + transectFindingId +
-                ", fecesState='" + fecesState + '\'' +
-                ", fecesPrey='" + fecesPrey + '\'' +
+                ", state='" + state + '\'' +
+                ", prey='" + prey + '\'' +
                 ", confidence='" + confidence + '\'' +
                 ", age=" + age +
                 "} " + super.toString();

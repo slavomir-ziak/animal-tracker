@@ -20,8 +20,19 @@ import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailAc
 import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.export.DataExporter;
+import com.wecode.animaltracker.export.TransectReportRow;
+import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.model.findings.TransectFindingFeces;
+import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
+import com.wecode.animaltracker.model.findings.TransectFindingOther;
+import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.service.TransectDataService;
+import com.wecode.animaltracker.service.TransectFindingFecesDataService;
+import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
+import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.Permissions;
@@ -32,7 +43,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import jxl.CellType;
 import jxl.Workbook;
@@ -142,7 +155,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
             Toast.makeText(this, "Location not acquired.", Toast.LENGTH_SHORT).show();
         } else {
             Log.i(Globals.APP_NAME, "Location: " + currentLocation.getLatitude() + ", " + currentLocation.getLongitude());
-            transectDetailView.getStartLocation().setText(LocationUtil.formatLocation(currentLocation));
+            transectDetailView.getStartLocation().setText(LocationUtil.formatLocationToMinutesAndSeconds(currentLocation));
         }
 
         // TODO refactor this as part of TransectDetailView object
@@ -158,7 +171,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         if (currentLocation == null) {
             Toast.makeText(this, "Location not acquired.", Toast.LENGTH_SHORT).show();
         } else {
-            transectDetailView.getEndLocation().setText(LocationUtil.formatLocation(currentLocation));
+            transectDetailView.getEndLocation().setText(LocationUtil.formatLocationToMinutesAndSeconds(currentLocation));
         }
 
         String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
@@ -417,24 +430,157 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     public void createExcel(InputStream input, File output, Transect transect) throws IOException, WriteException, BiffException {
 
-        Workbook wk = Workbook.getWorkbook(input);
+        WritableWorkbook wkr = null;
 
-        WritableWorkbook wkr = Workbook.createWorkbook(output, wk);
-
-        WritableSheet sheet = wkr.getSheet(0);
-
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                WritableCell cell = sheet.getWritableCell(0, 2);
-                if (cell.getContents().equals("{transect.id}")) {
-                    setCellText(transect.getId().toString(), cell);
+        try {
+            Workbook wk = Workbook.getWorkbook(input);
+            wkr = Workbook.createWorkbook(output, wk);
+            WritableSheet sheet = wkr.getSheet(0);
+            Transect transect1 = transectDetailView.toTransect();
+            DataExporter dataExporter = new DataExporter(transect1);
+            for (int column = 0; column < 50; column++) {
+                for (int row = 0; row < 5; row++) {
+                    WritableCell cell = sheet.getWritableCell(column, row);
+                    String data = dataExporter.getData(cell.getContents());
+                    if (data != null) {
+                        setCellText(data, cell);
+                    }
                 }
             }
+
+            List<TransectReportRow> allRows = new ArrayList<>();
+
+            for (TransectFinding transectFinding : transect1.getFindings()) {
+                List<TransectReportRow> rows = new ArrayList<>();
+                List<TransectFindingFootprints> footprints = TransectFindingFootprintsDataService.getInstance().findByTransectFindingId(transectFinding.getId());
+
+                for (TransectFindingFootprints footprintFinding : footprints) {
+                    TransectReportRow row = new TransectReportRow();
+                    row.setFootprintsBackSize(footprintFinding.getBackSizeFormatted());
+                    row.setFootprintsFrontSize(footprintFinding.getFrontSizeFormatted());
+                    row.setFootprintsDirection(footprintFinding.getDirection());
+                    row.setFootprintsNumberOfAnimlas(footprintFinding.getNumberOfAnimals());
+                    row.setFootprintsStride(footprintFinding.getStride());
+                    //row.setFootprintsSubstract(footprintFinding.getsubstrrack);
+                    rows.add(row);
+                }
+
+                List<TransectFindingFeces> fecesList = TransectFindingFecesDataService.getInstance().findByTransectFindingId(transectFinding.getId());
+                for (int i = 0; i < fecesList.size(); i++) {
+
+                    TransectFindingFeces fecesFinding = fecesList.get(i);
+                    TransectReportRow row;
+                    if (rows.size() >= i + 1) {
+                        row = rows.get(i);
+                    } else {
+                        row = new TransectReportRow();
+                        rows.add(row);
+                    }
+                    row.setFecesPrey(fecesFinding.getPrey());
+                    row.setFecesState(fecesFinding.getState());
+                    //row.setFecesSubstract(fecesFinding.getsubstract);
+
+                }
+
+                int rowCounter=0;
+                List<TransectFindingOther> othersList = TransectFindingOtherDataService.getInstance().findByTransectFindingId(transectFinding.getId());
+                for (int i = 0; i < othersList.size(); i++) {
+                    TransectFindingOther otherFindings = othersList.get(i);
+
+                    if (otherFindings.getEvidence().equalsIgnoreCase("urine")) {
+                        TransectReportRow row;
+                        if (rows.size() >= rowCounter + 1) {
+                            row = rows.get(rowCounter);
+                        } else {
+                            row = new TransectReportRow();
+                            rows.add(row);
+                        }
+                        row.setUrineLocation(otherFindings.getObservations());
+                        rowCounter++;
+                    }
+                }
+
+                rowCounter=0;
+                for (int i = 0; i < othersList.size(); i++) {
+                    TransectFindingOther otherFindings = othersList.get(i);
+
+                    if (!otherFindings.getEvidence().equalsIgnoreCase("urine")) {
+
+                        TransectReportRow row;
+                        if (rows.size() >= rowCounter + 1) {
+                            row = rows.get(rowCounter);
+                        } else {
+                            row = new TransectReportRow();
+                            rows.add(row);
+                        }
+
+                        row.setOtherEvidence(otherFindings.getEvidence());
+                        row.setOtherObservations(otherFindings.getObservations());
+                        rowCounter++;
+                    }
+                }
+
+
+                for (TransectReportRow row : rows) {
+                    row.setSpecie(transectFinding.getSpecies());
+                    //row.setElevation(transectFinding.getele);
+                    row.setLatitude(transectFinding.getLocationLatitude());
+                    row.setLongitude(transectFinding.getLocationLongitude());
+                    if (transectFinding.getHabitatId() != null) {
+                        Habitat habitat = HabitatDataService.getInstance().find(transectFinding.getHabitatId());
+                        row.setHabitat(habitat);
+                    }
+                }
+                allRows.addAll(rows);
+            }
+
+            int row = 7;
+            for (TransectReportRow rowData : allRows) {
+
+                for (int col = 0; col < 20; col++) {
+                    Object data = "";
+
+                    switch(col){
+                        case 0: data = String.valueOf(row - 6); break;
+                        case 1: data = rowData.getSpecie(); break;
+                        case 2: data = rowData.getElevationValue(); break;
+                        case 3: data = rowData.getLatitudeValue(); break;
+                        case 4: data = rowData.getLongitudeValue(); break;
+                        case 5: data = rowData.getHabitat(); break;
+                        case 6: data = rowData.getFootprintsNumberOfAnimlas(); break;
+                        case 7: data = rowData.getFootprintsSubstract(); break;
+                        case 8: data = rowData.getFootprintsDirection(); break;
+                        case 9: data = rowData.getFootprintsStride(); break;
+                        case 10: data = rowData.getFootprintsFrontSize(); break;
+                        case 11: data = rowData.getFootprintsBackSize(); break;
+                        //case 12: data = rowData.getSpecie(); break;
+                        case 13: data = rowData.getFecesState(); break;
+                        case 14: data = rowData.getFecesPrey(); break;
+                        case 15: data = rowData.getFecesSubstract(); break;
+                        //case 16:
+                        case 17: data = rowData.getUrineLocation(); break;
+                        case 18: data = rowData.getOtherEvidence(); break;
+                        case 19: data = rowData.getOtherObservations(); break;
+
+                    }
+
+                    if (data != null) {
+                        //setCellText(data.toString(), cell);
+                        sheet.addCell(new Label(col, row, data.toString()));
+                    }
+
+                }
+
+                row++;
+            }
+
+
+        } finally {
+            if (wkr != null) {
+                wkr.write();
+                wkr.close();
+            }
         }
-
-
-        wkr.write();
-        wkr.close();
     }
 
     private void setCellText(String text, WritableCell cell) {
@@ -447,9 +593,9 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     @SuppressLint("SimpleDateFormat")
     private File getTransectRootDirectory() {
-        String date = new SimpleDateFormat("yyyy_MM_dd_").format(transectDetailView.getStartDateTimeParsed());
+
         String routeName = transectDetailView.getRouteName().getText().toString().replaceAll(" ", "_");
-        String transectDirName = date + routeName + "_ID_" + transectDetailView.getId().getText();
+        String transectDirName = "ID_" + transectDetailView.getId().getText() + "_" + routeName;
 
         File transectRootDir = new File(Globals.getAppRootDir(), transectDirName);
 

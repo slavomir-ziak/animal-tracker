@@ -87,4 +87,6 @@ public class TransectFinding extends Persistable {
                 ", beforeAfterRecentSnow='" + beforeAfterRecentSnow + '\'' +
                 "} " + super.toString();
     }
+
+
 }
