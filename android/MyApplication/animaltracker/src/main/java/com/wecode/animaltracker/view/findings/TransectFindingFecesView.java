@@ -20,9 +20,9 @@ public class TransectFindingFecesView {
     private Long id;
     private Long transectFindingId;
 
-    private Spinner fecesState;
     private TextView fecesPrey;
     private Spinner confidence;
+    private CodeListSpinnerView fecesState;
     private CodeListSpinnerView age;
 
     private TransectFindingFecesDataService service = TransectFindingFecesDataService.getInstance();
@@ -40,18 +40,18 @@ public class TransectFindingFecesView {
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
-        fecesState = (Spinner) context.findViewById(R.id.findingFecesStateValue);
         fecesPrey = (TextView) context.findViewById(R.id.findingFecesPreyValue);
+        fecesState = new CodeListSpinnerView(R.id.findingFecesStateValue, "fecesState", context);
         age = new CodeListSpinnerView(R.id.age, "findingAge", context);
 
-        SpinnersHelper.setSpinnerData(fecesState, R.array.findingFecesState);
     }
 
     private void bind(TransectFindingFeces transectFindingFeces) {
 
-        SpinnersHelper.setSelected(fecesState, transectFindingFeces.getState());
         fecesPrey.setText(transectFindingFeces.getPrey() == null ? "" : transectFindingFeces.getPrey());
         age.select(transectFindingFeces.getAge());
+        fecesState.select(transectFindingFeces.getState());
+
         id = transectFindingFeces.getId();
     }
 
@@ -68,7 +68,7 @@ public class TransectFindingFecesView {
         transectFindingFeces.setTransectFindingId(transectFindingId);
         transectFindingFeces.setConfidence((String) confidence.getSelectedItem());
         transectFindingFeces.setPrey(ConverterUtil.toString(fecesPrey.getText()));
-        transectFindingFeces.setState(((String) fecesState.getSelectedItem()));
+        transectFindingFeces.setState((fecesState.getSelectedCodeListValue()));
         transectFindingFeces.setAge(age.getSelectedCodeListValue());
         return transectFindingFeces;
     }

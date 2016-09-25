@@ -94,7 +94,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
             </LinearLayout>
 
             <GridLayout
@@ -154,7 +154,8 @@
                     android:layout_gravity="center"
                     android:layout_row="1"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number|numberDecimal"
+                    android:numeric="decimal" />
 
                 <EditText
                     android:id="@+id/footprintsBackLengthValue"
@@ -164,7 +165,8 @@
                     android:layout_gravity="center"
                     android:layout_row="1"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number|numberDecimal"
+                    android:numeric="decimal" />
 
                 <TextView
                     android:id="@+id/textView12"
@@ -184,7 +186,8 @@
                     android:layout_gravity="center"
                     android:layout_row="3"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number|numberDecimal"
+                    android:numeric="decimal" />
 
                 <EditText
                     android:id="@+id/footprintsBackWidthValue"
@@ -194,7 +197,8 @@
                     android:layout_gravity="center"
                     android:layout_row="3"
                     android:ems="10"
-                    android:inputType="number" />
+                    android:inputType="number|numberDecimal"
+                    android:numeric="decimal" />
             </GridLayout>
 
             <LinearLayout
@@ -235,7 +239,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/age"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
         </LinearLayout>

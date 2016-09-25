@@ -31,19 +31,6 @@ public class AnimalTrackerApp extends SugarApp {
         }
     }
 
-    private SQLiteDatabase getDb() {
-
-        try {
-            Field f = SugarContext.getSugarContext().getClass().getDeclaredField("sugarDb");
-            f.setAccessible(true);
-            SugarDb db = (SugarDb) f.get(SugarContext.getSugarContext());
-            return db.getDB();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-
     private void executeScript(SQLiteDatabase db, String file) {
         try {
             InputStream is = this.getAssets().open("sugar_upgrades/" + file);
@@ -65,6 +52,20 @@ public class AnimalTrackerApp extends SugarApp {
             Log.e(Globals.APP_NAME, e.getMessage());
         }
 
-        Log.i(Globals.APP_NAME, "Script 1.sql executed");
+        Log.i(Globals.APP_NAME, "Script "+file+" executed");
     }
+
+    private SQLiteDatabase getDb() {
+
+        try {
+            Field f = SugarContext.getSugarContext().getClass().getDeclaredField("sugarDb");
+            f.setAccessible(true);
+            SugarDb db = (SugarDb) f.get(SugarContext.getSugarContext());
+            return db.getDB();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

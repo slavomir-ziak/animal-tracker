@@ -14,14 +14,15 @@ INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (9 , 'APP', 'habita
 INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (10, 'APP', 'habitatForestAgeTypes', 'New', '');
 INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (11, 'APP', 'habitatForestAgeTypes', 'Mixed', '');
 
-INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (12, 'APP', 'habitatTreeTypes', 'Leafless', '');
-INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (13, 'APP', 'habitatTreeTypes', 'Leafs', '');
-INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (14, 'APP', 'habitatTreeTypes', 'Needles', '');
-INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (15, 'APP', 'habitatTreeTypes', 'Mix', '');
 
-INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (16, 'APP', 'habitatForestTypes', 'Coniferas', '');
-INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (17, 'APP', 'habitatForestTypes', 'Pines', '');
-INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (18, 'APP', 'habitatForestTypes', 'Oak', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (12, 'APP', 'habitatTreeTypes', 'Oak', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (13, 'APP', 'habitatTreeTypes', 'Beech', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (14, 'APP', 'habitatTreeTypes', 'Spruce', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (15, 'APP', 'habitatTreeTypes', 'Pinus', '');
+
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (16, 'APP', 'habitatForestTypes', 'Broad leaft', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (17, 'APP', 'habitatForestTypes', 'Coniferous', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (18, 'APP', 'habitatForestTypes', 'Mixed', '');
 
 INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (19, 'APP', 'findingTypes', 'Carcass', '');
 INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (20, 'APP', 'findingTypes', 'Feathers', '');
@@ -35,5 +36,16 @@ INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (26, 'APP', 'findin
 INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (27, 'APP', 'findingSpeciesTypes', 'Brown hare', '');
 INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (28, 'APP', 'findingSpeciesTypes', 'Red fox', '');
 
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (29, 'APP', 'findingAge', '1 day', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (30, 'APP', 'findingAge', '3 day', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (31, 'APP', 'findingAge', '5 day', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (32, 'APP', 'findingAge', '1 week', '');
+
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (33, 'APP', 'habitatTreeTypes', 'Fruit', '');
+
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (34, 'APP', 'fecesState', 'Fresh', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (35, 'APP', 'fecesState', 'Old', '');
+INSERT INTO CODE_LIST (ID, SOURCE, NAME, VALUE, ICON) values (36, 'APP', 'fecesState', 'Decayed', '');
+
 DELETE FROM SQLITE_SEQUENCE WHERE NAME = 'CODE_LIST';
-INSERT INTO SQLITE_SEQUENCE (NAME, SEQ) VALUES ('CODE_LIST', 28);
+INSERT INTO SQLITE_SEQUENCE (NAME, SEQ) VALUES ('CODE_LIST', 36);

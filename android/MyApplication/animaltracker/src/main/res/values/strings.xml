@@ -42,12 +42,6 @@
         <item>After</item>
     </string-array>
 
-    <string-array name="findingFecesState">
-        <item></item>
-        <item>New</item>
-        <item>Decayed</item>
-    </string-array>
-
     <string-array name="findingBeforeAfterRecentSnowValues">
         <item></item>
         <item>Before</item>

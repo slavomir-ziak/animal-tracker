@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +50,7 @@ import java.util.List;
 
 import jxl.CellType;
 import jxl.Workbook;
+import jxl.format.CellFormat;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableCell;
@@ -414,8 +416,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
             Toast.makeText(this, "Exported to: " + excelFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
         } catch (Exception e) {
-            e.printStackTrace();
-
+            Log.e(Globals.APP_NAME, "Problem with excel export", e);
+            Toast.makeText(this, "Problem with excel export. Exception: " + e.getClass() + ", message: " + e.getMessage(), Toast.LENGTH_LONG).show();
         } finally {
             if (reportStream != null) {
                 try {
@@ -423,6 +425,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                MediaScannerConnection.scanFile(this, new String[]{excelFile.getParent()}, null, null);
             }
         }
 
@@ -565,8 +568,10 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
                     }
 
                     if (data != null) {
-                        //setCellText(data.toString(), cell);
-                        sheet.addCell(new Label(col, row, data.toString()));
+                        CellFormat cellFormat = sheet.getCell(col, row).getCellFormat();
+                        Label cell = new Label(col, row, data.toString());
+                        cell.setCellFormat(cellFormat);
+                        sheet.addCell(cell);
                     }
 
                 }
