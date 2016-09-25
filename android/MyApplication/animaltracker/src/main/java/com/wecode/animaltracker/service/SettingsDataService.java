@@ -18,4 +18,7 @@ public class SettingsDataService extends AbstractDataService<Settings> {
         return INSTANCE;
     }
 
+    public Settings get() {
+        return find(1L);
+    }
 }

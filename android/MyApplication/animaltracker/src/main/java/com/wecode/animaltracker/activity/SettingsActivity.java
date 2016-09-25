@@ -41,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void init() {
-        Settings settings = service.find(1L);
+        Settings settings = service.get();
 
         trackerName = (TextView) findViewById(R.id.settingsTrackerName);
         settingsLocationDecimal = (RadioButton) findViewById(R.id.settingsLocationDecimal);
