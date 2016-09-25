@@ -92,8 +92,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
-            System.out.println("Settings menu pressed");
+            openSettings();
             return true;
         }
 
@@ -103,6 +102,11 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void openSettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
 
