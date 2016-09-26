@@ -24,8 +24,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     private RadioButton settingsLocationDecimal;
 
-    private RadioButton settingsLocationDMS;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         trackerName = (TextView) findViewById(R.id.settingsTrackerName);
         settingsLocationDecimal = (RadioButton) findViewById(R.id.settingsLocationDecimal);
-        settingsLocationDMS = (RadioButton) findViewById(R.id.settingsLocationDMS);
+        RadioButton settingsLocationDMS = (RadioButton) findViewById(R.id.settingsLocationDMS);
 
         trackerName.setText(settings.getTrackerName() != null ? settings.getTrackerName() : "");
         settingsLocationDecimal.setChecked(settings.isLocationDecimal());
