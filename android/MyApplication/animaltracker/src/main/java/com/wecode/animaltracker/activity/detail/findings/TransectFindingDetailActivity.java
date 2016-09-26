@@ -21,10 +21,11 @@ import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
-import com.wecode.animaltracker.activity.detail.EditLocationActivity;
+import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.detail.HabitatDetailActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
+import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.adapter.TransectFindingDetailsListAdapter;
@@ -37,11 +38,13 @@ import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.SampleDataService;
+import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
+import com.wecode.animaltracker.view.location.EditLocationDecimalView;
 
 import java.io.File;
 import java.util.List;
@@ -394,7 +397,13 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     }
 
     public void editLocation(View view) {
-        Intent intent = new Intent(this, EditLocationActivity.class);
+        Intent intent;
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            intent = new Intent(this, EditLocationDMSFormatActivity.class);
+        } else {
+            intent = new Intent(this, EditLocationDecimalFormatActivity.class);
+        }
+
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         intent.putExtra("location", transectFindingView.getLocation().getText().toString());

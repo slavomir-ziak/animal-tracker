@@ -102,7 +102,9 @@
 
         <activity android:name=".activity.TransectFindingAddSampleActivity" />
 
-        <activity android:name=".activity.detail.EditLocationActivity"/>
+        <activity android:name=".activity.location.EditLocationDMSFormatActivity"/>
+
+        <activity android:name=".activity.location.EditLocationDecimalFormatActivity"/>
 
         <activity android:name=".activity.detail.findings.TransectFindingFecesDetailActivity"
             android:label="@string/feces_finding_detail"

@@ -19,6 +19,7 @@ import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.list.TransectFindingsList;
+import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.export.DataExporter;
@@ -43,7 +44,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -353,7 +353,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     }
 
     public void editStartLocation(View view) {
-        Intent intent = new Intent(this, EditLocationActivity.class);
+        Intent intent = new Intent(this, EditLocationDMSFormatActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         intent.putExtra("location", transectDetailView.getStartLocation().getText().toString());
@@ -362,7 +362,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
 
     public void editEndLocation(View view) {
-        Intent intent = new Intent(this, EditLocationActivity.class);
+        Intent intent = new Intent(this, EditLocationDMSFormatActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         intent.putExtra("location", transectDetailView.getEndLocation().getText().toString());

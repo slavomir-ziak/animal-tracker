@@ -69,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void saveSettings() {
 
         Settings settings = service.get();
-        String locationFormat = settingsLocationDecimal.isSelected() ? Settings.LOCATION_DECIMAL : Settings.LOCATION_DMS;
+        String locationFormat = settingsLocationDecimal.isChecked() ? Settings.LOCATION_DECIMAL : Settings.LOCATION_DMS;
         settings.setLocationFormat(locationFormat);
         settings.setTrackerName(trackerName.getText().toString());
         service.save(settings);

@@ -154,13 +154,13 @@ public class TransectDetailView {
             transect.setRouteName(routeName.getText().toString());
 
             if (this.startLocation.getText().length() > 0) {
-                double[] location = LocationUtil.parseLocation(this.startLocation.getText().toString());
+                double[] location = LocationUtil.parseLocationDMS(this.startLocation.getText().toString());
                 transect.setStartLatitude(location[0]);
                 transect.setStartLongitude(location[1]);
             }
 
             if (endLocation.getText().length() != 0) {
-                double[] location = LocationUtil.parseLocation(this.endLocation.getText().toString());
+                double[] location = LocationUtil.parseLocationDMS(this.endLocation.getText().toString());
                 transect.setEndLatitude(location[0]);
                 transect.setEndLongitude(location[1]);
             }

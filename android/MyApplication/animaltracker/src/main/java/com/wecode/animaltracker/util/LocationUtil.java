@@ -52,13 +52,24 @@ public class LocationUtil {
         return String.format(Locale.US, "%.5f, %.5f", locationLatitude, locationLongitude);
     }
 
-    public static double[] parseLocation(String location) {
+    public static double[] parseLocationDMS(String location) {
         String[] split = location.split(",");
         double latitude = convertLocation(split[0].trim());
         double longitude = convertLocation(split[1].trim());
 
         latitude = new BigDecimal(latitude).setScale(6, BigDecimal.ROUND_DOWN).doubleValue();
         longitude = new BigDecimal(longitude).setScale(6, BigDecimal.ROUND_DOWN).doubleValue();
+
+        return new double[]{latitude, longitude};
+    }
+
+    public static double[] parseLocationDecimals(String location) {
+        String[] split = location.split(",");
+        double latitude = Double.valueOf(split[0].trim());
+        double longitude = Double.valueOf(split[1].trim());
+
+        latitude = new BigDecimal(latitude).setScale(5, BigDecimal.ROUND_DOWN).doubleValue();
+        longitude = new BigDecimal(longitude).setScale(5, BigDecimal.ROUND_DOWN).doubleValue();
 
         return new double[]{latitude, longitude};
     }

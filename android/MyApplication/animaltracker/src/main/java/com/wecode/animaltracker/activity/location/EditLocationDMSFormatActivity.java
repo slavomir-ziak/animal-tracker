@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity.detail;
+package com.wecode.animaltracker.activity.location;
 
 import android.content.Intent;
 import android.location.Location;
@@ -9,24 +9,24 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
 import com.wecode.animaltracker.util.LocationUtil;
-import com.wecode.animaltracker.view.EditLocationView;
+import com.wecode.animaltracker.view.location.EditLocationDMSView;
 
-public class EditLocationActivity extends CommonDetailActivity implements LocationListener {
+public class EditLocationDMSFormatActivity extends CommonDetailActivity implements LocationListener {
 
     private static final int ACCESS_FINE_LOCATION_REQUEST = 1;
-    private EditLocationView editLocationView;
+    private EditLocationDMSView editLocatioView;
     private Location currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_location);
+        setContentView(R.layout.activity_edit_location_dms);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -35,7 +35,7 @@ public class EditLocationActivity extends CommonDetailActivity implements Locati
 
         String location = getIntent().getStringExtra("location");
 
-        editLocationView = new EditLocationView(location, this);
+        editLocatioView = new EditLocationDMSView(location, this);
 
         extractParams(getIntent());
 
@@ -55,9 +55,9 @@ public class EditLocationActivity extends CommonDetailActivity implements Locati
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
-            if (editLocationView.validate()) {
+            if (editLocatioView.validate()) {
                 Intent intent = new Intent();
-                intent.putExtra("location", editLocationView.getLocation());
+                intent.putExtra("location", editLocatioView.getLocation());
                 setResult(RESULT_OK, intent);
                 finish();
                 return true;
@@ -66,10 +66,10 @@ public class EditLocationActivity extends CommonDetailActivity implements Locati
 
         if (id == R.id.action_location_acquire) {
             if (currentLocation == null) {
-                Toast.makeText(EditLocationActivity.this, "Location not acquired.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditLocationDMSFormatActivity.this, "Location not acquired.", Toast.LENGTH_SHORT).show();
                 return true;
             }
-            editLocationView.initFromLocation(currentLocation);
+            editLocatioView.initFromLocation(currentLocation);
             return true;
         }
 

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
@@ -63,7 +64,7 @@ public class TransectFindingDetailView {
         findingAfterRecentSnow.setChecked("AFTER".equals(transectFinding.getBeforeAfterRecentSnow()));
 
         if (transectFinding.hasLocation()) {
-            location.setText(LocationUtil.formatLocationToMinutesAndSeconds(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude()));
+            setLocation(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude());
         }
 
         habitatId = transectFinding.getHabitatId();
@@ -71,8 +72,24 @@ public class TransectFindingDetailView {
         id = transectFinding.getId();
     }
 
+    private void setLocation(Double latitude, Double longiture) {
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            location.setText(LocationUtil.formatLocationToMinutesAndSeconds(latitude, longiture));
+        } else {
+            location.setText(LocationUtil.formatLocationToDecimals(latitude, longiture));
+        }
+    }
+
+    private double[] getLocationParsed() {
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            return LocationUtil.parseLocationDMS(location.getText().toString());
+        } else {
+            return LocationUtil.parseLocationDecimals(location.getText().toString());
+        }
+    }
+
     public void setLocation(Location location) {
-        this.location.setText(LocationUtil.formatLocationToMinutesAndSeconds(location));
+        setLocation(location.getLatitude(), location.getLongitude());
     }
 
     public TransectFinding toTransectFinding() {
@@ -87,7 +104,8 @@ public class TransectFindingDetailView {
         transectFinding.setSpecies(species.getSelectedCodeListValue());
 
         if (location.getText().toString().length() > 0) {
-            double[] parsed = LocationUtil.parseLocation(location.getText().toString());
+            double[] parsed = getLocationParsed();
+
             transectFinding.setLocationLatitude(parsed[0]);
             transectFinding.setLocationLongitude(parsed[1]);
         }

@@ -40,6 +40,15 @@ public class ValidationHelper {
         return true;
     }
 
+    private static boolean isMinValue(TextView textView, double minValue) {
+        double v = Double.parseDouble(textView.getText().toString());
+        if (v < minValue) {
+            textView.setError("Min value is " + minValue + ".");
+            return false;
+        }
+        return true;
+    }
+
     /**
      * throws Exception
      *
@@ -51,4 +60,11 @@ public class ValidationHelper {
             throw new RuntimeException();
         }
     }
+
+    public static void assertMinValue(TextView textView, double minValue) {
+        if (!isMinValue(textView, minValue)) {
+            throw new RuntimeException();
+        }
+    }
+
 }

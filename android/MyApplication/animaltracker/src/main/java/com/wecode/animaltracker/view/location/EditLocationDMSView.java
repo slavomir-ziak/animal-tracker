@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.view;
+package com.wecode.animaltracker.view.location;
 
 import android.app.Activity;
 import android.location.Location;
@@ -15,7 +15,7 @@ import java.util.Locale;
 /**
  * Created by SZIAK on 8/28/2016.
  */
-public class EditLocationView {
+public class EditLocationDMSView {
 
     private TextView degreesLatitude;
     private TextView minutesLatitude;
@@ -27,7 +27,7 @@ public class EditLocationView {
     private TextView secondsLongitude;
     private Spinner directionLongitude;
 
-    public EditLocationView(String location, Activity context) {
+    public EditLocationDMSView(String location, Activity context) {
 
         degreesLatitude = (TextView) context.findViewById(R.id.editLocationLatitudeDegreesValue);
         minutesLatitude = (TextView) context.findViewById(R.id.editLocationLatitudeMinutesValue);

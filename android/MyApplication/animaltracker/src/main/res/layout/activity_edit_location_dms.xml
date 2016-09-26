@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".activity.detail.EditLocationActivity">
+    tools:context=".activity.location.EditLocationDMSFormatActivity">
 
     <include
         android:id="@+id/toolbar"

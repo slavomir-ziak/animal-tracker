@@ -42,22 +42,22 @@ public class LocationUtilTest extends TestCase {
     public void testLocationParsing() {
 
 
-        double[] parsed = LocationUtil.parseLocation("0°0'0.00\"S, 0°0'0.00\"W");
+        double[] parsed = LocationUtil.parseLocationDMS("0°0'0.00\"S, 0°0'0.00\"W");
         Assert.assertArrayEquals(new double[]{0.0, 0.0}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("90°0'0.00\"N, 180°0'0.00\"E");
+        parsed = LocationUtil.parseLocationDMS("90°0'0.00\"N, 180°0'0.00\"E");
         Assert.assertArrayEquals(new double[]{90.0, 180.0}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("90°0'0.00\"S, 180°0'0.00\"W");
+        parsed = LocationUtil.parseLocationDMS("90°0'0.00\"S, 180°0'0.00\"W");
         Assert.assertArrayEquals(new double[]{-90.0, -180.0}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("45°38'7.62\"N, 175°38'18.36\"W");
+        parsed = LocationUtil.parseLocationDMS("45°38'7.62\"N, 175°38'18.36\"W");
         Assert.assertArrayEquals(new double[]{45.635449, -175.638433}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("54°11'45.99\"N, 100°18'55.17\"E");
+        parsed = LocationUtil.parseLocationDMS("54°11'45.99\"N, 100°18'55.17\"E");
         Assert.assertArrayEquals(new double[]{54.196108,  100.315325}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("48°11'40.83\"N, 17°17'34.98\"E");
+        parsed = LocationUtil.parseLocationDMS("48°11'40.83\"N, 17°17'34.98\"E");
         Assert.assertArrayEquals(new double[]{48.194674,   17.29305}, parsed, 0);
 
     }
