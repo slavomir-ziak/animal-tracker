@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.util.LocationUtil;
@@ -35,6 +36,7 @@ public class HabitatDetailActivity extends CommonDetailActivity {
             habitatDetailView = new HabitatDetailView(this);
         }
 
+        entityName = Photo.EntityName.HABITAT;
     }
 
     @Override
@@ -50,8 +52,7 @@ public class HabitatDetailActivity extends CommonDetailActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_habitat_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_habitat_detail, menu);
         return true;
     }
 

@@ -26,6 +26,7 @@ import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.export.DataExporter;
 import com.wecode.animaltracker.export.TransectReportRow;
 import com.wecode.animaltracker.model.Habitat;
+import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
@@ -81,10 +82,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_transect_detail, menu);
-        //menu.add
-
         return true;
     }
 
@@ -106,6 +104,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
 
+        entityName = Photo.EntityName.TRANSECT;
     }
 
     private void initGui() {

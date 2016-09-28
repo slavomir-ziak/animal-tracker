@@ -71,7 +71,7 @@
     </string-array>
 
     <string name="title_activity_photos_list">PhotosList</string>
-    <string name="title_activity_findings_list">FindingsList</string>
+    <string name="title_activity_finding_sites">FindingSites</string>
     <string name="title_activity_transects_list">TransectsList</string>
     <string name="action_habitat">Habitat</string>
     <string name="transect_action_weather">Weather</string>
@@ -87,5 +87,6 @@
     <string name="feces_finding_detail">Feces finding</string>
     <string name="footprints_finding_detail">Footprint finding</string>
     <string name="other_finding_detail">Other finding</string>
+    <string name="title_activity_finding_site">FindingSite</string>
 
 </resources>

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
+import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.view.findings.TransectFindingFootprintsView;
@@ -45,12 +46,13 @@ public class TransectFindingFootprintsDetailActivity extends CommonDetailActivit
 
         //initGui(transectFindingView);
 
+        entityName = Photo.EntityName.TRANECT_FINDING_FOOTPRINT;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_save, menu);
+        getMenuInflater().inflate(R.menu.menu_transect_finding_footprints, menu);
         return true;
     }
 

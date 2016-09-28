@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.activity.list;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,10 +31,13 @@ public class PhotosList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_tiles);
 
-        Long transectFindingId = getIntent().getLongExtra("transectFindingId", 0);
-        Assert.isTrue("transectFindingId missing ", transectFindingId > 0);
+        Long entityId = getIntent().getLongExtra("entityId", 0);
+        String entityName = getIntent().getStringExtra("entityName");
 
-        List<Photo> photos = photosDataService.findByTransectFindingId(transectFindingId);
+        Assert.isTrue("entityId missing", entityId > 0);
+        Assert.isTrue("entityName missing", entityName != null);
+
+        List<Photo> photos = photosDataService.findByEntityIdAndName(entityId, entityName);
 
         for (int i = 0; i < photos.size(); i++) {
             Log.i(Globals.APP_NAME, "photo["+i+"]: " + photos.get(i).toString());
@@ -47,10 +52,18 @@ public class PhotosList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent,
                                     View v, int position, long id)
             {
+                //showPhoto(Uri);
             }
         });
 
 
+    }
+
+    private void showPhoto(Uri photoUri){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setDataAndType(photoUri, "image/*");
+        startActivity(intent);
     }
 
     @Override

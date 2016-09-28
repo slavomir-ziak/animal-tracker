@@ -1,12 +1,9 @@
 package com.wecode.animaltracker.activity.detail.findings;
 
-import android.Manifest;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -21,10 +18,9 @@ import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
-import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.detail.HabitatDetailActivity;
-import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
+import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
@@ -36,7 +32,6 @@ import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
-import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
@@ -44,26 +39,18 @@ import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
-import com.wecode.animaltracker.view.location.EditLocationDecimalView;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 public class TransectFindingDetailActivity extends CommonDetailActivity implements LocationListener {
 
     private static final int SET_HABITAT_REQUEST = 0;
     private static final int ADD_SAMPLE_REQUEST = 1;
-    private static final int ADD_PHOTO_REQUEST = 2;
-
-    private static final int ADD_PHOTO_PERMISSION_REQUEST = 3;
     private static final int ACCESS_FINE_LOCATION_REQUEST = 4;
 
     private static final int EDIT_LOCATION_REQUEST = 5;
 
     private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
-
-    private PhotosDataService photosDataService = PhotosDataService.getInstance();
 
     private SampleDataService sampleDataService = SampleDataService.getInstance();
 
@@ -71,7 +58,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     private Long transectId;
 
-    private File outputPhotoFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +84,8 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         }
 
         initGui();
+
+        entityName = Photo.EntityName.TRANECT_FINDING_SITE;
     }
 
     private void initFindings() {
@@ -149,16 +137,13 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_transect_finding_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_transect_finding_site, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         if (id == R.id.transect_finding_action_add_sample) {
@@ -173,6 +158,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
             setHabitat(null);
             return true;
         }
+
         if (id == R.id.action_save) {
             saveTransectFinding();
             return true;
@@ -244,11 +230,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         startActivityForResult(intent, 0);
     }
 
-    public void showPhotos(View view) {
-        Intent intent = new Intent(this, PhotosList.class);
-        intent.putExtra("transectFindingId", transectFindingView.getId());
-        startActivity(intent);
-    }
 
     public void showSamples(View view) {
         Intent intent = new Intent(this, TransectFindingSamplesList.class);
@@ -261,36 +242,9 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         startActivityForResult(intent, ADD_SAMPLE_REQUEST);
     }
 
-    public void addPhoto(View view) {
-
-        if (!Permissions.grantedOrRequestPermissions(this, ADD_PHOTO_PERMISSION_REQUEST,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA)) {
-            return;
-        }
-
-        outputPhotoFile = new File(Globals.getPhotosStorageDir(), "T" + transectId + "F" + id + "-photo-" + UUID.randomUUID() + ".jpg");
-
-        Log.d(Globals.APP_NAME, "Picture will be saved:" + outputPhotoFile);
-
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputPhotoFile));
-
-        startActivityForResult(cameraIntent, ADD_PHOTO_REQUEST);
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == ADD_PHOTO_PERMISSION_REQUEST) {
-            if (Permissions.grantResults(grantResults)) {
-                addPhoto(null);
-            } else {
-                Log.w(Globals.APP_NAME, "ADD_PHOTO_PERMISSION_REQUEST NOT granted");
-            }
-        }
 
         if (requestCode == ACCESS_FINE_LOCATION_REQUEST) {
             if (Permissions.grantResults(grantResults)) {
@@ -327,13 +281,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
                 Toast.makeText(this, "Habitat " + text + ", ID = " + id, Toast.LENGTH_LONG).show();
 
                 transectFindingView.setHabitatId(id);
-
-                break;
-
-            case ADD_PHOTO_REQUEST:
-                Log.d(Globals.APP_NAME, "Pic saved, intent: " + data);
-                Photo photo = new Photo(Photo.EntityName.TRANECT_FINDING_FOOTPRINT, transectFindingView.getId(), outputPhotoFile.getName());
-                photosDataService.save(photo);
 
                 break;
 
@@ -387,8 +334,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         switch (requestCode) {
             case SET_HABITAT_REQUEST:
                 return "habitat";
-            case ADD_PHOTO_REQUEST:
-                return "photo";
             case ADD_SAMPLE_REQUEST:
                 return "sample";
             default:
