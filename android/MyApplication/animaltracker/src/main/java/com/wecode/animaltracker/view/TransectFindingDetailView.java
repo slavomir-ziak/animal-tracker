@@ -73,19 +73,11 @@ public class TransectFindingDetailView {
     }
 
     private void setLocation(Double latitude, Double longiture) {
-        if (SettingsDataService.getInstance().get().isLocationDMS()) {
-            location.setText(LocationUtil.formatLocationToMinutesAndSeconds(latitude, longiture));
-        } else {
-            location.setText(LocationUtil.formatLocationToDecimals(latitude, longiture));
-        }
+        location.setText(LocationUtil.formatLocation(latitude, longiture));
     }
 
     private double[] getLocationParsed() {
-        if (SettingsDataService.getInstance().get().isLocationDMS()) {
-            return LocationUtil.parseLocationDMS(location.getText().toString());
-        } else {
-            return LocationUtil.parseLocationDecimals(location.getText().toString());
-        }
+        return LocationUtil.parseLocation(location.getText().toString());
     }
 
     public void setLocation(Location location) {

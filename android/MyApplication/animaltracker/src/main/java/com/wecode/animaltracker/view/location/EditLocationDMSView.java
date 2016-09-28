@@ -106,7 +106,7 @@ public class EditLocationDMSView {
     }
 
     public void initFromLocation(Location location) {
-        String locationFormatted = LocationUtil.formatLocationToMinutesAndSeconds(location.getLatitude(), location.getLongitude());
+        String locationFormatted = LocationUtil.formatLocation(location.getLatitude(), location.getLongitude());
 
         String[] coordinates = locationFormatted.split(",");
 

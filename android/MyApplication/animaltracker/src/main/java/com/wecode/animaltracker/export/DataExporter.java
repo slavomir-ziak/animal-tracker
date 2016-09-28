@@ -32,8 +32,8 @@ public class DataExporter {
 
             }
             case "GRID_NUMBER": return transect.getColumn().toString();
-            case "START_LOCATION": return LocationUtil.formatLocationToDecimals(transect.getStartLatitude(), transect.getStartLongitude());
-            case "END_LOCATION": return LocationUtil.formatLocationToDecimals(transect.getEndLatitude(), transect.getEndLongitude());
+            case "START_LOCATION": return LocationUtil.formatLocation(transect.getStartLatitude(), transect.getStartLongitude());
+            case "END_LOCATION": return LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude());
             //case "TOTAL_LENGTH": return transect.toString();
             //case "WEATHER": return transect.toString();
         }

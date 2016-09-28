@@ -9,6 +9,8 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.widget.Toast;
 
+import com.wecode.animaltracker.service.SettingsDataService;
+
 import java.math.BigDecimal;
 import java.util.Locale;
 
@@ -38,21 +40,49 @@ public class LocationUtil {
         }
     }
 
-    public static String formatLocationToMinutesAndSeconds(Location location) {
+    public static String formatLocation(Location location){
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            return formatLocationToMinutesAndSeconds(location);
+        } else {
+            return formatLocationToDecimals(location);
+        }
+    }
+
+    public static String formatLocation(double latitude, double longitude){
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            return formatLocationToMinutesAndSeconds(latitude, longitude);
+        } else {
+            return formatLocationToDecimals(latitude, longitude);
+        }
+    }
+
+    public static double[] parseLocation(String location) {
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            return parseLocationDMS(location);
+        } else {
+            return parseLocationDecimals(location);
+        }
+    }
+
+    private static String formatLocationToDecimals(Location location) {
+        return formatLocationToDecimals(location.getLatitude(), location.getLongitude());
+    }
+
+    static String formatLocationToMinutesAndSeconds(Location location) {
         return formatLocationToMinutesAndSeconds(location.getLatitude(), location.getLongitude());
     }
 
-    public static String formatLocationToMinutesAndSeconds(Double locationLatitude, Double locationLongitude) {
+    static String formatLocationToMinutesAndSeconds(Double locationLatitude, Double locationLongitude) {
         String latitudeStr = convertLocation(locationLatitude, false);
         String longitudeStr = convertLocation(locationLongitude, true);
         return String.format("%s, %s", latitudeStr, longitudeStr);
     }
 
-    public static String formatLocationToDecimals(Double locationLatitude, Double locationLongitude) {
+    static String formatLocationToDecimals(Double locationLatitude, Double locationLongitude) {
         return String.format(Locale.US, "%.5f, %.5f", locationLatitude, locationLongitude);
     }
 
-    public static double[] parseLocationDMS(String location) {
+    static double[] parseLocationDMS(String location) {
         String[] split = location.split(",");
         double latitude = convertLocation(split[0].trim());
         double longitude = convertLocation(split[1].trim());
@@ -63,7 +93,7 @@ public class LocationUtil {
         return new double[]{latitude, longitude};
     }
 
-    public static double[] parseLocationDecimals(String location) {
+    static double[] parseLocationDecimals(String location) {
         String[] split = location.split(",");
         double latitude = Double.valueOf(split[0].trim());
         double longitude = Double.valueOf(split[1].trim());

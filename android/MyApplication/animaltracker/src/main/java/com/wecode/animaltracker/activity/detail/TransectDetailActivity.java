@@ -20,6 +20,7 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.list.TransectFindingsList;
 import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
+import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.export.DataExporter;
@@ -31,6 +32,7 @@ import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.HabitatDataService;
+import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
@@ -157,7 +159,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
             Toast.makeText(this, "Location not acquired.", Toast.LENGTH_SHORT).show();
         } else {
             Log.i(Globals.APP_NAME, "Location: " + currentLocation.getLatitude() + ", " + currentLocation.getLongitude());
-            transectDetailView.getStartLocation().setText(LocationUtil.formatLocationToMinutesAndSeconds(currentLocation));
+            transectDetailView.getStartLocation().setText(LocationUtil.formatLocation(currentLocation));
         }
 
         // TODO refactor this as part of TransectDetailView object
@@ -173,7 +175,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         if (currentLocation == null) {
             Toast.makeText(this, "Location not acquired.", Toast.LENGTH_SHORT).show();
         } else {
-            transectDetailView.getEndLocation().setText(LocationUtil.formatLocationToMinutesAndSeconds(currentLocation));
+            transectDetailView.getEndLocation().setText(LocationUtil.formatLocation(currentLocation));
         }
 
         String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
@@ -353,7 +355,12 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     }
 
     public void editStartLocation(View view) {
-        Intent intent = new Intent(this, EditLocationDMSFormatActivity.class);
+        Intent intent;
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            intent = new Intent(this, EditLocationDMSFormatActivity.class);
+        } else {
+            intent = new Intent(this, EditLocationDecimalFormatActivity.class);
+        }
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         intent.putExtra("location", transectDetailView.getStartLocation().getText().toString());
@@ -362,7 +369,12 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
 
     public void editEndLocation(View view) {
-        Intent intent = new Intent(this, EditLocationDMSFormatActivity.class);
+        Intent intent;
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            intent = new Intent(this, EditLocationDMSFormatActivity.class);
+        } else {
+            intent = new Intent(this, EditLocationDecimalFormatActivity.class);
+        }
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         intent.putExtra("location", transectDetailView.getEndLocation().getText().toString());

@@ -81,7 +81,7 @@ public class TransectDetailView {
 
         if (transect.getStartLongitude() != null) {
             startLocation.setText(
-                    LocationUtil.formatLocationToMinutesAndSeconds(transect.getStartLatitude(), transect.getStartLongitude())
+                    LocationUtil.formatLocation(transect.getStartLatitude(), transect.getStartLongitude())
             );
         }
 
@@ -93,7 +93,7 @@ public class TransectDetailView {
 
         if (transect.getEndLongitude() != null) {
             endLocation.setText(
-                    LocationUtil.formatLocationToMinutesAndSeconds(transect.getEndLatitude(), transect.getEndLongitude())
+                    LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude())
             );
         }
 
@@ -154,13 +154,13 @@ public class TransectDetailView {
             transect.setRouteName(routeName.getText().toString());
 
             if (this.startLocation.getText().length() > 0) {
-                double[] location = LocationUtil.parseLocationDMS(this.startLocation.getText().toString());
+                double[] location = LocationUtil.parseLocation(this.startLocation.getText().toString());
                 transect.setStartLatitude(location[0]);
                 transect.setStartLongitude(location[1]);
             }
 
             if (endLocation.getText().length() != 0) {
-                double[] location = LocationUtil.parseLocationDMS(this.endLocation.getText().toString());
+                double[] location = LocationUtil.parseLocation(this.endLocation.getText().toString());
                 transect.setEndLatitude(location[0]);
                 transect.setEndLongitude(location[1]);
             }

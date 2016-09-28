@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.util.LocationUtil;
+import com.wecode.animaltracker.util.StringUtils;
 
 import java.util.Locale;
 
@@ -23,17 +24,16 @@ public class EditLocationDecimalView {
     @SuppressLint("DefaultLocale")
     public EditLocationDecimalView(String location, Activity context) {
 
-        if (location == null || location.isEmpty()) {
-            return;
-        }
 
         latitude = (TextView) context.findViewById(R.id.latitudeDecimal);
         longitude = (TextView) context.findViewById(R.id.longitudeDecimal);
 
-        String[] coordinates = location.split(",");
+        if (StringUtils.isNotEmpty(location)) {
+            String[] coordinates = location.split(",");
 
-        latitude.setText(coordinates[0].trim());
-        longitude.setText(coordinates[1].trim());
+            latitude.setText(coordinates[0].trim());
+            longitude.setText(coordinates[1].trim());
+        }
     }
 
     public boolean validate() {
