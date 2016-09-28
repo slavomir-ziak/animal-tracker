@@ -8,9 +8,12 @@ import com.orm.SugarContext;
 import com.orm.SugarDb;
 import com.orm.util.MigrationFileParser;
 import com.wecode.animaltracker.model.CodeList;
+import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.service.CodeListService;
+import com.wecode.animaltracker.service.SettingsDataService;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,12 +29,16 @@ public class AnimalTrackerApp extends SugarApp {
         super.onCreate();
 
         if (CodeListService.getInstance().list().size() == 0) {
-            SQLiteDatabase db = getDb();
-            executeScript(db, "1.sql");
+            executeScript("codelists.sql");
         }
+
+        if (SettingsDataService.getInstance().list().size() == 0) {
+            executeScript("settings.sql");
+        }
+
     }
 
-    private void executeScript(SQLiteDatabase db, String file) {
+    private void executeScript(String file) {
         try {
             InputStream is = this.getAssets().open("sugar_upgrades/" + file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -44,7 +51,7 @@ public class AnimalTrackerApp extends SugarApp {
             for(String statement: migrationFileParser.getStatements()){
                 Log.i("Sugar script", statement);
                 if (!statement.isEmpty()) {
-                    db.execSQL(statement);
+                    getDb().execSQL(statement);
                 }
             }
 

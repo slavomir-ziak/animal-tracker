@@ -332,7 +332,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
 
             case ADD_PHOTO_REQUEST:
                 Log.d(Globals.APP_NAME, "Pic saved, intent: " + data);
-                Photo photo = new Photo(transectFindingView.getId(), outputPhotoFile.getName());
+                Photo photo = new Photo(Photo.EntityName.TRANECT_FINDING_FOOTPRINT, transectFindingView.getId(), outputPhotoFile.getName());
                 photosDataService.save(photo);
 
                 break;
