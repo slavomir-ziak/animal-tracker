@@ -46,11 +46,14 @@
                     android:text="Evidence"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <EditText
-                    android:id="@+id/findingOtherEvidenceValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    <Spinner
+                        android:id="@+id/findingOtherEvidenceValue"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="left|center_vertical"
+                        android:spinnerMode="dialog" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -66,11 +69,14 @@
                     android:text="Observations"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <EditText
+                <Spinner
                     android:id="@+id/findingOtherObservationsValue"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left|center_vertical"
+                    android:spinnerMode="dialog" />
+
             </LinearLayout>
 
             <LinearLayout
