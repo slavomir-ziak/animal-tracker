@@ -64,7 +64,7 @@ public class TransectFindingDetailView {
         findingAfterRecentSnow.setChecked("AFTER".equals(transectFinding.getBeforeAfterRecentSnow()));
 
         if (transectFinding.hasLocation()) {
-            setLocation(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude());
+            setLocation(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude(), transectFinding.getLocationElevation());
         }
 
         habitatId = transectFinding.getHabitatId();
@@ -72,8 +72,8 @@ public class TransectFindingDetailView {
         id = transectFinding.getId();
     }
 
-    private void setLocation(Double latitude, Double longiture) {
-        location.setText(LocationUtil.formatLocation(latitude, longiture));
+    private void setLocation(Double latitude, Double longiture, Double altitude) {
+        location.setText(LocationUtil.formatLocation(latitude, longiture, altitude));
     }
 
     private double[] getLocationParsed() {
@@ -81,7 +81,7 @@ public class TransectFindingDetailView {
     }
 
     public void setLocation(Location location) {
-        setLocation(location.getLatitude(), location.getLongitude());
+        setLocation(location.getLatitude(), location.getLongitude(), location.getAltitude());
     }
 
     public TransectFinding toTransectFinding() {
@@ -100,6 +100,7 @@ public class TransectFindingDetailView {
 
             transectFinding.setLocationLatitude(parsed[0]);
             transectFinding.setLocationLongitude(parsed[1]);
+            transectFinding.setLocationElevation(parsed[2]);
         }
 
         if (findingBeforeRecentSnow.isChecked()) {

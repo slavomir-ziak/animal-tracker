@@ -19,6 +19,8 @@ public class TransectFinding extends Persistable {
 
     private Double locationLongitude;
 
+    private Double locationElevation;
+
     private String beforeAfterRecentSnow;
 
     public TransectFinding() {
@@ -76,6 +78,14 @@ public class TransectFinding extends Persistable {
         this.beforeAfterRecentSnow = beforeAfterRecentSnow;
     }
 
+    public Double getLocationElevation() {
+        return locationElevation;
+    }
+
+    public void setLocationElevation(Double locationElevation) {
+        this.locationElevation = locationElevation;
+    }
+
     @Override
     public String toString() {
         return "TransectFinding{" +
@@ -84,9 +94,8 @@ public class TransectFinding extends Persistable {
                 ", species='" + species + '\'' +
                 ", locationLatitude=" + locationLatitude +
                 ", locationLongitude=" + locationLongitude +
+                ", locationElevation=" + locationElevation +
                 ", beforeAfterRecentSnow='" + beforeAfterRecentSnow + '\'' +
                 "} " + super.toString();
     }
-
-
 }

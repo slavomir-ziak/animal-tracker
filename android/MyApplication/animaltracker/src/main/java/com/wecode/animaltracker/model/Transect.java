@@ -22,8 +22,12 @@ public class Transect extends Persistable {
 
     private Double startLongitude;
     private Double startLatitude;
+    private Double startElevation;
+
     private Double endLongitude;
     private Double endLatitude;
+    private Double endElevation;
+
     private List<TransectFinding> findings;
 
     public Transect() {
@@ -143,10 +147,28 @@ public class Transect extends Persistable {
                 ", weatherId=" + weatherId +
                 ", startLongitude=" + startLongitude +
                 ", startLatitude=" + startLatitude +
+                ", startElevation=" + startElevation +
                 ", endLongitude=" + endLongitude +
                 ", endLatitude=" + endLatitude +
+                ", endElevation=" + endElevation +
                 ", findings=" + findings +
                 "} " + super.toString();
+    }
+
+    public Double getStartElevation() {
+        return startElevation;
+    }
+
+    public void setStartElevation(Double startElevation) {
+        this.startElevation = startElevation;
+    }
+
+    public Double getEndElevation() {
+        return endElevation;
+    }
+
+    public void setEndElevation(Double endElevation) {
+        this.endElevation = endElevation;
     }
 
     public List<TransectFinding> getFindings() {

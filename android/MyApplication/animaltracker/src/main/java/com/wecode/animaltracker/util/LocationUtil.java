@@ -56,6 +56,11 @@ public class LocationUtil {
         }
     }
 
+    public static String formatLocation(double latitude, double longitude, double elevation){
+        elevation = new BigDecimal(elevation).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return formatLocation(latitude, longitude) + String.format(", %.2f", elevation);
+    }
+
     public static double[] parseLocation(String location) {
         if (SettingsDataService.getInstance().get().isLocationDMS()) {
             return parseLocationDMS(location);
@@ -84,24 +89,31 @@ public class LocationUtil {
 
     static double[] parseLocationDMS(String location) {
         String[] split = location.split(",");
+        if (split.length != 3) throw new RuntimeException("cannot parse location: " + location);
+
         double latitude = convertLocation(split[0].trim());
         double longitude = convertLocation(split[1].trim());
 
-        latitude = new BigDecimal(latitude).setScale(6, BigDecimal.ROUND_DOWN).doubleValue();
-        longitude = new BigDecimal(longitude).setScale(6, BigDecimal.ROUND_DOWN).doubleValue();
+        latitude = new BigDecimal(latitude).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
+        longitude = new BigDecimal(longitude).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
+        double elevation = new BigDecimal(split[2]).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-        return new double[]{latitude, longitude};
+        return new double[]{latitude, longitude, elevation};
     }
 
     static double[] parseLocationDecimals(String location) {
         String[] split = location.split(",");
+        if (split.length != 3) throw new RuntimeException("cannot parse location: " + location);
+
         double latitude = Double.valueOf(split[0].trim());
         double longitude = Double.valueOf(split[1].trim());
+        double elevation = Double.valueOf(split[2].trim());
 
-        latitude = new BigDecimal(latitude).setScale(5, BigDecimal.ROUND_DOWN).doubleValue();
-        longitude = new BigDecimal(longitude).setScale(5, BigDecimal.ROUND_DOWN).doubleValue();
+        latitude = new BigDecimal(latitude).setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue();
+        longitude = new BigDecimal(longitude).setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue();
+        elevation = new BigDecimal(elevation).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-        return new double[]{latitude, longitude};
+        return new double[]{latitude, longitude, elevation};
     }
 
     private static String convertLocation(double coordinate, boolean longitude) {

@@ -6,9 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.orm.util.ManifestHelper;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Settings;
 import com.wecode.animaltracker.service.SettingsDataService;
@@ -35,6 +37,10 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         init();
+
+        int databaseVersion = ManifestHelper.getDatabaseVersion(this);
+        TextView versionTextView = (TextView) findViewById(R.id.versionText);
+        versionTextView.setText("0.0."+databaseVersion);
 
     }
 

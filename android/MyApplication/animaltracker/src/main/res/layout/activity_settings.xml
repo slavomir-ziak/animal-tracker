@@ -106,6 +106,31 @@
 
                 </RadioGroup>
             </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Version"
+                    android:id="@+id/textView35"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Version"
+                    android:id="@+id/versionText"
+                    android:layout_gravity="center_vertical" />
+
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

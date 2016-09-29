@@ -10,6 +10,7 @@ import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 
 /**
@@ -21,18 +22,22 @@ public class EditLocationDecimalView {
 
     private TextView longitude;
 
+    private TextView elevation;
+
     @SuppressLint("DefaultLocale")
     public EditLocationDecimalView(String location, Activity context) {
 
 
         latitude = (TextView) context.findViewById(R.id.latitudeDecimal);
         longitude = (TextView) context.findViewById(R.id.longitudeDecimal);
+        elevation = (TextView) context.findViewById(R.id.elevationDecimal);
 
         if (StringUtils.isNotEmpty(location)) {
             String[] coordinates = location.split(",");
 
             latitude.setText(coordinates[0].trim());
             longitude.setText(coordinates[1].trim());
+            elevation.setText(coordinates[2].trim());
         }
     }
 
@@ -56,15 +61,18 @@ public class EditLocationDecimalView {
     }
 
     public String getLocation() {
+
         double latitude = Double.parseDouble(this.latitude.getText().toString());
         double longitude = Double.parseDouble(this.longitude.getText().toString());
+        double elevation = Double.parseDouble(this.elevation.getText().toString());
 
-        return String.format(Locale.ENGLISH, "%.5f, %.5f", latitude, longitude);
+        return LocationUtil.formatLocation(latitude, longitude, elevation);
     }
 
     @SuppressLint("DefaultLocale")
     public void initFromLocation(Location location) {
         latitude.setText(String.format("%.5f", location.getLatitude()));
         longitude.setText(String.format("%.5f", location.getLongitude()));
+        elevation.setText(String.format("%.2f", location.getAltitude()));
     }
 }

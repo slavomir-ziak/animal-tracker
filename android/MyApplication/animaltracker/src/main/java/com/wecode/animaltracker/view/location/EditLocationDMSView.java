@@ -10,6 +10,7 @@ import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.util.LocationUtil;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 
 /**
@@ -27,6 +28,8 @@ public class EditLocationDMSView {
     private TextView secondsLongitude;
     private Spinner directionLongitude;
 
+    private TextView elevation;
+
     public EditLocationDMSView(String location, Activity context) {
 
         degreesLatitude = (TextView) context.findViewById(R.id.editLocationLatitudeDegreesValue);
@@ -43,6 +46,8 @@ public class EditLocationDMSView {
 
         SpinnersHelper.setSpinnerData(directionLongitude, R.array.longitudeDirection);
 
+        elevation = (TextView) context.findViewById(R.id.editLocationElevationDecimal);
+
         if (location == null || location.isEmpty()) {
             return;
         }
@@ -52,6 +57,7 @@ public class EditLocationDMSView {
         init(coordinates[0].trim(), degreesLatitude, minutesLatitude, secondsLatitude, directionLatitude);
         init(coordinates[1].trim(), degreesLongitude, minutesLongitude, secondsLongitude, directionLongitude);
 
+        elevation.setText(coordinates[2].trim());
     }
 
     private void init(String coordinate, TextView degrees, TextView minutes, TextView seconds, Spinner direction) {
@@ -98,10 +104,12 @@ public class EditLocationDMSView {
 
         double latitudeSeconds = Double.parseDouble(secondsLatitude.getText().toString());
         double longitudeSeconds = Double.parseDouble(secondsLongitude.getText().toString());
+        double elevation = Double.parseDouble(this.elevation.getText().toString());
 
-        return String.format(Locale.ENGLISH, "%s°%s'%.2f\"%s, %s°%s'%.2f\"%s",
+        return String.format(Locale.ENGLISH, "%s°%s'%.2f\"%s, %s°%s'%.2f\"%s, %.2f",
                 degreesLatitude.getText(), minutesLatitude.getText(), latitudeSeconds, directionLatitude.getSelectedItem(),
-                degreesLongitude.getText(), minutesLongitude.getText(), longitudeSeconds, directionLongitude.getSelectedItem()
+                degreesLongitude.getText(), minutesLongitude.getText(), longitudeSeconds, directionLongitude.getSelectedItem(),
+                elevation
                 );
     }
 
@@ -112,5 +120,7 @@ public class EditLocationDMSView {
 
         init(coordinates[0].trim(), degreesLatitude, minutesLatitude, secondsLatitude, directionLatitude);
         init(coordinates[1].trim(), degreesLongitude, minutesLongitude, secondsLongitude, directionLongitude);
+
+        elevation.setText(coordinates[2].trim());
     }
 }

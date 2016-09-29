@@ -81,7 +81,7 @@ public class TransectDetailView {
 
         if (transect.getStartLongitude() != null) {
             startLocation.setText(
-                    LocationUtil.formatLocation(transect.getStartLatitude(), transect.getStartLongitude())
+                    LocationUtil.formatLocation(transect.getStartLatitude(), transect.getStartLongitude(), transect.getStartElevation() )
             );
         }
 
@@ -93,7 +93,7 @@ public class TransectDetailView {
 
         if (transect.getEndLongitude() != null) {
             endLocation.setText(
-                    LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude())
+                    LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude(), transect.getEndElevation())
             );
         }
 
@@ -157,12 +157,14 @@ public class TransectDetailView {
                 double[] location = LocationUtil.parseLocation(this.startLocation.getText().toString());
                 transect.setStartLatitude(location[0]);
                 transect.setStartLongitude(location[1]);
+                transect.setStartElevation(location[2]);
             }
 
             if (endLocation.getText().length() != 0) {
                 double[] location = LocationUtil.parseLocation(this.endLocation.getText().toString());
                 transect.setEndLatitude(location[0]);
                 transect.setEndLongitude(location[1]);
+                transect.setEndElevation(location[2]);
             }
 
             if (endDateTime.getText().length() != 0) {

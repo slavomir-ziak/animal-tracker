@@ -73,6 +73,28 @@
                     android:layout_gravity="center_vertical" />
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:text="Elevation"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView37"
+                    android:layout_gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/elevationDecimal"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>
