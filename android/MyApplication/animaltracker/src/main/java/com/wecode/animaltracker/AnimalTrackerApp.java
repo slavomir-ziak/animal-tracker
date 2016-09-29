@@ -29,11 +29,11 @@ public class AnimalTrackerApp extends SugarApp {
         super.onCreate();
 
         if (CodeListService.getInstance().list().size() == 0) {
-            executeScript("codelists.sql");
+            executeScript("init_db_codelists.sql");
         }
 
         if (SettingsDataService.getInstance().list().size() == 0) {
-            executeScript("settings.sql");
+            executeScript("init_db_settings.sql");
         }
 
     }
