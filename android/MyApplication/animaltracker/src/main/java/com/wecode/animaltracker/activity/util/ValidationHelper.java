@@ -11,7 +11,7 @@ public class ValidationHelper {
         boolean valid = true;
         for (TextView textView : textViews) {
             if (textView.getText().length() == 0) {
-                textView.setError("Must not by empty.");
+                textView.setError("Must not be empty.");
                 valid = false;
             }
         }

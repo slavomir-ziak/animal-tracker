@@ -1,6 +1,7 @@
 package com.wecode.animaltracker.util;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
@@ -48,19 +49,6 @@ public class LocationUtil {
         }
     }
 
-    private static String formatLocation(Double latitude, Double longitude){
-        if (SettingsDataService.getInstance().get().isLocationDMS()) {
-            return formatLocationToMinutesAndSeconds(latitude, longitude);
-        } else {
-            return formatLocationToDecimals(latitude, longitude);
-        }
-    }
-
-    public static String formatLocation(Double latitude, Double longitude, Double elevation){
-        elevation = elevation == null ? 0.0 : new BigDecimal(elevation).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        return formatLocation(latitude, longitude) + String.format(", %.2f", elevation);
-    }
-
     public static double[] parseLocation(String location) {
         if (SettingsDataService.getInstance().get().isLocationDMS()) {
             return parseLocationDMS(location);
@@ -69,22 +57,32 @@ public class LocationUtil {
         }
     }
 
+    public static String formatLocation(Double latitude, Double longitude, Double altitude){
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            return formatLocationToMinutesAndSeconds(latitude, longitude, altitude);
+        } else {
+            return formatLocationToDecimals(latitude, longitude, altitude);
+        }
+    }
+
     private static String formatLocationToDecimals(Location location) {
-        return formatLocationToDecimals(location.getLatitude(), location.getLongitude());
+        return formatLocationToDecimals(location.getLatitude(), location.getLongitude(), location.getAltitude());
     }
 
-    static String formatLocationToMinutesAndSeconds(Location location) {
-        return formatLocationToMinutesAndSeconds(location.getLatitude(), location.getLongitude());
+    private static String formatLocationToMinutesAndSeconds(Location location) {
+        return formatLocationToMinutesAndSeconds(location.getLatitude(), location.getLongitude(), location.getAltitude());
     }
 
-    static String formatLocationToMinutesAndSeconds(Double locationLatitude, Double locationLongitude) {
+    @SuppressLint("DefaultLocale")
+    static String formatLocationToMinutesAndSeconds(Double locationLatitude, Double locationLongitude, Double elevation) {
         String latitudeStr = convertLocation(locationLatitude, false);
         String longitudeStr = convertLocation(locationLongitude, true);
-        return String.format("%s, %s", latitudeStr, longitudeStr);
+
+        return String.format("%s, %s, %.2f", latitudeStr, longitudeStr, elevation);
     }
 
-    static String formatLocationToDecimals(Double locationLatitude, Double locationLongitude) {
-        return String.format(Locale.US, "%.5f, %.5f", locationLatitude, locationLongitude);
+    private static String formatLocationToDecimals(Double locationLatitude, Double locationLongitude, Double elevation) {
+        return String.format(Locale.US, "%.5f, %.5f, %.2f", locationLatitude, locationLongitude, elevation);
     }
 
     static double[] parseLocationDMS(String location) {
@@ -101,7 +99,7 @@ public class LocationUtil {
         return new double[]{latitude, longitude, elevation};
     }
 
-    static double[] parseLocationDecimals(String location) {
+    private static double[] parseLocationDecimals(String location) {
         String[] split = location.split(",");
         if (split.length != 3) throw new RuntimeException("cannot parse location: " + location);
 

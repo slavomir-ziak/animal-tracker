@@ -28,10 +28,13 @@ public class WeatherFragment extends Fragment implements ITransect {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_weather_detail, container, false);
         Long weatherId = getArguments().getLong("weatherId");
+        weatherId = weatherId == 0 ? null : weatherId;
+
         Action action = Action.fromString(getArguments().getString("action"));
         if (action != Action.NEW ) {
             Assert.assertNotNull("weatherId musi byt zadane", weatherId);
         }
+
         if (weatherId != null) {
             weatherDetailView = new WeatherDetailView(view, weatherService.find(weatherId));
         } else {

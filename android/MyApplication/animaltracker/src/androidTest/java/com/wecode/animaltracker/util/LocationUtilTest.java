@@ -18,23 +18,23 @@ public class LocationUtilTest extends TestCase {
     @Test
     public void testLocationFormatting() {
         //
-        String converted = LocationUtil.formatLocationToMinutesAndSeconds(0.0, 0.0);
+        String converted = LocationUtil.formatLocationToMinutesAndSeconds( 0.0, 0.0, 0.0);
         Assert.assertEquals("0°0'0.00\"S, 0°0'0.00\"W", converted);
 
-        converted = LocationUtil.formatLocationToMinutesAndSeconds(90.0, 180.0);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( 90.0, 180.0, 0.0);
         Assert.assertEquals("90°0'0.00\"N, 180°0'0.00\"E", converted);
 
-        converted = LocationUtil.formatLocationToMinutesAndSeconds(-90.0, -180.0);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( -90.0, -180.0, 0.0);
         Assert.assertEquals("90°0'0.00\"S, 180°0'0.00\"W", converted);
 
-        converted = LocationUtil.formatLocationToMinutesAndSeconds(45.63545, -175.638434);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( 45.63545, -175.638434, 0.0);
         Assert.assertEquals("45°38'7.62\"N, 175°38'18.36\"W", converted);
 
-        converted = LocationUtil.formatLocationToMinutesAndSeconds(54.196108, 100.315324);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( 54.196108, 100.315324, 0.0);
         Assert.assertEquals("54°11'45.99\"N, 100°18'55.17\"E", converted);
 
 
-        converted = LocationUtil.formatLocationToMinutesAndSeconds(48.194674, 17.293048);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( 48.194674, 17.293048, 0.0);
         Assert.assertEquals("48°11'40.83\"N, 17°17'34.97\"E", converted);
     }
 

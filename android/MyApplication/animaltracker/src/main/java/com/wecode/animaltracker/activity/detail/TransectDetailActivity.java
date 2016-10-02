@@ -71,6 +71,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -78,7 +79,9 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         transectFragment = new TransectFragment();
         Bundle bundle = new Bundle();
-        bundle.putLong("transectId", id);
+        if (id != null) {
+            bundle.putLong("transectId", id);
+        }
         bundle.putString("action", action.toString());
         transectFragment.setArguments(bundle);
         adapter.addFragment(transectFragment);
@@ -255,10 +258,14 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
-            Weather weather = getWeatherFragment().saveWeather();
+
             Transect transect = getTransectFragment().saveTransect();
-            transect.setWeatherId(weather.getId());
-            transect.save();
+
+            if (transect != null) {
+                Weather weather = getWeatherFragment().saveWeather();
+                transect.setWeatherId(weather.getId());
+                transect.save();
+            }
 
             return true;
         }

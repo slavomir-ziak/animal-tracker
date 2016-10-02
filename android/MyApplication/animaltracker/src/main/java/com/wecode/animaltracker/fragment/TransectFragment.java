@@ -63,11 +63,15 @@ public class TransectFragment extends Fragment implements ITransect {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_transect_detail, container, false);
-        transectId = getArguments().getLong("transectId");
+
+        transectId = getArguments().getLong("transectId", 0);
+        transectId = transectId == 0 ? null : transectId;
+
         action = Action.fromString(getArguments().getString("action"));
         if (action != Action.NEW ) {
             Assert.assertNotNull("transectId musi byt zadane", transectId);
         }
+
         initGui(view);
         return view;
     }
@@ -96,13 +100,13 @@ public class TransectFragment extends Fragment implements ITransect {
         view.findViewById(R.id.startTransectButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startTransect(v);
+                startTransect();
             }
         });
         view.findViewById(R.id.endTransectButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                endTransect(v);
+                endTransect();
             }
         });
         view.findViewById(R.id.transectDetailViewExportButton).setOnClickListener(new View.OnClickListener() {
@@ -160,7 +164,7 @@ public class TransectFragment extends Fragment implements ITransect {
     }
 
 
-    public void startTransect(View view) {
+    public void startTransect() {
 
         if (getCurrentLocation() == null) {
             Toast.makeText(getActivity(), "Location not acquired.", Toast.LENGTH_SHORT).show();
@@ -177,7 +181,7 @@ public class TransectFragment extends Fragment implements ITransect {
 
     }
 
-    public void endTransect(View view) {
+    public void endTransect() {
 
         if (getCurrentLocation() == null) {
             Toast.makeText(getActivity(), "Location not acquired.", Toast.LENGTH_SHORT).show();
@@ -224,6 +228,7 @@ public class TransectFragment extends Fragment implements ITransect {
 
     public Transect saveTransect() {
         if (!transectDetailView.isValid()) {
+            Toast.makeText(getActivity(), "Transect not valid.", Toast.LENGTH_SHORT).show();
             return null;
         }
         Transect transect = transectDataService.save(transectDetailView.toTransect());
