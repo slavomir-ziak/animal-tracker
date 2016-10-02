@@ -16,12 +16,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/transect_finding_action_photos"
-        android:orderInCategory="100"
-        android:title="@string/transect_finding_action_photos"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/transect_finding_action_add_photo"
         android:orderInCategory="100"
         android:title="@string/transect_finding_action_add_photo"

@@ -48,4 +48,6 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
 
         return rowView;
     }
+
+
 }

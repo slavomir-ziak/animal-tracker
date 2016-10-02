@@ -25,7 +25,9 @@ import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.fragment.HabitatFragment;
 import com.wecode.animaltracker.fragment.IFragment;
+import com.wecode.animaltracker.fragment.PhotosFragment;
 import com.wecode.animaltracker.fragment.TransectDetailFragment;
+import com.wecode.animaltracker.fragment.TransectFindingListFragment;
 import com.wecode.animaltracker.fragment.WeatherFragment;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Photo;
@@ -52,6 +54,10 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     private HabitatFragment habitatFragment;
 
+    {
+        entityName = Photo.EntityName.TRANSECT;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,24 +74,47 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
         LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
 
-        entityName = Photo.EntityName.TRANSECT;
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         setupTransectFragment(adapter);
+        setupTransectFindingListFragment(adapter);
         setupWeatherFragment(adapter);
         setupHabitatFragment(adapter);
+        setupPhotosFragment(adapter);
 
         viewPager.setAdapter(adapter);
+    }
+
+    private void setupPhotosFragment(ViewPagerAdapter adapter) {
+        Bundle bundle = new Bundle();
+        bundle.putLong("entityId", id);
+        bundle.putString("entityName", Photo.EntityName.TRANSECT.toString());
+
+        PhotosFragment photosFragment = new PhotosFragment();
+        photosFragment.setArguments(bundle);
+        adapter.addFragment(photosFragment);
+    }
+
+    private void setupTransectFindingListFragment(ViewPagerAdapter adapter) {
+        Bundle bundle = new Bundle();
+        bundle.putString("action", Action.NEW.toString());
+
+        if (id != null) {
+            bundle.putLong("transectId", id);
+            bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
+        }
+
+        TransectFindingListFragment transectFindingListFragment = new TransectFindingListFragment();
+        transectFindingListFragment.setArguments(bundle);
+        adapter.addFragment(transectFindingListFragment);
     }
 
     private void setupHabitatFragment(ViewPagerAdapter adapter) {
@@ -186,48 +215,6 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         }
 
     }
-/*
-    public void setWeather(View view) {
-        Intent intent = new Intent(this, WeatherDetailActivity.class);
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.NEW.toString());
-
-        Long weatherId = transectDetailView.getWeatherId();
-        if (weatherId != null) {
-            intent.setAction(action.toString()); // edit or view
-            intent.putExtra("id", weatherId);
-        } else {
-            intent.setAction(Action.NEW.toString());
-        }
-
-        intent.putExtra("transectId", transectDetailView.getIdValue());
-        startActivityForResult(intent, SET_WEATHER_REQUEST);
-    }
-
-    public void setHabitat(View view) {
-        Intent intent = new Intent(this, HabitatDetailActivity.class);
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-
-        Long habitatId = transectDetailView.getHabitatId();
-        if (habitatId != null) {
-            intent.setAction(action.toString()); // edit or view
-            intent.putExtra("id", habitatId);
-        } else {
-            intent.setAction(Action.NEW.toString());
-        }
-
-        intent.putExtra("transectId", transectDetailView.getIdValue());
-        startActivityForResult(intent, SET_HABITAT_REQUEST);
-    }
-
-
-    public void viewFindings(View view) {
-        Intent intent = new Intent(this, TransectFindingsList.class);
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(action.toString());
-        intent.putExtra("transectId", transectDetailView.getIdValue());
-        startActivity(intent);
-    }*/
 
     public void addFinding(View view) {
         Intent intent = new Intent(this, TransectFindingDetailActivity.class);

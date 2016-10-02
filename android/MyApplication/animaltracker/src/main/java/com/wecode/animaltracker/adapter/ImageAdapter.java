@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
@@ -21,9 +22,9 @@ public class ImageAdapter extends BaseAdapter {
 
     private List<Photo> photos;
 
-    private Context context;
+    private Activity context;
 
-    public ImageAdapter(Context context, List<Photo> photos, File photoDirectory) {
+    public ImageAdapter(Activity context, List<Photo> photos, File photoDirectory) {
         this.context = context;
         this.photoDirectory = photoDirectory;
         this.photos = photos;
