@@ -1,6 +1,7 @@
 package com.wecode.animaltracker.view;
 
 import android.app.Activity;
+import android.view.View;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Habitat;
@@ -24,19 +25,19 @@ public class HabitatDetailView {
 
     private HabitatDataService service = HabitatDataService.getInstance();
 
-    public HabitatDetailView(Activity context, Habitat habitat) {
-        this(context);
+    public HabitatDetailView(Activity context, View view, Habitat habitat) {
+        this(context, view);
 
         Assert.assertNotNull("habitat cannot be null!", habitat);
         bind(habitat);
     }
 
-    public HabitatDetailView(Activity context) {
-        type = new CodeListSpinnerView(R.id.habitatTypeValue, "habitatTypes", context);
-        track = new CodeListSpinnerView(R.id.habitatTrackValue, "habitatTrackTypes", context);
-        forestAge = new CodeListSpinnerView(R.id.habitatForestAgeValue, "habitatForestAgeTypes", context);
-        treeType = new CodeListSpinnerView(R.id.habitatTreeTypeValue, "habitatTreeTypes", context);
-        forestType = new CodeListSpinnerView(R.id.habitatForestTypeValue, "habitatForestTypes", context);
+    public HabitatDetailView(Activity context, View view) {
+        type = new CodeListSpinnerView(R.id.habitatTypeValue, "habitatTypes", context, view);
+        track = new CodeListSpinnerView(R.id.habitatTrackValue, "habitatTrackTypes", context, view);
+        forestAge = new CodeListSpinnerView(R.id.habitatForestAgeValue, "habitatForestAgeTypes", context, view);
+        treeType = new CodeListSpinnerView(R.id.habitatTreeTypeValue, "habitatTreeTypes", context, view);
+        forestType = new CodeListSpinnerView(R.id.habitatForestTypeValue, "habitatForestTypes", context, view);
    }
 
     private void bind(Habitat habitat) {

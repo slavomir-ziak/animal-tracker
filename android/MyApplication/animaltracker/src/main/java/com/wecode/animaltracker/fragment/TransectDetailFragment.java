@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
@@ -22,7 +21,6 @@ import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActiv
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.export.DataExporter;
-import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectDataService;
@@ -38,7 +36,7 @@ import java.util.Date;
  * Created by SZIAK on 10/1/2016.
  */
 
-public class TransectFragment extends Fragment implements ITransect {
+public class TransectDetailFragment extends Fragment implements IFragment {
 
     private static final int EDIT_START_LOCATION_REQUEST = 4;
     private static final int EDIT_END_LOCATION_REQUEST = 5;
@@ -52,17 +50,12 @@ public class TransectFragment extends Fragment implements ITransect {
 
     private Action action;
 
-    public TransectFragment() {
-    }
-
-    @Override
-    public Persistable getData() {
-        return saveTransect();
+    public TransectDetailFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_transect_detail, container, false);
+        View view = inflater.inflate(R.layout.activity_transect_detail_fragment, container, false);
 
         transectId = getArguments().getLong("transectId", 0);
         transectId = transectId == 0 ? null : transectId;

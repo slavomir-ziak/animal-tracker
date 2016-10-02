@@ -1,6 +1,5 @@
 package com.wecode.animaltracker.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.WeatherDetailView;
 
-public class WeatherFragment extends Fragment implements ITransect {
+public class WeatherFragment extends Fragment implements IFragment {
 
     private WeatherDetailView weatherDetailView;
 
@@ -27,6 +26,8 @@ public class WeatherFragment extends Fragment implements ITransect {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_weather_detail, container, false);
+        view.findViewById(R.id.toolbar).setVisibility(View.GONE);
+
         Long weatherId = getArguments().getLong("weatherId");
         weatherId = weatherId == 0 ? null : weatherId;
 
@@ -51,10 +52,6 @@ public class WeatherFragment extends Fragment implements ITransect {
         return weatherService.save(weather);
     }
 
-    @Override
-    public Persistable getData() {
-        return saveWeather();
-    }
 
     public String getName() {
         return "Weather";

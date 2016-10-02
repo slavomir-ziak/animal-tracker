@@ -30,9 +30,9 @@ public class HabitatDetailActivity extends CommonDetailActivity {
         extractParams(getIntent());
 
         if (id != null) {
-            habitatDetailView = new HabitatDetailView(this, habitatService.find(id));
+            habitatDetailView = new HabitatDetailView(this, findViewById(android.R.id.content), habitatService.find(id));
         } else {
-            habitatDetailView = new HabitatDetailView(this);
+            habitatDetailView = new HabitatDetailView(this, findViewById(android.R.id.content));
         }
 
         entityName = Photo.EntityName.HABITAT;

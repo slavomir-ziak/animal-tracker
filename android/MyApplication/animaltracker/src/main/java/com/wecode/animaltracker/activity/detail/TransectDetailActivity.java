@@ -23,9 +23,11 @@ import com.wecode.animaltracker.activity.LocationProvidingActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.fragment.ITransect;
-import com.wecode.animaltracker.fragment.TransectFragment;
+import com.wecode.animaltracker.fragment.HabitatFragment;
+import com.wecode.animaltracker.fragment.IFragment;
+import com.wecode.animaltracker.fragment.TransectDetailFragment;
 import com.wecode.animaltracker.fragment.WeatherFragment;
+import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.Weather;
@@ -44,14 +46,16 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     private volatile Location currentLocation;
 
-    private TransectFragment transectFragment;
+    private TransectDetailFragment transectFragment;
 
     private WeatherFragment weatherFragment;
+
+    private HabitatFragment habitatFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transect_detail2);
+        setContentView(R.layout.activity_transect_detail);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -77,7 +81,49 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        transectFragment = new TransectFragment();
+        setupTransectFragment(adapter);
+        setupWeatherFragment(adapter);
+        setupHabitatFragment(adapter);
+
+        viewPager.setAdapter(adapter);
+    }
+
+    private void setupHabitatFragment(ViewPagerAdapter adapter) {
+        Bundle bundle = new Bundle();
+        bundle.putString("action", Action.NEW.toString());
+
+        if (id != null) {
+            Transect transect = TransectDataService.getInstance().find(id);
+            if (transect.getHabitatId() != null) {
+                bundle.putLong("habitatId", transect.getHabitatId());
+                bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
+            }
+        }
+
+        habitatFragment = new HabitatFragment();
+        habitatFragment.setArguments(bundle);
+        adapter.addFragment(habitatFragment);
+    }
+
+    private void setupWeatherFragment(ViewPagerAdapter adapter) {
+        Bundle bundle = new Bundle();
+        bundle.putString("action", Action.NEW.toString());
+
+        if (id != null) {
+            Transect transect = TransectDataService.getInstance().find(id);
+            if (transect.getWatherId() != null) {
+                bundle.putLong("weatherId", transect.getWatherId());
+                bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
+            }
+        }
+
+        weatherFragment = new WeatherFragment();
+        weatherFragment.setArguments(bundle);
+        adapter.addFragment(weatherFragment);
+    }
+
+    private void setupTransectFragment(ViewPagerAdapter adapter) {
+        transectFragment = new TransectDetailFragment();
         Bundle bundle = new Bundle();
         if (id != null) {
             bundle.putLong("transectId", id);
@@ -85,21 +131,6 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         bundle.putString("action", action.toString());
         transectFragment.setArguments(bundle);
         adapter.addFragment(transectFragment);
-
-        weatherFragment = new WeatherFragment();
-        bundle = new Bundle();
-        if (id != null) {
-            Transect transect = TransectDataService.getInstance().find(id);
-            if (transect.getWatherId() != null) {
-                bundle.putLong("weatherId", transect.getWatherId());
-            }
-        }
-
-        bundle.putString("action", action.toString());
-        weatherFragment.setArguments(bundle);
-        adapter.addFragment(weatherFragment);
-
-        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -107,13 +138,9 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         return currentLocation;
     }
 
-    public TransectFragment getTransectFragment() {
-        return transectFragment;
-    }
-
     private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        private final List<ITransect> mFragmentList = new ArrayList<>();
+        private final List<IFragment> mFragmentList = new ArrayList<>();
 
         ViewPagerAdapter(FragmentManager manager) {
             super(manager);
@@ -129,7 +156,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
             return mFragmentList.size();
         }
 
-        void addFragment(ITransect fragment) {
+        void addFragment(IFragment fragment) {
             mFragmentList.add(fragment);
         }
 
@@ -245,25 +272,25 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.transect_action_add_finding) {
             addFinding(null);
             return true;
         }
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
 
-            Transect transect = getTransectFragment().saveTransect();
+            Transect transect = transectFragment.saveTransect();
 
             if (transect != null) {
-                Weather weather = getWeatherFragment().saveWeather();
+                Weather weather = weatherFragment.saveWeather();
                 transect.setWeatherId(weather.getId());
+
+                Habitat habitat = habitatFragment.saveHabitat();
+                transect.setHabitatId(habitat.getId());
+
                 transect.save();
             }
 
@@ -276,7 +303,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     @Override
     public void onBackPressed() {
-        Transect transect = (Transect) transectFragment.getData();
+        Transect transect = transectFragment.saveTransect();
 
         Intent intent = new Intent();
         intent.putExtra("id", transect.getId());
@@ -291,9 +318,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras) {    }
 
     @Override
     public void onProviderEnabled(String provider) {
@@ -305,7 +330,4 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         currentLocation = null;
     }
 
-    public WeatherFragment getWeatherFragment() {
-        return weatherFragment;
-    }
 }

@@ -1,6 +1,7 @@
 package com.wecode.animaltracker.view;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.Spinner;
 
 import com.wecode.animaltracker.R;
@@ -19,7 +20,13 @@ public class CodeListSpinnerView {
     public CodeListSpinnerView(int spinnerId, String codeListName, Activity parentActivity) {
         this.spinner = (Spinner) parentActivity.findViewById(spinnerId);
 
-        setSpinnerData(parentActivity, spinnerId, codeListName);
+        setSpinnerData(parentActivity, codeListName, spinner);
+    }
+
+    public CodeListSpinnerView(int spinnerId, String codeListName, Activity parentActivity, View view) {
+        this.spinner = (Spinner) view.findViewById(spinnerId);
+
+        setSpinnerData(parentActivity, codeListName, spinner);
     }
 
     public void select(String value) {
@@ -30,12 +37,12 @@ public class CodeListSpinnerView {
         return ((CodeList) spinner.getSelectedItem()).getValue();
     }
 
-    private void setSpinnerData(Activity context, int spinnerViewId, String codeListName) {
+    private void setSpinnerData(Activity context, String codeListName, Spinner spinnerView ) {
 
         CodeListEditingAdapter codeListEditingAdapter = new CodeListEditingAdapter(context, codeListName);
 
-        Spinner spinnerView = (Spinner) context.findViewById(spinnerViewId);
         spinnerView.setOnItemSelectedListener(codeListEditingAdapter);
         spinnerView.setAdapter(codeListEditingAdapter);
     }
+
 }

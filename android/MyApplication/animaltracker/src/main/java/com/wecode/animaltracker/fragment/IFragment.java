@@ -6,9 +6,7 @@ import com.wecode.animaltracker.model.Persistable;
  * Created by SZIAK on 10/1/2016.
  */
 
-public interface ITransect {
-
-    Persistable getData();
+public interface IFragment {
 
     String getName();
 
