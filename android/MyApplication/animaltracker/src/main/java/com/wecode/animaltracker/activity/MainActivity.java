@@ -1,9 +1,7 @@
 package com.wecode.animaltracker.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -19,21 +17,9 @@ import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailAc
 import com.wecode.animaltracker.activity.list.TransectsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.model.CodeList;
-import com.wecode.animaltracker.service.CodeListService;
-import com.wecode.animaltracker.util.Permissions;
-
-import java.io.File;
-import java.io.IOException;
-
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
-import jxl.write.Label;
-import jxl.write.WritableSheet;
-import jxl.write.WritableWorkbook;
-import jxl.write.WriteException;
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
+
 
     public void fd(View view){
         Intent intent = new Intent(this, TransectFindingDetailActivity.class);
@@ -57,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
+
 
     }
 

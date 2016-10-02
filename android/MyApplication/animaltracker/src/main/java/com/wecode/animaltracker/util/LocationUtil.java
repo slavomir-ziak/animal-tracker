@@ -48,7 +48,7 @@ public class LocationUtil {
         }
     }
 
-    public static String formatLocation(double latitude, double longitude){
+    private static String formatLocation(Double latitude, Double longitude){
         if (SettingsDataService.getInstance().get().isLocationDMS()) {
             return formatLocationToMinutesAndSeconds(latitude, longitude);
         } else {
@@ -56,8 +56,8 @@ public class LocationUtil {
         }
     }
 
-    public static String formatLocation(double latitude, double longitude, double elevation){
-        elevation = new BigDecimal(elevation).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+    public static String formatLocation(Double latitude, Double longitude, Double elevation){
+        elevation = elevation == null ? 0.0 : new BigDecimal(elevation).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         return formatLocation(latitude, longitude) + String.format(", %.2f", elevation);
     }
 
@@ -96,7 +96,7 @@ public class LocationUtil {
 
         latitude = new BigDecimal(latitude).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
         longitude = new BigDecimal(longitude).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
-        double elevation = new BigDecimal(split[2]).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+        double elevation = new BigDecimal(split[2].trim()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
         return new double[]{latitude, longitude, elevation};
     }
@@ -116,7 +116,11 @@ public class LocationUtil {
         return new double[]{latitude, longitude, elevation};
     }
 
-    private static String convertLocation(double coordinate, boolean longitude) {
+    private static String convertLocation(Double coordinate, boolean longitude) {
+
+        if (coordinate == null) {
+            return String.format(Locale.ENGLISH, "%d°%d'%.2f\"%s", 0, 0, 0.0, "");
+        }
 
         String direction;
 

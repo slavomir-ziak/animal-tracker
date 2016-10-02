@@ -2,6 +2,7 @@ package com.wecode.animaltracker.view;
 
 import android.app.Activity;
 import android.text.InputType;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -32,21 +33,14 @@ public class TransectDetailView {
     private Long habitatId;
     private Long weatherId;
 
-    private Activity parentActivity;
-
     private Button endTransectButton;
     private Button startTransectButton;
     private Button transectDetailAddFindingButton;
-    private Button transectDetailSetHabitatButton;
-    private Button transectDetailSetWeatherButton;
-    private Button transectDetailViewFindingsButton;
-    private Button transectDetailSaveButton;
     private Button transectDetailViewExportButton;
 
     private TransectDataService service = TransectDataService.getInstance();
 
-    public TransectDetailView(Activity context, Transect transect) {
-        this.parentActivity = context;
+    public TransectDetailView(View context, Transect transect) {
         id = (TextView) context.findViewById(R.id.transectIdValue);
         column = (TextView) context.findViewById(R.id.transectColumnValue);
         startDateTime = (TextView) context.findViewById(R.id.transectStartDateTimeValue);
@@ -61,14 +55,10 @@ public class TransectDetailView {
         endTransectButton = (Button) context.findViewById(R.id.endTransectButton);
         startTransectButton = (Button) context.findViewById(R.id.startTransectButton);
         transectDetailAddFindingButton = (Button) context.findViewById(R.id.transectDetailAddFindingButton);
-        transectDetailSetHabitatButton = (Button) context.findViewById(R.id.transectDetailSetHabitatButton);
-        transectDetailSetWeatherButton = (Button) context.findViewById(R.id.transectDetailSetWeatherButton);
-        transectDetailViewFindingsButton = (Button) context.findViewById(R.id.transectDetailViewFindingsButton);
-        transectDetailSaveButton = (Button) context.findViewById(R.id.transectDetailSaveButton);
         transectDetailViewExportButton = (Button) context.findViewById(R.id.transectDetailViewExportButton);
     }
 
-    public void bind(Transect transect) {
+    private void bind(Transect transect) {
 
         id.setText(transect.getId().toString());
         column.setText(transect.getColumn() != null ? transect.getColumn().toString() : "");
@@ -120,17 +110,12 @@ public class TransectDetailView {
 
     public void initGuiForNew() {
         enableAllButtons(false);
-        transectDetailSaveButton.setEnabled(true);
     }
 
     private void enableAllButtons(boolean enable) {
         endTransectButton.setEnabled(enable);
         startTransectButton.setEnabled(enable);
         transectDetailAddFindingButton.setEnabled(enable);
-        transectDetailSetHabitatButton.setEnabled(enable);
-        transectDetailSetWeatherButton.setEnabled(enable);
-        transectDetailViewFindingsButton.setEnabled(enable);
-        transectDetailSaveButton.setEnabled(enable);
         transectDetailViewExportButton.setEnabled(enable);
     }
 

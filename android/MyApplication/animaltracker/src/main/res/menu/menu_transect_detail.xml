@@ -2,21 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.wecode.animaltracker.activity.detail.TransectDetailActivity">
-    <item
-        android:id="@+id/transect_action_habitat"
+
+    <item android:id="@+id/action_save"
+        android:title="@string/action_save"
         android:orderInCategory="100"
-        android:title="@string/action_habitat"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/transect_action_weather"
-        android:orderInCategory="100"
-        android:title="@string/transect_action_weather"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/transect_action_findings"
-        android:orderInCategory="100"
-        android:title="@string/transect_action_findings"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_save"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/transect_action_add_finding"
         android:orderInCategory="100"

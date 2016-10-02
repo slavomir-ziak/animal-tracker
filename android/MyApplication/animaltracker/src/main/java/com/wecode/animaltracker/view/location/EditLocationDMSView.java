@@ -104,7 +104,8 @@ public class EditLocationDMSView {
 
         double latitudeSeconds = Double.parseDouble(secondsLatitude.getText().toString());
         double longitudeSeconds = Double.parseDouble(secondsLongitude.getText().toString());
-        double elevation = Double.parseDouble(this.elevation.getText().toString());
+        String elevationValue = this.elevation.getText().toString();
+        double elevation = Double.parseDouble(elevationValue.isEmpty() ? "0" : elevationValue);
 
         return String.format(Locale.ENGLISH, "%s°%s'%.2f\"%s, %s°%s'%.2f\"%s, %.2f",
                 degreesLatitude.getText(), minutesLatitude.getText(), latitudeSeconds, directionLatitude.getSelectedItem(),
@@ -114,7 +115,7 @@ public class EditLocationDMSView {
     }
 
     public void initFromLocation(Location location) {
-        String locationFormatted = LocationUtil.formatLocation(location.getLatitude(), location.getLongitude());
+        String locationFormatted = LocationUtil.formatLocation(location.getLatitude(), location.getLongitude(), location.getAltitude());
 
         String[] coordinates = locationFormatted.split(",");
 

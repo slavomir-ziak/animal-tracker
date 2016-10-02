@@ -30,9 +30,9 @@ public class WeatherDetailActivity extends CommonDetailActivity {
         extractParams(getIntent());
 
         if (id != null) {
-            weatherDetailView = new WeatherDetailView(this, weatherService.find(id));
+            weatherDetailView = new WeatherDetailView(findViewById(android.R.id.content), weatherService.find(id));
         } else {
-            weatherDetailView = new WeatherDetailView(this);
+            weatherDetailView = new WeatherDetailView(findViewById(android.R.id.content));
         }
 
         entityName = Photo.EntityName.WEATHER;

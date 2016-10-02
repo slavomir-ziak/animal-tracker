@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.view;
 
+import android.app.Activity;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
@@ -28,7 +30,7 @@ public class WeatherDetailView {
 
     private WeatherDataService service = WeatherDataService.getInstance();
 
-    public WeatherDetailView(WeatherDetailActivity context, Weather weather) {
+    public WeatherDetailView(View context, Weather weather) {
         this(context);
 
         if (weather != null) {
@@ -36,7 +38,7 @@ public class WeatherDetailView {
         }
     }
 
-    public WeatherDetailView(WeatherDetailActivity context) {
+    public WeatherDetailView(View context) {
 
         sunshineSeekBar = (SeekBar) context.findViewById(R.id.sunshineSeekBar);
         TextView sunshineValue = (TextView) context.findViewById(R.id.sunshineValue);

@@ -15,7 +15,6 @@ import com.wecode.animaltracker.view.HabitatDetailView;
 
 public class HabitatDetailActivity extends CommonDetailActivity {
 
-
     private HabitatDetailView habitatDetailView;
 
     private HabitatDataService habitatService = HabitatDataService.getInstance();

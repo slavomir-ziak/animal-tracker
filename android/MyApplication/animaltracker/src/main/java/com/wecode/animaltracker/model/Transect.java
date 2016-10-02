@@ -177,4 +177,8 @@ public class Transect extends Persistable {
         }
         return findings;
     }
+
+    public String getColumn(String defaultValue) {
+        return column != null ? column.toString() : defaultValue;
+    }
 }
