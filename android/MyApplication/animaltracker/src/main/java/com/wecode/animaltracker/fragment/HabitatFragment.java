@@ -25,6 +25,7 @@ public class HabitatFragment extends Fragment implements IFragment {
 
     private HabitatDataService habitatService = HabitatDataService.getInstance();
     private Long habitatId;
+
     private Action action;
 
     @Override

@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.LocationProvidingActivity;
+import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
 import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
@@ -126,7 +127,7 @@ public class TransectDetailFragment extends Fragment implements IFragment {
         view.findViewById(R.id.transectDetailAddFindingButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                ((TransectDetailActivity) getActivity()).addFinding(null);
             }
         });
 
