@@ -40,10 +40,11 @@ public class PhotosFragment extends Fragment implements IFragment {
         Long entityId = getArguments().getLong("entityId");
         entityId = entityId == 0 ? null : entityId;
 
-        String entityName = getArguments().getString("entityName");
+        if (entityId == null) {
+            return view;
+        }
 
-        Assert.isTrue("entityId missing", entityId != null);
-        Assert.isTrue("entityName missing", entityName != null);
+        String entityName = getArguments().getString("entityName");
 
         List<Photo> photos = photosDataService.findByEntityIdAndName(entityId, entityName);
 

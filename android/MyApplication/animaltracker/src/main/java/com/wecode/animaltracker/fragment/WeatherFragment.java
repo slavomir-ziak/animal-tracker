@@ -48,10 +48,12 @@ public class WeatherFragment extends Fragment implements IFragment {
     }
 
     public Weather saveWeather() {
+        if (weatherDetailView == null) {
+            return null;
+        }
         Weather weather = weatherDetailView.toWeather();
         return weatherService.save(weather);
     }
-
 
     public String getName() {
         return "Weather";

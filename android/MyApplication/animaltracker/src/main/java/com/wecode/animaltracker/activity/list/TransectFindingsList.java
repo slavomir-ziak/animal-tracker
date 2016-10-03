@@ -76,7 +76,7 @@ public class TransectFindingsList extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        refreshTransectFindings();
         if (resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
             return;
@@ -85,13 +85,6 @@ public class TransectFindingsList extends AppCompatActivity {
         if (resultCode != RESULT_OK) {
             Toast.makeText(this, "Problem with displying tranect finding detail.", Toast.LENGTH_LONG).show();
             return;
-        }
-
-        switch(requestCode) {
-            case DISPLAY_TRANSECT_FINDING_DETAIL:
-                Long id = data.getExtras().getLong("id");
-                Toast.makeText(this, "Transect finding saved, ID = " + id, Toast.LENGTH_LONG).show();
-                refreshTransectFindings();
         }
 
     }

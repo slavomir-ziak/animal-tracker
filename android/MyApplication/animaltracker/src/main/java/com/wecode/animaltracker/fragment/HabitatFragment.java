@@ -53,6 +53,9 @@ public class HabitatFragment extends Fragment implements IFragment {
     }
 
     public Habitat saveHabitat(){
+        if (habitatDetailView == null) {
+            return null;
+        }
         Habitat t = habitatDetailView.toHabitat();
         return habitatService.save(t);
     }

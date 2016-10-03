@@ -1,11 +1,11 @@
 package com.wecode.animaltracker.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
@@ -39,9 +39,11 @@ public class TransectDetailView {
     private Button transectDetailAddFindingButton;
     private Button transectDetailViewExportButton;
 
+    private CodeListSpinnerView localisationSpinner;
+
     private TransectDataService service = TransectDataService.getInstance();
 
-    public TransectDetailView(View context, Transect transect) {
+    public TransectDetailView(View context, Activity activity, Transect transect) {
         id = (TextView) context.findViewById(R.id.transectIdValue);
         column = (TextView) context.findViewById(R.id.transectColumnValue);
         startDateTime = (TextView) context.findViewById(R.id.transectStartDateTimeValue);
@@ -49,16 +51,19 @@ public class TransectDetailView {
         startLocation = (TextView) context.findViewById(R.id.transectStartLocationValue);
         endLocation = (TextView) context.findViewById(R.id.transectEndLocationValue);
         routeName = (TextView) context.findViewById(R.id.transectRouteNameValue);
+        localisationSpinner = new CodeListSpinnerView(R.id.transectLocalisationSpinner, "transectRegion", activity, context);
 
-        if (transect != null) {
-            bind(transect);
-        }
         endTransectButton = (Button) context.findViewById(R.id.endTransectButton);
         startTransectButton = (Button) context.findViewById(R.id.startTransectButton);
         transectDetailAddFindingButton = (Button) context.findViewById(R.id.transectDetailAddFindingButton);
         transectDetailViewExportButton = (Button) context.findViewById(R.id.transectDetailViewExportButton);
+
+        if (transect != null) {
+            bind(transect);
+        }
     }
 
+    @SuppressLint("SetTextI18n")
     private void bind(Transect transect) {
 
         id.setText(transect.getId().toString());
@@ -77,6 +82,7 @@ public class TransectDetailView {
         }
 
         routeName.setText(transect.getRouteName());
+        localisationSpinner.select(transect.getLocalisation());
 
         if (transect.getEndDateTime() != null) {
             endDateTime.setText(dateTimeInstance.format(transect.getEndDateTime()));
@@ -114,12 +120,10 @@ public class TransectDetailView {
     }
 
     private void enableAllButtons(boolean enable) {
-        endTransectButton.setEnabled(enable);
-        startTransectButton.setEnabled(enable);
-        transectDetailAddFindingButton.setEnabled(enable);
-        transectDetailViewExportButton.setEnabled(enable);
+        endTransectButton.setVisibility(enable ? View.VISIBLE : View.GONE);
+        transectDetailAddFindingButton.setVisibility(enable ? View.VISIBLE : View.GONE);
+        transectDetailViewExportButton.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
-
 
     public Transect toTransect() {
 
@@ -138,6 +142,7 @@ public class TransectDetailView {
             transect.setColumn(column.getText().length() > 0 ? Integer.parseInt(column.getText().toString()) : null);
             transect.setStartDateTime(startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null);
             transect.setRouteName(routeName.getText().toString());
+            transect.setLocalisation(localisationSpinner.getSelectedCodeListValue());
 
             if (this.startLocation.getText().length() > 0) {
                 double[] location = LocationUtil.parseLocation(this.startLocation.getText().toString());

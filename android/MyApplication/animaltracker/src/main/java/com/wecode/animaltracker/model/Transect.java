@@ -18,6 +18,7 @@ public class Transect extends Persistable {
     private Date startDateTime;
     private Date endDateTime;
     private String routeName;
+    private String localisation;
     private Long weatherId;
 
     private Double startLongitude;
@@ -144,6 +145,7 @@ public class Transect extends Persistable {
                 ", startDateTime=" + startDateTime +
                 ", endDateTime=" + endDateTime +
                 ", routeName='" + routeName + '\'' +
+                ", localisation='" + localisation + '\'' +
                 ", weatherId=" + weatherId +
                 ", startLongitude=" + startLongitude +
                 ", startLatitude=" + startLatitude +
@@ -153,6 +155,14 @@ public class Transect extends Persistable {
                 ", endElevation=" + endElevation +
                 ", findings=" + findings +
                 "} " + super.toString();
+    }
+
+    public String getLocalisation() {
+        return localisation;
+    }
+
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
     }
 
     public Double getStartElevation() {

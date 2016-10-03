@@ -264,7 +264,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         initFindings();
 
         if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
             return;
         }
 

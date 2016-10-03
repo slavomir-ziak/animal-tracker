@@ -21,7 +21,7 @@ import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.export.DataExporter;
+import com.wecode.animaltracker.export.TransectReport;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectDataService;
@@ -77,7 +77,7 @@ public class TransectDetailFragment extends Fragment implements IFragment {
             transect = transectDataService.find(transectId);
         }
 
-        transectDetailView = new TransectDetailView(view, transect);
+        transectDetailView = new TransectDetailView(view, getActivity(), transect);
 
         switch (action) {
             case EDIT:
@@ -153,7 +153,7 @@ public class TransectDetailFragment extends Fragment implements IFragment {
             return;
         }
 
-        new DataExporter(transectDataService.find(transectId), getActivity()).exportToExcel();
+        new TransectReport(transectDataService.find(transectId), getActivity()).exportToExcel();
 
     }
 
@@ -221,6 +221,10 @@ public class TransectDetailFragment extends Fragment implements IFragment {
     }
 
     public Transect saveTransect() {
+        if (transectDetailView == null) {
+            return null;
+        }
+
         if (!transectDetailView.isValid()) {
             Toast.makeText(getActivity(), "Transect not valid.", Toast.LENGTH_SHORT).show();
             return null;
@@ -276,5 +280,12 @@ public class TransectDetailFragment extends Fragment implements IFragment {
 
     private Location getCurrentLocation() {
         return ((LocationProvidingActivity) getActivity()).getCurrentLocation();
+    }
+
+    public Long getTransectId() {
+        if (transectDetailView == null) {
+            return null;
+        }
+        return transectDetailView.getIdValue();
     }
 }

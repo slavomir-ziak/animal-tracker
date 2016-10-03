@@ -52,6 +52,11 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
 
         transectId = getArguments().getLong("transectId", 0);
         transectId = transectId == 0 ? null : transectId;
+
+        if (transectId == null) {
+            return view;
+        }
+
         action = Action.fromString(getArguments().getString("action"));
 
         refreshTransectFindings(view);
@@ -112,5 +117,9 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
     @Override
     public String getName() {
         return "Finding sites";
+    }
+
+    public void refreshFindings() {
+        refreshTransectFindings(view);
     }
 }

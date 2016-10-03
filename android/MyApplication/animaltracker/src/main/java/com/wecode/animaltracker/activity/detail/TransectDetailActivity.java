@@ -54,6 +54,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     private HabitatFragment habitatFragment;
 
+    private TransectFindingListFragment transectFindingListFragment;
+
     {
         entityName = Photo.EntityName.TRANSECT;
     }
@@ -95,8 +97,10 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     private void setupPhotosFragment(ViewPagerAdapter adapter) {
         Bundle bundle = new Bundle();
-        bundle.putLong("entityId", id);
-        bundle.putString("entityName", Photo.EntityName.TRANSECT.toString());
+        if (id != null) {
+            bundle.putLong("entityId", id);
+            bundle.putString("entityName", Photo.EntityName.TRANSECT.toString());
+        }
 
         PhotosFragment photosFragment = new PhotosFragment();
         photosFragment.setArguments(bundle);
@@ -112,7 +116,7 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
             bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
         }
 
-        TransectFindingListFragment transectFindingListFragment = new TransectFindingListFragment();
+        transectFindingListFragment = new TransectFindingListFragment();
         transectFindingListFragment.setArguments(bundle);
         adapter.addFragment(transectFindingListFragment);
     }
@@ -227,6 +231,10 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == ADD_FINDING_REQUEST) {
+            transectFindingListFragment.refreshFindings();
+        }
+
         if (resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
             return;
@@ -268,19 +276,18 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         }
 
         if (id == R.id.action_save) {
-
             Transect transect = transectFragment.saveTransect();
-
-            if (transect != null) {
-                Weather weather = weatherFragment.saveWeather();
-                transect.setWeatherId(weather.getId());
-
-                Habitat habitat = habitatFragment.saveHabitat();
-                transect.setHabitatId(habitat.getId());
-
-                transect.save();
+            if (transect == null) {
+                return true;
             }
 
+            Weather weather = weatherFragment.saveWeather();
+            transect.setWeatherId(weather != null ? weather.getId() : null);
+
+            Habitat habitat = habitatFragment.saveHabitat();
+            transect.setHabitatId(habitat != null ? habitat.getId() : null);
+
+            transect.save();
             return true;
         }
 
@@ -290,10 +297,10 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     @Override
     public void onBackPressed() {
-        Transect transect = transectFragment.saveTransect();
+        Long id = transectFragment.getTransectId();
 
         Intent intent = new Intent();
-        intent.putExtra("id", transect.getId());
+        intent.putExtra("id", id);
         setResult(RESULT_OK, intent);
         finish();
     }
