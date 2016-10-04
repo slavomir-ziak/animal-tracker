@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.MediaScannerConnection;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
@@ -19,6 +21,7 @@ import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
+import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.view.TransectDetailView;
 
@@ -40,18 +43,19 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 import static android.R.attr.id;
+import static android.R.attr.windowShowWallpaper;
 
 /**
  * Created by SZIAK on 9/19/2016.
  */
-public class DataExporter {
+public class TransectReport {
 
     private Transect transect;
     private Activity context;
 
-    private DataExporter(){}
+    private TransectReport(){}
 
-    public DataExporter(Transect transect, Activity context) {
+    public TransectReport(Transect transect, Activity context) {
         this.transect = transect;
         this.context = context;
     }
@@ -115,7 +119,7 @@ public class DataExporter {
                     row.setFootprintsDirection(footprintFinding.getDirection());
                     row.setFootprintsNumberOfAnimlas(footprintFinding.getNumberOfAnimals());
                     row.setFootprintsStride(footprintFinding.getStride());
-                    //row.setFootprintsSubstract(footprintFinding.getsubstrrack);
+                    row.setFootprintsSubstract(footprintFinding.getSubstract());
                     rows.add(row);
                 }
 
@@ -132,7 +136,7 @@ public class DataExporter {
                     }
                     row.setFecesPrey(fecesFinding.getPrey());
                     row.setFecesState(fecesFinding.getState());
-                    //row.setFecesSubstract(fecesFinding.getsubstract);
+                    row.setFecesSubstract(fecesFinding.getSubstract());
 
                 }
 
@@ -177,7 +181,7 @@ public class DataExporter {
 
                 for (TransectReportRow row : rows) {
                     row.setSpecie(transectFinding.getSpecies());
-                    //row.setElevation(transectFinding.getele);
+                    row.setElevation(transectFinding.getLocationElevation());
                     row.setLatitude(transectFinding.getLocationLatitude());
                     row.setLongitude(transectFinding.getLocationLongitude());
                     if (transectFinding.getHabitatId() != null) {
@@ -207,7 +211,7 @@ public class DataExporter {
                         case 9: data = rowData.getFootprintsStride(); break;
                         case 10: data = rowData.getFootprintsFrontSize(); break;
                         case 11: data = rowData.getFootprintsBackSize(); break;
-                        //case 12: data = rowData.getSpecie(); break;
+                        //case 12:
                         case 13: data = rowData.getFecesState(); break;
                         case 14: data = rowData.getFecesPrey(); break;
                         case 15: data = rowData.getFecesSubstract(); break;
@@ -275,7 +279,7 @@ public class DataExporter {
         switch (key) {
             case "ID": return transect.getId().toString();
             case "REGION": return transect.getRouteName();
-            //case "LOCALISATION": return "TODO";
+            case "LOCALISATION": return transect.getLocalisation();
             case "TRACKER": return SettingsDataService.getInstance().get().getTrackerName();
             case "DATE": {
                 if (transect.getStartDateTime() != null) {
@@ -294,9 +298,14 @@ public class DataExporter {
                     LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude(), transect.getEndElevation()
                     );
             //case "TOTAL_LENGTH": return transect.toString();
-            //case "WEATHER": return transect.toString();
+            case "WEATHER": return formatWeather(transect.getWeatherId());
         }
 
+        return null;
+    }
+
+    private String formatWeather(Long weatherId) {
+        ///weather.get
         return null;
     }
 }

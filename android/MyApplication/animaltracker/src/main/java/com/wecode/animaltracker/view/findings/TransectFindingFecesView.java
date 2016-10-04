@@ -20,10 +20,11 @@ public class TransectFindingFecesView {
     private Long id;
     private Long transectFindingId;
 
-    private TextView fecesPrey;
+    private CodeListSpinnerView fecesPrey;
     private Spinner confidence;
     private CodeListSpinnerView fecesState;
     private CodeListSpinnerView age;
+    private CodeListSpinnerView substract;
 
     private TransectFindingFecesDataService service = TransectFindingFecesDataService.getInstance();
 
@@ -40,17 +41,19 @@ public class TransectFindingFecesView {
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
-        fecesPrey = (TextView) context.findViewById(R.id.findingFecesPreyValue);
+        fecesPrey = new CodeListSpinnerView(R.id.findingFecesPreySpinner, "fecesPrey", context);
         fecesState = new CodeListSpinnerView(R.id.findingFecesStateValue, "fecesState", context);
         age = new CodeListSpinnerView(R.id.age, "findingAge", context);
+        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context);
 
     }
 
     private void bind(TransectFindingFeces transectFindingFeces) {
 
-        fecesPrey.setText(transectFindingFeces.getPrey() == null ? "" : transectFindingFeces.getPrey());
+        fecesPrey.select(transectFindingFeces.getPrey());
         age.select(transectFindingFeces.getAge());
         fecesState.select(transectFindingFeces.getState());
+        substract.select(transectFindingFeces.getSubstract());
 
         id = transectFindingFeces.getId();
     }
@@ -67,9 +70,11 @@ public class TransectFindingFecesView {
 
         transectFindingFeces.setTransectFindingId(transectFindingId);
         transectFindingFeces.setConfidence((String) confidence.getSelectedItem());
-        transectFindingFeces.setPrey(ConverterUtil.toString(fecesPrey.getText()));
+        transectFindingFeces.setPrey(ConverterUtil.toString(fecesPrey.getSelectedCodeListValue()));
         transectFindingFeces.setState((fecesState.getSelectedCodeListValue()));
         transectFindingFeces.setAge(age.getSelectedCodeListValue());
+        transectFindingFeces.setSubstract(substract.getSelectedCodeListValue());
+
         return transectFindingFeces;
     }
 }

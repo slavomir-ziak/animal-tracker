@@ -18,6 +18,8 @@ public class TransectFindingOther extends Persistable {
 
     private String age;
 
+    private String substract;
+
     public TransectFindingOther() {
     }
 
@@ -61,7 +63,16 @@ public class TransectFindingOther extends Persistable {
                 ", observations='" + observations + '\'' +
                 ", confidence='" + confidence + '\'' +
                 ", age='" + age + '\'' +
+                ", substract='" + substract + '\'' +
                 "} " + super.toString();
+    }
+
+    public String getSubstract() {
+        return substract;
+    }
+
+    public void setSubstract(String substract) {
+        this.substract = substract;
     }
 
     public void setAge(String age) {

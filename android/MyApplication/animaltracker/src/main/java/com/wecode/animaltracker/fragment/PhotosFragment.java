@@ -1,6 +1,11 @@
 package com.wecode.animaltracker.fragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,10 +23,12 @@ import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.util.Assert;
+import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.HabitatDetailView;
 
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by SZIAK on 10/2/2016.
@@ -29,9 +36,13 @@ import java.util.List;
 
 public class PhotosFragment extends Fragment implements IFragment {
 
+    private static final int CODE_START = 20;
+
+    private static final int ADD_PHOTO_PERMISSION_REQUEST = CODE_START + 3;
+
     private PhotosDataService photosDataService = PhotosDataService.getInstance();
 
-    private File picturesDirectory = Globals.getPhotosStorageDir();
+    private File picturesDirectory;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,7 +76,30 @@ public class PhotosFragment extends Fragment implements IFragment {
             }
         });
 
+        if (!Permissions.grantedOrRequestPermissions(getActivity(), ADD_PHOTO_PERMISSION_REQUEST,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA)) {
+            return view;
+        }
+
+        picturesDirectory = Globals.getPhotosStorageDir();
+
         return view;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == ADD_PHOTO_PERMISSION_REQUEST) {
+            if (Permissions.grantResults(grantResults)) {
+                picturesDirectory = Globals.getPhotosStorageDir();
+            } else {
+                Log.w(Globals.APP_NAME, "ADD_PHOTO_PERMISSION_REQUEST NOT granted");
+            }
+        }
     }
 
     @Override

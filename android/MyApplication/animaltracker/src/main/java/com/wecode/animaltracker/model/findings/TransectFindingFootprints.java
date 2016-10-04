@@ -30,6 +30,7 @@ public class TransectFindingFootprints extends Persistable {
 
     private String age;
 
+    private String substract;
 
     public TransectFindingFootprints() {
     }
@@ -139,11 +140,20 @@ public class TransectFindingFootprints extends Persistable {
                 ", frontWidht=" + frontWidht +
                 ", backLength=" + backLength +
                 ", backWidht=" + backWidht +
-                ", age=" + age +
+                ", direction='" + direction + '\'' +
                 ", stride=" + stride +
                 ", confidence='" + confidence + '\'' +
-                ", direction='" + direction + '\'' +
+                ", age='" + age + '\'' +
+                ", substract='" + substract + '\'' +
                 "} " + super.toString();
+    }
+
+    public String getSubstract() {
+        return substract;
+    }
+
+    public void setSubstract(String substract) {
+        this.substract = substract;
     }
 
     public String getNumberOfAnimalsValue() {

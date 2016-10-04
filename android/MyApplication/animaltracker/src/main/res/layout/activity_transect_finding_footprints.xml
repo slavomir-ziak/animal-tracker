@@ -203,6 +203,28 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/substractLabel"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:text="Substract"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_gravity="center_vertical" />
+
+                <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/substract"
+                    android:layout_weight="1"
+                    android:spinnerMode="dialog"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/animal_tracker_row_height"
                 android:orientation="horizontal">
 

@@ -56,7 +56,7 @@ public class TransectReportRow {
     }
 
     public String getElevationValue() {
-        return elevation == null ? "" : String.format(Locale.US, "%.5f", elevation);
+        return elevation  == null ? "" : String.format(Locale.US, "%.5f", elevation );
     }
 
     public void setElevation(Double elevation) {
@@ -68,7 +68,7 @@ public class TransectReportRow {
     }
 
     public String getLatitudeValue() {
-        return String.format(Locale.US, "%.5f", latitude);
+        return latitude  == null ? "" : String.format(Locale.US, "%.5f", latitude );
     }
 
     public void setLatitude(Double latitude) {
@@ -80,7 +80,7 @@ public class TransectReportRow {
     }
 
     public String getLongitudeValue() {
-        return String.format(Locale.US, "%.5f", longitude);
+        return longitude  == null ? "" : String.format(Locale.US, "%.5f", longitude );
     }
 
     public void setLongitude(Double longitude) {

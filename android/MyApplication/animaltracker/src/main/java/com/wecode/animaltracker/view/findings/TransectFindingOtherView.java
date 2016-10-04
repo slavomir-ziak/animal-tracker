@@ -25,6 +25,7 @@ public class TransectFindingOtherView {
     private CodeListSpinnerView otherObservations;
     private Spinner confidence;
     private CodeListSpinnerView age;
+    private CodeListSpinnerView substract;
 
     private TransectFindingOtherDataService service = TransectFindingOtherDataService.getInstance();
 
@@ -43,6 +44,7 @@ public class TransectFindingOtherView {
         otherEvidence = new CodeListSpinnerView(R.id.findingOtherEvidenceValue, "findingOtherEvidence", context);
         otherObservations = new CodeListSpinnerView(R.id.findingOtherObservationsValue, "findingOtherObservations", context);
         age = new CodeListSpinnerView(R.id.age, "findingAge", context);
+        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context);
     }
 
     private void bind(TransectFindingOther transectFindingOther) {
@@ -50,6 +52,7 @@ public class TransectFindingOtherView {
         otherEvidence.select(transectFindingOther.getEvidence());
         otherObservations.select(transectFindingOther.getObservations());
         age.select(transectFindingOther.getAge());
+        substract.select(transectFindingOther.getSubstract());
     }
 
     public TransectFindingOther toOtherFinding(){
@@ -66,6 +69,7 @@ public class TransectFindingOtherView {
         transectFindingOther.setEvidence(otherEvidence.getSelectedCodeListValue());
         transectFindingOther.setObservations(otherObservations.getSelectedCodeListValue());
         transectFindingOther.setAge(age.getSelectedCodeListValue());
+        transectFindingOther.setSubstract(substract.getSelectedCodeListValue());
         return transectFindingOther;
     }
 }

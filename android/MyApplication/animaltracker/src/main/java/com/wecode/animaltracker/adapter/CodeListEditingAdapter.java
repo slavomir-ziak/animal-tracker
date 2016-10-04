@@ -147,7 +147,7 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
     }
 
 
-    public static void setSelected(final Spinner spinner, final int position) {
+    private static void setSelected(final Spinner spinner, final int position) {
 
         // this hack is here so spinner correctly shows selected value
         spinner.postDelayed(new Runnable() {

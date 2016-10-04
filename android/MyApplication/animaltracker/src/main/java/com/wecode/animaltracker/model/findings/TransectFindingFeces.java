@@ -18,6 +18,8 @@ public class TransectFindingFeces extends Persistable {
 
     private String age;
 
+    private String substract;
+
     public TransectFindingFeces() {
     }
 
@@ -27,6 +29,26 @@ public class TransectFindingFeces extends Persistable {
 
     public void setTransectFindingId(Long transectFindingId) {
         this.transectFindingId = transectFindingId;
+    }
+
+    @Override
+    public String toString() {
+        return "TransectFindingFeces{" +
+                "transectFindingId=" + transectFindingId +
+                ", state='" + state + '\'' +
+                ", prey='" + prey + '\'' +
+                ", confidence='" + confidence + '\'' +
+                ", age='" + age + '\'' +
+                ", substract='" + substract + '\'' +
+                "} " + super.toString();
+    }
+
+    public String getSubstract() {
+        return substract;
+    }
+
+    public void setSubstract(String substract) {
+        this.substract = substract;
     }
 
     public String getState() {
@@ -51,17 +73,6 @@ public class TransectFindingFeces extends Persistable {
 
     public void setConfidence(String confidence) {
         this.confidence = confidence;
-    }
-
-    @Override
-    public String toString() {
-        return "TransectFindingFeces{" +
-                "transectFindingId=" + transectFindingId +
-                ", state='" + state + '\'' +
-                ", prey='" + prey + '\'' +
-                ", confidence='" + confidence + '\'' +
-                ", age=" + age +
-                "} " + super.toString();
     }
 
     public void setAge(String age) {

@@ -32,6 +32,7 @@ public class TransectFindingFootprintsView {
     private TextView footprintsStride;
     private Spinner confidence;
     private CodeListSpinnerView age;
+    private CodeListSpinnerView substract;
 
     private TransectFindingFootprintsDataService service = TransectFindingFootprintsDataService.getInstance();
 
@@ -54,6 +55,7 @@ public class TransectFindingFootprintsView {
         footprintsBackWidht = (TextView) context.findViewById(R.id.footprintsBackWidthValue);
         age = new CodeListSpinnerView(R.id.age, "findingAge", context);
         footprintsStride = (TextView) context.findViewById(R.id.footprintsStrideValue);
+        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context);
 
         SpinnersHelper.setSpinnerData(footprintsDirection, R.array.generalDirection);
     }
@@ -72,6 +74,7 @@ public class TransectFindingFootprintsView {
         footprintsBackWidht.setText(transectFindingFootprints.getBackWidthValue());
         age.select(transectFindingFootprints.getAge());
         footprintsStride.setText(transectFindingFootprints.getStride() == null ? "" : transectFindingFootprints.getStride().toString());
+        substract.select(transectFindingFootprints.getSubstract());
 
     }
 
@@ -95,6 +98,7 @@ public class TransectFindingFootprintsView {
         transectFindingFootprints.setBackLength(ConverterUtil.toFloat(footprintsBackLength.getText().toString()));
         transectFindingFootprints.setBackWidht(ConverterUtil.toFloat(footprintsBackWidht.getText().toString()));
         transectFindingFootprints.setStride(ConverterUtil.toFloat(footprintsStride.getText().toString()));
+        transectFindingFootprints.setSubstract(substract.getSelectedCodeListValue());
         return transectFindingFootprints;
     }
 
