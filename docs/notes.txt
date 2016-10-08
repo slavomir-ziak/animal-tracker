@@ -1,0 +1,48 @@
+GIS s ktorym Nuno pracuje arcgis
+opensource GIS - qgis
+
+http://www.javacodegeeks.com/2013/09/android-compass-code-example.html
+
+Ikony:
+http://www.softicons.com/tv-movie-icons/free-twilight-desktop-icons-by-aha-soft/wolf-icon
+http://www.softicons.com/tv-movie-icons/free-twilight-desktop-icons-by-aha-soft/wolf-track-icon
+
+ - evidencia ciest, zaciatok cesty, koniec cesty, + info z surveying a transect 1b
+ - altitude (masl)
+ - habitat forest: old, new, mix, 
+ - trees - coniferas, leaflesstrees, mix, needles trees, 
+		buk, pines, 
+  - track, asphalt road, forest roud, tourist route, no-track, no-forest
+ - devided into grids, column in grid has number, 5x5 km 
+ - trackovat ku ceste: whether(sunshine, himidity, wind), snow depth, last time it rainded, snowed
+
+ 
+ - animal following
+ - events during animal tracking..., front/back paw length
+ - record animal track
+ 
+
+- observation 
+ - recording chamois, datasheet 1
+ - record observation point, number of grid teritory, date, time of start and end of observation, location, whather, description of habitat observing, visility, observable radius, what kind of binoculars
+  - record animals seen, typ (birds, bear, lynx), direction of animal, time
+  - record other events, cars, trucks, people working, tourists
+
+  
+ hearing station:
+ - animal sounds observing, 
+	- meteorology, echo, fields of hearing, 
+	- place, number of grid, 
+	- typ of houling - without provoking,
+	- time of begin, time of end
+	- number of adults, cups
+
+ - provoking:
+	- number of people in group, number of people houling
+	- time of begin, time of end of houling
+	- time of respons, repetition time of response
+	
+ - pridat ikonky hovienka, cikanicky, skrabanca
+ 
+ - record custom points of interest - salas, feeders, posed, pramen, shed, specials (hole, sleep-outside-spot)
+ 
