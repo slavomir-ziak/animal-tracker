@@ -66,6 +66,8 @@ public class PhotosFragment extends Fragment implements IFragment {
         GridView gridView = (GridView) view.findViewById(R.id.activity_photo_tiles_gridview);
         Assert.assertNotNull("gridView missing ", gridView);
 
+        picturesDirectory = Globals.getPhotosStorageDir();
+
         gridView.setAdapter(new ImageAdapter(getActivity(), photos, picturesDirectory));
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -82,8 +84,6 @@ public class PhotosFragment extends Fragment implements IFragment {
                 Manifest.permission.CAMERA)) {
             return view;
         }
-
-        picturesDirectory = Globals.getPhotosStorageDir();
 
         return view;
     }

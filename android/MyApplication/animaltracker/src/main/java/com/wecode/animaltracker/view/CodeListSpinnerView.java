@@ -17,6 +17,8 @@ public class CodeListSpinnerView {
 
     private Spinner spinner;
 
+    private boolean enableEmptyValue = true;
+
     public CodeListSpinnerView(int spinnerId, String codeListName, Activity parentActivity) {
         this.spinner = (Spinner) parentActivity.findViewById(spinnerId);
 
@@ -26,6 +28,12 @@ public class CodeListSpinnerView {
     public CodeListSpinnerView(int spinnerId, String codeListName, Activity parentActivity, View view) {
         this.spinner = (Spinner) view.findViewById(spinnerId);
 
+        setSpinnerData(parentActivity, codeListName, spinner);
+    }
+
+    public CodeListSpinnerView(int spinnerId, String codeListName, Activity parentActivity, View view, boolean enableEmptyValue) {
+        this.enableEmptyValue = enableEmptyValue;
+        this.spinner = (Spinner) view.findViewById(spinnerId);
         setSpinnerData(parentActivity, codeListName, spinner);
     }
 
@@ -39,10 +47,21 @@ public class CodeListSpinnerView {
 
     private void setSpinnerData(Activity context, String codeListName, Spinner spinnerView ) {
 
-        CodeListEditingAdapter codeListEditingAdapter = new CodeListEditingAdapter(context, codeListName);
+        CodeListEditingAdapter codeListEditingAdapter = new CodeListEditingAdapter(context, codeListName, enableEmptyValue);
 
         spinnerView.setOnItemSelectedListener(codeListEditingAdapter);
         spinnerView.setAdapter(codeListEditingAdapter);
     }
 
+    public Spinner getSpinner() {
+        return spinner;
+    }
+
+    public boolean isEnableEmptyValue() {
+        return enableEmptyValue;
+    }
+
+    public void setEnableEmptyValue(boolean enableEmptyValue) {
+        this.enableEmptyValue = enableEmptyValue;
+    }
 }

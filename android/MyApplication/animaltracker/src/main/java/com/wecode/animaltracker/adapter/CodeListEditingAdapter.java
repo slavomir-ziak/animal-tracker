@@ -36,6 +36,7 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
     private Activity context;
 
     private String codeListName;
+    private boolean enableEmptyValue;
 
     private CodeListService codeListService = CodeListService.getInstance();
 
@@ -43,16 +44,19 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
     private Stack<Integer> previousSelected = new Stack<>();
 
-    public CodeListEditingAdapter(Activity context, String codeListName) {
+    public CodeListEditingAdapter(Activity context, String codeListName, boolean enableEmptyValue) {
         this.context = context;
         this.codeListName = codeListName;
+        this.enableEmptyValue = enableEmptyValue;
 
         reloadCodeListValues();
     }
 
     private void reloadCodeListValues() {
         codeList = codeListService.findByName(codeListName);
-        codeList.add(0, new CodeList(EMPTY_ITEM_ID, EMPTY_ITEM_TEXT));
+        if (enableEmptyValue) {
+            codeList.add(0, new CodeList(EMPTY_ITEM_ID, EMPTY_ITEM_TEXT));
+        }
         codeList.add(new CodeList(NEW_ITEM_ID, NEW_ITEM_TEXT));
     }
 
