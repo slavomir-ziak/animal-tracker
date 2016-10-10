@@ -6,17 +6,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
+import com.wecode.animaltracker.activity.detail.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
+import com.wecode.animaltracker.service.TransectDataService;
+import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.view.findings.TransectFindingFecesView;
+
+import java.io.File;
 
 /**
  * Created by SZIAK on 9/15/2016.
  */
-public class TransectFindingFecesDetailActivity extends CommonDetailActivity {
+public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivity {
 
     private long transectFindingId;
 
@@ -50,6 +58,11 @@ public class TransectFindingFecesDetailActivity extends CommonDetailActivity {
     }
 
     @Override
+    protected void refreshPhotos() {
+
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_transect_finding_feces, menu);
@@ -76,6 +89,21 @@ public class TransectFindingFecesDetailActivity extends CommonDetailActivity {
         transectFindingFeces.setId(transectFindingFeces.getId());
         this.id = transectFindingFeces.getId();
         Toast.makeText(this, "Feces saved.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected File getPhotoDirectory() {
+        return Globals.getTransectPhotosDirectory(getTransect());
+    }
+
+    @Override
+    protected Long getCurrentTransectId() {
+        return getTransect().getId();
+    }
+
+    private Transect getTransect() {
+        TransectFinding transectFinding = TransectFindingDataService.getInstance().find(transectFindingId);
+        return TransectDataService.getInstance().find(transectFinding.getTransectId());
     }
 
 }

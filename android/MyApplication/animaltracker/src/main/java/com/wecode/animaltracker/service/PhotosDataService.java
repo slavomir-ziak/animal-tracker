@@ -22,7 +22,7 @@ public class PhotosDataService extends AbstractDataService<Photo> {
         return INSTANCE;
     }
 
-    public List<Photo> findByEntityIdAndName(Long transectId, String entityName) {
-        return Photo.find(Photo.class, "ENTITY_NAME = ? AND ENTITY_ID = ?", entityName, transectId.toString());
+    public List<Photo> findByEntityIdAndName(Long entityId, String entityName) {
+        return Photo.find(Photo.class, "ENTITY_NAME = ? AND ENTITY_ID = ?", entityName, entityId.toString());
     }
 }

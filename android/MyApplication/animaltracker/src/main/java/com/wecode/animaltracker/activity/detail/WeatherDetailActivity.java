@@ -12,6 +12,8 @@ import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.view.WeatherDetailView;
 
+import java.io.File;
+
 public class WeatherDetailActivity extends CommonDetailActivity {
 
     private WeatherDetailView weatherDetailView;
@@ -35,7 +37,6 @@ public class WeatherDetailActivity extends CommonDetailActivity {
             weatherDetailView = new WeatherDetailView(findViewById(android.R.id.content));
         }
 
-        entityName = Photo.EntityName.WEATHER;
     }
 
     @Override

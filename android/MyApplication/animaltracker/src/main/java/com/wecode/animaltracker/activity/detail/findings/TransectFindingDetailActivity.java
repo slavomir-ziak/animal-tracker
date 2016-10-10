@@ -19,6 +19,7 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
 import com.wecode.animaltracker.activity.detail.HabitatDetailActivity;
+import com.wecode.animaltracker.activity.detail.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
 import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
@@ -28,21 +29,24 @@ import com.wecode.animaltracker.adapter.TransectFindingDetailsListAdapter;
 import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Sample;
+import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.SettingsDataService;
+import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.TransectFindingDetailView;
 
+import java.io.File;
 import java.util.List;
 
-public class TransectFindingDetailActivity extends CommonDetailActivity implements LocationListener {
+public class TransectFindingDetailActivity extends PhotoEnabledCommonActivity implements LocationListener {
 
     private static final int SET_HABITAT_REQUEST = 0;
     private static final int ADD_SAMPLE_REQUEST = 1;
@@ -57,7 +61,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     private TransectFindingDetailView transectFindingView;
 
     private Long transectId;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,17 +185,10 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         startActivityForResult(intent, SET_HABITAT_REQUEST);
     }
 
-    public void addFootprints(View view) {
-        Intent intent = new Intent(this, TransectFindingFootprintsDetailActivity.class);
-        intent.putExtra("transectFindingId", transectFindingView.getId());
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.NEW.toString());
-        startActivityForResult(intent, 0);
-    }
-
     public void editFootprints(Long footprintsId) {
         Intent intent = new Intent(this, TransectFindingFootprintsDetailActivity.class);
         intent.putExtra("id", footprintsId);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.EDIT.toString());
         startActivityForResult(intent, 0);
@@ -201,6 +197,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     public void editFeces(Long fecesId) {
         Intent intent = new Intent(this, TransectFindingFecesDetailActivity.class);
         intent.putExtra("id", fecesId);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.EDIT.toString());
         startActivityForResult(intent, 0);
@@ -209,6 +206,7 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
     public void editOther(Long otherId) {
         Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
         intent.putExtra("id", otherId);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.EDIT.toString());
         startActivityForResult(intent, 0);
@@ -222,6 +220,14 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         startActivityForResult(intent, 0);
     }
 
+    public void addFootprints(View view) {
+        Intent intent = new Intent(this, TransectFindingFootprintsDetailActivity.class);
+        intent.putExtra("transectFindingId", transectFindingView.getId());
+        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
+        intent.setAction(Action.NEW.toString());
+        startActivityForResult(intent, 0);
+    }
+
     public void addOthers(View view) {
         Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
         intent.putExtra("transectFindingId", transectFindingView.getId());
@@ -229,7 +235,6 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         intent.setAction(Action.NEW.toString());
         startActivityForResult(intent, 0);
     }
-
 
     public void showSamples(View view) {
         Intent intent = new Intent(this, TransectFindingSamplesList.class);
@@ -297,6 +302,11 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         }
 
         saveTransectFinding();
+    }
+
+    @Override
+    protected void refreshPhotos() {
+
     }
 
     private void saveTransectFinding() {
@@ -379,4 +389,17 @@ public class TransectFindingDetailActivity extends CommonDetailActivity implemen
         }
         return true;
     }
+
+    @Override
+    protected Long getCurrentTransectId() {
+        return transectId;
+    }
+
+    @Override
+    protected File getPhotoDirectory() {
+        Transect transect = TransectDataService.getInstance().find(transectId);
+        return Globals.getTransectPhotosDirectory(transect);
+    }
+
+
 }

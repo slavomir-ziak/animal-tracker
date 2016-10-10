@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.model.Transect;
@@ -162,6 +163,7 @@ public class TransectDetailView {
                 transect.setEndDateTime(dateTimeInstance.parse(endDateTime.getText().toString()));
             }
 
+
             transect.setHabitatId(habitatId);
             transect.setWeatherId(weatherId);
             return transect;
@@ -170,6 +172,10 @@ public class TransectDetailView {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private String getRootDirectory(Transect transect) {
+        return String.format("%d_%s", transect.getId(), transect.getRouteName());
     }
 
     private double getLatitude(String location) {

@@ -1,9 +1,17 @@
 package com.wecode.animaltracker;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.util.Log;
 
+import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.service.TransectDataService;
+
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by sziak on 16-May-16.
@@ -11,12 +19,6 @@ import java.io.File;
 public class Globals {
 
     public static final String APP_NAME = "AnimalTracker";
-
-    public static File getPhotosStorageDir() {
-        File photosDir = new File(getAppRootDir(), "Photos");
-        createDirectory(photosDir);
-        return photosDir;
-    }
 
     public static File getAppRootDir() {
 
@@ -36,4 +38,45 @@ public class Globals {
         }
     }
 
+    @SuppressLint({"DefaultLocale", "SimpleDateFormat"})
+    public static String createTransectRootDirectory(Transect transect) {
+
+        if (transect.getRootDirectoryName() != null) {
+            File file = new File(getAppRootDir(), transect.getRootDirectoryName());
+            if (file.exists()) {
+                return transect.getRootDirectoryName();
+            }
+        }
+
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
+        Date startDateTime = transect.getStartDateTime() != null ? transect.getStartDateTime() : new Date();
+        String transectRootDirectory = String.format("%03d_%s_%s", transect.getId(), transect.getRouteName(), simpleDateFormat.format(startDateTime));
+
+        int counter = 0;
+        boolean created = new File(getAppRootDir(), transectRootDirectory).mkdirs();
+
+        while (!created) {
+            counter++;
+            transectRootDirectory  = transectRootDirectory + "_" + counter;
+            created = new File(getAppRootDir(), transectRootDirectory ).mkdirs();
+        }
+
+        return transectRootDirectory;
+    }
+
+    public static File getTransectPhotosDirectory(Transect transect) {
+        if (transect.getRootDirectoryName() == null) {
+            String transectRootDirectory = createTransectRootDirectory(transect);
+            transect.setRootDirectoryName(transectRootDirectory);
+            transect = TransectDataService.getInstance().save(transect);
+        }
+        File transectRootDir = new File(Globals.getAppRootDir(), transect.getRootDirectoryName());
+        File photosDir = new File(transectRootDir, "Photos");
+        Globals.createDirectory(photosDir);
+        return photosDir;
+    }
+
+    public static void refreshFileSystem(Context context) {
+        MediaScannerConnection.scanFile(context, new String[]{Globals.getAppRootDir().getAbsolutePath()}, null, null);
+    }
 }

@@ -230,6 +230,13 @@ public class TransectDetailFragment extends Fragment implements IFragment {
             return null;
         }
         Transect transect = transectDataService.save(transectDetailView.toTransect());
+
+        String rootDirectoryName = Globals.createTransectRootDirectory(transect);
+        Globals.refreshFileSystem(getActivity());
+        transect.setRootDirectoryName(rootDirectoryName);
+
+        transectDataService.save(transect);
+
         transectDetailView.setIdValue(transect.getId());
         this.transectId = transect.getId();
         Toast.makeText(getActivity(), "Transect saved.", Toast.LENGTH_SHORT).show();

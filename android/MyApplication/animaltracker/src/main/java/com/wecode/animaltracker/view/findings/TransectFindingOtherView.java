@@ -30,7 +30,7 @@ public class TransectFindingOtherView {
     private TransectFindingOtherDataService service = TransectFindingOtherDataService.getInstance();
 
     public TransectFindingOtherView(Activity context, TransectFindingOther transectFindingOther) {
-        this(context, transectFindingOther.getId());
+        this(context, transectFindingOther.getTransectFindingId());
 
         Assert.assertNotNull("transectFindingOther cannot be null!", transectFindingOther);
         bind(transectFindingOther);

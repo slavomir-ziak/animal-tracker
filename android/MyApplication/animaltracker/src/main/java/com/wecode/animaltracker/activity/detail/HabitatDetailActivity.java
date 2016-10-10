@@ -13,6 +13,8 @@ import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.view.HabitatDetailView;
 
+import java.io.File;
+
 public class HabitatDetailActivity extends CommonDetailActivity {
 
     private HabitatDetailView habitatDetailView;
@@ -35,7 +37,6 @@ public class HabitatDetailActivity extends CommonDetailActivity {
             habitatDetailView = new HabitatDetailView(this, findViewById(android.R.id.content));
         }
 
-        entityName = Photo.EntityName.HABITAT;
     }
 
     @Override

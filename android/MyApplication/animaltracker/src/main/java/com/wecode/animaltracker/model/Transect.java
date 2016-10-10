@@ -29,6 +29,8 @@ public class Transect extends Persistable {
     private Double endLatitude;
     private Double endElevation;
 
+    private String rootDirectoryName;
+
     private List<TransectFinding> findings;
 
     public Transect() {
@@ -137,26 +139,6 @@ public class Transect extends Persistable {
         return endLatitude;
     }
 
-    @Override
-    public String toString() {
-        return "Transect{" +
-                "habitatId=" + habitatId +
-                ", column=" + column +
-                ", startDateTime=" + startDateTime +
-                ", endDateTime=" + endDateTime +
-                ", routeName='" + routeName + '\'' +
-                ", localisation='" + localisation + '\'' +
-                ", weatherId=" + weatherId +
-                ", startLongitude=" + startLongitude +
-                ", startLatitude=" + startLatitude +
-                ", startElevation=" + startElevation +
-                ", endLongitude=" + endLongitude +
-                ", endLatitude=" + endLatitude +
-                ", endElevation=" + endElevation +
-                ", findings=" + findings +
-                "} " + super.toString();
-    }
-
     public String getLocalisation() {
         return localisation;
     }
@@ -191,4 +173,35 @@ public class Transect extends Persistable {
     public String getColumn(String defaultValue) {
         return column != null ? column.toString() : defaultValue;
     }
+
+    @Override
+    public String toString() {
+        return "Transect{" +
+                "habitatId=" + habitatId +
+                ", column=" + column +
+                ", startDateTime=" + startDateTime +
+                ", endDateTime=" + endDateTime +
+                ", routeName='" + routeName + '\'' +
+                ", localisation='" + localisation + '\'' +
+                ", weatherId=" + weatherId +
+                ", startLongitude=" + startLongitude +
+                ", startLatitude=" + startLatitude +
+                ", startElevation=" + startElevation +
+                ", endLongitude=" + endLongitude +
+                ", endLatitude=" + endLatitude +
+                ", endElevation=" + endElevation +
+                ", rootDirectoryName='" + rootDirectoryName + '\'' +
+                ", findings=" + findings +
+                "} " + super.toString();
+    }
+
+    public String getRootDirectoryName() {
+        return rootDirectoryName;
+    }
+
+    public void setRootDirectoryName(String rootDirectoryName) {
+        this.rootDirectoryName = rootDirectoryName;
+    }
+
+
 }

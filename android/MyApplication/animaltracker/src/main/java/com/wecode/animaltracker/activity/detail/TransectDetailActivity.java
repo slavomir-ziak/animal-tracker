@@ -37,10 +37,11 @@ import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransectDetailActivity extends CommonDetailActivity implements LocationListener, LocationProvidingActivity {
+public class TransectDetailActivity extends PhotoEnabledCommonActivity implements LocationListener, LocationProvidingActivity {
 
     private static final int ADD_FINDING_REQUEST = 2;
 
@@ -55,6 +56,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     private HabitatFragment habitatFragment;
 
     private TransectFindingListFragment transectFindingListFragment;
+
+    private PhotosFragment photosFragment;
 
     {
         entityName = Photo.EntityName.TRANSECT;
@@ -79,8 +82,26 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -99,10 +120,11 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
         Bundle bundle = new Bundle();
         if (id != null) {
             bundle.putLong("entityId", id);
+            bundle.putLong("transectId", id);
             bundle.putString("entityName", Photo.EntityName.TRANSECT.toString());
         }
 
-        PhotosFragment photosFragment = new PhotosFragment();
+        photosFragment = new PhotosFragment();
         photosFragment.setArguments(bundle);
         adapter.addFragment(photosFragment);
     }
@@ -206,6 +228,17 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
     }
 
     @Override
+    protected Long getCurrentTransectId() {
+        return id;
+    }
+
+    @Override
+    protected File getPhotoDirectory() {
+        Transect transect = TransectDataService.getInstance().find(id);
+        return Globals.getTransectPhotosDirectory(transect);
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -256,6 +289,11 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     }
 
+    @Override
+    protected void refreshPhotos() {
+        photosFragment.refreshPhotos();
+    }
+
     private String getNameForRequestCode(int requestCode) {
         switch (requestCode) {
             case ADD_FINDING_REQUEST:
@@ -287,7 +325,8 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
             Habitat habitat = habitatFragment.saveHabitat();
             transect.setHabitatId(habitat != null ? habitat.getId() : null);
 
-            transect.save();
+            TransectDataService.getInstance().save(transect);
+            this.id = transect.getId();
             return true;
         }
 
@@ -297,14 +336,11 @@ public class TransectDetailActivity extends CommonDetailActivity implements Loca
 
     @Override
     public void onBackPressed() {
-        Long id = transectFragment.getTransectId();
-
         Intent intent = new Intent();
         intent.putExtra("id", id);
         setResult(RESULT_OK, intent);
         finish();
     }
-
 
     @Override
     public void onLocationChanged(Location location) {

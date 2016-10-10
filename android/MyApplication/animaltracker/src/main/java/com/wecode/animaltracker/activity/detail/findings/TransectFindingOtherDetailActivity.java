@@ -6,17 +6,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
+import com.wecode.animaltracker.activity.detail.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
+import com.wecode.animaltracker.service.TransectDataService;
+import com.wecode.animaltracker.service.TransectFindingDataService;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 import com.wecode.animaltracker.view.findings.TransectFindingOtherView;
+
+import java.io.File;
 
 /**
  * Created by SZIAK on 9/15/2016.
  */
-public class TransectFindingOtherDetailActivity extends CommonDetailActivity {
+public class TransectFindingOtherDetailActivity extends PhotoEnabledCommonActivity {
 
     private long transectFindingId;
 
@@ -73,9 +81,28 @@ public class TransectFindingOtherDetailActivity extends CommonDetailActivity {
 
     private void saveTransectFinding() {
         TransectFindingOther transectFindingOther = transectFindingOtherDataService.save(transectFindingOtherView.toOtherFinding());
-        transectFindingOther.setId(transectFindingOther.getId());
         this.id = transectFindingOther.getId();
         Toast.makeText(this, "Other saved.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected File getPhotoDirectory() {
+        return Globals.getTransectPhotosDirectory(getTransect());
+    }
+
+    @Override
+    protected Long getCurrentTransectId() {
+        return getTransect().getId();
+    }
+
+    private Transect getTransect() {
+        TransectFinding transectFinding = TransectFindingDataService.getInstance().find(transectFindingId);
+        return TransectDataService.getInstance().find(transectFinding.getTransectId());
+    }
+
+    @Override
+    protected void refreshPhotos() {
+
     }
 
 }

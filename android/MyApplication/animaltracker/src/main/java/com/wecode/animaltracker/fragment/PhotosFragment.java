@@ -20,8 +20,10 @@ import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.adapter.ImageAdapter;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.service.PhotosDataService;
+import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.HabitatDetailView;
@@ -40,15 +42,13 @@ public class PhotosFragment extends Fragment implements IFragment {
 
     private static final int ADD_PHOTO_PERMISSION_REQUEST = CODE_START + 3;
 
-    private PhotosDataService photosDataService = PhotosDataService.getInstance();
-
-    private File picturesDirectory;
+    private ImageAdapter imageAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_photo_tiles, container, false);
 
-        Long entityId = getArguments().getLong("entityId");
+        Long entityId = getArguments().getLong("entityId", 0);
         entityId = entityId == 0 ? null : entityId;
 
         if (entityId == null) {
@@ -56,27 +56,20 @@ public class PhotosFragment extends Fragment implements IFragment {
         }
 
         String entityName = getArguments().getString("entityName");
+        Assert.isTrue("entityName missing", entityName != null);
 
-        List<Photo> photos = photosDataService.findByEntityIdAndName(entityId, entityName);
+        Long transectId = getArguments().getLong("transectId", 0);
+        Assert.isTrue("transectId missing", transectId > 0);
 
-        for (int i = 0; i < photos.size(); i++) {
-            Log.i(Globals.APP_NAME, "photo["+i+"]: " + photos.get(i).toString());
-        }
 
         GridView gridView = (GridView) view.findViewById(R.id.activity_photo_tiles_gridview);
         Assert.assertNotNull("gridView missing ", gridView);
 
-        picturesDirectory = Globals.getPhotosStorageDir();
+        Transect transect = TransectDataService.getInstance().find(transectId);
 
-        gridView.setAdapter(new ImageAdapter(getActivity(), photos, picturesDirectory));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            public void onItemClick(AdapterView<?> parent,
-                                    View v, int position, long id)
-            {
-                //showPhoto(Uri);
-            }
-        });
+        imageAdapter = new ImageAdapter(getActivity(), entityId, entityName, Globals.getTransectPhotosDirectory(transect));
+        gridView.setAdapter(imageAdapter);
+        gridView.setOnItemClickListener(imageAdapter);
 
         if (!Permissions.grantedOrRequestPermissions(getActivity(), ADD_PHOTO_PERMISSION_REQUEST,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -88,18 +81,13 @@ public class PhotosFragment extends Fragment implements IFragment {
         return view;
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == ADD_PHOTO_PERMISSION_REQUEST) {
-            if (Permissions.grantResults(grantResults)) {
-                picturesDirectory = Globals.getPhotosStorageDir();
-            } else {
-                Log.w(Globals.APP_NAME, "ADD_PHOTO_PERMISSION_REQUEST NOT granted");
-            }
+    public void refreshPhotos() {
+        if (imageAdapter == null) {
+            Log.w(Globals.APP_NAME, "imageAdapter is null");
+            return;
         }
+
+        imageAdapter.refreshPhotos();
     }
 
     @Override

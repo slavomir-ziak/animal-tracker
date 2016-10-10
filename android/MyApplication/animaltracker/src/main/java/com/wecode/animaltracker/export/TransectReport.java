@@ -82,7 +82,7 @@ public class TransectReport {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                MediaScannerConnection.scanFile(context, new String[]{excelFile.getParent()}, null, null);
+                Globals.refreshFileSystem(context);
             }
         }
 

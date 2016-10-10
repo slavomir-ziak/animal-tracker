@@ -14,7 +14,9 @@ import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.adapter.ImageAdapter;
 import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.PhotosDataService;
+import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
 
 import java.io.File;
@@ -24,7 +26,7 @@ public class PhotosList extends AppCompatActivity {
 
     private PhotosDataService photosDataService = PhotosDataService.getInstance();
 
-    private File picturesDirectory = Globals.getPhotosStorageDir();
+    private File picturesDirectory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,9 @@ public class PhotosList extends AppCompatActivity {
 
         Long entityId = getIntent().getLongExtra("entityId", 0);
         String entityName = getIntent().getStringExtra("entityName");
+        Long transectId = getIntent().getLongExtra("transectId", 0);
 
+        Assert.isTrue("transectId missing", transectId > 0);
         Assert.isTrue("entityId missing", entityId > 0);
         Assert.isTrue("entityName missing", entityName != null);
 
@@ -46,45 +50,13 @@ public class PhotosList extends AppCompatActivity {
         GridView gridView = (GridView) findViewById(R.id.activity_photo_tiles_gridview);
         Assert.assertNotNull("gridView missing ", gridView);
 
-        gridView.setAdapter(new ImageAdapter(this, photos, picturesDirectory));
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            public void onItemClick(AdapterView<?> parent,
-                                    View v, int position, long id)
-            {
-                //showPhoto(Uri);
-            }
-        });
+        Transect transect = TransectDataService.getInstance().find(transectId);
+        picturesDirectory = Globals.getTransectPhotosDirectory(transect);
 
+        ImageAdapter adapter = new ImageAdapter(this, entityId, entityName, picturesDirectory);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(adapter);
 
     }
 
-    private void showPhoto(Uri photoUri){
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(photoUri, "image/*");
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_transect_detail, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
