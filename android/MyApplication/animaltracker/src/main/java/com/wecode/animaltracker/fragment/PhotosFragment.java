@@ -44,6 +44,8 @@ public class PhotosFragment extends Fragment implements IFragment {
 
     private ImageAdapter imageAdapter;
 
+    private GridView gridView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_photo_tiles, container, false);
@@ -61,13 +63,12 @@ public class PhotosFragment extends Fragment implements IFragment {
         Long transectId = getArguments().getLong("transectId", 0);
         Assert.isTrue("transectId missing", transectId > 0);
 
-
-        GridView gridView = (GridView) view.findViewById(R.id.activity_photo_tiles_gridview);
-        Assert.assertNotNull("gridView missing ", gridView);
-
         Transect transect = TransectDataService.getInstance().find(transectId);
 
         imageAdapter = new ImageAdapter(getActivity(), entityId, entityName, Globals.getTransectPhotosDirectory(transect));
+
+        gridView = (GridView) view.findViewById(R.id.activity_photo_tiles_gridview);
+        Assert.assertNotNull("gridView missing ", gridView);
         gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(imageAdapter);
 
@@ -88,6 +89,7 @@ public class PhotosFragment extends Fragment implements IFragment {
         }
 
         imageAdapter.refreshPhotos();
+        gridView.setAdapter(imageAdapter);
     }
 
     @Override

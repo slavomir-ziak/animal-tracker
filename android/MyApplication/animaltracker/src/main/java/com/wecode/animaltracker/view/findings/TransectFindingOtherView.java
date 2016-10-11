@@ -53,6 +53,7 @@ public class TransectFindingOtherView {
         otherObservations.select(transectFindingOther.getObservations());
         age.select(transectFindingOther.getAge());
         substract.select(transectFindingOther.getSubstract());
+        SpinnersHelper.setSelected(confidence, transectFindingOther.getConfidence());
     }
 
     public TransectFindingOther toOtherFinding(){

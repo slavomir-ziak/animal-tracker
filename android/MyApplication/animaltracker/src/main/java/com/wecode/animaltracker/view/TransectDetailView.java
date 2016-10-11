@@ -52,7 +52,7 @@ public class TransectDetailView {
         startLocation = (TextView) context.findViewById(R.id.transectStartLocationValue);
         endLocation = (TextView) context.findViewById(R.id.transectEndLocationValue);
         routeName = (TextView) context.findViewById(R.id.transectRouteNameValue);
-        localisationSpinner = new CodeListSpinnerView(R.id.transectLocalisationSpinner, "transectRegion", activity, context);
+        localisationSpinner = new CodeListSpinnerView(R.id.transectLocalisationSpinner, "transectRegion", activity, context, false);
 
         endTransectButton = (Button) context.findViewById(R.id.endTransectButton);
         startTransectButton = (Button) context.findViewById(R.id.startTransectButton);

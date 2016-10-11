@@ -1,29 +1,22 @@
 package com.wecode.animaltracker.export;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.media.MediaScannerConnection;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Transect;
-import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.service.SettingsDataService;
-import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
-import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.util.LocationUtil;
-import com.wecode.animaltracker.view.TransectDetailView;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,9 +34,6 @@ import jxl.write.WritableCell;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
-
-import static android.R.attr.id;
-import static android.R.attr.windowShowWallpaper;
 
 /**
  * Created by SZIAK on 9/19/2016.
@@ -251,20 +241,9 @@ public class TransectReport {
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private File getTransectRootDirectory() {
-
-        String routeName = transect.getRouteName().replaceAll(" ", "_");
-        String transectDirName = "ID_" + transect.getId() + "_" + routeName;
-
-        File transectRootDir = new File(Globals.getAppRootDir(), transectDirName);
-
-        Globals.createDirectory(transectRootDir);
-        return transectRootDir;
-    }
-
     private File getExcelFile(){
-        File transectDir = getTransectRootDirectory();
+        String transectRootDirectory = Globals.getTransectRootDirectoryName(transect);
+        File transectDir = new File(Globals.getAppRootDir(), transectRootDirectory);
         File excelName = new File(transectDir, "transect_report.xls");
         int counter = 1;
         while(excelName.exists()) {

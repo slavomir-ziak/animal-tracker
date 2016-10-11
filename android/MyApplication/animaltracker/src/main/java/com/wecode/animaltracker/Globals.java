@@ -39,7 +39,7 @@ public class Globals {
     }
 
     @SuppressLint({"DefaultLocale", "SimpleDateFormat"})
-    public static String createTransectRootDirectory(Transect transect) {
+    public static String getTransectRootDirectoryName(Transect transect) {
 
         if (transect.getRootDirectoryName() != null) {
             File file = new File(getAppRootDir(), transect.getRootDirectoryName());
@@ -66,7 +66,7 @@ public class Globals {
 
     public static File getTransectPhotosDirectory(Transect transect) {
         if (transect.getRootDirectoryName() == null) {
-            String transectRootDirectory = createTransectRootDirectory(transect);
+            String transectRootDirectory = getTransectRootDirectoryName(transect);
             transect.setRootDirectoryName(transectRootDirectory);
             transect = TransectDataService.getInstance().save(transect);
         }

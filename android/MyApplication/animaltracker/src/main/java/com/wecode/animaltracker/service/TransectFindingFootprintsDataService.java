@@ -24,4 +24,8 @@ public class TransectFindingFootprintsDataService extends AbstractDataService<Tr
     public List<TransectFindingFootprints> findByTransectFindingId(Long transectFindingId) {
         return TransectFindingFootprints.find(TransectFindingFootprints.class, "transect_finding_id=?", transectFindingId.toString());
     }
+
+    public long countByTransectFindingId(Long transectFindingId) {
+        return TransectFindingFootprints.count(TransectFindingFootprints.class, "transect_finding_id=?", new String[]{transectFindingId.toString()});
+    }
 }

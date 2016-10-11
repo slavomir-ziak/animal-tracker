@@ -94,6 +94,7 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        refreshTransectFindings(view);
         if (resultCode == Activity.RESULT_CANCELED) {
             Toast.makeText(getActivity(), "Operation canceled.", Toast.LENGTH_LONG).show();
             return;
@@ -108,7 +109,6 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
             case DISPLAY_TRANSECT_FINDING_DETAIL:
                 Long id = data.getExtras().getLong("id");
                 Toast.makeText(getActivity(), "Transect finding saved, ID = " + id, Toast.LENGTH_LONG).show();
-                refreshTransectFindings(view);
         }
 
     }
@@ -121,5 +121,13 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
 
     public void refreshFindings() {
         refreshTransectFindings(view);
+    }
+
+    public Long getTransectId() {
+        return transectId;
+    }
+
+    public void setTransectId(Long transectId) {
+        this.transectId = transectId;
     }
 }

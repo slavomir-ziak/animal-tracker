@@ -16,6 +16,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.wecode.animaltracker.Globals;
+import com.wecode.animaltracker.async.BitmapWorkerTask;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.service.PhotosDataService;
 
@@ -81,9 +82,13 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
 
         File file = new File(photoDirectory, photos.get(position).getFileName());
         Log.i(Globals.APP_NAME, "ImageAdapter file: " + file.getAbsolutePath());
-        Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(file.getAbsolutePath()), size, size);
-        imageView.setRotation(90);
-        imageView.setImageBitmap(bitmap);
+
+        BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(imageView);
+        bitmapWorkerTask.execute(file);
+        //Bitmap bitmap = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(file.getAbsolutePath()), size, size);
+        //imageView.setRotation(90);
+        //imageView.setImageBitmap(bitmap);
+
         return imageView;
     }
 

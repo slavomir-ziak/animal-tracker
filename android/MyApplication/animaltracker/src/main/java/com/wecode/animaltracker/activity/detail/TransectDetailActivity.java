@@ -79,51 +79,37 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
         LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
 
+        initTabLayout();
+
+    }
+
+    private void initTabLayout() {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-
         setupTransectFragment(adapter);
-        setupTransectFindingListFragment(adapter);
-        setupWeatherFragment(adapter);
-        setupHabitatFragment(adapter);
-        setupPhotosFragment(adapter);
+
+        if (this.id != null) {
+            setupTransectFindingListFragment(adapter);
+            setupWeatherFragment(adapter);
+            setupHabitatFragment(adapter);
+            setupPhotosFragment(adapter);
+        }
 
         viewPager.setAdapter(adapter);
     }
 
     private void setupPhotosFragment(ViewPagerAdapter adapter) {
         Bundle bundle = new Bundle();
-        if (id != null) {
-            bundle.putLong("entityId", id);
-            bundle.putLong("transectId", id);
-            bundle.putString("entityName", Photo.EntityName.TRANSECT.toString());
-        }
-
+        bundle.putLong("entityId", id);
+        bundle.putLong("transectId", id);
+        bundle.putString("entityName", Photo.EntityName.TRANSECT.toString());
         photosFragment = new PhotosFragment();
         photosFragment.setArguments(bundle);
         adapter.addFragment(photosFragment);
@@ -132,12 +118,8 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
     private void setupTransectFindingListFragment(ViewPagerAdapter adapter) {
         Bundle bundle = new Bundle();
         bundle.putString("action", Action.NEW.toString());
-
-        if (id != null) {
-            bundle.putLong("transectId", id);
-            bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
-        }
-
+        bundle.putLong("transectId", id);
+        bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
         transectFindingListFragment = new TransectFindingListFragment();
         transectFindingListFragment.setArguments(bundle);
         adapter.addFragment(transectFindingListFragment);
@@ -147,12 +129,10 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         Bundle bundle = new Bundle();
         bundle.putString("action", Action.NEW.toString());
 
-        if (id != null) {
-            Transect transect = TransectDataService.getInstance().find(id);
-            if (transect.getHabitatId() != null) {
-                bundle.putLong("habitatId", transect.getHabitatId());
-                bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
-            }
+        Transect transect = TransectDataService.getInstance().find(id);
+        if (transect.getHabitatId() != null) {
+            bundle.putLong("habitatId", transect.getHabitatId());
+            bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
         }
 
         habitatFragment = new HabitatFragment();
@@ -164,12 +144,10 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         Bundle bundle = new Bundle();
         bundle.putString("action", Action.NEW.toString());
 
-        if (id != null) {
-            Transect transect = TransectDataService.getInstance().find(id);
-            if (transect.getWatherId() != null) {
-                bundle.putLong("weatherId", transect.getWatherId());
-                bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
-            }
+        Transect transect = TransectDataService.getInstance().find(id);
+        if (transect.getWatherId() != null) {
+            bundle.putLong("weatherId", transect.getWatherId());
+            bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
         }
 
         weatherFragment = new WeatherFragment();
@@ -319,14 +297,21 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
                 return true;
             }
 
-            Weather weather = weatherFragment.saveWeather();
-            transect.setWeatherId(weather != null ? weather.getId() : null);
+            if (weatherFragment != null) {
+                Weather weather = weatherFragment.saveWeather();
+                transect.setWeatherId(weather != null ? weather.getId() : null);
+            }
 
-            Habitat habitat = habitatFragment.saveHabitat();
-            transect.setHabitatId(habitat != null ? habitat.getId() : null);
+            if (habitatFragment != null) {
+                Habitat habitat = habitatFragment.saveHabitat();
+                transect.setHabitatId(habitat != null ? habitat.getId() : null);
+            }
 
             TransectDataService.getInstance().save(transect);
             this.id = transect.getId();
+
+            initTabLayout();
+            // transectFindingListFragment.setTransectId(this.id);
             return true;
         }
 
@@ -360,4 +345,17 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         currentLocation = null;
     }
 
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem addFinding = menu.findItem(R.id.transect_action_add_finding);
+
+        if (id == null) {
+            if (addFinding != null) addFinding.setEnabled(false);
+        } else {
+            if (addFinding != null) addFinding.setEnabled(true);
+        }
+        return true;
+    }
 }

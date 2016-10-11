@@ -231,7 +231,7 @@ public class TransectDetailFragment extends Fragment implements IFragment {
         }
         Transect transect = transectDataService.save(transectDetailView.toTransect());
 
-        String rootDirectoryName = Globals.createTransectRootDirectory(transect);
+        String rootDirectoryName = Globals.getTransectRootDirectoryName(transect);
         Globals.refreshFileSystem(getActivity());
         transect.setRootDirectoryName(rootDirectoryName);
 

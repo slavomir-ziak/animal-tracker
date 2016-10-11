@@ -1,28 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent" >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
-              android:layout_height="wrap_content" android:text="1" android:id="@+id/transectFindingListItemID"
-              android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectFindingListItemIDLabel"
-              android:layout_toEndOf="@+id/transectFindingListItemIDLabel"/>
-    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
-              android:layout_height="wrap_content" android:text="ID:" android:id="@+id/transectFindingListItemIDLabel"
-              android:layout_alignParentTop="true" android:layout_alignParentLeft="true"
-              android:layout_alignParentStart="true"/>
-    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
-              android:layout_height="wrap_content" android:text="Footprints" android:id="@+id/transectFindingListItemType"
-              android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectFindingListItemSpecies"
-              android:layout_toEndOf="@+id/transectFindingListItemSpecies"/>
-    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
-              android:layout_height="wrap_content" android:text="Wolf"
-              android:id="@+id/transectFindingListItemSpecies"
-              android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectFindingListItemID"
-              android:layout_toEndOf="@+id/transectFindingListItemID"/>
-    <TextView style="@style/list_item_detail_text" android:layout_width="wrap_content"
-              android:layout_height="wrap_content" android:text="Forest"
-              android:id="@+id/transectFindingListItemHabitat"
-              android:layout_alignParentTop="true" android:layout_toRightOf="@+id/transectFindingListItemType"
-              android:layout_toEndOf="@+id/transectFindingListItemType"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/transectFindingListItemSpecies"
+                style="@style/list_item_detail_text"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.59"
+                android:text="Specie"
+                android:layout_width="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:fontFamily="sans-serif" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="92dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/transectFindingListItemFootprints"
+                style="@style/list_item_detail_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1 x footprints"
+                android:textSize="11sp"
+                android:padding="0dp"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/transectFindingListItemFeces"
+                style="@style/list_item_detail_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1 x feces"
+                android:textSize="11sp"
+                android:paddingLeft="0dp"
+                android:padding="0dp"
+                android:layout_gravity="center_vertical" />
+
+            <TextView
+                android:id="@+id/transectFindingListItemOther"
+                style="@style/list_item_detail_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="1 x other"
+                android:textSize="11sp"
+                android:padding="0dp"
+                android:layout_gravity="center_vertical" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/transectFindingListItemHabitat"
+                style="@style/list_item_detail_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:text="habitat" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1">
+
+            <TextView
+                android:id="@+id/transectFindingListItemID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/transectNumberLabel"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp"
+                android:foregroundGravity="left|bottom"
+                android:gravity="right"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/textView38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="top|center_vertical"
+                android:layout_marginTop="3dp"
+                android:paddingRight="5dp"
+                android:text="ID:"
+                android:textSize="10sp"
+                android:layout_toLeftOf="@+id/transectFindingListItemID" />
+
+        </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>

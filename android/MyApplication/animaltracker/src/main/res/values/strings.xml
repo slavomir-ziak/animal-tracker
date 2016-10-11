@@ -76,7 +76,7 @@
     <string name="action_habitat">Habitat</string>
     <string name="transect_action_weather">Weather</string>
     <string name="transect_action_findings">Findings</string>
-    <string name="transect_action_add_finding">Add finding</string>
+    <string name="transect_action_add_finding">Add finding site</string>
     <string name="transect_finding_action_add_photo">Add photo</string>
     <string name="transect_finding_action_sampes">Samples</string>
     <string name="transect_finding_action_photos">Photos</string>

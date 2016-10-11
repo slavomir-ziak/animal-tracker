@@ -78,25 +78,24 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
         TextView frontSize = (TextView) rowView.findViewById(R.id.transectFindingFootprintsItemFrontSize);
         TextView backSize = (TextView) rowView.findViewById(R.id.transectFindingFootprintsItemBackSize);
 
-        numOfAnimals.setText(detail.getNumberOfAnimalsValue());
-        frontSize.setText(detail.getFrontSizeFormatted());
-        backSize.setText(detail.getBackSizeFormatted());
+        if (numOfAnimals!=null) numOfAnimals.setText(detail.getNumberOfAnimalsValue());
+        if (frontSize!=null) frontSize.setText(detail.getFrontSizeFormatted());
+        if (backSize!=null) backSize.setText(detail.getBackSizeFormatted());
     }
 
     private void fillRowView(View rowView, TransectFindingFeces detail) {
         TextView pray = (TextView) rowView.findViewById(R.id.transectFindingFecesItemPrey);
         TextView state = (TextView) rowView.findViewById(R.id.transectFindingFecesItemState);
-
-        pray.setText(detail.getPrey());
-        state.setText(detail.getState());
+        if (pray != null) pray.setText(detail.getPrey());
+        if (state!=null) state.setText(detail.getState());
     }
 
     private void fillRowView(View rowView, TransectFindingOther detail) {
         TextView evidence = (TextView) rowView.findViewById(R.id.transectFindingOtherItemEvidence);
         TextView observations = (TextView) rowView.findViewById(R.id.transectFindingOtherItemObservations);
 
-        evidence.setText(detail.getEvidence());
-        observations.setText(detail.getObservations());
+        if (evidence!=null) evidence.setText(detail.getEvidence());
+        if (observations!=null) observations.setText(detail.getObservations());
     }
 
     private int getViewId(Persistable detail) {

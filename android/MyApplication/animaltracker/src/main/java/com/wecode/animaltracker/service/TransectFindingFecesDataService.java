@@ -23,4 +23,8 @@ public class TransectFindingFecesDataService extends AbstractDataService<Transec
     public List<TransectFindingFeces> findByTransectFindingId(Long transectFindingId) {
         return TransectFindingFeces.find(TransectFindingFeces.class, "transect_finding_id=?", transectFindingId.toString());
     }
+
+    public long countByTransectFindingId(Long transectFindingId) {
+        return TransectFindingFeces.count(TransectFindingFeces.class, "transect_finding_id=?", new String[]{transectFindingId.toString()});
+    }
 }

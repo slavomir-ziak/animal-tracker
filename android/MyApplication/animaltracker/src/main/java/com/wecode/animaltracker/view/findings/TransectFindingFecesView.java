@@ -54,7 +54,7 @@ public class TransectFindingFecesView {
         age.select(transectFindingFeces.getAge());
         fecesState.select(transectFindingFeces.getState());
         substract.select(transectFindingFeces.getSubstract());
-
+        SpinnersHelper.setSelected(confidence, transectFindingFeces.getConfidence());
         id = transectFindingFeces.getId();
     }
 
