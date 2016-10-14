@@ -8,8 +8,7 @@ import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
-import com.wecode.animaltracker.activity.detail.PhotoEnabledCommonActivity;
+import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.findings.TransectFinding;

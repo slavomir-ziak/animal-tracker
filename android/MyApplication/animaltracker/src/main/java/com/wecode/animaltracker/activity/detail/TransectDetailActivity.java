@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.LocationProvidingActivity;
+import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;

@@ -6,14 +6,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.SpinnersHelper;
-import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.activity.common.CommonDetailActivity;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.model.Habitat;
-import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.view.HabitatDetailView;
-
-import java.io.File;
 
 public class HabitatDetailActivity extends CommonDetailActivity {
 

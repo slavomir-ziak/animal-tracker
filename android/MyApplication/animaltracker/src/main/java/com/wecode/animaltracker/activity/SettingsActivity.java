@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.activity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.orm.util.ManifestHelper;
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Settings;
 import com.wecode.animaltracker.service.SettingsDataService;
@@ -27,6 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioButton settingsLocationDecimal;
 
     @Override
+    @SuppressLint("DefaultLocale")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
@@ -39,8 +42,9 @@ public class SettingsActivity extends AppCompatActivity {
         init();
 
         int databaseVersion = ManifestHelper.getDatabaseVersion(this);
+
         TextView versionTextView = (TextView) findViewById(R.id.versionText);
-        versionTextView.setText("0.0."+databaseVersion);
+        versionTextView.setText(String.format("%d.%d.%d", Globals.APP_MAJOR_VERSION, Globals.APP_MINOR_VERSION, databaseVersion));
 
     }
 
@@ -58,12 +62,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
             saveSettings();
             finish();
@@ -84,7 +84,6 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_save, menu);
         return true;
     }

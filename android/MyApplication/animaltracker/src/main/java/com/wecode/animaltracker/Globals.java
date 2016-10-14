@@ -20,6 +20,10 @@ public class Globals {
 
     public static final String APP_NAME = "AnimalTracker";
 
+    public static final int APP_MINOR_VERSION = 3;
+
+    public static final int APP_MAJOR_VERSION = 0;
+
     public static File getAppRootDir() {
 
         File file = new File(Environment.getExternalStorageDirectory(), APP_NAME);

@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity.detail;
+package com.wecode.animaltracker.activity.common;
 
 import android.Manifest;
 import android.content.Intent;

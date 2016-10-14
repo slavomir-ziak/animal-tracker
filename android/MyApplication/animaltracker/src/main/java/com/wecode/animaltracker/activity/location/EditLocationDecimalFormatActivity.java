@@ -13,9 +13,8 @@ import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.detail.CommonDetailActivity;
+import com.wecode.animaltracker.activity.common.CommonDetailActivity;
 import com.wecode.animaltracker.util.LocationUtil;
-import com.wecode.animaltracker.view.location.EditLocationDMSView;
 import com.wecode.animaltracker.view.location.EditLocationDecimalView;
 
 public class EditLocationDecimalFormatActivity extends CommonDetailActivity implements LocationListener {

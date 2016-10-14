@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.activity.detail;
+package com.wecode.animaltracker.activity.common;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.common.CommonDetailActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.service.PhotosDataService;
