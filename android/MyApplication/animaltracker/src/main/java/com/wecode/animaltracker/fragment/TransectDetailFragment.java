@@ -58,12 +58,14 @@ public class TransectDetailFragment extends Fragment implements IFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_transect_detail_fragment, container, false);
 
-        transectId = getArguments().getLong("transectId", 0);
-        transectId = transectId == 0 ? null : transectId;
+        if (transectId == null) {
+            transectId = getArguments().getLong("transectId", 0);
+            transectId = transectId == 0 ? null : transectId;
 
-        action = Action.fromString(getArguments().getString("action"));
-        if (action != Action.NEW ) {
-            Assert.assertNotNull("transectId musi byt zadane", transectId);
+            action = Action.fromString(getArguments().getString("action"));
+            if (transectId == null && action != Action.NEW ) {
+                Assert.assertNotNull("transectId musi byt zadane", transectId);
+            }
         }
 
         initGui(view);
@@ -239,7 +241,6 @@ public class TransectDetailFragment extends Fragment implements IFragment {
 
         transectDetailView.setIdValue(transect.getId());
         this.transectId = transect.getId();
-        Toast.makeText(getActivity(), "Transect saved.", Toast.LENGTH_SHORT).show();
         action = Action.EDIT;
         transectDetailView.initGuiForEdit();
         return transect;

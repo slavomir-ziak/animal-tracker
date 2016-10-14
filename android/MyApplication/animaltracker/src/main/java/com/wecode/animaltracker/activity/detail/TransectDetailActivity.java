@@ -91,12 +91,15 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
-
+    ViewPagerAdapter adapter;
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        setupTransectFragment(adapter);
 
-        if (this.id != null) {
+        if (adapter == null) {
+            adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            setupTransectFragment(adapter);
+        }
+
+        if (id != null) {
             setupTransectFindingListFragment(adapter);
             setupWeatherFragment(adapter);
             setupHabitatFragment(adapter);
@@ -309,10 +312,14 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             }
 
             TransectDataService.getInstance().save(transect);
-            this.id = transect.getId();
 
-            initTabLayout();
-            // transectFindingListFragment.setTransectId(this.id);
+            if (this.id == null) {
+                this.id = transect.getId();
+                initTabLayout();
+            }
+
+            Toast.makeText(this, "Transect saved.", Toast.LENGTH_SHORT).show();
+
             return true;
         }
 
