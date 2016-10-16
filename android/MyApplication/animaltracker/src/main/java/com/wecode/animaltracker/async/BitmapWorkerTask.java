@@ -1,6 +1,5 @@
 package com.wecode.animaltracker.async;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -21,7 +20,7 @@ public class BitmapWorkerTask extends AsyncTask<File, Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(File... params) {
         File data = params[0];
-        return decodeSampledBitmapFromResource(data, 185, 185);
+        return decodeSampledBitmapFromFile(data, 185, 185);
     }
 
     // Once complete, see if ImageView is still around and set bitmap.
@@ -35,7 +34,7 @@ public class BitmapWorkerTask extends AsyncTask<File, Void, Bitmap> {
         }
     }
 
-    public static Bitmap decodeSampledBitmapFromResource(File file, int reqWidth, int reqHeight) {
+    public static Bitmap decodeSampledBitmapFromFile(File file, int reqWidth, int reqHeight) {
 
         // First decode with inJustDecodeBounds=true to check dimensions
         final BitmapFactory.Options options = new BitmapFactory.Options();

@@ -235,7 +235,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
     }
 
-    public void addFinding(View view) {
+    public void addFinding() {
         Intent intent = new Intent(this, TransectFindingDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
@@ -291,39 +291,52 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         int id = item.getItemId();
 
         if (id == R.id.transect_action_add_finding) {
-            addFinding(null);
+            addFinding();
             return true;
         }
 
         if (id == R.id.action_save) {
-            Transect transect = transectFragment.saveTransect();
-            if (transect == null) {
-                return true;
-            }
 
-            if (weatherFragment != null) {
-                Weather weather = weatherFragment.saveWeather();
-                transect.setWeatherId(weather != null ? weather.getId() : null);
-            }
-
-            if (habitatFragment != null) {
-                Habitat habitat = habitatFragment.saveHabitat();
-                transect.setHabitatId(habitat != null ? habitat.getId() : null);
-            }
-
-            TransectDataService.getInstance().save(transect);
-
-            if (this.id == null) {
-                this.id = transect.getId();
-                initTabLayout();
-            }
-
-            Toast.makeText(this, "Transect saved.", Toast.LENGTH_SHORT).show();
-
+            saveAll();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addFindingSite(View view) {
+        addFinding();
+    }
+
+    public void addPhoto(View view) {
+        addPhoto();
+    }
+
+    public void saveAll() {
+        Transect transect = transectFragment.saveTransect();
+        if (transect == null) {
+            return;
+        }
+
+        if (weatherFragment != null) {
+            Weather weather = weatherFragment.saveWeather();
+            transect.setWeatherId(weather != null ? weather.getId() : null);
+        }
+
+        if (habitatFragment != null) {
+            Habitat habitat = habitatFragment.saveHabitat();
+            transect.setHabitatId(habitat != null ? habitat.getId() : null);
+        }
+
+        TransectDataService.getInstance().save(transect);
+
+        if (this.id == null) {
+            this.id = transect.getId();
+            initTabLayout();
+        }
+
+        Toast.makeText(this, "Transect saved.", Toast.LENGTH_SHORT).show();
+
     }
 
 

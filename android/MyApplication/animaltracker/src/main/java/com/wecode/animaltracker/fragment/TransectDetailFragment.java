@@ -129,7 +129,7 @@ public class TransectDetailFragment extends Fragment implements IFragment {
         view.findViewById(R.id.transectDetailAddFindingButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((TransectDetailActivity) getActivity()).addFinding(null);
+                ((TransectDetailActivity) getActivity()).addFinding();
             }
         });
 
@@ -173,8 +173,8 @@ public class TransectDetailFragment extends Fragment implements IFragment {
         String startDateTime = DateFormat.getDateTimeInstance().format(new Date());
         transectDetailView.getStartDateTime().setText(startDateTime);
 
-        saveTransect();
-
+        // saveTransect();
+        ((TransectDetailActivity) getActivity()).saveAll();
     }
 
     public void endTransect() {

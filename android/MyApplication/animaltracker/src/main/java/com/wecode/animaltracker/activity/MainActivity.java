@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +18,7 @@ import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailAc
 import com.wecode.animaltracker.activity.list.TransectsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.util.Permissions;
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
@@ -44,6 +46,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);*/
 
+        if (!Permissions.grantedOrRequestPermissions(this, 0,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            return;
+        }
 
     }
 

@@ -48,7 +48,6 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_transect_finding_list, container, false);
-        view.findViewById(R.id.toolbar).setVisibility(View.GONE);
 
         transectId = getArguments().getLong("transectId", 0);
         transectId = transectId == 0 ? null : transectId;

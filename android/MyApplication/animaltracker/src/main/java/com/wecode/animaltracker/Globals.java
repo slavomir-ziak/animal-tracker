@@ -20,7 +20,7 @@ public class Globals {
 
     public static final String APP_NAME = "AnimalTracker";
 
-    public static final int APP_MINOR_VERSION = 3;
+    public static final int APP_MINOR_VERSION = 5;
 
     public static final int APP_MAJOR_VERSION = 0;
 
@@ -63,6 +63,9 @@ public class Globals {
             counter++;
             transectRootDirectory  = transectRootDirectory + "_" + counter;
             created = new File(getAppRootDir(), transectRootDirectory ).mkdirs();
+            if (counter > 100) {
+                throw new RuntimeException("Could not create directory: " + transectRootDirectory);
+            }
         }
 
         return transectRootDirectory;
