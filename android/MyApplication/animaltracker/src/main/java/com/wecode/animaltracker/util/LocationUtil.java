@@ -1,18 +1,18 @@
 package com.wecode.animaltracker.util;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
+import com.wecode.animaltracker.service.SettingsDataService;
+
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.Locale;
 
 /**
@@ -41,29 +41,84 @@ public class LocationUtil {
         }
     }
 
-    public static String formatLocation(Location location) {
-
-        return formatLocation(location.getLatitude(), location.getLongitude());
-    }
-
-    public static String formatLocation(Double locationLatitude, Double locationLongitude) {
-        String latitudeStr = convertLocation(locationLatitude, false);
-        String longitudeStr = convertLocation(locationLongitude, true);
-
-        return String.format("%s, %s", latitudeStr, longitudeStr);
+    public static String formatLocation(Location location){
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            return formatLocationToMinutesAndSeconds(location);
+        } else {
+            return formatLocationToDecimals(location);
+        }
     }
 
     public static double[] parseLocation(String location) {
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            return parseLocationDMS(location);
+        } else {
+            return parseLocationDecimals(location);
+        }
+    }
+
+    public static String formatLocation(Double latitude, Double longitude, Double altitude){
+        if (SettingsDataService.getInstance().get().isLocationDMS()) {
+            return formatLocationToMinutesAndSeconds(latitude, longitude, altitude);
+        } else {
+            return formatLocationToDecimals(latitude, longitude, altitude);
+        }
+    }
+
+    private static String formatLocationToDecimals(Location location) {
+        return formatLocationToDecimals(location.getLatitude(), location.getLongitude(), location.getAltitude());
+    }
+
+    private static String formatLocationToMinutesAndSeconds(Location location) {
+        return formatLocationToMinutesAndSeconds(location.getLatitude(), location.getLongitude(), location.getAltitude());
+    }
+
+    @SuppressLint("DefaultLocale")
+    static String formatLocationToMinutesAndSeconds(Double locationLatitude, Double locationLongitude, Double elevation) {
+        String latitudeStr = convertLocation(locationLatitude, false);
+        String longitudeStr = convertLocation(locationLongitude, true);
+
+        return String.format("%s, %s, %.2f", latitudeStr, longitudeStr, elevation);
+    }
+
+    private static String formatLocationToDecimals(Double locationLatitude, Double locationLongitude, Double elevation) {
+        return String.format(Locale.US, "%.5f, %.5f, %.2f", locationLatitude, locationLongitude, elevation);
+    }
+
+    static double[] parseLocationDMS(String location) {
         String[] split = location.split(",");
+        if (split.length != 3) throw new RuntimeException("cannot parse location: " + location);
+
         double latitude = convertLocation(split[0].trim());
         double longitude = convertLocation(split[1].trim());
 
-        latitude = new BigDecimal(latitude).setScale(6, BigDecimal.ROUND_DOWN).doubleValue();
-        longitude = new BigDecimal(longitude).setScale(6, BigDecimal.ROUND_DOWN).doubleValue();
+        latitude = new BigDecimal(latitude).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
+        longitude = new BigDecimal(longitude).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
+        double elevation = new BigDecimal(split[2].trim()).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 
-        return new double[]{latitude, longitude};
+        return new double[]{latitude, longitude, elevation};
     }
-    private static String convertLocation(double coordinate, boolean longitude) {
+
+    private static double[] parseLocationDecimals(String location) {
+        String[] split = location.split(",");
+        if (split.length != 3) throw new RuntimeException("cannot parse location: " + location);
+
+        double latitude = Double.valueOf(split[0].trim());
+        double longitude = Double.valueOf(split[1].trim());
+        double elevation = Double.valueOf(split[2].trim());
+
+        latitude = new BigDecimal(latitude).setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue();
+        longitude = new BigDecimal(longitude).setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue();
+        elevation = new BigDecimal(elevation).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+
+        return new double[]{latitude, longitude, elevation};
+    }
+
+    private static String convertLocation(Double coordinate, boolean longitude) {
+
+        if (coordinate == null) {
+            return String.format(Locale.ENGLISH, "%d°%d'%.2f\"%s", 0, 0, 0.0, "");
+        }
 
         String direction;
 

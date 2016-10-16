@@ -8,9 +8,12 @@ import com.orm.SugarContext;
 import com.orm.SugarDb;
 import com.orm.util.MigrationFileParser;
 import com.wecode.animaltracker.model.CodeList;
+import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.service.CodeListService;
+import com.wecode.animaltracker.service.SettingsDataService;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,9 +29,37 @@ public class AnimalTrackerApp extends SugarApp {
         super.onCreate();
 
         if (CodeListService.getInstance().list().size() == 0) {
-            SQLiteDatabase db = getDb();
-            executeScript(db, "1.sql");
+            executeScript("init_db_codelists.sql");
         }
+
+        if (SettingsDataService.getInstance().list().size() == 0) {
+            executeScript("init_db_settings.sql");
+        }
+
+    }
+
+    private void executeScript(String file) {
+        try {
+            InputStream is = this.getAssets().open("sugar_upgrades/" + file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+            MigrationFileParser migrationFileParser = new MigrationFileParser(sb.toString());
+            for(String statement: migrationFileParser.getStatements()){
+                Log.i("Sugar script", statement);
+                if (!statement.isEmpty()) {
+                    getDb().execSQL(statement);
+                }
+            }
+
+        } catch (IOException e) {
+            Log.e(Globals.APP_NAME, e.getMessage());
+        }
+
+        Log.i(Globals.APP_NAME, "Script "+file+" executed");
     }
 
     private SQLiteDatabase getDb() {
@@ -44,27 +75,4 @@ public class AnimalTrackerApp extends SugarApp {
     }
 
 
-    private void executeScript(SQLiteDatabase db, String file) {
-        try {
-            InputStream is = this.getAssets().open("sugar_upgrades/" + file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            MigrationFileParser migrationFileParser = new MigrationFileParser(sb.toString());
-            for(String statement: migrationFileParser.getStatements()){
-                Log.i("Sugar script", statement);
-                if (!statement.isEmpty()) {
-                    db.execSQL(statement);
-                }
-            }
-
-        } catch (IOException e) {
-            Log.e(Globals.APP_NAME, e.getMessage());
-        }
-
-        Log.i(Globals.APP_NAME, "Script 1.sql executed");
-    }
 }

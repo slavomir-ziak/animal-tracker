@@ -1,0 +1,182 @@
+This is semi-formal specification of data structures for application Animal tracker.
+
+# application wide data:
+
+- observer name
+
+# entities
+
+- transect (cesta)
+- finding (nález)
+- following (sledovanie)
+- observation (pozorovanie)
+- observation finding (nález z pozorovania)
+- hearing station (počúvanie)
+- houling (zavíjanie)
+- poi (záujmový bod)
+- habitat (okolie)
+
+support entities:
+
+- territory - grid (area monitored by one, or by group of people) consists of numbered columns
+- column - column in territory
+- wheather
+- location
+- photo
+
+## territory
+
+- name (Veporske vrchy)
+- 1...n columns
+
+## column
+
+- number
+- location
+- width
+- height
+
+## weather 
+
+- sunshine
+- wind
+- raining/snowing/fog
+- humidity
+- visibility
+- snow depth
+- last time it rained/snowed
+- new snow depth
+
+## location
+
+- longitude 
+- latitude
+- altitude
+- bearing
+- velocity 
+
+## habitat
+
+- type (forest, track, meadow, field, walley)
+- track (asphalt road, forest roud, tourist route)
+- forestAge (old, new, mix)
+- trees (leafless, leaf, needles, mix)
+- forestType (coniferas, pines, oak...) 
+
+## transect
+
+- surveyRoute
+- columnInGrid
+- dateTimeBegin
+- dateTimeEnd
+- locationBegin
+- locationEnd
+- wheather
+- habitat 
+- list of findings
+
+## finding
+
+- type (footprints, feaces, urine, carcas)
+- feaces - state, prey
+- footprints
+- count (of feaces, urine...)
+- species (wolf, lynx, red deer, roe deer, wild boar, brown hare, red fox)
+- numberOfAnimals
+- location, 
+- before/after recent snow
+- confidence (l/m/h) 
+- male/female
+- comment
+
+- habitat 
+- samples (list of sample numbers, if samples containers are numbered)
+- list of photos
+
+## footprints 
+ 
+- front/back, 
+- direction (N,S,E,W,NE,NW,SE,SW), 
+- length, 
+- width,
+- state, 
+- age [days]
+- stride (length)
+
+- substract - surface (snow, asphalt, dirt...)
+
+## following
+
+- waypointNumber
+- species (wolf,lynx)
+- numberOfAnimals
+- bearing (N,S,E,W,NE,NW,SE,SW), 
+
+
+## observation 
+
+- location, 
+- observers (list of names)
+- viewField (in degrees)
+- columnInGrid
+- dateTimeBegin
+- dateTimeEnd
+- weather
+- habitat
+- binocularsType
+- list of observation finding
+
+## observation finding
+
+- animal type (chamois/kamzik, marmot/svist, eagle/orol, red deer/jelen, wolf/vlk, lynx/rys, bear/medved, other/ine)
+- other (tourists, workers, car, truck)
+- first time seen
+- last time seen
+- bearing, 
+- distance
+- male/female
+- 1 year old
+- 2 year old
+- unclassified
+- total (computed)
+- activity (play, feeding, hunting)
+- direction of movement
+- notes (reaction to people/dogs/aircraft)
+
+## hearing station
+
+- location
+- columnInGrid
+- dateTimeBegin
+- dateTimeEnd
+- weather, 
+- echo, 
+- habitat
+- field of hearing (narrow, wide, radius in °)
+- list of houlings
+
+## houling
+
+- type (spontaniuos/provoked)
+
+spontaniuos:
+- dateTimeBegin
+- dateTimeEnd
+- numOfAdults
+- numOfCups
+
+provoked:
+- dateTimeBegin
+- dateTimeEnd
+- list of responseTimes
+- numberOfPeopleHouling
+- numberOfPeopleInGroup
+- numOfAdults
+- numOfCups
+
+## POI
+
+- type (chalet/salas, feeder/krmelec, hide/posed, well/pramen, shed/chatrc, hole/diera, sleep-outside-spot/miesto na spanie vonku)
+- location
+
+

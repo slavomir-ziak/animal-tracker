@@ -2,7 +2,11 @@ package com.wecode.animaltracker.model;
 
 import android.location.Location;
 
+import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.service.TransectFindingDataService;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by sziak on 10/28/2015.
@@ -14,12 +18,20 @@ public class Transect extends Persistable {
     private Date startDateTime;
     private Date endDateTime;
     private String routeName;
+    private String localisation;
     private Long weatherId;
 
     private Double startLongitude;
     private Double startLatitude;
+    private Double startElevation;
+
     private Double endLongitude;
     private Double endLatitude;
+    private Double endElevation;
+
+    private String rootDirectoryName;
+
+    private List<TransectFinding> findings;
 
     public Transect() {
     }
@@ -127,6 +139,41 @@ public class Transect extends Persistable {
         return endLatitude;
     }
 
+    public String getLocalisation() {
+        return localisation;
+    }
+
+    public void setLocalisation(String localisation) {
+        this.localisation = localisation;
+    }
+
+    public Double getStartElevation() {
+        return startElevation;
+    }
+
+    public void setStartElevation(Double startElevation) {
+        this.startElevation = startElevation;
+    }
+
+    public Double getEndElevation() {
+        return endElevation;
+    }
+
+    public void setEndElevation(Double endElevation) {
+        this.endElevation = endElevation;
+    }
+
+    public List<TransectFinding> getFindings() {
+        if (findings == null) {
+            findings = TransectFindingDataService.getInstance().findByTransectId(getId());
+        }
+        return findings;
+    }
+
+    public String getColumn(String defaultValue) {
+        return column != null ? column.toString() : defaultValue;
+    }
+
     @Override
     public String toString() {
         return "Transect{" +
@@ -135,11 +182,26 @@ public class Transect extends Persistable {
                 ", startDateTime=" + startDateTime +
                 ", endDateTime=" + endDateTime +
                 ", routeName='" + routeName + '\'' +
+                ", localisation='" + localisation + '\'' +
                 ", weatherId=" + weatherId +
                 ", startLongitude=" + startLongitude +
                 ", startLatitude=" + startLatitude +
+                ", startElevation=" + startElevation +
                 ", endLongitude=" + endLongitude +
                 ", endLatitude=" + endLatitude +
-                '}';
+                ", endElevation=" + endElevation +
+                ", rootDirectoryName='" + rootDirectoryName + '\'' +
+                ", findings=" + findings +
+                "} " + super.toString();
     }
+
+    public String getRootDirectoryName() {
+        return rootDirectoryName;
+    }
+
+    public void setRootDirectoryName(String rootDirectoryName) {
+        this.rootDirectoryName = rootDirectoryName;
+    }
+
+
 }

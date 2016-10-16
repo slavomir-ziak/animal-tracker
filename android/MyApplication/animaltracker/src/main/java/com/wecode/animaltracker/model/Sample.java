@@ -39,7 +39,7 @@ public class Sample extends Persistable {
         return "Sample{" +
                 "sampleNumber='" + sampleNumber + '\'' +
                 ", transectFindingId=" + transectFindingId +
-                '}';
+                "} " + super.toString();
     }
 }
 

@@ -1,22 +1,28 @@
 package com.wecode.animaltracker.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.text.InputType;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.LocationUtil;
 
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Created by sziak on 10/31/2015.
  */
 public class TransectDetailView {
+
 
     private TextView id;
     private TextView column;
@@ -29,18 +35,16 @@ public class TransectDetailView {
     private Long habitatId;
     private Long weatherId;
 
-    private Activity parentActivity;
-
     private Button endTransectButton;
     private Button startTransectButton;
     private Button transectDetailAddFindingButton;
-    private Button transectDetailSetHabitatButton;
-    private Button transectDetailSetWeatherButton;
-    private Button transectDetailViewFindingsButton;
-    private Button transectDetailSaveButton;
+    private Button transectDetailViewExportButton;
 
-    public TransectDetailView(Activity context, Transect transect) {
-        this.parentActivity = context;
+    private CodeListSpinnerView localisationSpinner;
+
+    private TransectDataService service = TransectDataService.getInstance();
+
+    public TransectDetailView(View context, Activity activity, Transect transect) {
         id = (TextView) context.findViewById(R.id.transectIdValue);
         column = (TextView) context.findViewById(R.id.transectColumnValue);
         startDateTime = (TextView) context.findViewById(R.id.transectStartDateTimeValue);
@@ -48,20 +52,20 @@ public class TransectDetailView {
         startLocation = (TextView) context.findViewById(R.id.transectStartLocationValue);
         endLocation = (TextView) context.findViewById(R.id.transectEndLocationValue);
         routeName = (TextView) context.findViewById(R.id.transectRouteNameValue);
+        localisationSpinner = new CodeListSpinnerView(R.id.transectLocalisationSpinner, "transectRegion", activity, context, false);
+
+        endTransectButton = (Button) context.findViewById(R.id.endTransectButton);
+        startTransectButton = (Button) context.findViewById(R.id.startTransectButton);
+        transectDetailAddFindingButton = (Button) context.findViewById(R.id.transectDetailAddFindingButton);
+        transectDetailViewExportButton = (Button) context.findViewById(R.id.transectDetailViewExportButton);
 
         if (transect != null) {
             bind(transect);
         }
-        endTransectButton = (Button) context.findViewById(R.id.endTransectButton);
-        startTransectButton = (Button) context.findViewById(R.id.startTransectButton);
-        transectDetailAddFindingButton = (Button) context.findViewById(R.id.transectDetailAddFindingButton);
-        transectDetailSetHabitatButton = (Button) context.findViewById(R.id.transectDetailSetHabitatButton);
-        transectDetailSetWeatherButton = (Button) context.findViewById(R.id.transectDetailSetWeatherButton);
-        transectDetailViewFindingsButton = (Button) context.findViewById(R.id.transectDetailViewFindingsButton);
-        transectDetailSaveButton = (Button) context.findViewById(R.id.transectDetailSaveButton);
     }
 
-    public void bind(Transect transect) {
+    @SuppressLint("SetTextI18n")
+    private void bind(Transect transect) {
 
         id.setText(transect.getId().toString());
         column.setText(transect.getColumn() != null ? transect.getColumn().toString() : "");
@@ -74,11 +78,12 @@ public class TransectDetailView {
 
         if (transect.getStartLongitude() != null) {
             startLocation.setText(
-                    LocationUtil.formatLocation(transect.getStartLatitude(), transect.getStartLongitude())
+                    LocationUtil.formatLocation(transect.getStartLatitude(), transect.getStartLongitude(), transect.getStartElevation() )
             );
         }
 
         routeName.setText(transect.getRouteName());
+        localisationSpinner.select(transect.getLocalisation());
 
         if (transect.getEndDateTime() != null) {
             endDateTime.setText(dateTimeInstance.format(transect.getEndDateTime()));
@@ -86,7 +91,7 @@ public class TransectDetailView {
 
         if (transect.getEndLongitude() != null) {
             endLocation.setText(
-                    LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude())
+                    LocationUtil.formatLocation(transect.getEndLatitude(), transect.getEndLongitude(), transect.getEndElevation())
             );
         }
 
@@ -113,50 +118,51 @@ public class TransectDetailView {
 
     public void initGuiForNew() {
         enableAllButtons(false);
-        transectDetailSaveButton.setEnabled(true);
     }
 
     private void enableAllButtons(boolean enable) {
-        endTransectButton.setEnabled(enable);
-        startTransectButton.setEnabled(enable);
-        transectDetailAddFindingButton.setEnabled(enable);
-        transectDetailSetHabitatButton.setEnabled(enable);
-        transectDetailSetWeatherButton.setEnabled(enable);
-        transectDetailViewFindingsButton.setEnabled(enable);
-        transectDetailSaveButton.setEnabled(enable);
+        endTransectButton.setVisibility(enable ? View.VISIBLE : View.GONE);
+        transectDetailAddFindingButton.setVisibility(enable ? View.VISIBLE : View.GONE);
+        transectDetailViewExportButton.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
-
 
     public Transect toTransect() {
 
         DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
 
         try {
+            Long transectId = id.getText().length() > 0 ? Long.parseLong(id.getText().toString()) : null;
+            Transect transect;
 
+            if (transectId != null) {
+                transect = service.find(transectId);
+            } else {
+                transect = new Transect();
+            }
 
-
-            Transect transect = new Transect(
-                    id.getText().length() > 0 ? Long.parseLong(id.getText().toString()) : null,
-                    column.getText().length() > 0 ? Integer.parseInt(column.getText().toString()) : null,
-                    startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null,
-                    routeName.getText().toString()
-            );
+            transect.setColumn(column.getText().length() > 0 ? Integer.parseInt(column.getText().toString()) : null);
+            transect.setStartDateTime(startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null);
+            transect.setRouteName(routeName.getText().toString());
+            transect.setLocalisation(localisationSpinner.getSelectedCodeListValue());
 
             if (this.startLocation.getText().length() > 0) {
                 double[] location = LocationUtil.parseLocation(this.startLocation.getText().toString());
                 transect.setStartLatitude(location[0]);
                 transect.setStartLongitude(location[1]);
+                transect.setStartElevation(location[2]);
             }
 
             if (endLocation.getText().length() != 0) {
                 double[] location = LocationUtil.parseLocation(this.endLocation.getText().toString());
                 transect.setEndLatitude(location[0]);
                 transect.setEndLongitude(location[1]);
+                transect.setEndElevation(location[2]);
             }
 
             if (endDateTime.getText().length() != 0) {
                 transect.setEndDateTime(dateTimeInstance.parse(endDateTime.getText().toString()));
             }
+
 
             transect.setHabitatId(habitatId);
             transect.setWeatherId(weatherId);
@@ -166,6 +172,10 @@ public class TransectDetailView {
             throw new RuntimeException(e);
         }
 
+    }
+
+    private String getRootDirectory(Transect transect) {
+        return String.format("%d_%s", transect.getId(), transect.getRouteName());
     }
 
     private double getLatitude(String location) {
@@ -202,6 +212,15 @@ public class TransectDetailView {
 
     public TextView getStartDateTime() {
         return startDateTime;
+    }
+
+    public Date getStartDateTimeParsed() {
+        DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
+        try {
+            return startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void setStartDateTime(TextView startDateTime) {
@@ -257,7 +276,7 @@ public class TransectDetailView {
     }
 
     public boolean isValid() {
-        return ValidationHelper.isNotEmpty(routeName);
+        return ValidationHelper.isNotEmpty(routeName, column);
     }
 
 }

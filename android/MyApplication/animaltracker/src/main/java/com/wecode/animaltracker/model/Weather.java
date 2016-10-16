@@ -10,21 +10,21 @@ public class Weather extends Persistable {
     private Integer rainIntensity;
     private Integer humidity;
     private Integer visibility;
-    private Integer showDepth;
+    private Integer snowDepth;
     private Integer newSnowDepth;
     private Integer lastTimeSnowedRained;
 
     public Weather() {
     }
 
-    public Weather(Long id, Integer sunshineIntensity, Integer windIntensity, Integer rainIntensity, Integer humidity, Integer visibility, Integer showDepth, Integer newSnowDepth, Integer lastTimeSnowedRained) {
+    public Weather(Long id, Integer sunshineIntensity, Integer windIntensity, Integer rainIntensity, Integer humidity, Integer visibility, Integer snowDepth, Integer newSnowDepth, Integer lastTimeSnowedRained) {
         this.setId(id);
         this.sunshineIntensity = sunshineIntensity;
         this.windIntensity = windIntensity;
         this.rainIntensity = rainIntensity;
         this.humidity = humidity;
         this.visibility = visibility;
-        this.showDepth = showDepth;
+        this.snowDepth = snowDepth;
         this.newSnowDepth = newSnowDepth;
         this.lastTimeSnowedRained = lastTimeSnowedRained;
     }
@@ -69,12 +69,12 @@ public class Weather extends Persistable {
         this.visibility = visibility;
     }
 
-    public Integer getShowDepth() {
-        return showDepth;
+    public Integer getSnowDepth() {
+        return snowDepth;
     }
 
-    public void setShowDepth(Integer showDepth) {
-        this.showDepth = showDepth;
+    public void setSnowDepth(Integer snowDepth) {
+        this.snowDepth = snowDepth;
     }
 
     public Integer getNewSnowDepth() {
@@ -101,9 +101,9 @@ public class Weather extends Persistable {
                 ", rainIntensity=" + rainIntensity +
                 ", humidity=" + humidity +
                 ", visibility=" + visibility +
-                ", showDepth=" + showDepth +
+                ", snowDepth=" + snowDepth +
                 ", newSnowDepth=" + newSnowDepth +
                 ", lastTimeSnowedRained=" + lastTimeSnowedRained +
-                '}';
+                "} " + super.toString();
     }
 }

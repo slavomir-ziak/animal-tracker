@@ -42,12 +42,6 @@
         <item>After</item>
     </string-array>
 
-    <string-array name="findingFecesState">
-        <item></item>
-        <item>New</item>
-        <item>Decayed</item>
-    </string-array>
-
     <string-array name="findingBeforeAfterRecentSnowValues">
         <item></item>
         <item>Before</item>
@@ -77,12 +71,12 @@
     </string-array>
 
     <string name="title_activity_photos_list">PhotosList</string>
-    <string name="title_activity_findings_list">FindingsList</string>
+    <string name="title_activity_finding_sites">FindingSites</string>
     <string name="title_activity_transects_list">TransectsList</string>
     <string name="action_habitat">Habitat</string>
     <string name="transect_action_weather">Weather</string>
     <string name="transect_action_findings">Findings</string>
-    <string name="transect_action_add_finding">Add finding</string>
+    <string name="transect_action_add_finding">Add finding site</string>
     <string name="transect_finding_action_add_photo">Add photo</string>
     <string name="transect_finding_action_sampes">Samples</string>
     <string name="transect_finding_action_photos">Photos</string>
@@ -90,5 +84,9 @@
     <string name="action_save">Save</string>
     <string name="transect_finding_action_add_sample">Add sample</string>
     <string name="action_location_acquire">LOcation</string>
+    <string name="feces_finding_detail">Feces finding</string>
+    <string name="footprints_finding_detail">Footprint finding</string>
+    <string name="other_finding_detail">Other finding</string>
+    <string name="title_activity_finding_site">FindingSite</string>
 
 </resources>

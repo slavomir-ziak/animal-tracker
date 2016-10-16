@@ -1,21 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.wecode.animaltracker.activity.detail.TransectDetailActivity">
-      <item android:id="@+id/transect_action_habitat"
-            android:title="@string/action_habitat"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
-      <item android:id="@+id/transect_action_weather"
-            android:title="@string/transect_action_weather"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
-      <item android:id="@+id/transect_action_findings"
-            android:title="@string/transect_action_findings"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
-      <item android:id="@+id/transect_action_add_finding"
-            android:title="@string/transect_action_add_finding"
-            android:orderInCategory="100"
-            app:showAsAction="never"/>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.wecode.animaltracker.activity.detail.TransectDetailActivity">
+
+    <item android:id="@+id/action_save"
+        android:title="@string/action_save"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_save"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/transect_action_add_finding"
+        android:orderInCategory="100"
+        android:title="@string/transect_action_add_finding"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/transect_finding_action_add_photo"
+        android:orderInCategory="100"
+        android:title="@string/transect_finding_action_add_photo"
+        app:showAsAction="never" />
 </menu>

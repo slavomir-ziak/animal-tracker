@@ -84,7 +84,7 @@ public class TransectsList extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        refreshTransects();
         if (resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
             return;
@@ -95,13 +95,6 @@ public class TransectsList extends AppCompatActivity {
             return;
         }
 
-        switch (requestCode) {
-            case DISPLAY_TRANSECT_DETAIL:
-                Long id = data.getExtras().getLong("id");
-                Toast.makeText(this, "Transect saved, ID = " + id, Toast.LENGTH_LONG).show();
-                refreshTransects();
-                break;
-        }
 
     }
 }

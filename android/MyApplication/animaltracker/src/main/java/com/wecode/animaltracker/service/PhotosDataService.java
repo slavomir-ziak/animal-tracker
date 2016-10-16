@@ -12,8 +12,6 @@ import java.util.Map;
  */
 public class PhotosDataService extends AbstractDataService<Photo> {
 
-    private Map<Long, Photo> data = new HashMap<>();
-
     private static final PhotosDataService INSTANCE = new PhotosDataService();
 
     private PhotosDataService() {
@@ -24,7 +22,7 @@ public class PhotosDataService extends AbstractDataService<Photo> {
         return INSTANCE;
     }
 
-    public List<Photo> findByTransectFindingId(Long transectId) {
-        return Photo.find(Photo.class, "transect_finding_id = ?", transectId.toString());
+    public List<Photo> findByEntityIdAndName(Long entityId, String entityName) {
+        return Photo.find(Photo.class, "ENTITY_NAME = ? AND ENTITY_ID = ?", entityName, entityId.toString());
     }
 }

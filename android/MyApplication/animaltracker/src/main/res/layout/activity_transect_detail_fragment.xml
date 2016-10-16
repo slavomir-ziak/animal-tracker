@@ -1,0 +1,286 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="com.wecode.animaltracker.fragment.TransectDetailFragment"
+                android:id="@+id/activityTransectDetail">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:id="@+id/scrollView"
+        android:fillViewport="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:weightSum="1"
+                    android:layout_width="match_parent">
+
+                    <TextView android:layout_width="120dp" android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="#column"
+                        android:id="@+id/transectColumnLabel"
+                        android:layout_gravity="center_vertical" />
+
+                    <EditText android:layout_width="50dp" android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/transectColumnValue"
+                        android:inputType="number"
+                        android:layout_gravity="center_vertical"
+                         />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.75"
+                    android:weightSum="1"
+                    android:layout_width="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/transectIdValue"
+                        android:foregroundGravity="left|bottom"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="ID:"
+                        android:id="@+id/transectNumberLabel"
+                        android:layout_gravity="center_vertical"
+                        android:paddingRight="5dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/transectIdValue"
+                        android:layout_toStartOf="@+id/transectIdValue" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView android:layout_width="120dp" android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Localisation"
+                    android:id="@+id/transectLocalisationNameLabel"
+                    android:layout_gravity="center_vertical" />
+
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/transectLocalisationSpinner"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Route name"
+                    android:id="@+id/transectRouteNameLabale"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="120dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/transectRouteNameValue"
+                    android:inputType="text"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Start date and time"
+                    android:id="@+id/startDateTimeLabel"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="120dp" />
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/transectStartDateTimeValue"
+                    android:textAlignment="gravity"
+                    android:gravity="left|bottom"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView android:layout_width="120dp" android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="End date and time"
+                    android:id="@+id/endDateTimeLabel"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/transectEndDateTimeValue"
+                    android:textAlignment="gravity"
+                    android:gravity="left|bottom"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Start location"
+                        android:id="@+id/startLocationLabel"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1" />
+
+                    <Button android:id="@+id/transectFindingEditStartLocation"
+                        style="?android:attr/buttonStyleSmall"
+                        android:background="@drawable/ic_edit"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp" />
+
+                </LinearLayout>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/transectStartLocationValue"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent">
+
+                    <TextView android:layout_width="100dp" android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="End location"
+                        android:id="@+id/endLocationLabel"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1" />
+
+                    <Button android:id="@+id/transectFindingEditEndtLocation"
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/ic_edit"
+                        android:layout_gravity="center_vertical" />
+                </LinearLayout>
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:id="@+id/transectEndLocationValue"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Start transect"
+                    android:id="@+id/startTransectButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_gravity="center_vertical"  />
+
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="End transect"
+                    android:id="@+id/endTransectButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <Button android:id="@+id/transectDetailAddFindingButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transect_action_add_finding"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_gravity="center_vertical" />
+
+                <Button android:id="@+id/transectDetailViewExportButton"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Export"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

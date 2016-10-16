@@ -9,11 +9,6 @@ import java.util.List;
  */
 public class SampleDataService extends AbstractDataService<Sample> {
 
-    /*private Map<Long, Sample> data = new HashMap<>();
-    {
-        data.put(getNextId(), new Sample(1L, "sample 1", 1L));
-        data.put(getNextId(), new Sample(2L, "sample 2", 1L));
-    }*/
     private static final SampleDataService INSTANCE = new SampleDataService();
 
     private SampleDataService(){

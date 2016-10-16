@@ -4,13 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
 import com.wecode.animaltracker.model.Sample;
-import com.wecode.animaltracker.model.TransectFinding;
 
 import java.util.List;
 

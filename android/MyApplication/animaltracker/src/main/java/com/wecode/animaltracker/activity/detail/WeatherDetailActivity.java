@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.common.CommonDetailActivity;
 import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.view.WeatherDetailView;
@@ -29,9 +30,9 @@ public class WeatherDetailActivity extends CommonDetailActivity {
         extractParams(getIntent());
 
         if (id != null) {
-            weatherDetailView = new WeatherDetailView(this, weatherService.find(id));
+            weatherDetailView = new WeatherDetailView(findViewById(android.R.id.content), weatherService.find(id));
         } else {
-            weatherDetailView = new WeatherDetailView(this);
+            weatherDetailView = new WeatherDetailView(findViewById(android.R.id.content));
         }
 
     }
@@ -49,19 +50,14 @@ public class WeatherDetailActivity extends CommonDetailActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_weather, menu);
+        getMenuInflater().inflate(R.menu.menu_weather, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

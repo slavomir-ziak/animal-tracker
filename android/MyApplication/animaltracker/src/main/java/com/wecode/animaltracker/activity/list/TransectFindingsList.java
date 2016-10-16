@@ -12,11 +12,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.detail.TransectFindingDetailActivity;
+import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.adapter.TransectFindingListViewDataAdapter;
-import com.wecode.animaltracker.model.TransectFinding;
+import com.wecode.animaltracker.model.findings.TransectFinding;
 import com.wecode.animaltracker.service.TransectFindingDataService;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class TransectFindingsList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transect_findings_list);
+        setContentView(R.layout.activity_transect_finding_list);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -74,32 +74,9 @@ public class TransectFindingsList extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_transect_detail, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        refreshTransectFindings();
         if (resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
             return;
@@ -108,13 +85,6 @@ public class TransectFindingsList extends AppCompatActivity {
         if (resultCode != RESULT_OK) {
             Toast.makeText(this, "Problem with displying tranect finding detail.", Toast.LENGTH_LONG).show();
             return;
-        }
-
-        switch(requestCode) {
-            case DISPLAY_TRANSECT_FINDING_DETAIL:
-                Long id = data.getExtras().getLong("id");
-                Toast.makeText(this, "Transect finding saved, ID = " + id, Toast.LENGTH_LONG).show();
-                refreshTransectFindings();
         }
 
     }

@@ -1,25 +1,31 @@
 package com.wecode.animaltracker.model;
 
+import com.orm.dsl.NotNull;
+
 /**
  * Created by sziak on 16-May-16.
  */
 public class Photo extends Persistable {
 
-    private Long transectFindingId;
+    public enum EntityName {TRANSECT, TRANECT_FINDING_SITE, TRANECT_FINDING_FOOTPRINT, TRANECT_FINDING_FECES, TRANECT_FINDING_OTHER}
+
+    @NotNull
+    private EntityName entityName;
+
+    @NotNull
+    private Long entityId;
+
+    @NotNull
     private String fileName;
+
     private String thumbnail;
 
     public Photo() {
     }
-    public Photo(Long id, Long transectFindingId, String fileName, String thumbnail) {
-        setId(id);
-        this.transectFindingId = transectFindingId;
-        this.thumbnail = thumbnail;
-        this.fileName = fileName;
-    }
 
-    public Photo(Long transectFindingId, String fileName) {
-        this.transectFindingId = transectFindingId;
+    public Photo(EntityName entityName, Long entityId, String fileName) {
+        this.entityName = entityName;
+        this.entityId = entityId;
         this.fileName = fileName;
     }
 
@@ -39,20 +45,29 @@ public class Photo extends Persistable {
         this.thumbnail = thumbnail;
     }
 
-    public Long getTransectFindingId() {
-        return transectFindingId;
+    public EntityName getEntityName() {
+        return entityName;
     }
 
-    public void setTransectFindingId(Long transectFindingId) {
-        this.transectFindingId = transectFindingId;
+    public void setEntityName(EntityName entityName) {
+        this.entityName = entityName;
+    }
+
+    public Long getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(Long entityId) {
+        this.entityId = entityId;
     }
 
     @Override
     public String toString() {
         return "Photo{" +
-                "transectFindingId=" + transectFindingId +
+                "entityName='" + entityName + '\'' +
+                ", entityId=" + entityId +
                 ", fileName='" + fileName + '\'' +
                 ", thumbnail='" + thumbnail + '\'' +
-                '}';
+                "} " + super.toString();
     }
 }

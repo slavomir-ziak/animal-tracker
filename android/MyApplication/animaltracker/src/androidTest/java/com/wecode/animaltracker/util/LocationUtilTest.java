@@ -1,6 +1,5 @@
 package com.wecode.animaltracker.util;
 
-import android.location.Location;
 import android.support.test.runner.AndroidJUnit4;
 
 import junit.framework.TestCase;
@@ -19,23 +18,23 @@ public class LocationUtilTest extends TestCase {
     @Test
     public void testLocationFormatting() {
         //
-        String converted = LocationUtil.formatLocation(0.0, 0.0);
+        String converted = LocationUtil.formatLocationToMinutesAndSeconds( 0.0, 0.0, 0.0);
         Assert.assertEquals("0°0'0.00\"S, 0°0'0.00\"W", converted);
 
-        converted = LocationUtil.formatLocation(90.0, 180.0);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( 90.0, 180.0, 0.0);
         Assert.assertEquals("90°0'0.00\"N, 180°0'0.00\"E", converted);
 
-        converted = LocationUtil.formatLocation(-90.0, -180.0);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( -90.0, -180.0, 0.0);
         Assert.assertEquals("90°0'0.00\"S, 180°0'0.00\"W", converted);
 
-        converted = LocationUtil.formatLocation(45.63545, -175.638434);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( 45.63545, -175.638434, 0.0);
         Assert.assertEquals("45°38'7.62\"N, 175°38'18.36\"W", converted);
 
-        converted = LocationUtil.formatLocation(54.196108, 100.315324);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( 54.196108, 100.315324, 0.0);
         Assert.assertEquals("54°11'45.99\"N, 100°18'55.17\"E", converted);
 
 
-        converted = LocationUtil.formatLocation(48.194674, 17.293048);
+        converted = LocationUtil.formatLocationToMinutesAndSeconds( 48.194674, 17.293048, 0.0);
         Assert.assertEquals("48°11'40.83\"N, 17°17'34.97\"E", converted);
     }
 
@@ -43,22 +42,22 @@ public class LocationUtilTest extends TestCase {
     public void testLocationParsing() {
 
 
-        double[] parsed = LocationUtil.parseLocation("0°0'0.00\"S, 0°0'0.00\"W");
+        double[] parsed = LocationUtil.parseLocationDMS("0°0'0.00\"S, 0°0'0.00\"W");
         Assert.assertArrayEquals(new double[]{0.0, 0.0}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("90°0'0.00\"N, 180°0'0.00\"E");
+        parsed = LocationUtil.parseLocationDMS("90°0'0.00\"N, 180°0'0.00\"E");
         Assert.assertArrayEquals(new double[]{90.0, 180.0}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("90°0'0.00\"S, 180°0'0.00\"W");
+        parsed = LocationUtil.parseLocationDMS("90°0'0.00\"S, 180°0'0.00\"W");
         Assert.assertArrayEquals(new double[]{-90.0, -180.0}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("45°38'7.62\"N, 175°38'18.36\"W");
+        parsed = LocationUtil.parseLocationDMS("45°38'7.62\"N, 175°38'18.36\"W");
         Assert.assertArrayEquals(new double[]{45.635449, -175.638433}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("54°11'45.99\"N, 100°18'55.17\"E");
+        parsed = LocationUtil.parseLocationDMS("54°11'45.99\"N, 100°18'55.17\"E");
         Assert.assertArrayEquals(new double[]{54.196108,  100.315325}, parsed, 0);
 
-        parsed = LocationUtil.parseLocation("48°11'40.83\"N, 17°17'34.98\"E");
+        parsed = LocationUtil.parseLocationDMS("48°11'40.83\"N, 17°17'34.98\"E");
         Assert.assertArrayEquals(new double[]{48.194674,   17.29305}, parsed, 0);
 
     }

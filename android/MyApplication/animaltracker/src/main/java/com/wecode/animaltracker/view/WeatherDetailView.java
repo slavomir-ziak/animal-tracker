@@ -1,16 +1,20 @@
 package com.wecode.animaltracker.view;
 
+import android.app.Activity;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.WeatherDetailActivity;
 import com.wecode.animaltracker.activity.util.TextChangingSeekBarListener;
 import com.wecode.animaltracker.model.Weather;
+import com.wecode.animaltracker.service.WeatherDataService;
 
 /**
  * Created by sziak on 10-Apr-16.
  */
 public class WeatherDetailView {
+
 
     private Long id;
 
@@ -24,7 +28,9 @@ public class WeatherDetailView {
     private SeekBar rainingSeekBar;
     private SeekBar humiditySeekBar;
 
-    public WeatherDetailView(WeatherDetailActivity context, Weather weather) {
+    private WeatherDataService service = WeatherDataService.getInstance();
+
+    public WeatherDetailView(View context, Weather weather) {
         this(context);
 
         if (weather != null) {
@@ -32,7 +38,7 @@ public class WeatherDetailView {
         }
     }
 
-    public WeatherDetailView(WeatherDetailActivity context) {
+    public WeatherDetailView(View context) {
 
         sunshineSeekBar = (SeekBar) context.findViewById(R.id.sunshineSeekBar);
         TextView sunshineValue = (TextView) context.findViewById(R.id.sunshineValue);
@@ -65,28 +71,36 @@ public class WeatherDetailView {
         humiditySeekBar.setProgress(weather.getHumidity());
 
         visibilityValue.setText(weather.getVisibility() == null ? "" : weather.getVisibility().toString());
-        showDepthValue.setText(weather.getShowDepth() == null ? "" : weather.getShowDepth().toString() );
+        showDepthValue.setText(weather.getSnowDepth() == null ? "" : weather.getSnowDepth().toString() );
         newSnowDepth.setText(weather.getNewSnowDepth() == null ? "" : weather.getNewSnowDepth().toString());
         lastTimeSnowedRained.setText(weather.getLastTimeSnowedRained() == null ? "" : weather.getLastTimeSnowedRained().toString());
     }
 
     public Weather toWeather() {
+
+        Weather weather;
+
+        if (id != null) {
+            weather = service.find(id);
+        } else {
+            weather = new Weather();
+        }
+
         String visibilityValueText = visibilityValue.getText().toString();
-        String showDepthValueText = showDepthValue.getText().toString();
+        String snowDepthValueText = showDepthValue.getText().toString();
         String newSnowDepthText = newSnowDepth.getText().toString();
         String lastTimeSnowedRainedText = lastTimeSnowedRained.getText().toString();
 
-        return new Weather(
-                id,
-                sunshineSeekBar.getProgress(),
-                windSeekBar.getProgress(),
-                rainingSeekBar.getProgress(),
-                humiditySeekBar.getProgress(),
-                visibilityValueText.isEmpty() ? null : Integer.valueOf(visibilityValueText),
-                showDepthValueText.isEmpty() ? null : Integer.valueOf(showDepthValueText),
-                newSnowDepthText.isEmpty() ? null : Integer.valueOf(newSnowDepthText),
-                lastTimeSnowedRainedText.isEmpty() ? null : Integer.valueOf(lastTimeSnowedRainedText)
-        );
+        weather.setSunshineIntensity(sunshineSeekBar.getProgress());
+        weather.setWindIntensity(windSeekBar.getProgress());
+        weather.setRainIntensity(rainingSeekBar.getProgress());
+        weather.setHumidity(humiditySeekBar.getProgress());
+        weather.setVisibility(visibilityValueText.isEmpty() ? null : Integer.valueOf(visibilityValueText));
+        weather.setSnowDepth(snowDepthValueText.isEmpty() ? null : Integer.valueOf(snowDepthValueText));
+        weather.setNewSnowDepth(newSnowDepthText.isEmpty() ? null : Integer.valueOf(newSnowDepthText));
+        weather.setLastTimeSnowedRained(lastTimeSnowedRainedText.isEmpty() ? null : Integer.valueOf(lastTimeSnowedRainedText));
+
+        return weather;
     }
 
 }

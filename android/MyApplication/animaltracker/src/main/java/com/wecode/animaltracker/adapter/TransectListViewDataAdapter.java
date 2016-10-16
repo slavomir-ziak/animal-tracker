@@ -26,8 +26,6 @@ public class TransectListViewDataAdapter extends ArrayAdapter<Transect> {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 
-        System.out.println("position: " + position);
-
         LayoutInflater inflater = context.getLayoutInflater();
 
         View rowView = inflater.inflate(R.layout.transect_item_layout, null, true);
