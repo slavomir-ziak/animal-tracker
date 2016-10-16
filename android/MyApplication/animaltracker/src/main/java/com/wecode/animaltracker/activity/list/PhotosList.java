@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.adapter.ImageAdapter;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
@@ -22,11 +23,15 @@ import com.wecode.animaltracker.util.Assert;
 import java.io.File;
 import java.util.List;
 
-public class PhotosList extends AppCompatActivity {
+import static com.wecode.animaltracker.R.id.transectId;
 
-    private PhotosDataService photosDataService = PhotosDataService.getInstance();
+public class PhotosList extends PhotoEnabledCommonActivity {
 
-    private File picturesDirectory;
+    private Long transectId;
+
+    private ImageAdapter imageAdapter;
+
+    private GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,28 +40,46 @@ public class PhotosList extends AppCompatActivity {
 
         Long entityId = getIntent().getLongExtra("entityId", 0);
         String entityName = getIntent().getStringExtra("entityName");
-        Long transectId = getIntent().getLongExtra("transectId", 0);
+        transectId = getIntent().getLongExtra("transectId", 0);
 
         Assert.isTrue("transectId missing", transectId > 0);
         Assert.isTrue("entityId missing", entityId > 0);
         Assert.isTrue("entityName missing", entityName != null);
 
-        List<Photo> photos = photosDataService.findByEntityIdAndName(entityId, entityName);
 
-        for (int i = 0; i < photos.size(); i++) {
-            Log.i(Globals.APP_NAME, "photo["+i+"]: " + photos.get(i).toString());
-        }
-
-        GridView gridView = (GridView) findViewById(R.id.activity_photo_tiles_gridview);
+        gridView = (GridView) findViewById(R.id.activity_photo_tiles_gridview);
         Assert.assertNotNull("gridView missing ", gridView);
 
         Transect transect = TransectDataService.getInstance().find(transectId);
-        picturesDirectory = Globals.getTransectPhotosDirectory(transect);
+        File picturesDirectory = Globals.getTransectPhotosDirectory(transect);
 
-        ImageAdapter adapter = new ImageAdapter(this, entityId, entityName, picturesDirectory);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(adapter);
+        imageAdapter = new ImageAdapter(this, entityId, entityName, picturesDirectory);
+        gridView.setAdapter(imageAdapter);
+        gridView.setOnItemClickListener(imageAdapter);
 
+        this.entityName = Photo.EntityName.valueOf(entityName);
+        this.id = entityId;
     }
 
+    @Override
+    protected Long getCurrentTransectId() {
+        return transectId;
+    }
+
+    @Override
+    protected File getPhotoDirectory() {
+        Long currentTransectId = getCurrentTransectId();
+        Transect transect = TransectDataService.getInstance().find(currentTransectId);
+        return Globals.getTransectPhotosDirectory(transect);
+    }
+
+    @Override
+    protected void refreshPhotos() {
+        imageAdapter.refreshPhotos();
+        gridView.setAdapter(imageAdapter);
+    }
+
+    public void addPhoto(View view) {
+        addPhoto();
+    }
 }

@@ -25,6 +25,13 @@ public class CodeListSpinnerView {
         setSpinnerData(parentActivity, codeListName, spinner);
     }
 
+    public CodeListSpinnerView(int spinnerId, String codeListName, Activity parentActivity, boolean enableEmptyValue) {
+        this.enableEmptyValue = enableEmptyValue;
+        this.spinner = (Spinner) parentActivity.findViewById(spinnerId);
+
+        setSpinnerData(parentActivity, codeListName, spinner);
+    }
+
     public CodeListSpinnerView(int spinnerId, String codeListName, Activity parentActivity, View view) {
         this.spinner = (Spinner) view.findViewById(spinnerId);
 

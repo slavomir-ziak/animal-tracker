@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +29,7 @@ import java.util.UUID;
 /**
  * Created by sziak on 11/2/2015.
  */
-public abstract class CommonDetailActivity extends android.support.v7.app.AppCompatActivity {
+public abstract class CommonDetailActivity extends AppCompatActivity {
 
     public static String TAG = Globals.APP_NAME;
 
