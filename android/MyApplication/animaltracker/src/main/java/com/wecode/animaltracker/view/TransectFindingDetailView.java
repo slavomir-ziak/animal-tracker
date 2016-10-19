@@ -47,7 +47,7 @@ public class TransectFindingDetailView {
 
         this.transectId = transectId;
 
-        species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context, false);
+        species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context, false, "Wolf");
         location = (TextView) context.findViewById(R.id.findingLocationValue);
         findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
         findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);

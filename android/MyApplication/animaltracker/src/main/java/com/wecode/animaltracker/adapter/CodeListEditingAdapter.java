@@ -44,10 +44,21 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
     private Stack<Integer> previousSelected = new Stack<>();
 
+    private String defaultValue;
+
     public CodeListEditingAdapter(Activity context, String codeListName, boolean enableEmptyValue) {
         this.context = context;
         this.codeListName = codeListName;
         this.enableEmptyValue = enableEmptyValue;
+
+        reloadCodeListValues();
+    }
+
+    public CodeListEditingAdapter(Activity context, String codeListName, boolean enableEmptyValue, String defaultValue) {
+        this.context = context;
+        this.codeListName = codeListName;
+        this.enableEmptyValue = enableEmptyValue;
+        this.defaultValue = defaultValue;
 
         reloadCodeListValues();
     }
@@ -57,7 +68,24 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
         if (enableEmptyValue) {
             codeList.add(0, new CodeList(EMPTY_ITEM_ID, EMPTY_ITEM_TEXT));
         }
+
+        if (defaultValue != null) {
+            setDefaultValueToFirstPlace();
+        }
+
         codeList.add(new CodeList(NEW_ITEM_ID, NEW_ITEM_TEXT));
+    }
+
+    private void setDefaultValueToFirstPlace() {
+        int defaultIndex = codeList.indexOf(codeListService.findByNameAndValue(codeListName, defaultValue));
+        if (defaultIndex > 0) {
+            CodeList defaultValue = codeList.get(defaultIndex);
+            codeList.remove(defaultIndex);
+            codeList.add(0, defaultValue);
+        } else {
+            throw new RuntimeException(defaultValue + " not present in codelist named: " + codeListName);
+        }
+
     }
 
     @Override

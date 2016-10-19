@@ -41,7 +41,6 @@ public class TransectDetailFragment extends Fragment implements IFragment {
 
     private static final int EDIT_START_LOCATION_REQUEST = 4;
     private static final int EDIT_END_LOCATION_REQUEST = 5;
-    private static final int EXPORT_FILE_PERMISSION_REQUEST = 6;
 
     private static TransectDataService transectDataService = TransectDataService.getInstance();
 
@@ -105,13 +104,6 @@ public class TransectDetailFragment extends Fragment implements IFragment {
                 endTransect();
             }
         });
-        view.findViewById(R.id.transectDetailViewExportButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                exportToExcel();
-            }
-        });
-
         view.findViewById(R.id.transectFindingEditStartLocation).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,31 +126,6 @@ public class TransectDetailFragment extends Fragment implements IFragment {
         });
 
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-       if (requestCode == EXPORT_FILE_PERMISSION_REQUEST) {
-            if (grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
-                exportToExcel();
-            } else {
-                Log.w(Globals.APP_NAME, "EXPORT_FILE_PERMISSION_REQUEST NOT granted");
-            }
-        }
-    }
-
-    public void exportToExcel() {
-
-        if (!Permissions.grantedOrRequestPermissions(getActivity(), EXPORT_FILE_PERMISSION_REQUEST,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            return;
-        }
-
-        new TransectReport(transectDataService.find(transectId), getActivity()).exportToExcel();
-
-    }
-
 
     public void startTransect() {
 

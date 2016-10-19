@@ -38,7 +38,11 @@ public class TransectDetailView {
     private Button endTransectButton;
     private Button startTransectButton;
     private Button transectDetailAddFindingButton;
-    private Button transectDetailViewExportButton;
+
+    private View startDateContainer;
+    private View endDateContainer;
+    private View startLocationContainer;
+    private View endLocationContainer;
 
     private CodeListSpinnerView localisationSpinner;
 
@@ -57,7 +61,11 @@ public class TransectDetailView {
         endTransectButton = (Button) context.findViewById(R.id.endTransectButton);
         startTransectButton = (Button) context.findViewById(R.id.startTransectButton);
         transectDetailAddFindingButton = (Button) context.findViewById(R.id.transectDetailAddFindingButton);
-        transectDetailViewExportButton = (Button) context.findViewById(R.id.transectDetailViewExportButton);
+
+        startDateContainer = context.findViewById(R.id.startDateContainer);
+        endDateContainer = context.findViewById(R.id.endDateContainer);
+        startLocationContainer = context.findViewById(R.id.startLocationContainer);
+        endLocationContainer = context.findViewById(R.id.endLocationContainer);
 
         if (transect != null) {
             bind(transect);
@@ -100,30 +108,55 @@ public class TransectDetailView {
     }
 
     public void initGuiForView() {
-         id.setInputType(InputType.TYPE_NULL);
-         column.setInputType(InputType.TYPE_NULL);
-         startDateTime.setInputType(InputType.TYPE_NULL);
-         endDateTime.setInputType(InputType.TYPE_NULL);
-         startLocation.setInputType(InputType.TYPE_NULL);
-         endLocation.setInputType(InputType.TYPE_NULL);
-         routeName.setInputType(InputType.TYPE_NULL);
-
-        enableAllButtons(true);
+        enableAllButtons(false);
+        startDateTime.setVisibility(View.VISIBLE);
+        endDateTime.setVisibility(View.VISIBLE);
+        startLocation.setVisibility(View.VISIBLE);
+        endLocation.setVisibility(View.VISIBLE);
     }
 
     public void initGuiForEdit() {
-        enableAllButtons(true);
-        id.setInputType(InputType.TYPE_NULL);
+        enableAllButtons(false);
+
+        startDateContainer.setVisibility(View.GONE);
+        startLocationContainer.setVisibility(View.GONE);
+        endDateContainer.setVisibility(View.GONE);
+        endLocationContainer.setVisibility(View.GONE);
+
+        if (!startDateTime.getText().toString().isEmpty()) {
+            startDateContainer.setVisibility(View.VISIBLE);
+            startLocationContainer.setVisibility(View.VISIBLE);
+        } else {
+            startTransectButton.setVisibility(View.VISIBLE);
+        }
+
+        if (!endDateTime.getText().toString().isEmpty()) {
+            endDateContainer.setVisibility(View.VISIBLE);
+            endLocationContainer.setVisibility(View.VISIBLE);
+        }
+
+        if (!startDateTime.getText().toString().isEmpty() && endDateTime.getText().toString().isEmpty()){
+            endTransectButton.setVisibility(View.VISIBLE);
+            transectDetailAddFindingButton.setVisibility(View.VISIBLE);
+        }
+
     }
 
     public void initGuiForNew() {
         enableAllButtons(false);
+        startTransectButton.setVisibility(View.VISIBLE);
+
+        startDateContainer.setVisibility(View.GONE);
+        startLocationContainer.setVisibility(View.GONE);
+
+        endDateContainer.setVisibility(View.GONE);
+        endLocationContainer.setVisibility(View.GONE);
     }
 
     private void enableAllButtons(boolean enable) {
         endTransectButton.setVisibility(enable ? View.VISIBLE : View.GONE);
+        startTransectButton.setVisibility(enable ? View.VISIBLE : View.GONE);
         transectDetailAddFindingButton.setVisibility(enable ? View.VISIBLE : View.GONE);
-        transectDetailViewExportButton.setVisibility(enable ? View.VISIBLE : View.GONE);
     }
 
     public Transect toTransect() {

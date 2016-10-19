@@ -30,4 +30,20 @@ public class Persistable extends SugarRecord implements Comparable<Persistable> 
     public int compareTo(Persistable anotherPersistable) {
         return this.getCreated().compareTo(anotherPersistable.getCreated());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Persistable)) return false;
+
+        Persistable that = (Persistable) o;
+
+        return getId() != null ? getId().equals(that.getId()) : that.getId() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
 }

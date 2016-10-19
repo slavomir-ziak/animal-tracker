@@ -5,6 +5,7 @@ import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.util.Assert;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -22,8 +23,15 @@ public class CodeListService extends AbstractDataService<CodeList> {
         return INSTANCE;
     }
 
+    /**
+     *
+     * @param name
+     * @return LinkedList, because we add to the beginning of this list.
+     */
     public List<CodeList> findByName(String name) {
-        return CodeList.find(CodeList.class, "name = ? ORDER BY value", name);
+        LinkedList<CodeList> codeLists = new LinkedList<>();
+        codeLists.addAll(CodeList.find(CodeList.class, "name = ? ORDER BY value", name));
+        return codeLists;
     }
 
     public CodeList findByNameAndValue(String name, String value) {

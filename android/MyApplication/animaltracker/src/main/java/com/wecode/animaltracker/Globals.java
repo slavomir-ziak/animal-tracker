@@ -20,7 +20,7 @@ public class Globals {
 
     public static final String APP_NAME = "AnimalTracker";
 
-    public static final int APP_MINOR_VERSION = 5;
+    public static final int APP_MINOR_VERSION = 6;
 
     public static final int APP_MAJOR_VERSION = 0;
 
