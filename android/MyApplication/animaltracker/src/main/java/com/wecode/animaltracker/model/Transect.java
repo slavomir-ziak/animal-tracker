@@ -13,8 +13,7 @@ import java.util.List;
  */
 public class Transect extends Persistable {
 
-    private Long habitatId;
-    private Integer column;
+    private Integer square;
     private Date startDateTime;
     private Date endDateTime;
     private String routeName;
@@ -36,27 +35,19 @@ public class Transect extends Persistable {
     public Transect() {
     }
 
-    public Transect(Long id, Integer column, Date startDateTime, String routeName) {
+    public Transect(Long id, Integer square, Date startDateTime, String routeName) {
         setId(id);
-        this.column = column;
+        this.square = square;
         this.startDateTime = startDateTime;
         this.routeName = routeName;
     }
-    public Transect(Long id, Integer column, Date startDateTime,Date endDateTime,
-                    Location startLocation, Location endLocation, String routeName) {
-        setId(id);
-        this.column = column;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.routeName = routeName;
+
+    public Integer getSquare() {
+        return square;
     }
 
-    public Integer getColumn() {
-        return column;
-    }
-
-    public void setColumn(Integer column) {
-        this.column = column;
+    public void setSquare(Integer square) {
+        this.square = square;
     }
 
     public Date getStartDateTime() {
@@ -81,14 +72,6 @@ public class Transect extends Persistable {
 
     public void setRouteName(String routeName) {
         this.routeName = routeName;
-    }
-
-    public void setHabitatId(Long habitatId) {
-        this.habitatId = habitatId;
-    }
-
-    public Long getHabitatId() {
-        return habitatId;
     }
 
     public Long getWatherId() {
@@ -171,14 +154,13 @@ public class Transect extends Persistable {
     }
 
     public String getColumn(String defaultValue) {
-        return column != null ? column.toString() : defaultValue;
+        return square != null ? square.toString() : defaultValue;
     }
 
     @Override
     public String toString() {
         return "Transect{" +
-                "habitatId=" + habitatId +
-                ", column=" + column +
+                ", square=" + square +
                 ", startDateTime=" + startDateTime +
                 ", endDateTime=" + endDateTime +
                 ", routeName='" + routeName + '\'' +

@@ -78,7 +78,7 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
     private void setDefaultValueToFirstPlace() {
         int defaultIndex = codeList.indexOf(codeListService.findByNameAndValue(codeListName, defaultValue));
-        if (defaultIndex > 0) {
+        if (defaultIndex >= 0) {
             CodeList defaultValue = codeList.get(defaultIndex);
             codeList.remove(defaultIndex);
             codeList.add(0, defaultValue);

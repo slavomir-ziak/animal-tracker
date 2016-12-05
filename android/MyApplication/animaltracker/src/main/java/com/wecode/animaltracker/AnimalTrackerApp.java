@@ -28,6 +28,8 @@ public class AnimalTrackerApp extends SugarApp {
     public void onCreate() {
         super.onCreate();
 
+        System.out.println(CodeListService.getInstance().list());
+
         if (CodeListService.getInstance().list().size() == 0) {
             executeScript("init_db_codelists.sql");
         }

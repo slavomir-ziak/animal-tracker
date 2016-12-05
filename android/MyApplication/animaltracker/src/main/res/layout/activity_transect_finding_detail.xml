@@ -175,7 +175,46 @@
                         android:id="@+id/transectFindingAddOtherButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
-                        android:onClick="addOthers" />
+                        android:onClick="addOthers"
+
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:text="Add urine"
+                        android:id="@+id/transectFindingAddUrineButton"
+                        android:layout_weight=".30"
+                        android:onClick="addFootprints" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:text="Add Hairs"
+                        android:id="@+id/transectFindingAddHairsButton"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".30"
+                        android:onClick="addFeces" />
+
+                    <Button
+                        style="?android:attr/buttonStyleSmall"
+                        android:layout_width="0dp"
+                        android:layout_height="70dp"
+                        android:text="Add Scratches"
+                        android:id="@+id/transectFindingAddScratchesButton"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_weight=".30"
+                        android:onClick="addOthers"
+
+                        />
                 </LinearLayout>
 
                 <LinearLayout

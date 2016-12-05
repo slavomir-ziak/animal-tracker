@@ -59,7 +59,7 @@ public abstract class PhotoEnabledCommonActivity extends CommonDetailActivity {
             return;
         }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         outputPhotoFile = new File(getPhotoDirectory(), simpleDateFormat.format(new Date()) + ".jpeg");
 
         Log.d(Globals.APP_NAME, "Picture will be saved:" + outputPhotoFile);

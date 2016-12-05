@@ -2,6 +2,7 @@ package com.wecode.animaltracker.view;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Habitat;
@@ -15,6 +16,7 @@ import com.wecode.animaltracker.util.Assert;
  */
 public class HabitatDetailView {
 
+    private static final String FOREST_TYPE = "Forest";
     private Long id;
 
     private CodeListSpinnerView type;
@@ -24,6 +26,10 @@ public class HabitatDetailView {
     private CodeListSpinnerView forestType;
 
     private HabitatDataService service = HabitatDataService.getInstance();
+
+    private View forestTypeContainer;
+    private View forestAgeContainer;
+    private View treeTypeContainer;
 
     public HabitatDetailView(Activity context, View view, Habitat habitat) {
         this(context, view);
@@ -38,6 +44,10 @@ public class HabitatDetailView {
         forestAge = new CodeListSpinnerView(R.id.habitatForestAgeValue, "habitatForestAgeTypes", context, view);
         treeType = new CodeListSpinnerView(R.id.habitatTreeTypeValue, "habitatTreeTypes", context, view);
         forestType = new CodeListSpinnerView(R.id.habitatForestTypeValue, "habitatForestTypes", context, view);
+
+        forestTypeContainer = view.findViewById(R.id.habitatForestTypeContainer);
+        forestAgeContainer = view.findViewById(R.id.forestAgeContainer);
+        treeTypeContainer = view.findViewById(R.id.habitatTreeTypeContainer);
    }
 
     private void bind(Habitat habitat) {
@@ -47,6 +57,33 @@ public class HabitatDetailView {
         forestAge.select(habitat.getForestAge());
         treeType.select(habitat.getTreeType());
         forestType.select(habitat.getForestType());
+
+        showHideTreeProperties(habitat.getType());
+
+        type.getSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                showHideTreeProperties(type.getSelectedCodeListValue());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                showHideTreeProperties(type.getSelectedCodeListValue());
+            }
+        });
+    }
+
+    private void showHideTreeProperties(String type) {
+        if (FOREST_TYPE.equals(type)) {
+            forestTypeContainer.setVisibility(View.VISIBLE);
+            forestAgeContainer.setVisibility(View.VISIBLE);
+            treeTypeContainer.setVisibility(View.VISIBLE);
+        } else {
+            forestTypeContainer.setVisibility(View.INVISIBLE);
+            forestAgeContainer.setVisibility(View.INVISIBLE);
+            treeTypeContainer.setVisibility(View.INVISIBLE);
+        }
     }
 
     public Habitat toHabitat() {

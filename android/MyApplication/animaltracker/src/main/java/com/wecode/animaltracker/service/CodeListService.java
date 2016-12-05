@@ -30,7 +30,7 @@ public class CodeListService extends AbstractDataService<CodeList> {
      */
     public List<CodeList> findByName(String name) {
         LinkedList<CodeList> codeLists = new LinkedList<>();
-        codeLists.addAll(CodeList.find(CodeList.class, "name = ? ORDER BY value", name));
+        codeLists.addAll(CodeList.find(CodeList.class, "name = ?", name));
         return codeLists;
     }
 

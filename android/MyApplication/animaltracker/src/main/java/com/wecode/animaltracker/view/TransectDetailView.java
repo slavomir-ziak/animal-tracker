@@ -2,12 +2,10 @@ package com.wecode.animaltracker.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.model.Transect;
@@ -32,7 +30,6 @@ public class TransectDetailView {
     private TextView endLocation;
     private TextView routeName;
 
-    private Long habitatId;
     private Long weatherId;
 
     private Button endTransectButton;
@@ -76,7 +73,7 @@ public class TransectDetailView {
     private void bind(Transect transect) {
 
         id.setText(transect.getId().toString());
-        column.setText(transect.getColumn() != null ? transect.getColumn().toString() : "");
+        column.setText(transect.getSquare() != null ? transect.getSquare().toString() : "");
 
         DateFormat dateTimeInstance = DateFormat.getDateTimeInstance();
 
@@ -103,7 +100,6 @@ public class TransectDetailView {
             );
         }
 
-        habitatId = transect.getHabitatId();
         weatherId = transect.getWatherId();
     }
 
@@ -173,7 +169,7 @@ public class TransectDetailView {
                 transect = new Transect();
             }
 
-            transect.setColumn(column.getText().length() > 0 ? Integer.parseInt(column.getText().toString()) : null);
+            transect.setSquare(column.getText().length() > 0 ? Integer.parseInt(column.getText().toString()) : null);
             transect.setStartDateTime(startDateTime.getText().length() > 0 ? dateTimeInstance.parse(startDateTime.getText().toString()) : null);
             transect.setRouteName(routeName.getText().toString());
             transect.setLocalisation(localisationSpinner.getSelectedCodeListValue());
@@ -196,8 +192,6 @@ public class TransectDetailView {
                 transect.setEndDateTime(dateTimeInstance.parse(endDateTime.getText().toString()));
             }
 
-
-            transect.setHabitatId(habitatId);
             transect.setWeatherId(weatherId);
             return transect;
 
@@ -217,14 +211,6 @@ public class TransectDetailView {
 
     private double getLongitude(String location) {
         return Double.parseDouble(location.split(", ")[0]);
-    }
-
-    public Long getHabitatId() {
-        return habitatId;
-    }
-
-    public void setHabitatId(Long habitatId) {
-        this.habitatId = habitatId;
     }
 
     public TextView getId() {

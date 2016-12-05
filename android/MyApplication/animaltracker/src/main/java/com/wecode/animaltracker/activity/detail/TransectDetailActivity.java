@@ -59,8 +59,6 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
     private WeatherFragment weatherFragment;
 
-    private HabitatFragment habitatFragment;
-
     private TransectFindingListFragment transectFindingListFragment;
 
     private PhotosFragment photosFragment;
@@ -107,7 +105,6 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         if (id != null) {
             setupTransectFindingListFragment(adapter);
             setupWeatherFragment(adapter);
-            setupHabitatFragment(adapter);
             setupPhotosFragment(adapter);
         }
 
@@ -132,21 +129,6 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         transectFindingListFragment = new TransectFindingListFragment();
         transectFindingListFragment.setArguments(bundle);
         adapter.addFragment(transectFindingListFragment);
-    }
-
-    private void setupHabitatFragment(ViewPagerAdapter adapter) {
-        Bundle bundle = new Bundle();
-        bundle.putString("action", Action.NEW.toString());
-
-        Transect transect = TransectDataService.getInstance().find(id);
-        if (transect.getHabitatId() != null) {
-            bundle.putLong("habitatId", transect.getHabitatId());
-            bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
-        }
-
-        habitatFragment = new HabitatFragment();
-        habitatFragment.setArguments(bundle);
-        adapter.addFragment(habitatFragment);
     }
 
     private void setupWeatherFragment(ViewPagerAdapter adapter) {
@@ -316,11 +298,6 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         if (weatherFragment != null) {
             Weather weather = weatherFragment.saveWeather();
             transect.setWeatherId(weather != null ? weather.getId() : null);
-        }
-
-        if (habitatFragment != null) {
-            Habitat habitat = habitatFragment.saveHabitat();
-            transect.setHabitatId(habitat != null ? habitat.getId() : null);
         }
 
         TransectDataService.getInstance().save(transect);

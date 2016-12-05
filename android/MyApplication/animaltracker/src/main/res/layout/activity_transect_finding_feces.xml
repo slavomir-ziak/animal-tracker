@@ -45,7 +45,7 @@
 
                 <Spinner
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/findingFecesPreySpinner"
                     android:layout_weight="1"
                     android:spinnerMode="dialog"
@@ -69,7 +69,7 @@
                 <Spinner
                     android:id="@+id/findingFecesStateValue"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:spinnerMode="dialog" />
             </LinearLayout>
 
@@ -88,7 +88,7 @@
 
                 <Spinner
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/substract"
                     android:layout_weight="1"
                     android:spinnerMode="dialog"
@@ -111,7 +111,7 @@
                 <Spinner
                     android:id="@+id/findingConfidenceValue"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="left|center_vertical"
                     android:spinnerMode="dialog" />
@@ -132,7 +132,7 @@
 
                 <Spinner
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/age"
                     android:layout_weight="1"
                     android:spinnerMode="dialog" />

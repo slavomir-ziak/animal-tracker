@@ -49,7 +49,7 @@ public class TransectListViewDataAdapter extends ArrayAdapter<Transect> {
         routeName.setText(transect.getRouteName());
 
         TextView column = (TextView) rowView.findViewById(R.id.transectListItemColumn);
-        column.setText(transect.getColumn() != null ? transect.getColumn().toString() : "");
+        column.setText(transect.getSquare() != null ? transect.getSquare().toString() : "");
 
         return rowView;
     }
