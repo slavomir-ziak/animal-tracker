@@ -1,9 +1,6 @@
 package com.wecode.animaltracker.model;
 
-import android.location.Location;
-
-import com.wecode.animaltracker.model.findings.TransectFinding;
-import com.wecode.animaltracker.service.TransectFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 
 import java.util.Date;
 import java.util.List;
@@ -30,7 +27,7 @@ public class Transect extends Persistable {
 
     private String rootDirectoryName;
 
-    private List<TransectFinding> findings;
+    private List<TransectFindingSite> findings;
 
     public Transect() {
     }
@@ -146,9 +143,9 @@ public class Transect extends Persistable {
         this.endElevation = endElevation;
     }
 
-    public List<TransectFinding> getFindings() {
+    public List<TransectFindingSite> getFindings() {
         if (findings == null) {
-            findings = TransectFindingDataService.getInstance().findByTransectId(getId());
+            findings = TransectFindingSiteDataService.getInstance().findByTransectId(getId());
         }
         return findings;
     }

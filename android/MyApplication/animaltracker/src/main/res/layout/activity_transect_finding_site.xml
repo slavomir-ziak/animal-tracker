@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    tools:context=".activity.detail.findings.TransectFindingDetailActivity">
+    tools:context=".activity.detail.TransectFindingSiteDetailActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -98,7 +98,7 @@
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </LinearLayout>
-
+<!--
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/animal_tracker_row_height"
@@ -126,23 +126,7 @@
                             android:text="After first snow" />
                     </RadioGroup>
                 </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal">
-
-                </LinearLayout>
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:columnCount="3"
-                    android:rowCount="1">
-
-                </GridLayout>
-
+-->
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -171,13 +155,11 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:text="Add Other"
-                        android:id="@+id/transectFindingAddOtherButton"
+                        android:text="Add urine"
+                        android:id="@+id/transectFindingAddUrineButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
-                        android:onClick="addOthers"
-
-                        />
+                        android:onClick="addUrine" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -189,10 +171,11 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:text="Add urine"
-                        android:id="@+id/transectFindingAddUrineButton"
+                        android:text="Add Other"
+                        android:id="@+id/transectFindingAddOtherButton"
+                        android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
-                        android:onClick="addFootprints" />
+                        android:onClick="addOthers" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -202,7 +185,7 @@
                         android:id="@+id/transectFindingAddHairsButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
-                        android:onClick="addFeces" />
+                        android:onClick="addHairs" />
 
                     <Button
                         style="?android:attr/buttonStyleSmall"
@@ -212,9 +195,7 @@
                         android:id="@+id/transectFindingAddScratchesButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
-                        android:onClick="addOthers"
-
-                        />
+                        android:onClick="addScratches" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -229,7 +210,6 @@
                 </LinearLayout>
 
             </LinearLayout>
-
 
             <!-- this RelativeLayout really must stay here -->
         </RelativeLayout>

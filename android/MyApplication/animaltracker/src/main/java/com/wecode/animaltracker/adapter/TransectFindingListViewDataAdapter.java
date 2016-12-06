@@ -2,7 +2,6 @@ package com.wecode.animaltracker.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.sax.RootElement;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Habitat;
-import com.wecode.animaltracker.model.findings.TransectFinding;
-import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
+import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
@@ -19,11 +17,11 @@ import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 
 import java.util.List;
 
-public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFinding> {
+public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFindingSite> {
 
     private Activity context;
 
-    private List<TransectFinding> list;
+    private List<TransectFindingSite> list;
 
     private HabitatDataService habitatService = HabitatDataService.getInstance();
 
@@ -33,7 +31,7 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
 
     private TransectFindingOtherDataService othersService = TransectFindingOtherDataService.getInstance();
 
-    public TransectFindingListViewDataAdapter(Activity context, List<TransectFinding> list) {
+    public TransectFindingListViewDataAdapter(Activity context, List<TransectFindingSite> list) {
         super(context, R.layout.single_item_layout, list);
         this.context = context;
         this.list = list;
@@ -52,27 +50,27 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
             rowView = inflater.inflate(R.layout.transect_finding_item_layout, null, true);
         }
 
-        TransectFinding transectFinding = list.get(position);
+        TransectFindingSite transectFindingSite = list.get(position);
 
         TextView idView = (TextView) rowView.findViewById(R.id.transectFindingListItemID);
-        idView.setText(transectFinding.getId().toString());
+        idView.setText(transectFindingSite.getId().toString());
 
-        if (transectFinding.getHabitatId() != null) {
-            initHabitat(rowView, transectFinding);
+        if (transectFindingSite.getHabitatId() != null) {
+            initHabitat(rowView, transectFindingSite);
         }
 
-        initFindingCounts(rowView, transectFinding);
+        initFindingCounts(rowView, transectFindingSite);
 
         TextView speciesView = (TextView) rowView.findViewById(R.id.transectFindingListItemSpecies);
-        speciesView.setText(transectFinding.getSpecies());
+        speciesView.setText(transectFindingSite.getSpecies());
 
         return rowView;
     }
 
-    private void initFindingCounts(View rowView, TransectFinding transectFinding) {
-        long footprintsCount = footprintsService.countByTransectFindingId(transectFinding.getId());
-        long fecesCount = fecesService.countByTransectFindingId(transectFinding.getId());
-        long othersCount = othersService.countByTransectFindingId(transectFinding.getId());
+    private void initFindingCounts(View rowView, TransectFindingSite transectFindingSite) {
+        long footprintsCount = footprintsService.countByTransectFindingId(transectFindingSite.getId());
+        long fecesCount = fecesService.countByTransectFindingId(transectFindingSite.getId());
+        long othersCount = othersService.countByTransectFindingId(transectFindingSite.getId());
 
         TextView transectFindingListItemFootprints = (TextView) rowView.findViewById(R.id.transectFindingListItemFootprints);
         TextView transectFindingListItemFeces = (TextView) rowView.findViewById(R.id.transectFindingListItemFeces);
@@ -83,8 +81,8 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         transectFindingListItemOther.setText(String.format("%d x other", othersCount));
     }
 
-    private void initHabitat(View rowView, TransectFinding transectFinding) {
-        Habitat habitat = habitatService.find(transectFinding.getHabitatId());
+    private void initHabitat(View rowView, TransectFindingSite transectFindingSite) {
+        Habitat habitat = habitatService.find(transectFindingSite.getHabitatId());
 
         TextView habitatView = (TextView) rowView.findViewById(R.id.transectFindingListItemHabitat);
 

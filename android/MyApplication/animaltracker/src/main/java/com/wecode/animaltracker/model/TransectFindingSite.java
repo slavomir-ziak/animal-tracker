@@ -1,11 +1,11 @@
-package com.wecode.animaltracker.model.findings;
+package com.wecode.animaltracker.model;
 
 import com.wecode.animaltracker.model.Persistable;
 
 /**
  * Created by sziak on 10-Apr-16.
  */
-public class TransectFinding extends Persistable {
+public class TransectFindingSite extends Persistable {
 
     //FK
     private Long transectId;
@@ -23,7 +23,7 @@ public class TransectFinding extends Persistable {
 
     private String beforeAfterRecentSnow;
 
-    public TransectFinding() {
+    public TransectFindingSite() {
     }
 
     public Double getLocationLatitude() {
@@ -88,7 +88,7 @@ public class TransectFinding extends Persistable {
 
     @Override
     public String toString() {
-        return "TransectFinding{" +
+        return "TransectFindingSite{" +
                 "transectId=" + transectId +
                 ", habitatId=" + habitatId +
                 ", species='" + species + '\'' +

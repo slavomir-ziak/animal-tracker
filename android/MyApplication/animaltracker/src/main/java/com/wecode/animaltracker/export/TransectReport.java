@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Transect;
-import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
@@ -98,9 +98,9 @@ public class TransectReport {
 
             List<TransectReportRow> allRows = new ArrayList<>();
 
-            for (TransectFinding transectFinding : transect.getFindings()) {
+            for (TransectFindingSite transectFindingSite : transect.getFindings()) {
                 List<TransectReportRow> rows = new ArrayList<>();
-                List<TransectFindingFootprints> footprints = TransectFindingFootprintsDataService.getInstance().findByTransectFindingId(transectFinding.getId());
+                List<TransectFindingFootprints> footprints = TransectFindingFootprintsDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
 
                 for (TransectFindingFootprints footprintFinding : footprints) {
                     TransectReportRow row = new TransectReportRow();
@@ -113,7 +113,7 @@ public class TransectReport {
                     rows.add(row);
                 }
 
-                List<TransectFindingFeces> fecesList = TransectFindingFecesDataService.getInstance().findByTransectFindingId(transectFinding.getId());
+                List<TransectFindingFeces> fecesList = TransectFindingFecesDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
                 for (int i = 0; i < fecesList.size(); i++) {
 
                     TransectFindingFeces fecesFinding = fecesList.get(i);
@@ -131,7 +131,7 @@ public class TransectReport {
                 }
 
                 int rowCounter=0;
-                List<TransectFindingOther> othersList = TransectFindingOtherDataService.getInstance().findByTransectFindingId(transectFinding.getId());
+                List<TransectFindingOther> othersList = TransectFindingOtherDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
                 for (int i = 0; i < othersList.size(); i++) {
                     TransectFindingOther otherFindings = othersList.get(i);
 
@@ -170,12 +170,12 @@ public class TransectReport {
 
 
                 for (TransectReportRow row : rows) {
-                    row.setSpecie(transectFinding.getSpecies());
-                    row.setElevation(transectFinding.getLocationElevation());
-                    row.setLatitude(transectFinding.getLocationLatitude());
-                    row.setLongitude(transectFinding.getLocationLongitude());
-                    if (transectFinding.getHabitatId() != null) {
-                        Habitat habitat = HabitatDataService.getInstance().find(transectFinding.getHabitatId());
+                    row.setSpecie(transectFindingSite.getSpecies());
+                    row.setElevation(transectFindingSite.getLocationElevation());
+                    row.setLatitude(transectFindingSite.getLocationLatitude());
+                    row.setLongitude(transectFindingSite.getLocationLongitude());
+                    if (transectFindingSite.getHabitatId() != null) {
+                        Habitat habitat = HabitatDataService.getInstance().find(transectFindingSite.getHabitatId());
                         row.setHabitat(habitat);
                     }
                 }

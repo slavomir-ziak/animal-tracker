@@ -3,7 +3,6 @@ package com.wecode.animaltracker.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,7 +13,7 @@ import android.view.View;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
-import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
+import com.wecode.animaltracker.activity.detail.TransectFindingSiteDetailActivity;
 import com.wecode.animaltracker.activity.list.TransectsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
@@ -24,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
 
     public void fd(View view){
-        Intent intent = new Intent(this, TransectFindingDetailActivity.class);
+        Intent intent = new Intent(this, TransectFindingSiteDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, MainActivity.class);
         intent.setAction(Action.EDIT.toString());
         intent.putExtra("id", 1L);

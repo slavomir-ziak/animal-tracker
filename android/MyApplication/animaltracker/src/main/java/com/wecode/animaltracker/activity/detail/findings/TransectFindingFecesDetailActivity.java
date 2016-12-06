@@ -11,10 +11,10 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
-import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.service.TransectDataService;
-import com.wecode.animaltracker.service.TransectFindingDataService;
+import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.view.findings.TransectFindingFecesView;
 
@@ -101,8 +101,8 @@ public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivi
     }
 
     private Transect getTransect() {
-        TransectFinding transectFinding = TransectFindingDataService.getInstance().find(transectFindingId);
-        return TransectDataService.getInstance().find(transectFinding.getTransectId());
+        TransectFindingSite transectFindingSite = TransectFindingSiteDataService.getInstance().find(transectFindingId);
+        return TransectDataService.getInstance().find(transectFindingSite.getTransectId());
     }
 
 }

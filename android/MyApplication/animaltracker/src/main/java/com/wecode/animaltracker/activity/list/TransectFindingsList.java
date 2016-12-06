@@ -4,20 +4,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
+import com.wecode.animaltracker.activity.detail.TransectFindingSiteDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.adapter.TransectFindingListViewDataAdapter;
-import com.wecode.animaltracker.model.findings.TransectFinding;
-import com.wecode.animaltracker.service.TransectFindingDataService;
+import com.wecode.animaltracker.model.TransectFindingSite;
+import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 
 import java.util.List;
 
@@ -25,14 +23,14 @@ public class TransectFindingsList extends AppCompatActivity {
 
     private static final int DISPLAY_TRANSECT_FINDING_DETAIL = 0;
 
-    private TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
+    private TransectFindingSiteDataService transectFindingSiteDataService = TransectFindingSiteDataService.getInstance();
     private Action action;
     private Long transectId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transect_finding_list);
+        setContentView(R.layout.activity_transect_finding_sites_list);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -47,7 +45,7 @@ public class TransectFindingsList extends AppCompatActivity {
     }
 
     private void refreshTransectFindings() {
-        final List<TransectFinding> list = transectFindingDataService.findByTransectId(transectId);
+        final List<TransectFindingSite> list = transectFindingSiteDataService.findByTransectId(transectId);
 
         TransectFindingListViewDataAdapter adapter = new TransectFindingListViewDataAdapter(this, list);
         ListView itemsListView = (ListView) findViewById(R.id.transectFindingsList);
@@ -61,7 +59,7 @@ public class TransectFindingsList extends AppCompatActivity {
 
                 TextView transectFindingId = (TextView) view.findViewById(R.id.transectFindingListItemID);
 
-                Intent intent = new Intent(TransectFindingsList.this, TransectFindingDetailActivity.class);
+                Intent intent = new Intent(TransectFindingsList.this, TransectFindingSiteDetailActivity.class);
                 intent.putExtra(Constants.PARENT_ACTIVITY, TransectFindingsList.class);
                 intent.putExtra("id", Long.valueOf(transectFindingId.getText().toString()));
                 intent.putExtra("transectId", transectId);

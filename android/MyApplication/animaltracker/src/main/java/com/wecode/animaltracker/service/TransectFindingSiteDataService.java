@@ -1,33 +1,32 @@
 package com.wecode.animaltracker.service;
 
 import com.wecode.animaltracker.model.Persistable;
-import com.wecode.animaltracker.model.findings.TransectFinding;
+import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by sziak on 10/28/2015.
  */
-public class TransectFindingDataService extends AbstractDataService<TransectFinding> {
+public class TransectFindingSiteDataService extends AbstractDataService<TransectFindingSite> {
 
-    private static final TransectFindingDataService INSTANCE = new TransectFindingDataService();
+    private static final TransectFindingSiteDataService INSTANCE = new TransectFindingSiteDataService();
 
-    private TransectFindingDataService(){
-        super(TransectFinding.class);
+    private TransectFindingSiteDataService(){
+        super(TransectFindingSite.class);
     }
 
-    public static TransectFindingDataService getInstance() {
+    public static TransectFindingSiteDataService getInstance() {
         return INSTANCE;
     }
 
-    public List<TransectFinding> findByTransectId(Long transectId) {
-        return TransectFinding.find(TransectFinding.class, "transect_id=? order by id asc", transectId.toString());
+    public List<TransectFindingSite> findByTransectId(Long transectId) {
+        return TransectFindingSite.find(TransectFindingSite.class, "transect_id=? order by id asc", transectId.toString());
     }
 
     public List<Persistable> findFindingDetails(Long transectFindingId) {

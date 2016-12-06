@@ -22,17 +22,14 @@ import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.LocationProvidingActivity;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
-import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.export.TransectReport;
-import com.wecode.animaltracker.fragment.HabitatFragment;
 import com.wecode.animaltracker.fragment.IFragment;
 import com.wecode.animaltracker.fragment.PhotosFragment;
 import com.wecode.animaltracker.fragment.TransectDetailFragment;
-import com.wecode.animaltracker.fragment.TransectFindingListFragment;
+import com.wecode.animaltracker.fragment.TransectFindingSiteListFragment;
 import com.wecode.animaltracker.fragment.WeatherFragment;
-import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.Weather;
@@ -59,7 +56,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
     private WeatherFragment weatherFragment;
 
-    private TransectFindingListFragment transectFindingListFragment;
+    private TransectFindingSiteListFragment transectFindingSiteListFragment;
 
     private PhotosFragment photosFragment;
 
@@ -126,9 +123,9 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         bundle.putString("action", Action.NEW.toString());
         bundle.putLong("transectId", id);
         bundle.putString("action", action == Action.VIEW ? Action.VIEW.toString() : Action.EDIT.toString());
-        transectFindingListFragment = new TransectFindingListFragment();
-        transectFindingListFragment.setArguments(bundle);
-        adapter.addFragment(transectFindingListFragment);
+        transectFindingSiteListFragment = new TransectFindingSiteListFragment();
+        transectFindingSiteListFragment.setArguments(bundle);
+        adapter.addFragment(transectFindingSiteListFragment);
     }
 
     private void setupWeatherFragment(ViewPagerAdapter adapter) {
@@ -208,7 +205,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
     }
 
     public void addFinding() {
-        Intent intent = new Intent(this, TransectFindingDetailActivity.class);
+        Intent intent = new Intent(this, TransectFindingSiteDetailActivity.class);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         intent.putExtra("transectId", id);
@@ -219,7 +216,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == ADD_FINDING_REQUEST) {
-            transectFindingListFragment.refreshFindings();
+            transectFindingSiteListFragment.refreshFindings();
         }
 
         if (resultCode == RESULT_CANCELED) {

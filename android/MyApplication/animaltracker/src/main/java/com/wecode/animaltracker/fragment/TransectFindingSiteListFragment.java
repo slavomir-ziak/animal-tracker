@@ -14,18 +14,12 @@ import android.widget.Toast;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
-import com.wecode.animaltracker.activity.detail.findings.TransectFindingDetailActivity;
-import com.wecode.animaltracker.activity.list.TransectFindingsList;
+import com.wecode.animaltracker.activity.detail.TransectFindingSiteDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.adapter.TransectFindingListViewDataAdapter;
-import com.wecode.animaltracker.model.Habitat;
-import com.wecode.animaltracker.model.findings.TransectFinding;
-import com.wecode.animaltracker.service.HabitatDataService;
-import com.wecode.animaltracker.service.TransectDataService;
-import com.wecode.animaltracker.service.TransectFindingDataService;
-import com.wecode.animaltracker.util.Assert;
-import com.wecode.animaltracker.view.HabitatDetailView;
+import com.wecode.animaltracker.model.TransectFindingSite;
+import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 
 import java.util.List;
 
@@ -33,11 +27,11 @@ import java.util.List;
  * Created by SZIAK on 10/2/2016.
  */
 
-public class TransectFindingListFragment extends Fragment implements IFragment {
+public class TransectFindingSiteListFragment extends Fragment implements IFragment {
 
     private static final int DISPLAY_TRANSECT_FINDING_DETAIL = 0;
 
-    private static TransectFindingDataService transectFindingDataService = TransectFindingDataService.getInstance();
+    private static TransectFindingSiteDataService transectFindingSiteDataService = TransectFindingSiteDataService.getInstance();
 
     private Long transectId;
 
@@ -47,7 +41,7 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.activity_transect_finding_list, container, false);
+        view = inflater.inflate(R.layout.activity_transect_finding_sites_list, container, false);
 
         transectId = getArguments().getLong("transectId", 0);
         transectId = transectId == 0 ? null : transectId;
@@ -63,7 +57,7 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
     }
 
     private void refreshTransectFindings(View view) {
-        final List<TransectFinding> list = transectFindingDataService.findByTransectId(transectId);
+        final List<TransectFindingSite> list = transectFindingSiteDataService.findByTransectId(transectId);
 
         TransectFindingListViewDataAdapter adapter = new TransectFindingListViewDataAdapter(getActivity(), list);
         ListView itemsListView = (ListView) view.findViewById(R.id.transectFindingsList);
@@ -77,7 +71,7 @@ public class TransectFindingListFragment extends Fragment implements IFragment {
 
                 TextView transectFindingId = (TextView) view.findViewById(R.id.transectFindingListItemID);
 
-                Intent intent = new Intent(TransectFindingListFragment.this.getActivity(), TransectFindingDetailActivity.class);
+                Intent intent = new Intent(TransectFindingSiteListFragment.this.getActivity(), TransectFindingSiteDetailActivity.class);
                 intent.putExtra(Constants.PARENT_ACTIVITY, TransectDetailActivity.class);
                 intent.putExtra("id", Long.valueOf(transectFindingId.getText().toString()));
                 intent.putExtra("transectId", transectId);

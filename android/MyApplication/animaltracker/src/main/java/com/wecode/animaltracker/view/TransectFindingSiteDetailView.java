@@ -7,18 +7,17 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.model.findings.TransectFinding;
-import com.wecode.animaltracker.service.SettingsDataService;
-import com.wecode.animaltracker.service.TransectFindingDataService;
+import com.wecode.animaltracker.model.TransectFindingSite;
+import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 
 /**
  * Created by sziak on 10-Apr-16.
  */
-public class TransectFindingDetailView {
+public class TransectFindingSiteDetailView {
 
-    private TransectFindingDataService service = TransectFindingDataService.getInstance();
+    private TransectFindingSiteDataService service = TransectFindingSiteDataService.getInstance();
 
     private Long id;
     private Long habitatId;
@@ -26,50 +25,50 @@ public class TransectFindingDetailView {
     private CodeListSpinnerView species;
 
     private TextView location;
-    private RadioButton findingBeforeRecentSnow;
-    private RadioButton findingAfterRecentSnow;
+    //private RadioButton findingBeforeRecentSnow;
+    //private RadioButton findingAfterRecentSnow;
 
     private final Button addFececButton;
     private final Button addFootprintsButton;
     private final Button addOtherButton;
 
-    private TransectFinding transectFinding;
+    private TransectFindingSite transectFindingSite;
 
-    public TransectFindingDetailView(Activity context, TransectFinding transectFinding) {
-        this(context, transectFinding.getId());
-        this.transectFinding = transectFinding;
+    public TransectFindingSiteDetailView(Activity context, TransectFindingSite transectFindingSite) {
+        this(context, transectFindingSite.getId());
+        this.transectFindingSite = transectFindingSite;
 
-        Assert.assertNotNull("transectFinding cannot be null!", transectFinding);
-        bind(transectFinding);
+        Assert.assertNotNull("transectFindingSite cannot be null!", transectFindingSite);
+        bind(transectFindingSite);
     }
 
-    public TransectFindingDetailView(Activity context, Long transectId) {
+    public TransectFindingSiteDetailView(Activity context, Long transectId) {
 
         this.transectId = transectId;
 
         species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context, false, "Wolf");
         location = (TextView) context.findViewById(R.id.findingLocationValue);
-        findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
-        findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
+        //findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
+        //findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
         addFececButton = (Button) context.findViewById(R.id.transectFindingAddFecesButton);
         addFootprintsButton = (Button) context.findViewById(R.id.transectFindingAddFootprintsButton);
         addOtherButton = (Button) context.findViewById(R.id.transectFindingAddOtherButton);
     }
 
-    private void bind(TransectFinding transectFinding) {
+    private void bind(TransectFindingSite transectFindingSite) {
 
-        species.select(transectFinding.getSpecies());
+        species.select(transectFindingSite.getSpecies());
 
-        findingBeforeRecentSnow.setChecked("BEFORE".equals(transectFinding.getBeforeAfterRecentSnow()));
-        findingAfterRecentSnow.setChecked("AFTER".equals(transectFinding.getBeforeAfterRecentSnow()));
+        //findingBeforeRecentSnow.setChecked("BEFORE".equals(transectFindingSite.getBeforeAfterRecentSnow()));
+        //findingAfterRecentSnow.setChecked("AFTER".equals(transectFindingSite.getBeforeAfterRecentSnow()));
 
-        if (transectFinding.hasLocation()) {
-            setLocation(transectFinding.getLocationLatitude(), transectFinding.getLocationLongitude(), transectFinding.getLocationElevation());
+        if (transectFindingSite.hasLocation()) {
+            setLocation(transectFindingSite.getLocationLatitude(), transectFindingSite.getLocationLongitude(), transectFindingSite.getLocationElevation());
         }
 
-        habitatId = transectFinding.getHabitatId();
-        transectId = transectFinding.getTransectId();
-        id = transectFinding.getId();
+        habitatId = transectFindingSite.getHabitatId();
+        transectId = transectFindingSite.getTransectId();
+        id = transectFindingSite.getId();
     }
 
     private void setLocation(Double latitude, Double longiture, Double altitude) {
@@ -84,38 +83,38 @@ public class TransectFindingDetailView {
         setLocation(location.getLatitude(), location.getLongitude(), location.getAltitude());
     }
 
-    public TransectFinding toTransectFinding() {
+    public TransectFindingSite toTransectFinding() {
 
-        TransectFinding transectFindingFeces;
+        TransectFindingSite transectFindingFeces;
 
         if (id != null) {
-            transectFinding = service.find(id);
+            transectFindingSite = service.find(id);
         } else {
-            transectFinding = new TransectFinding();
+            transectFindingSite = new TransectFindingSite();
         }
-        transectFinding.setSpecies(species.getSelectedCodeListValue());
+        transectFindingSite.setSpecies(species.getSelectedCodeListValue());
 
         if (location.getText().toString().length() > 0) {
             double[] parsed = getLocationParsed();
 
-            transectFinding.setLocationLatitude(parsed[0]);
-            transectFinding.setLocationLongitude(parsed[1]);
-            transectFinding.setLocationElevation(parsed[2]);
+            transectFindingSite.setLocationLatitude(parsed[0]);
+            transectFindingSite.setLocationLongitude(parsed[1]);
+            transectFindingSite.setLocationElevation(parsed[2]);
         }
 
-        if (findingBeforeRecentSnow.isChecked()) {
-            transectFinding.setBeforeAfterRecentSnow("BEFORE");
+        /*if (findingBeforeRecentSnow.isChecked()) {
+            transectFindingSite.setBeforeAfterRecentSnow("BEFORE");
         }
 
         if (findingAfterRecentSnow.isChecked()) {
-            transectFinding.setBeforeAfterRecentSnow("AFTER");
-        }
+            transectFindingSite.setBeforeAfterRecentSnow("AFTER");
+        }*/
 
-        transectFinding.setHabitatId(habitatId);
-        transectFinding.setTransectId(transectId);
-        transectFinding.setId(id);
+        transectFindingSite.setHabitatId(habitatId);
+        transectFindingSite.setTransectId(transectId);
+        transectFindingSite.setId(id);
 
-        return transectFinding;
+        return transectFindingSite;
     }
 
     public Long getHabitatId() {
@@ -164,7 +163,7 @@ public class TransectFindingDetailView {
         return location;
     }
 
-    public TransectFinding getTransectFinding() {
-        return transectFinding;
+    public TransectFindingSite getTransectFindingSite() {
+        return transectFindingSite;
     }
 }
