@@ -73,4 +73,8 @@ public class TransectFindingOtherView {
         transectFindingOther.setSubstract(substract.getSelectedCodeListValue());
         return transectFindingOther;
     }
+
+    public void setEvidence(String evidence) {
+        otherEvidence.select(evidence);
+    }
 }

@@ -5,6 +5,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -187,26 +188,20 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
     }
 
     public void editFootprints(Long footprintsId) {
-        Intent intent = new Intent(this, TransectFindingFootprintsDetailActivity.class);
-        intent.putExtra("id", footprintsId);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.EDIT.toString());
-        startActivityForResult(intent, 0);
+        commonEdit(footprintsId, TransectFindingFootprintsDetailActivity.class);
     }
 
     public void editFeces(Long fecesId) {
-        Intent intent = new Intent(this, TransectFindingFecesDetailActivity.class);
-        intent.putExtra("id", fecesId);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.EDIT.toString());
-        startActivityForResult(intent, 0);
+        commonEdit(fecesId, TransectFindingFecesDetailActivity.class);
     }
 
     public void editOther(Long otherId) {
-        Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
-        intent.putExtra("id", otherId);
+        commonEdit(otherId, TransectFindingOtherDetailActivity.class);
+    }
+
+    private void commonEdit(Long id, Class<? extends AppCompatActivity> activityClass){
+        Intent intent = new Intent(this, activityClass);
+        intent.putExtra("id", id);
         intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.EDIT.toString());
@@ -214,48 +209,41 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
     }
 
     public void addFeces(View view) {
-        Intent intent = new Intent(this, TransectFindingFecesDetailActivity.class);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.NEW.toString());
-        startActivityForResult(intent, 0);
+        commonAdd(TransectFindingFecesDetailActivity.class);
     }
 
     public void addFootprints(View view) {
-        Intent intent = new Intent(this, TransectFindingFootprintsDetailActivity.class);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.NEW.toString());
-        startActivityForResult(intent, 0);
+        commonAdd(TransectFindingFootprintsDetailActivity.class);
     }
 
     public void addOthers(View view) {
-        Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.NEW.toString());
-        startActivityForResult(intent, 0);
+        commonAdd(TransectFindingOtherDetailActivity.class);
     }
 
     public void addUrine(View view) {
-        Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.NEW.toString());
-        startActivityForResult(intent, 0);
+        commonOtherAdd("Urine");
     }
 
     public void addScratches(View view) {
-        Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
+        commonOtherAdd("Scratches");
+    }
+
+    public void addHairs(View view) {
+        commonOtherAdd("Hairs");
+    }
+
+    private void commonAdd(Class<? extends AppCompatActivity> activityClass) {
+        Intent intent = new Intent(this, activityClass);
         intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         startActivityForResult(intent, 0);
     }
 
-    public void addHairs(View view) {
+    private void commonOtherAdd(String evidence) {
         Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
         intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
+        intent.putExtra("evidence", evidence);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         startActivityForResult(intent, 0);

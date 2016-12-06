@@ -30,6 +30,9 @@ public class TransectFindingSiteDetailView {
 
     private final Button addFececButton;
     private final Button addFootprintsButton;
+    private final Button addUrineButton;
+    private final Button addHairsButton;
+    private final Button addScratchesButton;
     private final Button addOtherButton;
 
     private TransectFindingSite transectFindingSite;
@@ -53,6 +56,9 @@ public class TransectFindingSiteDetailView {
         addFececButton = (Button) context.findViewById(R.id.transectFindingAddFecesButton);
         addFootprintsButton = (Button) context.findViewById(R.id.transectFindingAddFootprintsButton);
         addOtherButton = (Button) context.findViewById(R.id.transectFindingAddOtherButton);
+        addUrineButton = (Button) context.findViewById(R.id.transectFindingAddUrineButton);
+        addHairsButton = (Button) context.findViewById(R.id.transectFindingAddHairsButton);
+        addScratchesButton = (Button) context.findViewById(R.id.transectFindingAddScratchesButton);
     }
 
     private void bind(TransectFindingSite transectFindingSite) {
@@ -157,6 +163,9 @@ public class TransectFindingSiteDetailView {
         addFececButton.setEnabled(enable);
         addFootprintsButton.setEnabled(enable);
         addOtherButton.setEnabled(enable);
+        addUrineButton.setEnabled(enable);
+        addHairsButton.setEnabled(enable);
+        addScratchesButton.setEnabled(enable);
     }
 
     public TextView getLocation() {

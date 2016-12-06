@@ -47,8 +47,16 @@ public class TransectFindingOtherDetailActivity extends PhotoEnabledCommonActivi
         if (id != null) {
             TransectFindingOther transectFinding = transectFindingOtherDataService.find(id);
             transectFindingOtherView = new TransectFindingOtherView(this, transectFinding);
+            setTitle(transectFinding.getEvidence() + " finding");
         } else {
             transectFindingOtherView = new TransectFindingOtherView(this, transectFindingId);
+            String evidence = getIntent().getExtras().getString("evidence");
+            if (evidence != null) {
+                setTitle("Add " + evidence);
+                transectFindingOtherView.setEvidence(evidence);
+            } else {
+                setTitle("Add Other");
+            }
         }
 
         //initGui(transectFindingView);
