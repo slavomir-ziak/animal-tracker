@@ -18,11 +18,7 @@ import java.util.Date;
  */
 public class Globals {
 
-    public static final String APP_NAME = "AnimalTracker";
-
-    public static final int APP_MINOR_VERSION = 6;
-
-    public static final int APP_MAJOR_VERSION = 0;
+    public static final String APP_NAME = "LCSI-WildlifeTracker";
 
     public static File getAppRootDir() {
 

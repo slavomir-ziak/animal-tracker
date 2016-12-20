@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.orm.util.ManifestHelper;
+import com.wecode.animaltracker.BuildConfig;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Settings;
@@ -44,7 +45,7 @@ public class SettingsActivity extends AppCompatActivity {
         int databaseVersion = ManifestHelper.getDatabaseVersion(this);
 
         TextView versionTextView = (TextView) findViewById(R.id.versionText);
-        versionTextView.setText(String.format("%d.%d.%d", Globals.APP_MAJOR_VERSION, Globals.APP_MINOR_VERSION, databaseVersion));
+        versionTextView.setText(String.format("%s.%d.%d", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, databaseVersion));
 
     }
 
