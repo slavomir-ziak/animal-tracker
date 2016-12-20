@@ -28,10 +28,10 @@
 
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,11 +40,13 @@
             android:label="@string/title_activity_transect_detail"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.MainActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".activity.detail.WeatherDetailActivity"
             android:label="@string/title_activity_weather"
-            android:parentActivityName=".activity.detail.TransectDetailActivity">
+            android:parentActivityName=".activity.detail.TransectDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -52,7 +54,8 @@
         <activity
             android:name=".activity.detail.HabitatDetailActivity"
             android:label="@string/title_activity_habitat_detail"
-            android:parentActivityName=".activity.detail.TransectDetailActivity">
+            android:parentActivityName=".activity.detail.TransectDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -61,7 +64,8 @@
             android:name=".activity.detail.TransectFindingSiteDetailActivity"
             android:label="@string/title_activity_finding_site"
             android:parentActivityName=".activity.detail.TransectDetailActivity"
-            android:windowSoftInputMode="stateHidden" >
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="keyboardHidden|orientation|screenSize" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -69,7 +73,8 @@
         <activity
             android:name=".activity.list.PhotosList"
             android:label="@string/title_activity_photos_list"
-            android:parentActivityName=".activity.detail.TransectDetailActivity">
+            android:parentActivityName=".activity.detail.TransectDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -77,7 +82,8 @@
         <activity
             android:name=".activity.list.TransectFindingsList"
             android:label="@string/title_activity_finding_sites"
-            android:parentActivityName=".activity.detail.TransectDetailActivity">
+            android:parentActivityName=".activity.detail.TransectDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -85,7 +91,8 @@
         <activity
             android:name=".activity.list.TransectsList"
             android:label="@string/title_activity_transects_list"
-            android:parentActivityName=".activity.detail.TransectDetailActivity">
+            android:parentActivityName=".activity.detail.TransectDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
@@ -93,21 +100,26 @@
         <activity
             android:name=".activity.list.TransectFindingSamplesList"
             android:label="@string/samples"
-            android:parentActivityName=".activity.detail.TransectDetailActivity">
+            android:parentActivityName=".activity.detail.TransectDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
 
-        <activity android:name=".activity.TransectFindingAddSampleActivity" />
+        <activity android:name=".activity.TransectFindingAddSampleActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <activity android:name=".activity.location.EditLocationDMSFormatActivity"/>
+        <activity android:name=".activity.location.EditLocationDMSFormatActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
-        <activity android:name=".activity.location.EditLocationDecimalFormatActivity"/>
+        <activity android:name=".activity.location.EditLocationDecimalFormatActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <activity android:name=".activity.detail.findings.TransectFindingFecesDetailActivity"
             android:label="@string/feces_finding_detail"
-            android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity">
+            android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectFindingSiteDetailActivity" />
@@ -115,7 +127,8 @@
 
         <activity android:name=".activity.detail.findings.TransectFindingFootprintsDetailActivity"
             android:label="@string/footprints_finding_detail"
-            android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity">
+            android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectFindingSiteDetailActivity" />
@@ -123,7 +136,8 @@
 
         <activity android:name=".activity.detail.findings.TransectFindingOtherDetailActivity"
             android:label="@string/other_finding_detail"
-            android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity">
+            android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.detail.TransectFindingSiteDetailActivity" />
@@ -131,7 +145,8 @@
 
         <activity android:name=".activity.SettingsActivity"
             android:label="@string/action_settings"
-            android:parentActivityName=".activity.MainActivity">
+            android:parentActivityName=".activity.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity" />

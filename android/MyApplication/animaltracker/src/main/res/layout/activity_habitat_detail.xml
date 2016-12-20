@@ -39,7 +39,7 @@
                     android:id="@+id/habitatTypeSpinnerLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Type"
+                    android:text="@string/type"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -62,7 +62,7 @@
                     android:id="@+id/habitatTrackSpinnerLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Track"
+                    android:text="@string/track"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -85,7 +85,7 @@
                     android:id="@+id/forestAgeLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Forest age"
+                    android:text="@string/forest_age"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -108,7 +108,7 @@
                     android:id="@+id/habitatTreeTypeLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Tree type"
+                    android:text="@string/tree_type"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -131,7 +131,7 @@
                     android:id="@+id/habitatForestTypeLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Forest Type"
+                    android:text="@string/forest_type"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner

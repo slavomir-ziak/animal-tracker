@@ -25,10 +25,6 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:orientation="vertical">
 
 
@@ -43,7 +39,7 @@
                     android:id="@+id/textView27"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Evidence"
+                    android:text="@string/evidence"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <Spinner
@@ -66,7 +62,7 @@
                     android:id="@+id/textView28"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Observations"
+                    android:text="@string/observations"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -88,7 +84,7 @@
                     android:id="@+id/substractLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Substract"
+                    android:text="@string/substract"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="center_vertical" />
 
@@ -111,7 +107,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Confidence"
+                    android:text="@string/confidence"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -132,7 +128,7 @@
                     android:id="@+id/footprintsAgeLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Age"
+                    android:text="@string/age"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="center_vertical" />
 

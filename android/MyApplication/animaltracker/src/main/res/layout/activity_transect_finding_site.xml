@@ -47,7 +47,7 @@
                         android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Species"
+                        android:text="@string/specie"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <Spinner
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="5dp"
-                            android:text="Location"
+                            android:text="@string/location"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <Button
@@ -98,35 +98,7 @@
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 </LinearLayout>
-<!--
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/animal_tracker_row_height"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <RadioGroup
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/findingBeforeRecentSnow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:text="Before first snow" />
-
-                        <RadioButton
-                            android:id="@+id/findingAfterRecentSnow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:text="After first snow" />
-                    </RadioGroup>
-                </LinearLayout>
--->
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -136,7 +108,7 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:text="Add Footprints"
+                        android:text="@string/add_footprints"
                         android:id="@+id/transectFindingAddFootprintsButton"
                         android:layout_weight=".30"
                         android:onClick="addFootprints" />
@@ -145,7 +117,7 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:text="Add Feces"
+                        android:text="@string/add_feces"
                         android:id="@+id/transectFindingAddFecesButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
@@ -155,7 +127,7 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:text="Add urine"
+                        android:text="@string/add_urine"
                         android:id="@+id/transectFindingAddUrineButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
@@ -171,7 +143,7 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:text="Add Other"
+                        android:text="@string/add_other"
                         android:id="@+id/transectFindingAddOtherButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
@@ -181,7 +153,7 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:text="Add Hairs"
+                        android:text="@string/add_hairs"
                         android:id="@+id/transectFindingAddHairsButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"
@@ -191,7 +163,7 @@
                         style="?android:attr/buttonStyleSmall"
                         android:layout_width="0dp"
                         android:layout_height="70dp"
-                        android:text="Add Scratches"
+                        android:text="@string/add_scratches"
                         android:id="@+id/transectFindingAddScratchesButton"
                         android:layout_gravity="center_horizontal"
                         android:layout_weight=".30"

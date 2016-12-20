@@ -25,10 +25,6 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:orientation="vertical">
 
 
@@ -42,7 +38,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Number of animals"
+                    android:text="@string/number_of_animals"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
@@ -66,7 +62,7 @@
                     android:id="@+id/footprintsDirectionLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Direction"
+                    android:text="@string/direction"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -86,7 +82,7 @@
                     android:id="@+id/footprintsStrideLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Stride"
+                    android:text="@string/stride"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
@@ -110,7 +106,7 @@
                     android:layout_column="0"
                     android:layout_row="0"
                     android:gravity="center_vertical"
-                    android:text="Size"
+                    android:text="@string/size"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
@@ -121,7 +117,7 @@
                     android:layout_gravity="bottom"
                     android:layout_row="0"
                     android:gravity="bottom|center_horizontal"
-                    android:text="Front"
+                    android:text="@string/front"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -132,7 +128,7 @@
                     android:layout_gravity="bottom"
                     android:layout_row="0"
                     android:gravity="bottom|center_horizontal"
-                    android:text="Back"
+                    android:text="@string/back"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <TextView
@@ -143,7 +139,7 @@
                     android:layout_row="1"
                     android:elegantTextHeight="false"
                     android:gravity="center_vertical|right"
-                    android:text="Length"
+                    android:text="@string/length"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <EditText
@@ -175,7 +171,7 @@
                     android:layout_column="0"
                     android:layout_row="3"
                     android:gravity="center_vertical|right"
-                    android:text="Width"
+                    android:text="@string/width"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
                 <EditText
@@ -210,7 +206,7 @@
                     android:id="@+id/substractLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Substract"
+                    android:text="@string/substract"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="center_vertical" />
 
@@ -233,7 +229,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Confidence"
+                    android:text="@string/confidence"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -254,7 +250,7 @@
                     android:id="@+id/footprintsAgeLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Age"
+                    android:text="@string/age"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner

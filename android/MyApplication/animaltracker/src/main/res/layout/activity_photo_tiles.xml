@@ -14,7 +14,7 @@
         android:layout_height="@dimen/animal_tracker_main_button_height"
         android:layout_gravity="center_horizontal"
         android:onClick="addPhoto"
-        android:text="Add photo" />
+        android:text="@string/add_photo" />
 
     <GridView
         android:id="@+id/activity_photo_tiles_gridview"

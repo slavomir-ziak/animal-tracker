@@ -40,7 +40,7 @@
                     android:id="@+id/findingFecesPreyLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Feces prey"
+                    android:text="@string/feces_prey"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -63,7 +63,7 @@
                     android:id="@+id/findingFecesStateLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Feces state"
+                    android:text="@string/feces_state"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -82,7 +82,7 @@
                     android:id="@+id/substractLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Substract"
+                    android:text="@string/substract"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="center_vertical" />
 
@@ -105,7 +105,7 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Confidence"
+                    android:text="@string/confidence"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Spinner
@@ -126,7 +126,7 @@
                     android:id="@+id/footprintsAgeLabel"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Age"
+                    android:text="@string/age"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:layout_gravity="center_vertical" />
 

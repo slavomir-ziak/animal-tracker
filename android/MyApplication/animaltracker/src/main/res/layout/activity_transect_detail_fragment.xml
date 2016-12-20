@@ -37,7 +37,7 @@
 
                     <TextView android:layout_width="120dp" android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="#square"
+                        android:text="@string/square_num"
                         android:id="@+id/transectColumnLabel"
                         android:layout_gravity="center_vertical" />
 
@@ -91,7 +91,7 @@
 
                 <TextView android:layout_width="120dp" android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Localisation"
+                    android:text="@string/localisation"
                     android:id="@+id/transectLocalisationNameLabel"
                     android:layout_gravity="center_vertical" />
 
@@ -112,7 +112,7 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Route name"
+                    android:text="@string/route_name"
                     android:id="@+id/transectRouteNameLabale"
                     android:layout_gravity="center_vertical"
                     android:layout_width="120dp" />
@@ -136,7 +136,7 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Start date and time"
+                    android:text="@string/start_date_and_time"
                     android:id="@+id/startDateTimeLabel"
                     android:layout_gravity="center_vertical"
                     android:layout_width="120dp" />
@@ -159,7 +159,7 @@
 
                 <TextView android:layout_width="120dp" android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="End date and time"
+                    android:text="@string/end_date_and_time"
                     android:id="@+id/endDateTimeLabel"
                     android:layout_gravity="center_vertical" />
 
@@ -189,7 +189,7 @@
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Start location"
+                        android:text="@string/start_location"
                         android:id="@+id/startLocationLabel"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1" />
@@ -224,7 +224,7 @@
 
                     <TextView android:layout_width="100dp" android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="End location"
+                        android:text="@string/end_location"
                         android:id="@+id/endLocationLabel"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1" />
@@ -263,14 +263,14 @@
         android:layout_alignParentStart="true">
 
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Start transect"
+            android:text="@string/start_transect"
             android:id="@+id/startTransectButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_gravity="center_vertical"
             android:layout_weight="1" />
 
         <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="End transect"
+            android:text="@string/end_transect"
             android:id="@+id/endTransectButton"
             style="?android:attr/buttonStyleSmall"
             android:layout_gravity="center_vertical"

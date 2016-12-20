@@ -21,7 +21,7 @@
                 style="@style/list_item_detail_text"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.59"
-                android:text="Specie"
+                android:text="@string/specie"
                 android:layout_width="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:fontFamily="sans-serif" />
