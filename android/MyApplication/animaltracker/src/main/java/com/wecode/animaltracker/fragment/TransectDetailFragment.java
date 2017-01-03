@@ -125,7 +125,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
     public void startTransect() {
 
         if (getCurrentLocation() == null) {
-            Toast.makeText(getActivity(), "Location not acquired.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.location_not_acquired, Toast.LENGTH_SHORT).show();
         } else {
             Log.i(Globals.APP_NAME, "Location: " + getCurrentLocation().getLatitude() + ", " + getCurrentLocation().getLongitude());
             transectDetailView.getStartLocation().setText(LocationUtil.formatLocation(getCurrentLocation()));
@@ -142,7 +142,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
     public void endTransect() {
 
         if (getCurrentLocation() == null) {
-            Toast.makeText(getActivity(), "Location not acquired.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.location_not_acquired, Toast.LENGTH_SHORT).show();
         } else {
             transectDetailView.getEndLocation().setText(LocationUtil.formatLocation(getCurrentLocation()));
         }
@@ -158,12 +158,12 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(getActivity(), "Operation canceled.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.operation_canceled, Toast.LENGTH_LONG).show();
             return;
         }
 
         if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(getActivity(), "Problem with creating: " + getNameForRequestCode(requestCode), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.problem_with_creating, getNameForRequestCode(requestCode)), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -190,7 +190,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         }
 
         if (!transectDetailView.isValid()) {
-            Toast.makeText(getActivity(), "Transect not valid.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.transect_not_valid, Toast.LENGTH_SHORT).show();
             return null;
         }
         Transect transect = transectDataService.save(transectDetailView.toTransect());

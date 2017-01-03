@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.widget.Toast;
 
+import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.service.SettingsDataService;
 
 import java.math.BigDecimal;
@@ -37,7 +38,7 @@ public class LocationUtil {
         if (gps != null) {
             locationManager.requestLocationUpdates("gps", MIN_TIME_CHANGE, MIN_DISTANCE_CHANGED, (LocationListener) context);
         } else {
-            Toast.makeText(context, "Gps provider not available.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.gps_provider_not_available, Toast.LENGTH_SHORT).show();
         }
     }
 

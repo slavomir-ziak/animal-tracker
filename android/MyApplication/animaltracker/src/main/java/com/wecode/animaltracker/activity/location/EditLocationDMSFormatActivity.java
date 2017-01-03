@@ -66,7 +66,7 @@ public class EditLocationDMSFormatActivity extends CommonDetailActivity implemen
 
         if (id == R.id.action_location_acquire) {
             if (currentLocation == null) {
-                Toast.makeText(EditLocationDMSFormatActivity.this, "Location not acquired.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditLocationDMSFormatActivity.this, R.string.location_not_acquired, Toast.LENGTH_SHORT).show();
                 return true;
             }
             editLocatioView.initFromLocation(currentLocation);

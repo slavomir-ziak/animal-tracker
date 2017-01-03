@@ -227,12 +227,12 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         }
 
         if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_LONG).show();
             return;
         }
 
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, "Problem with creating: " + getNameForRequestCode(requestCode), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.problem_with_creating) + getNameForRequestCode(requestCode), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -241,7 +241,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             case ADD_FINDING_REQUEST:
                 id = data.getExtras().getLong("id");
                 Assert.assertNotNull("Finding", id);
-                Toast.makeText(this, "Finding created, ID = " + id, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.transect_finding_saved), Toast.LENGTH_LONG).show();
                 break;
         }
 
@@ -311,7 +311,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             initTabLayout();
         }
 
-        Toast.makeText(this, "Transect saved.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.transect_saved), Toast.LENGTH_LONG).show();
 
     }
 

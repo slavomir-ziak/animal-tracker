@@ -76,7 +76,7 @@ public class TransectFindingsList extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         refreshTransectFindings();
         if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_LONG).show();
             return;
         }
 

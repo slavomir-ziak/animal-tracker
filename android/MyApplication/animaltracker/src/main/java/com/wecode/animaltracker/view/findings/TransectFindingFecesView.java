@@ -77,4 +77,8 @@ public class TransectFindingFecesView {
 
         return transectFindingFeces;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

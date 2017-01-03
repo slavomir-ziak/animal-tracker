@@ -171,5 +171,13 @@
     <string name="transect_fragment_name">Transect</string>
     <string name="finding_sites_fragment_name">Finding sites</string>
     <string name="weather_fragment_name">Weather</string>
+    <string name="location_not_acquired">Location not acquired</string>
+    <string name="operation_canceled">Operation canceled</string>
+    <string name="gps_provider_not_available">Gps provider not available</string>
+    <string name="problem_with_creating">Problem with creating: %1$s</string>
+    <string name="transect_saved">Transect saved</string>
+    <string name="transect_finding_saved">Finding saved</string>
+    <string name="transect_not_valid">Transect not valid</string>
+
 
 </resources>

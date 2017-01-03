@@ -66,7 +66,7 @@ public class EditLocationDecimalFormatActivity extends CommonDetailActivity impl
 
         if (id == R.id.action_location_acquire) {
             if (currentLocation == null) {
-                Toast.makeText(EditLocationDecimalFormatActivity.this, "Location not acquired.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditLocationDecimalFormatActivity.this, R.string.location_not_acquired, Toast.LENGTH_SHORT).show();
                 return true;
             }
             editLocatioView.initFromLocation(currentLocation);

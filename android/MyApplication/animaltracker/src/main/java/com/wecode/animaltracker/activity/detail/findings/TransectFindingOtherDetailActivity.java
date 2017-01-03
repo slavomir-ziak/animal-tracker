@@ -88,8 +88,9 @@ public class TransectFindingOtherDetailActivity extends PhotoEnabledCommonActivi
 
     private void saveTransectFinding() {
         TransectFindingOther transectFindingOther = transectFindingOtherDataService.save(transectFindingOtherView.toOtherFinding());
+        transectFindingOtherView.setId(transectFindingOther.getId());
         this.id = transectFindingOther.getId();
-        Toast.makeText(this, "Other saved.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Other saved", Toast.LENGTH_SHORT).show();
     }
 
     @Override

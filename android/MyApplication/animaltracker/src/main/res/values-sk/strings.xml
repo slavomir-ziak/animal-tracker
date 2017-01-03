@@ -163,4 +163,12 @@
     <string name="transect_fragment_name">Cesta</string>
     <string name="finding_sites_fragment_name">Náleziská</string>
     <string name="weather_fragment_name">Počasie</string>
+    <string name="location_not_acquired">Poloha nebola získaná</string>
+    <string name="operation_canceled">Operácia zrušná</string>
+    <string name="gps_provider_not_available">Gps provider nie je k dispozícií</string>
+    <string name="problem_with_creating">Problém pri vytváraní: %1$s</string>
+    <string name="transect_saved">Cesta uložená</string>
+    <string name="transect_finding_saved">Nález uložený</string>
+    <string name="transect_not_valid">Cesta obsahuje chyby</string>
+
 </resources>

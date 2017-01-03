@@ -102,4 +102,11 @@ public class TransectFindingFootprintsView {
         return transectFindingFootprints;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -77,4 +77,8 @@ public class TransectFindingOtherView {
     public void setEvidence(String evidence) {
         otherEvidence.select(evidence);
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
