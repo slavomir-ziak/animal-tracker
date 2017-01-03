@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LCSI - Wildlife Tracker</string>
+    <string name="app_name" translatable="false">LCSI - Wildlife Tracker</string>
 
     <string name="action_search">Search</string>
     <string name="drawer_open">Open</string>
@@ -24,10 +24,10 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_item_detail">ItemDetailActivity</string>
     <string name="title_activity_item_list">ItemListActivity</string>
-    <string name="title_activity_transect_detail">TransectDetail</string>
+    <string name="title_activity_transect_detail">Transect</string>
     <string name="title_activity_weather">Weather</string>
-    <string name="title_activity_habitat_detail">HabitatDetail</string>
-    <string name="title_activity_finding_detail">FindingDetail</string>
+    <string name="title_activity_habitat_detail">Habitat</string>
+    <string name="title_activity_finding_detail">Finding</string>
 
     <string-array name="findingConfidenceTypes">
         <item></item>
@@ -70,9 +70,9 @@
         <item>W</item>
     </string-array>
 
-    <string name="title_activity_photos_list">PhotosList</string>
-    <string name="title_activity_finding_sites">FindingSites</string>
-    <string name="title_activity_transects_list">TransectsList</string>
+    <string name="title_activity_photos_list">Photos</string>
+    <string name="title_activity_finding_sites">Finding sites</string>
+    <string name="title_activity_transects_list">Transects</string>
     <string name="action_habitat">Habitat</string>
     <string name="transect_action_weather">Weather</string>
     <string name="transect_action_findings">Findings</string>
@@ -83,11 +83,11 @@
     <string name="samples">Samples</string>
     <string name="action_save">Save</string>
     <string name="transect_finding_action_add_sample">Add sample</string>
-    <string name="action_location_acquire">LOcation</string>
+    <string name="action_location_acquire">Location</string>
     <string name="feces_finding_detail">Feces finding</string>
     <string name="footprints_finding_detail">Footprint finding</string>
     <string name="other_finding_detail">Other finding</string>
-    <string name="title_activity_finding_site">FindingSite</string>
+    <string name="title_activity_finding_site">Finding site</string>
     <string name="latitude">Latitude</string>
     <string name="longitude">Longitude</string>
     <string name="elevation">Elevation</string>
@@ -105,7 +105,6 @@
     <string name="degrees_minutes_seconds">Degrees Minutes Seconds</string>
     <string name="version">Version</string>
     <string name="sample">Sample</string>
-    <string name="routename">RouteName</string>
     <string name="text">text</string>
     <string name="id">id</string>
     <string name="feces">Feces</string>
@@ -164,5 +163,13 @@
     <string name="last_time_snowed_rained">Last time snowed/rained</string>
     <string name="hours_ago">hours ago</string>
     <string name="save">save</string>
+    <string name="language">Language</string>
+    <string name="languageEnglish">English</string>
+    <string name="languageSlovak">Slovenský</string>
+    <string name="photos_fragment_name">Photos</string>
+    <string name="habitat_fragment_name">Habitat</string>
+    <string name="transect_fragment_name">Transect</string>
+    <string name="finding_sites_fragment_name">Finding sites</string>
+    <string name="weather_fragment_name">Weather</string>
 
 </resources>

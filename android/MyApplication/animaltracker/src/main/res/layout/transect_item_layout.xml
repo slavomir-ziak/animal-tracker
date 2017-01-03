@@ -13,7 +13,7 @@
         android:layout_below="@+id/transectId"
         android:layout_toLeftOf="@+id/transectListItemEndDateTime"
         android:layout_toStartOf="@+id/transectListItemEndDateTime"
-        android:text="@string/routename" />
+        android:text="@string/route_name" />
 
     <TextView
         android:id="@+id/transectListItemStartDateTime"

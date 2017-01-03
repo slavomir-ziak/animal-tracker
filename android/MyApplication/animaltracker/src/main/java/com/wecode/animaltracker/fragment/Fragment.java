@@ -6,8 +6,8 @@ import com.wecode.animaltracker.model.Persistable;
  * Created by SZIAK on 10/1/2016.
  */
 
-public interface IFragment {
+public interface Fragment {
 
-    String getName();
+    int getNameResourceId();
 
 }

@@ -1,20 +1,18 @@
 package com.wecode.animaltracker.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.Action;
-import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.view.WeatherDetailView;
 
-public class WeatherFragment extends Fragment implements IFragment {
+public class WeatherFragment extends android.support.v4.app.Fragment implements Fragment {
 
     private WeatherDetailView weatherDetailView;
 
@@ -55,8 +53,8 @@ public class WeatherFragment extends Fragment implements IFragment {
         return weatherService.save(weather);
     }
 
-    public String getName() {
-        return "Weather";
+    public int getNameResourceId() {
+        return R.string.weather_fragment_name;
     }
 
 

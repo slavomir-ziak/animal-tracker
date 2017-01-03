@@ -1,13 +1,13 @@
 package com.wecode.animaltracker.activity.detail;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -25,7 +25,7 @@ import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.export.TransectReport;
-import com.wecode.animaltracker.fragment.IFragment;
+import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.fragment.PhotosFragment;
 import com.wecode.animaltracker.fragment.TransectDetailFragment;
 import com.wecode.animaltracker.fragment.TransectFindingSiteListFragment;
@@ -60,6 +60,8 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
     private PhotosFragment photosFragment;
 
+    private ViewPagerAdapter adapter;
+
     {
         entityName = Photo.EntityName.TRANSECT;
     }
@@ -85,17 +87,18 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
     }
 
     private void initTabLayout() {
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+        ViewPager viewPager = setupViewPager(R.id.viewpager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
-    ViewPagerAdapter adapter;
-    private void setupViewPager(ViewPager viewPager) {
+
+    private ViewPager setupViewPager(int viewPagerId) {
+
+        ViewPager viewPager = (ViewPager) findViewById(viewPagerId);
 
         if (adapter == null) {
-            adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            adapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
             setupTransectFragment(adapter);
         }
 
@@ -106,6 +109,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         }
 
         viewPager.setAdapter(adapter);
+        return viewPager;
     }
 
     private void setupPhotosFragment(ViewPagerAdapter adapter) {
@@ -161,15 +165,18 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        private final List<IFragment> mFragmentList = new ArrayList<>();
+        private final List<Fragment> mFragmentList = new ArrayList<>();
 
-        ViewPagerAdapter(FragmentManager manager) {
+        private final Activity activity;
+
+        ViewPagerAdapter(FragmentManager manager, Activity activity) {
             super(manager);
+            this.activity = activity;
         }
 
         @Override
-        public Fragment getItem(int position) {
-            return (Fragment) mFragmentList.get(position);
+        public android.support.v4.app.Fragment getItem(int position) {
+            return (android.support.v4.app.Fragment) mFragmentList.get(position);
         }
 
         @Override
@@ -177,13 +184,13 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             return mFragmentList.size();
         }
 
-        void addFragment(IFragment fragment) {
+        void addFragment(Fragment fragment) {
             mFragmentList.add(fragment);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mFragmentList.get(position).getName();
+            return activity.getResources().getString(mFragmentList.get(position).getNameResourceId());
         }
     }
 

@@ -3,7 +3,6 @@ package com.wecode.animaltracker.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ import java.util.List;
  * Created by SZIAK on 10/2/2016.
  */
 
-public class TransectFindingSiteListFragment extends Fragment implements IFragment {
+public class TransectFindingSiteListFragment extends android.support.v4.app.Fragment implements Fragment {
 
     private static final int DISPLAY_TRANSECT_FINDING_DETAIL = 0;
 
@@ -108,9 +107,10 @@ public class TransectFindingSiteListFragment extends Fragment implements IFragme
 
 
     @Override
-    public String getName() {
-        return "Finding sites";
+    public int getNameResourceId() {
+        return R.string.finding_sites_fragment_name;
     }
+
 
     public void refreshFindings() {
         refreshTransectFindings(view);

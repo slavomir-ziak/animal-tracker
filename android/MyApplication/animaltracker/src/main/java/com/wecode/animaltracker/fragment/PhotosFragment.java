@@ -1,42 +1,26 @@
 package com.wecode.animaltracker.fragment;
 
 import android.Manifest;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.adapter.ImageAdapter;
-import com.wecode.animaltracker.model.Habitat;
-import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
-import com.wecode.animaltracker.service.HabitatDataService;
-import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.Permissions;
-import com.wecode.animaltracker.view.HabitatDetailView;
-
-import java.io.File;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by SZIAK on 10/2/2016.
  */
 
-public class PhotosFragment extends Fragment implements IFragment {
+public class PhotosFragment extends android.support.v4.app.Fragment implements Fragment {
 
     private static final int CODE_START = 20;
 
@@ -93,7 +77,8 @@ public class PhotosFragment extends Fragment implements IFragment {
     }
 
     @Override
-    public String getName() {
-        return "Photos";
+    public int getNameResourceId() {
+        return R.string.photos_fragment_name;
     }
+
 }

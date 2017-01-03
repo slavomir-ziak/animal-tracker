@@ -1,12 +1,9 @@
 package com.wecode.animaltracker.fragment;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +18,11 @@ import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
-import com.wecode.animaltracker.export.TransectReport;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
-import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.view.TransectDetailView;
 
 import java.text.DateFormat;
@@ -37,7 +32,7 @@ import java.util.Date;
  * Created by SZIAK on 10/1/2016.
  */
 
-public class TransectDetailFragment extends Fragment implements IFragment {
+public class TransectDetailFragment extends android.support.v4.app.Fragment implements Fragment {
 
     private static final int EDIT_START_LOCATION_REQUEST = 4;
     private static final int EDIT_END_LOCATION_REQUEST = 5;
@@ -249,9 +244,10 @@ public class TransectDetailFragment extends Fragment implements IFragment {
     }
 
     @Override
-    public String getName() {
-        return "Transect";
+    public int getNameResourceId() {
+        return R.string.transect_fragment_name;
     }
+
 
     private Location getCurrentLocation() {
         return ((LocationProvidingActivity) getActivity()).getCurrentLocation();
