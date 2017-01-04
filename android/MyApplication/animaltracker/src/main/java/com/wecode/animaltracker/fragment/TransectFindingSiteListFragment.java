@@ -93,15 +93,15 @@ public class TransectFindingSiteListFragment extends android.support.v4.app.Frag
         }
 
         if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(getActivity(), "Problem with displying tranect finding detail.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.detail_display_problem, Toast.LENGTH_LONG).show();
             return;
         }
 
-        switch(requestCode) {
+        /*switch(requestCode) {
             case DISPLAY_TRANSECT_FINDING_DETAIL:
                 Long id = data.getExtras().getLong("id");
                 Toast.makeText(getActivity(), "Transect finding saved, ID = " + id, Toast.LENGTH_LONG).show();
-        }
+        }*/
 
     }
 

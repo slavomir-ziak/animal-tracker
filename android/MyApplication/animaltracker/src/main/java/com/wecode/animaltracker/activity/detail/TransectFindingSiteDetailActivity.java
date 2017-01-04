@@ -287,7 +287,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         }
 
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, "Problem with creating: " + getNameForRequestCode(requestCode), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.problem_with_creating, getNameForRequestCode(requestCode)), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -295,11 +295,11 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
             case SET_HABITAT_REQUEST:
                 Long id = data.getExtras().getLong("id");
                 Assert.assertNotNull("HabitatId", id);
-                String text = transectFindingSiteDetailView.getHabitatId() == null ? "created" : "modified";
-                Toast.makeText(this, "Habitat " + text + ", ID = " + id, Toast.LENGTH_LONG).show();
+
+                int code = transectFindingSiteDetailView.getHabitatId() == null ? R.string.habitat_created : R.string.habitat_modified;
+                Toast.makeText(this, getString(code) + ", ID = " + id, Toast.LENGTH_LONG).show();
 
                 transectFindingSiteDetailView.setHabitatId(id);
-
                 break;
 
             case ADD_SAMPLE_REQUEST:
@@ -324,10 +324,13 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
     private void saveTransectFinding() {
         TransectFindingSite transectFindingSite = transectFindingSiteDataService.save(transectFindingSiteDetailView.toTransectFinding());
+        id = transectFindingSite.getId();
+
+        int code = transectFindingSiteDetailView.getId() == null ? R.string.transect_finding_site_created : R.string.transect_finding_site_modified;
+        Toast.makeText(this, getString(code) + ", ID = " + id, Toast.LENGTH_LONG).show();
+
         transectFindingSiteDetailView.setId(transectFindingSite.getId());
         transectFindingSiteDetailView.initGuiForEdit();
-        this.id = transectFindingSite.getId();
-        Toast.makeText(TransectFindingSiteDetailActivity.this, "Finding saved.", Toast.LENGTH_SHORT).show();
     }
 
 

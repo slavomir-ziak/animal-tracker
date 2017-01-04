@@ -2,6 +2,7 @@ package com.wecode.animaltracker.view;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -294,8 +295,8 @@ public class TransectDetailView {
         this.id.setText(idValue.toString());
     }
 
-    public boolean isValid() {
-        return ValidationHelper.isNotEmpty(routeName, column);
+    public boolean isValid(Context context) {
+        return ValidationHelper.isNotEmpty(context, routeName, column);
     }
 
 }

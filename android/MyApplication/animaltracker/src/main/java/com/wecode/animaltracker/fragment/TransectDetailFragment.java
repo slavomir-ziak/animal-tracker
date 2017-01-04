@@ -189,7 +189,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
             return null;
         }
 
-        if (!transectDetailView.isValid()) {
+        if (!transectDetailView.isValid(getActivity())) {
             Toast.makeText(getActivity(), R.string.transect_not_valid, Toast.LENGTH_SHORT).show();
             return null;
         }

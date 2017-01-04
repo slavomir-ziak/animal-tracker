@@ -91,10 +91,7 @@ public class TransectsList extends AppCompatActivity {
         }
 
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, "Problem with displying tranect finding detail.", Toast.LENGTH_LONG).show();
-            return;
+            Toast.makeText(this, R.string.detail_display_problem, Toast.LENGTH_LONG).show();
         }
-
-
     }
 }

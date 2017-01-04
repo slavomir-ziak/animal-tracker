@@ -2,6 +2,7 @@ package com.wecode.animaltracker.view.location;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.widget.TextView;
 
@@ -41,17 +42,17 @@ public class EditLocationDecimalView {
         }
     }
 
-    public boolean validate() {
+    public boolean validate(Context context) {
 
         try {
 
-            ValidationHelper.assertNotEmpty(latitude, longitude);
+            ValidationHelper.assertNotEmpty(context, latitude, longitude);
 
-            ValidationHelper.assertMaxValue(latitude, 90);
-            ValidationHelper.assertMaxValue(longitude, 180);
+            ValidationHelper.assertMaxValue(context, latitude, 90);
+            ValidationHelper.assertMaxValue(context, longitude, 180);
 
-            ValidationHelper.assertMinValue(latitude, -90);
-            ValidationHelper.assertMinValue(longitude, -180);
+            ValidationHelper.assertMinValue(context, latitude, -90);
+            ValidationHelper.assertMinValue(context, longitude, -180);
 
         } catch(Exception ex) {
             return false;

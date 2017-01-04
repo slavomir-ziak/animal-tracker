@@ -55,7 +55,7 @@ public class EditLocationDMSFormatActivity extends CommonDetailActivity implemen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
-            if (editLocatioView.validate()) {
+            if (editLocatioView.validate(this)) {
                 Intent intent = new Intent();
                 intent.putExtra("location", editLocatioView.getLocation());
                 setResult(RESULT_OK, intent);

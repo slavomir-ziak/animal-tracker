@@ -178,6 +178,18 @@
     <string name="transect_saved">Transect saved</string>
     <string name="transect_finding_saved">Finding saved</string>
     <string name="transect_not_valid">Transect not valid</string>
+    <string name="feces_saved">Feces saved</string>
+    <string name="footprints_saved">Footprints saved</string>
+    <string name="other_saved">Other saved</string>
+    <string name="habitat_created">Habitat created</string>
+    <string name="habitat_modified">Habitat modified</string>
+    <string name="transect_finding_site_created">Transect finding site created</string>
+    <string name="transect_finding_site_modified">Transect finding site modified</string>
+    <string name="detail_display_problem">Problem with displying tranect finding detail.</string>
+    <string name="excel_export_path">Exported to: %1$s</string>
+    <string name="validation_must_not_be_empty">Must not be empty.</string>
+    <string name="validation_max_value">Max value is %1$d.</string>
+    <string name="validation_min_value">Min value is %1$d.</string>
 
 
 </resources>

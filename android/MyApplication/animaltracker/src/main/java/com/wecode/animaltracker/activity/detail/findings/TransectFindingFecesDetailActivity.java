@@ -87,7 +87,7 @@ public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivi
         TransectFindingFeces transectFindingFeces = transectFindingFecesDataService.save(transectFindingFecesView.toFecesFinding());
         transectFindingFecesView.setId(transectFindingFeces.getId());
         this.id = transectFindingFeces.getId();
-        Toast.makeText(this, "Feces saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.feces_saved, Toast.LENGTH_SHORT).show();
     }
 
     @Override

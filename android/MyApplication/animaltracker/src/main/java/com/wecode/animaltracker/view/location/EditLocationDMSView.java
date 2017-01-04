@@ -1,6 +1,7 @@
 package com.wecode.animaltracker.view.location;
 
 import android.app.Activity;
+import android.content.Context;
 import android.location.Location;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -76,22 +77,22 @@ public class EditLocationDMSView {
     }
 
 
-    public boolean validate() {
+    public boolean validate(Context context) {
 
         try {
 
-            ValidationHelper.assertNotEmpty(
+            ValidationHelper.assertNotEmpty(context,
                     degreesLatitude, minutesLatitude, secondsLatitude,
                     degreesLongitude, minutesLongitude, secondsLongitude
             );
 
-            ValidationHelper.assertMaxValue(degreesLatitude, 90);
-            ValidationHelper.assertMaxValue(minutesLatitude, 59);
-            ValidationHelper.assertMaxValue(secondsLatitude, 99.99);
+            ValidationHelper.assertMaxValue(context, degreesLatitude, 90);
+            ValidationHelper.assertMaxValue(context, minutesLatitude, 59);
+            ValidationHelper.assertMaxValue(context, secondsLatitude, 99.99);
 
-            ValidationHelper.assertMaxValue(degreesLongitude, 180);
-            ValidationHelper.assertMaxValue(minutesLongitude, 59);
-            ValidationHelper.assertMaxValue(secondsLongitude, 99.99);
+            ValidationHelper.assertMaxValue(context, degreesLongitude, 180);
+            ValidationHelper.assertMaxValue(context, minutesLongitude, 59);
+            ValidationHelper.assertMaxValue(context, secondsLongitude, 99.99);
 
         } catch(Exception ex) {
             return false;

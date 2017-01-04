@@ -23,43 +23,43 @@
 
     <string-array name="findingConfidenceTypes">
         <item></item>
-        <item>Low</item>
-        <item>Medium</item>
-        <item>High</item>
+        <item>Nízka</item>
+        <item>Stredná</item>
+        <item>Vysoká</item>
     </string-array>
 
     <string-array name="beforeAfter">
         <item></item>
-        <item>Before</item>
-        <item>After</item>
+        <item>Pred</item>
+        <item>Po</item>
     </string-array>
 
     <string-array name="findingBeforeAfterRecentSnowValues">
         <item></item>
-        <item>Before</item>
-        <item>After</item>
+        <item>Pred</item>
+        <item>Po</item>
     </string-array>
 
     <string-array name="generalDirection">
         <item></item>
-        <item>N</item>
         <item>S</item>
-        <item>E</item>
-        <item>W</item>
-        <item>NE</item>
-        <item>NW</item>
-        <item>SE</item>
-        <item>SW</item>
+        <item>J</item>
+        <item>V</item>
+        <item>Z</item>
+        <item>SV</item>
+        <item>SZ</item>
+        <item>JV</item>
+        <item>JZ</item>
     </string-array>
 
     <string-array name="latitudeDirection">
-        <item>N</item>
         <item>S</item>
+        <item>J</item>
     </string-array>
 
     <string-array name="longitudeDirection">
-        <item>E</item>
-        <item>W</item>
+        <item>V</item>
+        <item>Z</item>
     </string-array>
 
     <string name="title_activity_photos_list">Fotografie</string>
@@ -76,7 +76,7 @@
     <string name="action_save">Uložiť</string>
     <string name="transect_finding_action_add_sample">Pridať vzorku</string>
     <string name="action_location_acquire">Poloha</string>
-    <string name="feces_finding_detail">Nález výkalov</string>
+    <string name="feces_finding_detail">Nález trusu</string>
     <string name="footprints_finding_detail">Nález stôp</string>
     <string name="other_finding_detail">Ostatné nálezy</string>
     <string name="title_activity_finding_site">Nálezisko</string>
@@ -99,7 +99,7 @@
     <string name="sample">Vzorka</string>
     <string name="text">text</string>
     <string name="id">id</string>
-    <string name="feces">Výkaly</string>
+    <string name="feces">Trus</string>
     <string name="other">Ostatné</string>
     <string name="footprints">Stopy</string>
     <string name="specie">Druh</string>
@@ -128,13 +128,13 @@
     <string name="start_transect">Začať cestu</string>
     <string name="end_transect">Ukončiť cestu</string>
     <string name="add_sample">Pridať vzorku</string>
-    <string name="feces_prey">Zloženie výkalov</string>
-    <string name="feces_state">Stav výkalov</string>
+    <string name="feces_prey">Zloženie trusu</string>
+    <string name="feces_state">Stav trusu</string>
     <string name="evidence">Nález</string>
     <string name="observations">Pozorovanie</string>
     <string name="location">Poloha</string>
     <string name="add_footprints">Pridať stopy</string>
-    <string name="add_feces">Pridať výkaly</string>
+    <string name="add_feces">Pridať trus</string>
     <string name="add_urine">Pridať moč</string>
     <string name="add_other">Pridať iné</string>
     <string name="add_hairs">Pridať chlpy</string>
@@ -170,5 +170,17 @@
     <string name="transect_saved">Cesta uložená</string>
     <string name="transect_finding_saved">Nález uložený</string>
     <string name="transect_not_valid">Cesta obsahuje chyby</string>
+    <string name="feces_saved">Trus uložený</string>
+    <string name="footprints_saved">Stopy uložené</string>
+    <string name="other_saved">uložené</string>
+    <string name="habitat_created">Habitat vytvorený</string>
+    <string name="habitat_modified">Habitat zmenený</string>
+    <string name="transect_finding_site_created">Nálezisko vytvorené</string>
+    <string name="transect_finding_site_modified">Nálezisko zmenené</string>
+    <string name="detail_display_problem">Problém so zobrazením nálezu</string>
+    <string name="excel_export_path">Exportované do: %1$s</string>
+    <string name="validation_must_not_be_empty">Musí byť zadané.</string>
+    <string name="validation_max_value">Maximálna hodnota je %1$d.</string>
+    <string name="validation_min_value">Minimálna hodnota je %1$d.</string>
 
 </resources>

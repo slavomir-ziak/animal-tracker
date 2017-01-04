@@ -48,17 +48,6 @@ public class HabitatDetailView {
         forestTypeContainer = view.findViewById(R.id.habitatForestTypeContainer);
         forestAgeContainer = view.findViewById(R.id.forestAgeContainer);
         treeTypeContainer = view.findViewById(R.id.habitatTreeTypeContainer);
-   }
-
-    private void bind(Habitat habitat) {
-        id = habitat.getId();
-        type.select(habitat.getType());
-        track.select(habitat.getTrack());
-        forestAge.select(habitat.getForestAge());
-        treeType.select(habitat.getTreeType());
-        forestType.select(habitat.getForestType());
-
-        showHideTreeProperties(habitat.getType());
 
         type.getSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
@@ -72,6 +61,17 @@ public class HabitatDetailView {
                 showHideTreeProperties(type.getSelectedCodeListValue());
             }
         });
+   }
+
+    private void bind(Habitat habitat) {
+        id = habitat.getId();
+        type.select(habitat.getType());
+        track.select(habitat.getTrack());
+        forestAge.select(habitat.getForestAge());
+        treeType.select(habitat.getTreeType());
+        forestType.select(habitat.getForestType());
+
+        showHideTreeProperties(habitat.getType());
     }
 
     private void showHideTreeProperties(String type) {

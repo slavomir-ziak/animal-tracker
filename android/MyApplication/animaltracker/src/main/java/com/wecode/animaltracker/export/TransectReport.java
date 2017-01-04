@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
+import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.TransectFindingSite;
@@ -60,11 +61,11 @@ public class TransectReport {
 
             createExcel(reportStream, excelFile, transect);
 
-            Toast.makeText(context, "Exported to: " + excelFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getString(R.string.excel_export_path,  excelFile.getAbsolutePath()), Toast.LENGTH_LONG).show();
 
         } catch (Exception e) {
             Log.e(Globals.APP_NAME, "Problem with excel export", e);
-            Toast.makeText(context, "Problem with excel export. Exception: " + e.getClass() + ", message: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            throw new RuntimeException(e);
         } finally {
             if (reportStream != null) {
                 try {

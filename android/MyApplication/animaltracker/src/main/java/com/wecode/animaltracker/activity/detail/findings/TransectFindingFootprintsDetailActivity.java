@@ -88,7 +88,7 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
         transectFindingFootprintsView.setId(transectFindingFootprints.getId());
 
         this.id = transectFindingFootprints.getId();
-        Toast.makeText(this, "Footprints saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.footprints_saved, Toast.LENGTH_SHORT).show();
     }
 
     @Override
