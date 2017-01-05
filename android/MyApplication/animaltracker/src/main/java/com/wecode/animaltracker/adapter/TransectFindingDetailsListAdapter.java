@@ -11,6 +11,7 @@ import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
+import com.wecode.animaltracker.service.CodeListService;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
     private final Activity context;
 
     private final List<Persistable> transectFindingDetails;
+
+    private final CodeListService codeListService = CodeListService.getInstance();
 
     public TransectFindingDetailsListAdapter(Activity context, List<Persistable> transectFindingDetails) {
         this.context = context;
@@ -48,7 +51,7 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
 
         Persistable detail = transectFindingDetails.get(position);
 
-        View rowView = null;
+        View rowView;
         if (view != null) {
             rowView = view;
         } else {
@@ -86,16 +89,24 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
     private void fillRowView(View rowView, TransectFindingFeces detail) {
         TextView pray = (TextView) rowView.findViewById(R.id.transectFindingFecesItemPrey);
         TextView state = (TextView) rowView.findViewById(R.id.transectFindingFecesItemState);
-        if (pray != null) pray.setText(detail.getPrey());
-        if (state!=null) state.setText(detail.getState());
+        if (pray != null) {
+            pray.setText(codeListService.getLocalisedValueByNameAndValue("", detail.getPrey()));
+        }
+        if (state!=null) {
+            state.setText(codeListService.getLocalisedValueByNameAndValue("fecesState", detail.getState()));
+        }
     }
 
     private void fillRowView(View rowView, TransectFindingOther detail) {
         TextView evidence = (TextView) rowView.findViewById(R.id.transectFindingOtherItemEvidence);
         TextView observations = (TextView) rowView.findViewById(R.id.transectFindingOtherItemObservations);
 
-        if (evidence!=null) evidence.setText(detail.getEvidence());
-        if (observations!=null) observations.setText(detail.getObservations());
+        if (evidence!=null) {
+            evidence.setText(codeListService.getLocalisedValueByNameAndValue("findingOtherEvidence", detail.getEvidence()));
+        }
+        if (observations!=null) {
+            observations.setText(codeListService.getLocalisedValueByNameAndValue("", detail.getObservations()));
+        }
     }
 
     private int getViewId(Persistable detail) {

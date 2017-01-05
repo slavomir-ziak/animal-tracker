@@ -12,6 +12,8 @@ import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 
+import java.util.Locale;
+
 /**
  * Created by sziak on 10-Apr-16.
  */
@@ -49,7 +51,7 @@ public class TransectFindingSiteDetailView {
 
         this.transectId = transectId;
 
-        species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context, false, "Wolf");
+        species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context, false, getDefaultAnimal());
         location = (TextView) context.findViewById(R.id.findingLocationValue);
         //findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
         //findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
@@ -59,6 +61,13 @@ public class TransectFindingSiteDetailView {
         addUrineButton = (Button) context.findViewById(R.id.transectFindingAddUrineButton);
         addHairsButton = (Button) context.findViewById(R.id.transectFindingAddHairsButton);
         addScratchesButton = (Button) context.findViewById(R.id.transectFindingAddScratchesButton);
+    }
+
+    private String getDefaultAnimal() {
+        if (Locale.getDefault().getLanguage().equals("sk")) {
+            return "Vlk";
+        }
+        return "Wolf";
     }
 
     private void bind(TransectFindingSite transectFindingSite) {

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.TransectFindingSite;
+import com.wecode.animaltracker.service.CodeListService;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
@@ -22,6 +23,8 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
     private Activity context;
 
     private List<TransectFindingSite> list;
+
+    private CodeListService codeListService = CodeListService.getInstance();
 
     private HabitatDataService habitatService = HabitatDataService.getInstance();
 
@@ -43,7 +46,7 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
 
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View rowView = null;
+        View rowView;
         if (view != null) {
             rowView = view;
         } else {
@@ -62,7 +65,7 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         initFindingCounts(rowView, transectFindingSite);
 
         TextView speciesView = (TextView) rowView.findViewById(R.id.transectFindingListItemSpecies);
-        speciesView.setText(transectFindingSite.getSpecies());
+        speciesView.setText(codeListService.getLocalisedValueByNameAndValue("findingSpeciesTypes", transectFindingSite.getSpecies()));
 
         return rowView;
     }
@@ -76,9 +79,9 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         TextView transectFindingListItemFeces = (TextView) rowView.findViewById(R.id.transectFindingListItemFeces);
         TextView transectFindingListItemOther = (TextView) rowView.findViewById(R.id.transectFindingListItemOther);
 
-        transectFindingListItemFootprints.setText(String.format("%d x footprints", footprintsCount));
-        transectFindingListItemFeces.setText(String.format("%d x feces", fecesCount));
-        transectFindingListItemOther.setText(String.format("%d x other", othersCount));
+        transectFindingListItemFootprints.setText(String.format("%d x " + context.getString(R.string.footprints), footprintsCount));
+        transectFindingListItemFeces.setText(String.format("%d x " + context.getString(R.string.feces), fecesCount));
+        transectFindingListItemOther.setText(String.format("%d x " + context.getString(R.string.other), othersCount));
     }
 
     private void initHabitat(View rowView, TransectFindingSite transectFindingSite) {
@@ -87,9 +90,9 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         TextView habitatView = (TextView) rowView.findViewById(R.id.transectFindingListItemHabitat);
 
         String value="";
-        value += habitat.getType() != null ? habitat.getType() : "";
+        value += codeListService.getLocalisedValueByNameAndValue("habitatTypes", habitat.getType());
         value += (value.length() > 0 && habitat.getTrack() != null) ? ", " : "";
-        value += habitat.getTrack() != null ? habitat.getTrack() : "";
+        value += codeListService.getLocalisedValueByNameAndValue("habitatTrackTypes", habitat.getTrack());
 
         habitatView.setText(value);
     }

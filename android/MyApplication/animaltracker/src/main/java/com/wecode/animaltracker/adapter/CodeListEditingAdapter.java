@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,6 +31,7 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
     private static final String EMPTY_ITEM_TEXT = "";
     private static final String NEW_ITEM_TEXT = "New...";
+    private static final String NEW_ITEM_TEXT_SK = "Nový...";
 
     private Activity context;
 
@@ -66,18 +66,18 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
     private void reloadCodeListValues() {
         codeList = codeListService.findByName(codeListName);
         if (enableEmptyValue) {
-            codeList.add(0, new CodeList(EMPTY_ITEM_ID, EMPTY_ITEM_TEXT));
+            codeList.add(0, new CodeList(EMPTY_ITEM_ID, EMPTY_ITEM_TEXT, EMPTY_ITEM_TEXT));
         }
 
         if (defaultValue != null) {
             setDefaultValueToFirstPlace();
         }
 
-        codeList.add(new CodeList(NEW_ITEM_ID, NEW_ITEM_TEXT));
+        codeList.add(new CodeList(NEW_ITEM_ID, NEW_ITEM_TEXT, NEW_ITEM_TEXT_SK));
     }
 
     private void setDefaultValueToFirstPlace() {
-        int defaultIndex = codeList.indexOf(codeListService.findByNameAndValue(codeListName, defaultValue));
+        int defaultIndex = codeList.indexOf(codeListService.findByNameAndLocalisedValue(codeListName, defaultValue));
         if (defaultIndex >= 0) {
             CodeList defaultValue = codeList.get(defaultIndex);
             codeList.remove(defaultIndex);
@@ -115,7 +115,7 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
             textView = (TextView) inflater.inflate(R.layout.spinner_dropdown_item, viewGroup, false);
         }
 
-        textView.setText(codeList.get(i).getValue());
+        textView.setText(codeList.get(i).getLocalisedValue());
 
         return textView;
     }
@@ -132,30 +132,30 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
         final EditText textInput = new EditText(context);
 
         new AlertDialog.Builder(context)
-                .setTitle("New item")
-                .setMessage("Typ new item name:")
+                .setTitle(R.string.new_item)
+                .setMessage(R.string.new_item_type_name)
                 .setView(textInput)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int whichButton) {
 
                         String newCodeListItem = textInput.getText().toString();
 
-                        CodeList byNameAndValue = codeListService.findByNameAndValue(codeListName, newCodeListItem);
+                        CodeList byNameAndValue = codeListService.findByNameAndLocalisedValue(codeListName, newCodeListItem);
                         if (byNameAndValue == null) {
-                            codeListService.save(new CodeList(codeListName, newCodeListItem, null, CodeList.SOURCE_USER));
+                            codeListService.save(new CodeList(codeListName, newCodeListItem, newCodeListItem, null, CodeList.SOURCE_USER));
                             reloadCodeListValues();
                         }
 
-                        int position1 = getPosition(newCodeListItem);
+                        int position1 = getPosition(newCodeListItem, true);
                         setSelected((Spinner) adapterView, position1);
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         previousSelected.pop();
-                        String value = codeList.get(previousSelected.peek()).getValue();
+                        String value = codeList.get(previousSelected.peek()).getLocalisedValue();
 
-                        int position1 = getPosition(value);
+                        int position1 = getPosition(value, true);
                         setSelected((Spinner) adapterView, position1);
                     }
                 })
@@ -168,14 +168,15 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
         System.out.println("Nothing selected");
     }
 
-    public int getPosition(String codelistValue) {
+    public int getPosition(String value, boolean localised) {
         for (int i = 0; i < codeList.size(); i++) {
-            if (codeList.get(i).getValue().equals(codelistValue)) {
+            String valueToCompare = localised ? codeList.get(i).getLocalisedValue() : codeList.get(i).getValue();
+            if (value.equals(valueToCompare)) {
                 return i;
             }
         }
-        Log.e(Globals.APP_NAME, "Codelist value not present in DB? value="+codelistValue);
-        throw new RuntimeException("Codelist value not present in DB? value="+codelistValue);
+        Log.e(Globals.APP_NAME, "Codelist value not present in DB! value="+value+", localised="+localised);
+        throw new RuntimeException("Codelist value not present in DB! value="+value+", localised="+localised);
     }
 
 

@@ -35,7 +35,7 @@ public class SpinnersHelper {
             int position = ((ArrayAdapter<String>) spinner.getAdapter()).getPosition(value);
             spinner.setSelection(position, true);
         } else if (spinner.getAdapter() instanceof CodeListEditingAdapter) {
-            final int position = ((CodeListEditingAdapter) spinner.getAdapter()).getPosition(value);
+            final int position = ((CodeListEditingAdapter) spinner.getAdapter()).getPosition(value, false);
             Log.i(Globals.APP_NAME, value + " has position " + position);
 
             spinner.post(new Runnable() {

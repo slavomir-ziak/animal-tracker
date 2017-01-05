@@ -7,6 +7,7 @@ import com.wecode.animaltracker.util.Assert;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by SZIAK on 9/1/2016.
@@ -34,11 +35,20 @@ public class CodeListService extends AbstractDataService<CodeList> {
         return codeLists;
     }
 
-    public CodeList findByNameAndValue(String name, String value) {
-        List<CodeList> codeLists = CodeList.find(CodeList.class, "name = ? and value = ?", name, value);
-        Assert.isTrue("more than 1 CodeList row with name="+name+" and value="+value, codeLists.size() <= 1);
+    public CodeList findByNameAndLocalisedValue(String name, String localisedValue) {
+        String valueColumn = Locale.getDefault().getLanguage().equals("sk") ? "value_sk" : "value";
+        List<CodeList> codeLists = CodeList.find(CodeList.class, "name = ? and " + valueColumn + " = ?", name, localisedValue);
+        Assert.isTrue("more than 1 CodeList row with name=" + name + " and " + valueColumn + "=" + localisedValue, codeLists.size() <= 1);
         return codeLists.size() == 1 ? codeLists.get(0) : null;
     }
 
 
+    public String getLocalisedValueByNameAndValue(String name, String value) {
+        if (value == null ) {
+            return "";
+        }
+        List<CodeList> codeLists = CodeList.find(CodeList.class, "name = ? and value= ?", name, value);
+        Assert.isTrue("more than 1 CodeList row with name=" + name + " and " + value + "=" + value, codeLists.size() <= 1);
+        return codeLists.size() == 1 ? codeLists.get(0).getLocalisedValue() : value;
+    }
 }

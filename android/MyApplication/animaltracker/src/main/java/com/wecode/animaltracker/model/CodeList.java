@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.model;
 
+import java.util.Locale;
+
 /**
  * Created by SZIAK on 8/31/2016.
  */
@@ -15,6 +17,8 @@ public class CodeList extends Persistable{
 
     private String icon;
 
+    private String valueSk;
+
     /**
      * values: USER - user added himself, APP - added by application insert/update
      */
@@ -23,16 +27,18 @@ public class CodeList extends Persistable{
     public CodeList() {
     }
 
-    public CodeList(String name, String value, String icon, String source) {
+    public CodeList(String name, String value, String valueSk, String icon, String source) {
         this.name = name;
         this.value = value;
+        this.valueSk = valueSk;
         this.icon = icon;
         this.source = source;
     }
 
-    public CodeList(Long id, String value) {
+    public CodeList(Long id, String value, String valueSk) {
         setId(id);
         this.value = value;
+        this.valueSk = valueSk;
     }
 
     public String getName() {
@@ -73,8 +79,24 @@ public class CodeList extends Persistable{
                 "name='" + name + '\'' +
                 ", value='" + value + '\'' +
                 ", icon='" + icon + '\'' +
+                ", valueSk='" + valueSk + '\'' +
                 ", source='" + source + '\'' +
-                "} " + super.toString();
+                '}';
     }
 
+    public String getValueSk() {
+        return valueSk;
+    }
+
+    public void setValueSk(String valueSk) {
+        this.valueSk = valueSk;
+    }
+
+    public String getLocalisedValue() {
+        if (Locale.getDefault().getLanguage().equals("sk")) {
+            return getValueSk();
+        } else {
+            return getValue();
+        }
+    }
 }

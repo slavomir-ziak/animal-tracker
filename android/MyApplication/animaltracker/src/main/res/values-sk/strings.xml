@@ -42,14 +42,14 @@
 
     <string-array name="generalDirection">
         <item></item>
-        <item>S</item>
-        <item>J</item>
-        <item>V</item>
-        <item>Z</item>
-        <item>SV</item>
-        <item>SZ</item>
-        <item>JV</item>
-        <item>JZ</item>
+        <item>Sever</item>
+        <item>Juh</item>
+        <item>Východ</item>
+        <item>Západ</item>
+        <item>Severo-východ</item>
+        <item>Severo-západ</item>
+        <item>Juho-východ</item>
+        <item>Juho-západ</item>
     </string-array>
 
     <string-array name="latitudeDirection">
@@ -86,7 +86,7 @@
     <string name="type">Druh</string>
     <string name="track">Cesta</string>
     <string name="forest_age">Vek lesa</string>
-    <string name="tree_type">Druh stromu</string>
+    <string name="tree_type">Druh stromov</string>
     <string name="forest_type">Typ lesa</string>
     <string name="new_transect">Nová cesta</string>
     <string name="view_transcts">Zobraziť cesty</string>
@@ -182,5 +182,8 @@
     <string name="validation_must_not_be_empty">Musí byť zadané.</string>
     <string name="validation_max_value">Maximálna hodnota je %1$d.</string>
     <string name="validation_min_value">Minimálna hodnota je %1$d.</string>
+    <string name="new_item">Nová položka</string>
+    <string name="new_item_type_name">Názov novej položky:</string>
+    <string name="cancel">Zrušiť</string>
 
 </resources>

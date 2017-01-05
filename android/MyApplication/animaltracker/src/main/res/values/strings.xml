@@ -50,14 +50,14 @@
 
     <string-array name="generalDirection">
         <item></item>
-        <item>N</item>
-        <item>S</item>
-        <item>E</item>
-        <item>W</item>
-        <item>NE</item>
-        <item>NW</item>
-        <item>SE</item>
-        <item>SW</item>
+        <item>North</item>
+        <item>South</item>
+        <item>Eest</item>
+        <item>West</item>
+        <item>North-east</item>
+        <item>North-west</item>
+        <item>South-east</item>
+        <item>South-west</item>
     </string-array>
 
     <string-array name="latitudeDirection">
@@ -190,6 +190,9 @@
     <string name="validation_must_not_be_empty">Must not be empty.</string>
     <string name="validation_max_value">Max value is %1$d.</string>
     <string name="validation_min_value">Min value is %1$d.</string>
+    <string name="new_item">New item</string>
+    <string name="new_item_type_name">Typ new item name:</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>
