@@ -193,6 +193,11 @@
     <string name="new_item">New item</string>
     <string name="new_item_type_name">Typ new item name:</string>
     <string name="cancel">Cancel</string>
+    <string name="dialog_change_language_title">Change telephone language</string>
+    <string name="dialog_change_language">Change language</string>
+    <string name="dialog_change_language_message">This will change language of your telephone. Are you sure you want to proceed?</string>
+    <string name="dialog_end_transect_title">End transect</string>
+    <string name="dialog_end_transect">Do you really want to end transect?</string>
 
 
 </resources>

@@ -86,7 +86,7 @@
                             android:layout_height="27dp"
                             android:layout_gravity="center_vertical|right"
                             android:background="@drawable/ic_edit"
-                            android:onClick="editLocation" />
+                            android:onClick="editLocation"/>
                     </LinearLayout>
 
                     <TextView

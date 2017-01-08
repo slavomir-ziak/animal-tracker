@@ -60,7 +60,7 @@ public class Globals {
             transectRootDirectory  = transectRootDirectory + "_" + counter;
             created = new File(getAppRootDir(), transectRootDirectory ).mkdirs();
             if (counter > 100) {
-                throw new RuntimeException("Could not create directory: " + transectRootDirectory);
+                throw new RuntimeException("Could not create directory: " + created);
             }
         }
 

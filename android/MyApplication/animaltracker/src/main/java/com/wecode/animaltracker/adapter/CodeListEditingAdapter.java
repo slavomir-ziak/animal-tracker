@@ -30,8 +30,8 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
     private static final Long EMPTY_ITEM_ID = -2L;
 
     private static final String EMPTY_ITEM_TEXT = "";
-    private static final String NEW_ITEM_TEXT = "New...";
-    private static final String NEW_ITEM_TEXT_SK = "Nový...";
+    private static final String NEW_ITEM_TEXT = "..add new item";
+    private static final String NEW_ITEM_TEXT_SK = "...pridať novú položku";
 
     private Activity context;
 

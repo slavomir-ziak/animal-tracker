@@ -124,40 +124,22 @@
                         android:layout_gravity="center_vertical" />
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
 
-                    <RadioGroup
-                        android:layout_width="match_parent"
+
+                    <Button
+                        android:text="@string/dialog_change_language"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
-
-                        <RadioButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/languageEnglish"
-                            android:id="@+id/settingsLanguageEnglish"
-                            android:checked="false"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="0.5"
-                            android:onClick="english"/>
-
-                        <RadioButton
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:text="@string/languageSlovak"
-                            android:id="@+id/settingsLanguageSlovak"
-                            android:checked="false"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="0.5"
-                            android:onClick="slovak"/>
-
-                    </RadioGroup>
+                        android:id="@+id/button"
+                        android:layout_weight="1"
+                        android:onClick="changeLanguage" />
                 </LinearLayout>
+
             </LinearLayout>
 
 

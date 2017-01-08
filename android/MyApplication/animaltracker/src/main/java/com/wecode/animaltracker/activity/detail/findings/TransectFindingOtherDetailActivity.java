@@ -13,6 +13,7 @@ import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
+import com.wecode.animaltracker.service.CodeListService;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
@@ -26,6 +27,8 @@ import java.io.File;
 public class TransectFindingOtherDetailActivity extends PhotoEnabledCommonActivity {
 
     private long transectFindingId;
+
+    private CodeListService codeListService = CodeListService.getInstance();
 
     private TransectFindingOtherDataService transectFindingOtherDataService = TransectFindingOtherDataService.getInstance();
 
@@ -44,21 +47,22 @@ public class TransectFindingOtherDetailActivity extends PhotoEnabledCommonActivi
 
         transectFindingId = getIntent().getExtras().getLong("transectFindingId");
 
+        String evidence;
         if (id != null) {
             TransectFindingOther transectFinding = transectFindingOtherDataService.find(id);
             transectFindingOtherView = new TransectFindingOtherView(this, transectFinding);
-            setTitle(transectFinding.getEvidence() + " finding");
+            evidence = transectFinding.getEvidence();
         } else {
             transectFindingOtherView = new TransectFindingOtherView(this, transectFindingId);
-            String evidence = getIntent().getExtras().getString("evidence");
+            evidence = getIntent().getExtras().getString("evidence");
             if (evidence != null) {
-                setTitle("Add " + evidence);
                 transectFindingOtherView.setEvidence(evidence);
-            } else {
-                setTitle("Add Other");
             }
         }
 
+        if (evidence != null) {
+            setTitle(codeListService.getLocalisedValueByNameAndValue("findingOtherEvidence", evidence));
+        }
         //initGui(transectFindingView);
 
         entityName = Photo.EntityName.TRANECT_FINDING_OTHER;

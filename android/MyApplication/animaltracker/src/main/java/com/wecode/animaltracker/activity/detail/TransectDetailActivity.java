@@ -54,8 +54,6 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
     private TransectDetailFragment transectFragment;
 
-    private WeatherFragment weatherFragment;
-
     private TransectFindingSiteListFragment transectFindingSiteListFragment;
 
     private PhotosFragment photosFragment;
@@ -104,7 +102,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
         if (id != null) {
             setupTransectFindingListFragment(adapter);
-            setupWeatherFragment(adapter);
+            //setupWeatherFragment(adapter);
             setupPhotosFragment(adapter);
         }
 
@@ -132,7 +130,8 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         adapter.addFragment(transectFindingSiteListFragment);
     }
 
-    private void setupWeatherFragment(ViewPagerAdapter adapter) {
+/*    private void setupWeatherFragment(ViewPagerAdapter adapter) {
+
         Bundle bundle = new Bundle();
         bundle.putString("action", Action.NEW.toString());
 
@@ -146,6 +145,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         weatherFragment.setArguments(bundle);
         adapter.addFragment(weatherFragment);
     }
+*/
 
     private void setupTransectFragment(ViewPagerAdapter adapter) {
         transectFragment = new TransectDetailFragment();
@@ -299,10 +299,10 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             return;
         }
 
-        if (weatherFragment != null) {
+/*        if (weatherFragment != null) {
             Weather weather = weatherFragment.saveWeather();
             transect.setWeatherId(weather != null ? weather.getId() : null);
-        }
+        }*/
 
         TransectDataService.getInstance().save(transect);
 

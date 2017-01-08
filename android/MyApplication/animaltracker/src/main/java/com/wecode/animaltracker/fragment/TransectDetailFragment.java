@@ -1,6 +1,8 @@
 package com.wecode.animaltracker.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -139,18 +141,32 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         ((TransectDetailActivity) getActivity()).saveAll();
     }
 
-    public void endTransect() {
+    private void endTransect() {
 
-        if (getCurrentLocation() == null) {
-            Toast.makeText(getActivity(), R.string.location_not_acquired, Toast.LENGTH_SHORT).show();
-        } else {
-            transectDetailView.getEndLocation().setText(LocationUtil.formatLocation(getCurrentLocation()));
-        }
+        new AlertDialog.Builder(getActivity())
+            .setTitle(R.string.dialog_end_transect_title)
+            .setMessage(R.string.dialog_end_transect)
+            .setPositiveButton("OK", new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int whichButton) {
 
-        String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
-        transectDetailView.getEndDateTime().setText(endDateTime);
+                if (getCurrentLocation() == null) {
+                    Toast.makeText(getActivity(), R.string.location_not_acquired, Toast.LENGTH_SHORT).show();
+                } else {
+                    transectDetailView.getEndLocation().setText(LocationUtil.formatLocation(getCurrentLocation()));
+                }
 
-        saveTransect();
+                String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
+                transectDetailView.getEndDateTime().setText(endDateTime);
+
+                saveTransect();
+
+                }
+            })
+            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            })
+        .show();
 
     }
 

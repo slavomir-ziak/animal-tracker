@@ -81,7 +81,7 @@
     <string name="other_finding_detail">Ostatné nálezy</string>
     <string name="title_activity_finding_site">Nálezisko</string>
     <string name="latitude">Zemepisná šírka</string>
-    <string name="longitude">Zemepisná šírka</string>
+    <string name="longitude">Zemepisná dĺžka</string>
     <string name="elevation">Nadmorská výška</string>
     <string name="type">Druh</string>
     <string name="track">Cesta</string>
@@ -185,5 +185,9 @@
     <string name="new_item">Nová položka</string>
     <string name="new_item_type_name">Názov novej položky:</string>
     <string name="cancel">Zrušiť</string>
-
+    <string name="dialog_change_language_title">Zmena jazyka telefónu</string>
+    <string name="dialog_change_language">Zmeniť jazyk</string>
+    <string name="dialog_change_language_message">Táto akcia zmení jazyk vášho telefónu. Naozaj chcete pokračovať?</string>
+    <string name="dialog_end_transect_title">Ukončiť cestu</string>
+    <string name="dialog_end_transect">Naozaj chcete ukončiť cestu?</string>
 </resources>

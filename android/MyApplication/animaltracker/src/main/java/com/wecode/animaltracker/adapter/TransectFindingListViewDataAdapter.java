@@ -79,6 +79,7 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         TextView transectFindingListItemFeces = (TextView) rowView.findViewById(R.id.transectFindingListItemFeces);
         TextView transectFindingListItemOther = (TextView) rowView.findViewById(R.id.transectFindingListItemOther);
 
+        // TODO use resource string to format
         transectFindingListItemFootprints.setText(String.format("%d x " + context.getString(R.string.footprints), footprintsCount));
         transectFindingListItemFeces.setText(String.format("%d x " + context.getString(R.string.feces), fecesCount));
         transectFindingListItemOther.setText(String.format("%d x " + context.getString(R.string.other), othersCount));
