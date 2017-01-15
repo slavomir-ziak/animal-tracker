@@ -11,6 +11,7 @@ import android.location.LocationProvider;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.util.LocalisationUtils;
 import com.wecode.animaltracker.service.SettingsDataService;
 
 import java.math.BigDecimal;
@@ -74,20 +75,19 @@ public class LocationUtil {
         return formatLocationToMinutesAndSeconds(location.getLatitude(), location.getLongitude(), location.getAltitude());
     }
 
-    @SuppressLint("DefaultLocale")
     static String formatLocationToMinutesAndSeconds(Double locationLatitude, Double locationLongitude, Double elevation) {
         String latitudeStr = convertLocation(locationLatitude, false);
         String longitudeStr = convertLocation(locationLongitude, true);
 
-        return String.format("%s, %s, %.2f", latitudeStr, longitudeStr, elevation);
+        return String.format(Locale.getDefault(), "%s %s %.2f", latitudeStr, longitudeStr, elevation);
     }
 
     private static String formatLocationToDecimals(Double locationLatitude, Double locationLongitude, Double elevation) {
-        return String.format(Locale.US, "%.5f, %.5f, %.2f", locationLatitude, locationLongitude, elevation);
+        return String.format(Locale.getDefault(), "%.5f %.5f %.2f", locationLatitude, locationLongitude, elevation);
     }
 
     static double[] parseLocationDMS(String location) {
-        String[] split = location.split(",");
+        String[] split = location.split(" ");
         if (split.length != 3) throw new RuntimeException("cannot parse location: " + location);
 
         double latitude = convertLocation(split[0].trim());
@@ -101,12 +101,12 @@ public class LocationUtil {
     }
 
     private static double[] parseLocationDecimals(String location) {
-        String[] split = location.split(",");
+        String[] split = location.split(" ");
         if (split.length != 3) throw new RuntimeException("cannot parse location: " + location);
 
-        double latitude = Double.valueOf(split[0].trim());
-        double longitude = Double.valueOf(split[1].trim());
-        double elevation = Double.valueOf(split[2].trim());
+        double latitude = LocalisationUtils.parseDouble(split[0].trim());
+        double longitude = LocalisationUtils.parseDouble(split[1].trim());
+        double elevation = LocalisationUtils.parseDouble(split[2].trim());
 
         latitude = new BigDecimal(latitude).setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue();
         longitude = new BigDecimal(longitude).setScale(5, BigDecimal.ROUND_HALF_UP).doubleValue();
@@ -118,7 +118,7 @@ public class LocationUtil {
     private static String convertLocation(Double coordinate, boolean longitude) {
 
         if (coordinate == null) {
-            return String.format(Locale.ENGLISH, "%d°%d'%.2f\"%s", 0, 0, 0.0, "");
+            return String.format(Locale.getDefault(), "%d°%d'%.2f\"%s", 0, 0, 0.0, "");
         }
 
         String direction;
@@ -139,7 +139,7 @@ public class LocationUtil {
 
         double seconds = 3600 * (coordinate - degrees) - (60 * minutes);
 
-        return String.format(Locale.ENGLISH, "%d°%d'%.2f\"%s", degrees, minutes, seconds, direction);
+        return String.format(Locale.getDefault(), "%d°%d'%.2f\"%s", degrees, minutes, seconds, direction);
     }
 
     private static double convertLocation(String coordinate) {
@@ -152,7 +152,7 @@ public class LocationUtil {
 
         double degrees = Integer.valueOf(split[0]);
         double minutes = Integer.valueOf(split[1]);
-        double seconds = Double.valueOf(split[2]);
+        double seconds = LocalisationUtils.parseDouble(split[2]);
 
         double result = degrees + (minutes/60) + (seconds / 3600);
 

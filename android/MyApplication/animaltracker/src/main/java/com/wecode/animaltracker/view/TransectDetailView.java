@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.util.LocalisationUtils;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
@@ -16,6 +17,7 @@ import com.wecode.animaltracker.util.LocationUtil;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by sziak on 10/31/2015.
@@ -203,15 +205,15 @@ public class TransectDetailView {
     }
 
     private String getRootDirectory(Transect transect) {
-        return String.format("%d_%s", transect.getId(), transect.getRouteName());
+        return String.format(Locale.getDefault(), "%d_%s", transect.getId(), transect.getRouteName());
     }
 
     private double getLatitude(String location) {
-        return Double.parseDouble(location.split(", ")[1]);
+        return LocalisationUtils.parseDouble(location.split(", ")[1]);
     }
 
     private double getLongitude(String location) {
-        return Double.parseDouble(location.split(", ")[0]);
+        return LocalisationUtils.parseDouble(location.split(", ")[0]);
     }
 
     public TextView getId() {

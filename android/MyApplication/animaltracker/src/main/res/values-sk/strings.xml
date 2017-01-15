@@ -180,8 +180,8 @@
     <string name="detail_display_problem">Problém so zobrazením nálezu</string>
     <string name="excel_export_path">Exportované do: %1$s</string>
     <string name="validation_must_not_be_empty">Musí byť zadané.</string>
-    <string name="validation_max_value">Maximálna hodnota je %1$d.</string>
-    <string name="validation_min_value">Minimálna hodnota je %1$d.</string>
+    <string name="validation_max_value">Maximálna hodnota je %1$f.</string>
+    <string name="validation_min_value">Minimálna hodnota je %1$f.</string>
     <string name="new_item">Nová položka</string>
     <string name="new_item_type_name">Názov novej položky:</string>
     <string name="cancel">Zrušiť</string>
@@ -190,4 +190,5 @@
     <string name="dialog_change_language_message">Táto akcia zmení jazyk vášho telefónu. Naozaj chcete pokračovať?</string>
     <string name="dialog_end_transect_title">Ukončiť cestu</string>
     <string name="dialog_end_transect">Naozaj chcete ukončiť cestu?</string>
+    <string name="validation_must_be_number">Formát čísla: 1,23</string>
 </resources>

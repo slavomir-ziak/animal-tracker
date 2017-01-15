@@ -7,11 +7,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.util.LocalisationUtils;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.util.LocationUtil;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
@@ -103,12 +105,12 @@ public class EditLocationDMSView {
 
     public String getLocation() {
 
-        double latitudeSeconds = Double.parseDouble(secondsLatitude.getText().toString());
-        double longitudeSeconds = Double.parseDouble(secondsLongitude.getText().toString());
+        double latitudeSeconds = LocalisationUtils.parseDouble(secondsLatitude.getText());
+        double longitudeSeconds = LocalisationUtils.parseDouble(secondsLongitude.getText());
         String elevationValue = this.elevation.getText().toString();
-        double elevation = Double.parseDouble(elevationValue.isEmpty() ? "0" : elevationValue);
+        double elevation = LocalisationUtils.parseDouble(elevationValue.isEmpty() ? "0" : elevationValue);
 
-        return String.format(Locale.ENGLISH, "%s°%s'%.2f\"%s, %s°%s'%.2f\"%s, %.2f",
+        return String.format(Locale.getDefault(), "%s°%s'%.2f\"%s, %s°%s'%.2f\"%s, %.2f",
                 degreesLatitude.getText(), minutesLatitude.getText(), latitudeSeconds, directionLatitude.getSelectedItem(),
                 degreesLongitude.getText(), minutesLongitude.getText(), longitudeSeconds, directionLongitude.getSelectedItem(),
                 elevation

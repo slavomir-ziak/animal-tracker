@@ -19,6 +19,8 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Settings;
 import com.wecode.animaltracker.service.SettingsDataService;
 
+import java.util.Locale;
+
 /**
  * Created by SZIAK on 9/25/2016.
  */
@@ -31,7 +33,6 @@ public class SettingsActivity extends AppCompatActivity {
     private RadioButton settingsLocationDecimal;
 
     @Override
-    @SuppressLint("DefaultLocale")
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
@@ -46,7 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
         int databaseVersion = ManifestHelper.getDatabaseVersion(this);
 
         TextView versionTextView = (TextView) findViewById(R.id.versionText);
-        versionTextView.setText(String.format("%s.%d.%d", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, databaseVersion));
+        versionTextView.setText(String.format(Locale.getDefault(), "%s.%d.%d", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, databaseVersion));
 
     }
 

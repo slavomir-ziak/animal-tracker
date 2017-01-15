@@ -12,6 +12,7 @@ import com.wecode.animaltracker.service.TransectDataService;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by sziak on 16-May-16.
@@ -38,7 +39,7 @@ public class Globals {
         }
     }
 
-    @SuppressLint({"DefaultLocale", "SimpleDateFormat"})
+    @SuppressLint("SimpleDateFormat")
     public static String getTransectRootDirectoryName(Transect transect) {
 
         if (transect.getRootDirectoryName() != null) {
@@ -50,7 +51,7 @@ public class Globals {
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
         Date startDateTime = transect.getStartDateTime() != null ? transect.getStartDateTime() : new Date();
-        String transectRootDirectory = String.format("%03d_%s_%s", transect.getId(), transect.getRouteName(), simpleDateFormat.format(startDateTime));
+        String transectRootDirectory = String.format(Locale.getDefault(), "%03d_%s_%s", transect.getId(), transect.getRouteName(), simpleDateFormat.format(startDateTime));
 
         int counter = 0;
         boolean created = new File(getAppRootDir(), transectRootDirectory).mkdirs();

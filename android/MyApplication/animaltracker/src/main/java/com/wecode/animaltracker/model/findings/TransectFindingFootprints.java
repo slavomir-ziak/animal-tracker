@@ -161,10 +161,10 @@ public class TransectFindingFootprints extends Persistable {
     }
 
     public String getFrontSizeFormatted() {
-        return String.format(Locale.US, "%.1f x %.1f", getFrontLength(), getFrontWidht());
+        return String.format(Locale.getDefault(), "%.1f x %.1f", getFrontLength(), getFrontWidht());
     }
 
     public String getBackSizeFormatted() {
-        return String.format(Locale.US, "%.1f x %.1f", getBackLength(), getBackWidht());
+        return String.format(Locale.getDefault(), "%.1f x %.1f", getBackLength(), getBackWidht());
     }
 }

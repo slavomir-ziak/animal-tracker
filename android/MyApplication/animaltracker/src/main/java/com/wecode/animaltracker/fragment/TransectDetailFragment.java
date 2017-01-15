@@ -233,20 +233,15 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
     }
 
     public void editStartLocation() {
-        Intent intent;
-        if (SettingsDataService.getInstance().get().isLocationDMS()) {
-            intent = new Intent(getActivity(), EditLocationDMSFormatActivity.class);
-        } else {
-            intent = new Intent(getActivity(), EditLocationDecimalFormatActivity.class);
-        }
-        intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
-        intent.setAction(Action.NEW.toString());
-        intent.putExtra("location", transectDetailView.getStartLocation().getText().toString());
-        startActivityForResult(intent, EDIT_START_LOCATION_REQUEST);
+        editLocation(transectDetailView.getStartLocation().getText().toString(), EDIT_START_LOCATION_REQUEST);
     }
 
 
     public void editEndLocation() {
+        editLocation(transectDetailView.getEndLocation().getText().toString(), EDIT_END_LOCATION_REQUEST);
+    }
+
+    private void editLocation(String location, int returnCode) {
         Intent intent;
         if (SettingsDataService.getInstance().get().isLocationDMS()) {
             intent = new Intent(getActivity(), EditLocationDMSFormatActivity.class);
@@ -255,8 +250,8 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         }
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
-        intent.putExtra("location", transectDetailView.getEndLocation().getText().toString());
-        startActivityForResult(intent, EDIT_END_LOCATION_REQUEST);
+        intent.putExtra("location", location);
+        startActivityForResult(intent, returnCode);
     }
 
     @Override

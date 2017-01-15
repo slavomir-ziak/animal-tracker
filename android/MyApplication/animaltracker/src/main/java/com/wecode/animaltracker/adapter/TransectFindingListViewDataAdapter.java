@@ -17,6 +17,7 @@ import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 
 import java.util.List;
+import java.util.Locale;
 
 public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFindingSite> {
 
@@ -40,7 +41,6 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         this.list = list;
     }
 
-    @SuppressLint("DefaultLocale")
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 
@@ -80,9 +80,9 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         TextView transectFindingListItemOther = (TextView) rowView.findViewById(R.id.transectFindingListItemOther);
 
         // TODO use resource string to format
-        transectFindingListItemFootprints.setText(String.format("%d x " + context.getString(R.string.footprints), footprintsCount));
-        transectFindingListItemFeces.setText(String.format("%d x " + context.getString(R.string.feces), fecesCount));
-        transectFindingListItemOther.setText(String.format("%d x " + context.getString(R.string.other), othersCount));
+        transectFindingListItemFootprints.setText(String.format(Locale.getDefault(), "%d x " + context.getString(R.string.footprints), footprintsCount));
+        transectFindingListItemFeces.setText(String.format(Locale.getDefault(), "%d x " + context.getString(R.string.feces), fecesCount));
+        transectFindingListItemOther.setText(String.format(Locale.getDefault(), "%d x " + context.getString(R.string.other), othersCount));
     }
 
     private void initHabitat(View rowView, TransectFindingSite transectFindingSite) {
