@@ -131,6 +131,14 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
                 transectFindingSiteDetailView.initGuiForNew();
                 break;
         }
+
+        findViewById(R.id.findingLocationValue).setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                editLocation(v);
+            }
+        });
     }
 
     @Override

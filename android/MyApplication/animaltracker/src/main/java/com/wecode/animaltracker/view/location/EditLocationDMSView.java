@@ -55,7 +55,7 @@ public class EditLocationDMSView {
             return;
         }
 
-        String[] coordinates = location.split(",");
+        String[] coordinates = location.split(" ");
 
         init(coordinates[0].trim(), degreesLatitude, minutesLatitude, secondsLatitude, directionLatitude);
         init(coordinates[1].trim(), degreesLongitude, minutesLongitude, secondsLongitude, directionLongitude);

@@ -89,6 +89,26 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
                 break;
         }
 
+        View.OnClickListener editEndLocationListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editEndLocation();
+            }
+        };
+
+        View.OnClickListener editStartLocationListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editStartLocation();
+            }
+        };
+
+        view.findViewById(R.id.transectFindingEditStartLocation).setOnClickListener(editStartLocationListener);
+        view.findViewById(R.id.transectStartLocationValue).setOnClickListener(editStartLocationListener);
+
+        view.findViewById(R.id.transectFindingEditEndtLocation).setOnClickListener(editEndLocationListener);
+        view.findViewById(R.id.transectEndLocationValue).setOnClickListener(editEndLocationListener);
+
         view.findViewById(R.id.startTransectButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,19 +119,6 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
             @Override
             public void onClick(View v) {
                 endTransect();
-            }
-        });
-        view.findViewById(R.id.transectFindingEditStartLocation).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editStartLocation();
-            }
-        });
-
-        view.findViewById(R.id.transectFindingEditEndtLocation).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editEndLocation();
             }
         });
 
