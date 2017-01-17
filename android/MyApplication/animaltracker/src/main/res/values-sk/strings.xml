@@ -191,4 +191,7 @@
     <string name="dialog_end_transect_title">Ukončiť cestu</string>
     <string name="dialog_end_transect">Naozaj chcete ukončiť cestu?</string>
     <string name="validation_must_be_number">Formát čísla: 1,23</string>
+    <string name="dialog_save_changes_before_leave">Uložiť zmeny pred odchodom?</string>
+    <string name="dialog_discard_and_leave">Neuložiť a odísť</string>
+    <string name="saved">Uložené</string>
 </resources>

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.orm.util.ManifestHelper;
 import com.wecode.animaltracker.BuildConfig;
@@ -83,6 +84,8 @@ public class SettingsActivity extends AppCompatActivity {
         settings.setLocationFormat(locationFormat);
         settings.setTrackerName(trackerName.getText().toString());
         service.save(settings);
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+
     }
 
     @Override

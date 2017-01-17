@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.common.CommonDetailActivity;
 import com.wecode.animaltracker.service.WeatherDataService;
@@ -41,6 +43,7 @@ public class WeatherDetailActivity extends CommonDetailActivity {
     public void onBackPressed() {
         Weather weather = weatherDetailView.toWeather();
         weatherService.save(weather);
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent();
         intent.putExtra("id", weather.getId());

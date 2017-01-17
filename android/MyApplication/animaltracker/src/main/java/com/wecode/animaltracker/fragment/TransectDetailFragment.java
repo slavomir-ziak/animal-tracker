@@ -181,7 +181,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_CANCELED) {
-            Toast.makeText(getActivity(), R.string.operation_canceled, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), R.string.operation_canceled, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -203,7 +203,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
                 break;
         }
 
-        saveTransect();
+        //saveTransect();
 
     }
 
@@ -276,5 +276,9 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
             return null;
         }
         return transectDetailView.getIdValue();
+    }
+
+    public boolean isChangedByUser() {
+        return transectDetailView.isChanged();
     }
 }

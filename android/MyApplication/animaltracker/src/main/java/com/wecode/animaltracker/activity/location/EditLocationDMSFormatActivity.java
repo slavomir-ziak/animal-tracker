@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.activity.location;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,6 +19,7 @@ import com.wecode.animaltracker.activity.common.CommonDetailActivity;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.view.location.EditLocationDMSView;
 
+//TODO unite commond code with EditLocationDecimalFormatActivity, DRY!
 public class EditLocationDMSFormatActivity extends CommonDetailActivity implements LocationListener {
 
     private static final int ACCESS_FINE_LOCATION_REQUEST = 1;
@@ -56,10 +59,7 @@ public class EditLocationDMSFormatActivity extends CommonDetailActivity implemen
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
             if (editLocatioView.validate(this)) {
-                Intent intent = new Intent();
-                intent.putExtra("location", editLocatioView.getLocation());
-                setResult(RESULT_OK, intent);
-                finish();
+                endActivity(RESULT_OK);
                 return true;
             }
         }
@@ -73,7 +73,47 @@ public class EditLocationDMSFormatActivity extends CommonDetailActivity implemen
             return true;
         }
 
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (editLocatioView.isChanged()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_save_changes_before_leave)
+                    .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            endActivity(RESULT_OK);
+                        }
+                    })
+                    .setNegativeButton(R.string.dialog_discard_and_leave, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            endActivity(RESULT_CANCELED);
+                        }
+                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            })
+                    .show();
+        } else {
+            endActivity(RESULT_CANCELED);
+        }
+
+    }
+
+    private void endActivity(int resultCode) {
+        Intent intent = new Intent();
+        if (resultCode == RESULT_OK) {
+            intent.putExtra("location", editLocatioView.getLocation());
+        }
+        setResult(resultCode, intent);
+        finish();
     }
 
     @Override

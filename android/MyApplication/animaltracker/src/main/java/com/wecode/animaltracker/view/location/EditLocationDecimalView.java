@@ -29,6 +29,8 @@ public class EditLocationDecimalView {
 
     private TextView elevation;
 
+    private int initialHash;
+
     public EditLocationDecimalView(String location, Activity context) {
 
 
@@ -42,6 +44,7 @@ public class EditLocationDecimalView {
             latitude.setText(coordinates[0].trim());
             longitude.setText(coordinates[1].trim());
             elevation.setText(coordinates[2].trim());
+            initialHash = hashCode();
         }
     }
 
@@ -73,6 +76,7 @@ public class EditLocationDecimalView {
         double latitude = LocalisationUtils.parseDouble(this.latitude.getText().toString());
         double longitude = LocalisationUtils.parseDouble(this.longitude.getText().toString());
         double elevation = LocalisationUtils.parseDouble(this.elevation.getText().toString());
+        initialHash = hashCode();
         return LocationUtil.formatLocation(latitude, longitude, elevation);
     }
 
@@ -80,5 +84,18 @@ public class EditLocationDecimalView {
         latitude.setText(String.format(Locale.getDefault(), "%.5f", location.getLatitude()));
         longitude.setText(String.format(Locale.getDefault(), "%.5f", location.getLongitude()));
         elevation.setText(String.format(Locale.getDefault(), "%.2f", location.getAltitude()));
+        initialHash = hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = latitude != null ? latitude.getText().toString().hashCode() : 0;
+        result = 31 * result + (longitude != null ? longitude.getText().toString().hashCode() : 0);
+        result = 31 * result + (elevation != null ? elevation.getText().toString().hashCode() : 0);
+        return result;
+    }
+
+    public boolean isChanged() {
+        return initialHash != hashCode();
     }
 }

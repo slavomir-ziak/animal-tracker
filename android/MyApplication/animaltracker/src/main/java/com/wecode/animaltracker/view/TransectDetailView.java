@@ -48,6 +48,8 @@ public class TransectDetailView {
 
     private TransectDataService service = TransectDataService.getInstance();
 
+    private int initialHash;
+
     public TransectDetailView(View context, Activity activity, Transect transect) {
         id = (TextView) context.findViewById(R.id.transectIdValue);
         column = (TextView) context.findViewById(R.id.transectColumnValue);
@@ -104,6 +106,7 @@ public class TransectDetailView {
         }
 
         weatherId = transect.getWatherId();
+        initialHash = hashCode();
     }
 
     public void initGuiForView() {
@@ -196,6 +199,7 @@ public class TransectDetailView {
             }
 
             transect.setWeatherId(weatherId);
+            initialHash = hashCode();
             return transect;
 
         } catch (ParseException e) {
@@ -301,4 +305,35 @@ public class TransectDetailView {
         return ValidationHelper.isNotEmpty(context, routeName, column);
     }
 
+    @Override
+    public String toString() {
+        return "TransectDetailView{" +
+                "id=" + id.getText() +
+                ", column=" + column.getText() +
+                ", startDateTime=" + startDateTime.getText() +
+                ", endDateTime=" + endDateTime.getText() +
+                ", startLocation=" + startLocation.getText() +
+                ", endLocation=" + endLocation.getText() +
+                ", routeName=" + routeName.getText() +
+                '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.getText().toString().hashCode() : 0;
+        result = 31 * result + (column != null ? column.getText().toString().hashCode() : 0);
+        result = 31 * result + (startDateTime != null ? startDateTime.getText().toString().hashCode() : 0);
+        result = 31 * result + (endDateTime != null ? endDateTime.getText().toString().hashCode() : 0);
+        result = 31 * result + (startLocation != null ? startLocation.getText().toString().hashCode() : 0);
+        result = 31 * result + (endLocation != null ? endLocation.getText().toString().hashCode() : 0);
+        result = 31 * result + (routeName != null ? routeName.getText().toString().hashCode() : 0);
+        result = 31 * result + (localisationSpinner.getSelectedCodeListValue() != null ? localisationSpinner.getSelectedCodeListValue().hashCode() : 0);
+        System.out.println("localisationSpinner.getSelectedCodeListValue().hashCode(): " + localisationSpinner.getSelectedCodeListValue().hashCode());
+        System.out.println("localisationSpinner.getSelectedCodeListValue(): " + localisationSpinner.getSelectedCodeListValue());
+        return result;
+    }
+
+    public boolean isChanged() {
+        return initialHash != hashCode();
+    }
 }

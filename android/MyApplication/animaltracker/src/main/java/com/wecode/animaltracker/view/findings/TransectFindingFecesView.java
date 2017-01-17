@@ -27,6 +27,7 @@ public class TransectFindingFecesView {
     private CodeListSpinnerView substract;
 
     private TransectFindingFecesDataService service = TransectFindingFecesDataService.getInstance();
+    private int initialHash;
 
     public TransectFindingFecesView(Activity context, TransectFindingFeces transectFindingFeces) {
         this(context, transectFindingFeces.getTransectFindingId());
@@ -56,6 +57,7 @@ public class TransectFindingFecesView {
         substract.select(transectFindingFeces.getSubstract());
         SpinnersHelper.setSelected(confidence, transectFindingFeces.getConfidence());
         id = transectFindingFeces.getId();
+        initialHash = hashCode();
     }
 
     public TransectFindingFeces toFecesFinding(){
@@ -75,10 +77,26 @@ public class TransectFindingFecesView {
         transectFindingFeces.setAge(age.getSelectedCodeListValue());
         transectFindingFeces.setSubstract(substract.getSelectedCodeListValue());
 
+        initialHash = hashCode();
         return transectFindingFeces;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (fecesPrey != null ? fecesPrey.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (confidence != null ? confidence.getSelectedItem().toString().hashCode() : 0);
+        result = 31 * result + (fecesState != null ? fecesState.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (age != null ? age.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (substract != null ? substract.getSelectedCodeListValue().hashCode() : 0);
+        return result;
+    }
+
+    public boolean isChanged() {
+        return initialHash != hashCode();
     }
 }

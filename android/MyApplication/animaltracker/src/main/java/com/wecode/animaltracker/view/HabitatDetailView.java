@@ -30,6 +30,7 @@ public class HabitatDetailView {
     private View forestTypeContainer;
     private View forestAgeContainer;
     private View treeTypeContainer;
+    private int initialHash;
 
     public HabitatDetailView(Activity context, View view, Habitat habitat) {
         this(context, view);
@@ -72,6 +73,8 @@ public class HabitatDetailView {
         forestType.select(habitat.getForestType());
 
         showHideTreeProperties(habitat.getType());
+
+        initialHash = hashCode();
     }
 
     private void showHideTreeProperties(String type) {
@@ -99,7 +102,19 @@ public class HabitatDetailView {
         habitat.setForestAge(forestAge.getSelectedCodeListValue());
         habitat.setTreeType(treeType.getSelectedCodeListValue());
         habitat.setForestType(forestType.getSelectedCodeListValue());
+        initialHash = hashCode();
         return habitat;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (type != null ? type.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (track != null ? track.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (forestAge != null ? forestAge.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (treeType != null ? treeType.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (forestType != null ? forestType.getSelectedCodeListValue().hashCode() : 0);
+        return result;
     }
 
     public Long getId() {
@@ -108,5 +123,9 @@ public class HabitatDetailView {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isChanged() {
+        return initialHash != hashCode();
     }
 }

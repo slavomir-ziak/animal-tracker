@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.activity.detail;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -50,11 +52,11 @@ import java.util.List;
 
 public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivity implements LocationListener {
 
-    private static final int SET_HABITAT_REQUEST = 0;
-    private static final int ADD_SAMPLE_REQUEST = 1;
-    private static final int ACCESS_FINE_LOCATION_REQUEST = 4;
+    private static final int SET_HABITAT_REQUEST = 10;
+    private static final int ADD_SAMPLE_REQUEST = 100;
+    private static final int ACCESS_FINE_LOCATION_REQUEST = 400;
 
-    private static final int EDIT_LOCATION_REQUEST = 5;
+    private static final int EDIT_LOCATION_REQUEST = 500;
 
     private TransectFindingSiteDataService transectFindingSiteDataService = TransectFindingSiteDataService.getInstance();
 
@@ -141,8 +143,35 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         });
     }
 
+
     @Override
     public void onBackPressed() {
+
+        if (transectFindingSiteDetailView.isChanged()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_save_changes_before_leave)
+                    .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            saveTransectFinding();
+                            endActivity();
+                        }
+                    })
+                    .setNegativeButton(R.string.dialog_discard_and_leave, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            endActivity();
+                        }
+                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            })
+            .show();
+        } else {
+            endActivity();
+        }
+
+    }
+
+    private void endActivity() {
         Intent intent = new Intent();
         setResult(RESULT_CANCELED, intent);
         finish();
@@ -174,6 +203,11 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
         if (id == R.id.action_save) {
             saveTransectFinding();
+            return true;
+        }
+
+        if (id == android.R.id.home) {
+            onBackPressed();
             return true;
         }
 
@@ -305,24 +339,27 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
                 Assert.assertNotNull("HabitatId", id);
 
                 int code = transectFindingSiteDetailView.getHabitatId() == null ? R.string.habitat_created : R.string.habitat_modified;
-                Toast.makeText(this, getString(code) + ", ID = " + id, Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(code), Toast.LENGTH_LONG).show();
 
                 transectFindingSiteDetailView.setHabitatId(id);
+                saveTransectFinding();
                 break;
 
             case ADD_SAMPLE_REQUEST:
                 String sampleNumber = data.getExtras().getString("sampleNumber");
+                Assert.assertNotNull("sampleNumber", sampleNumber);
+
                 Log.d(Globals.APP_NAME, "sampleNumber: " + sampleNumber);
                 sampleDataService.save(new Sample(null, sampleNumber, transectFindingSiteDetailView.getId()));
                 break;
 
             case EDIT_LOCATION_REQUEST:
                 String location = data.getExtras().getString("location");
+                Assert.assertNotNull("location", location);
                 transectFindingSiteDetailView.getLocation().setText(location);
                 break;
         }
 
-        saveTransectFinding();
     }
 
     @Override
@@ -334,8 +371,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         TransectFindingSite transectFindingSite = transectFindingSiteDataService.save(transectFindingSiteDetailView.toTransectFinding());
         id = transectFindingSite.getId();
 
-        int code = transectFindingSiteDetailView.getId() == null ? R.string.transect_finding_site_created : R.string.transect_finding_site_modified;
-        Toast.makeText(this, getString(code) + ", ID = " + id, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
 
         transectFindingSiteDetailView.setId(transectFindingSite.getId());
         transectFindingSiteDetailView.initGuiForEdit();

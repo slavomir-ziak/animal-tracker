@@ -2,6 +2,8 @@ package com.wecode.animaltracker.activity.detail;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -39,7 +41,9 @@ import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.Permissions;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TransectDetailActivity extends PhotoEnabledCommonActivity implements LocationListener, LocationProvidingActivity {
@@ -227,7 +231,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         }
 
         if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -272,13 +276,17 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         }
 
         if (id == R.id.action_save) {
-
             saveAll();
             return true;
         }
 
         if (id == R.id.transect_finding_action_export) {
             exportToExcel();
+            return true;
+        }
+
+        if (id == android.R.id.home) {
+            onBackPressed();
             return true;
         }
 
@@ -311,13 +319,39 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             initTabLayout();
         }
 
-        Toast.makeText(this, getString(R.string.transect_saved), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
 
     }
 
 
     @Override
     public void onBackPressed() {
+
+        if (transectFragment.isChangedByUser()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_save_changes_before_leave)
+                    .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            saveAll();
+                            endActivity();
+                        }
+                    })
+                    .setNegativeButton(R.string.dialog_discard_and_leave, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            endActivity();
+                        }
+                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }
+                    })
+                    .show();
+        } else {
+            endActivity();
+        }
+
+    }
+
+    private void endActivity(){
         Intent intent = new Intent();
         intent.putExtra("id", id);
         setResult(RESULT_OK, intent);

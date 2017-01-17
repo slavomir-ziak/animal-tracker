@@ -39,6 +39,8 @@ public class TransectFindingSiteDetailView {
 
     private TransectFindingSite transectFindingSite;
 
+    private int initialHash;
+
     public TransectFindingSiteDetailView(Activity context, TransectFindingSite transectFindingSite) {
         this(context, transectFindingSite.getId());
         this.transectFindingSite = transectFindingSite;
@@ -53,8 +55,6 @@ public class TransectFindingSiteDetailView {
 
         species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context, false, getDefaultAnimal());
         location = (TextView) context.findViewById(R.id.findingLocationValue);
-        //findingBeforeRecentSnow = (RadioButton) context.findViewById(R.id.findingBeforeRecentSnow);
-        //findingAfterRecentSnow = (RadioButton) context.findViewById(R.id.findingAfterRecentSnow);
         addFececButton = (Button) context.findViewById(R.id.transectFindingAddFecesButton);
         addFootprintsButton = (Button) context.findViewById(R.id.transectFindingAddFootprintsButton);
         addOtherButton = (Button) context.findViewById(R.id.transectFindingAddOtherButton);
@@ -74,9 +74,6 @@ public class TransectFindingSiteDetailView {
 
         species.select(transectFindingSite.getSpecies());
 
-        //findingBeforeRecentSnow.setChecked("BEFORE".equals(transectFindingSite.getBeforeAfterRecentSnow()));
-        //findingAfterRecentSnow.setChecked("AFTER".equals(transectFindingSite.getBeforeAfterRecentSnow()));
-
         if (transectFindingSite.hasLocation()) {
             setLocation(transectFindingSite.getLocationLatitude(), transectFindingSite.getLocationLongitude(), transectFindingSite.getLocationElevation());
         }
@@ -84,6 +81,8 @@ public class TransectFindingSiteDetailView {
         habitatId = transectFindingSite.getHabitatId();
         transectId = transectFindingSite.getTransectId();
         id = transectFindingSite.getId();
+
+        initialHash = hashCode();
     }
 
     private void setLocation(Double latitude, Double longiture, Double altitude) {
@@ -128,6 +127,7 @@ public class TransectFindingSiteDetailView {
         transectFindingSite.setHabitatId(habitatId);
         transectFindingSite.setTransectId(transectId);
         transectFindingSite.setId(id);
+        initialHash = hashCode();
 
         return transectFindingSite;
     }
@@ -183,5 +183,19 @@ public class TransectFindingSiteDetailView {
 
     public TransectFindingSite getTransectFindingSite() {
         return transectFindingSite;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (habitatId != null ? habitatId.hashCode() : 0);
+        result = 31 * result + (transectId != null ? transectId.hashCode() : 0);
+        result = 31 * result + (species.getSelectedCodeListValue() != null ? species.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (location.getText() != null ? location.getText().toString().hashCode() : 0);
+        return result;
+    }
+
+    public boolean isChanged() {
+        return initialHash != hashCode();
     }
 }

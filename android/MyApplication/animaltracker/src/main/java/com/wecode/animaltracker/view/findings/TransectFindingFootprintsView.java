@@ -36,6 +36,8 @@ public class TransectFindingFootprintsView {
 
     private TransectFindingFootprintsDataService service = TransectFindingFootprintsDataService.getInstance();
 
+    private int initialHash;
+
     public TransectFindingFootprintsView(Activity context, TransectFindingFootprints transectFindingFootprints) {
         this(context, transectFindingFootprints.getTransectFindingId());
 
@@ -75,7 +77,7 @@ public class TransectFindingFootprintsView {
         age.select(transectFindingFootprints.getAge());
         footprintsStride.setText(transectFindingFootprints.getStride() == null ? "" : transectFindingFootprints.getStride().toString());
         substract.select(transectFindingFootprints.getSubstract());
-
+        initialHash = hashCode();
     }
 
     public TransectFindingFootprints toFootprintsFinding(){
@@ -99,6 +101,7 @@ public class TransectFindingFootprintsView {
         transectFindingFootprints.setBackWidht(ConverterUtil.toFloat(footprintsBackWidht.getText().toString()));
         transectFindingFootprints.setStride(ConverterUtil.toFloat(footprintsStride.getText().toString()));
         transectFindingFootprints.setSubstract(substract.getSelectedCodeListValue());
+        initialHash = hashCode();
         return transectFindingFootprints;
     }
 
@@ -108,5 +111,26 @@ public class TransectFindingFootprintsView {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (numberOfAnimals != null ? numberOfAnimals.getText().toString().hashCode() : 0);
+        result = 31 * result + (footprintsDirection != null ? footprintsDirection.getSelectedItem().toString().hashCode() : 0);
+        result = 31 * result + (footprintsBackLength != null ? footprintsBackLength.getText().toString().hashCode() : 0);
+        result = 31 * result + (footprintsBackWidht != null ? footprintsBackWidht.getText().toString().hashCode() : 0);
+        result = 31 * result + (footprintsFrontLength != null ? footprintsFrontLength.getText().toString().hashCode() : 0);
+        result = 31 * result + (footprintsFrontWidht != null ? footprintsFrontWidht.getText().toString().hashCode() : 0);
+        result = 31 * result + (footprintsStride != null ? footprintsStride.getText().toString().hashCode() : 0);
+        result = 31 * result + (confidence != null ? confidence.getSelectedItem().toString().hashCode() : 0);
+        result = 31 * result + (age != null ? age.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (substract != null ? substract.getSelectedCodeListValue().hashCode() : 0);
+        return result;
+    }
+
+    public boolean isChanged() {
+        return initialHash != hashCode();
     }
 }

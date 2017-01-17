@@ -52,7 +52,7 @@
         <item></item>
         <item>North</item>
         <item>South</item>
-        <item>Eest</item>
+        <item>East</item>
         <item>West</item>
         <item>North-east</item>
         <item>North-west</item>
@@ -97,7 +97,7 @@
     <string name="tree_type">Tree type</string>
     <string name="forest_type">Forest Type</string>
     <string name="new_transect">New transect</string>
-    <string name="view_transcts">View transcts</string>
+    <string name="view_transcts">View transects</string>
     <string name="add_photo">Add photo</string>
     <string name="tracker_name">Tracker name</string>
     <string name="location_format">Location format</string>
@@ -199,6 +199,9 @@
     <string name="dialog_end_transect_title">End transect</string>
     <string name="dialog_end_transect">Do you really want to end transect?</string>
     <string name="validation_must_be_number">Number format: 1.23</string>
+    <string name="dialog_save_changes_before_leave">Save changes before leave?</string>
+    <string name="dialog_discard_and_leave">Discard and leave</string>
+    <string name="saved">Saved</string>
 
 
 </resources>

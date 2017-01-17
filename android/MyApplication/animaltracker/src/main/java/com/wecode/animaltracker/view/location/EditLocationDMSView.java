@@ -33,6 +33,8 @@ public class EditLocationDMSView {
 
     private TextView elevation;
 
+    private int initialHash;
+
     public EditLocationDMSView(String location, Activity context) {
 
         degreesLatitude = (TextView) context.findViewById(R.id.editLocationLatitudeDegreesValue);
@@ -61,6 +63,8 @@ public class EditLocationDMSView {
         init(coordinates[1].trim(), degreesLongitude, minutesLongitude, secondsLongitude, directionLongitude);
 
         elevation.setText(coordinates[2].trim());
+
+        initialHash =  hashCode();
     }
 
     private void init(String coordinate, TextView degrees, TextView minutes, TextView seconds, Spinner direction) {
@@ -76,6 +80,7 @@ public class EditLocationDMSView {
         seconds.setText(parts[2]);
 
         SpinnersHelper.setSelected(direction, parts[3]);
+        initialHash =  hashCode();
     }
 
 
@@ -110,6 +115,7 @@ public class EditLocationDMSView {
         String elevationValue = this.elevation.getText().toString();
         double elevation = LocalisationUtils.parseDouble(elevationValue.isEmpty() ? "0" : elevationValue);
 
+        initialHash =  hashCode();
         return String.format(Locale.getDefault(), "%s°%s'%.2f\"%s, %s°%s'%.2f\"%s, %.2f",
                 degreesLatitude.getText(), minutesLatitude.getText(), latitudeSeconds, directionLatitude.getSelectedItem(),
                 degreesLongitude.getText(), minutesLongitude.getText(), longitudeSeconds, directionLongitude.getSelectedItem(),
@@ -126,5 +132,24 @@ public class EditLocationDMSView {
         init(coordinates[1].trim(), degreesLongitude, minutesLongitude, secondsLongitude, directionLongitude);
 
         elevation.setText(coordinates[2].trim());
+        initialHash =  hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = degreesLatitude != null ? degreesLatitude.getText().toString().hashCode() : 0;
+        result = 31 * result + (minutesLatitude != null ? minutesLatitude.getText().toString().hashCode() : 0);
+        result = 31 * result + (secondsLatitude != null ? secondsLatitude.getText().toString().hashCode() : 0);
+        result = 31 * result + (directionLatitude != null ? directionLatitude.getSelectedItem().toString().hashCode() : 0);
+        result = 31 * result + (degreesLongitude != null ? degreesLongitude.getText().toString().hashCode() : 0);
+        result = 31 * result + (minutesLongitude != null ? minutesLongitude.getText().toString().hashCode() : 0);
+        result = 31 * result + (secondsLongitude != null ? secondsLongitude.getText().toString().hashCode() : 0);
+        result = 31 * result + (directionLongitude != null ? directionLongitude.getSelectedItem().toString().hashCode() : 0);
+        result = 31 * result + (elevation != null ? elevation.getText().toString().hashCode() : 0);
+        return result;
+    }
+
+    public boolean isChanged() {
+        return initialHash != hashCode();
     }
 }

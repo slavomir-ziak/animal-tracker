@@ -2,15 +2,12 @@ package com.wecode.animaltracker.view.findings;
 
 import android.app.Activity;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
-import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 import com.wecode.animaltracker.util.Assert;
-import com.wecode.animaltracker.util.ConverterUtil;
 import com.wecode.animaltracker.view.CodeListSpinnerView;
 
 /**
@@ -28,6 +25,8 @@ public class TransectFindingOtherView {
     private CodeListSpinnerView substract;
 
     private TransectFindingOtherDataService service = TransectFindingOtherDataService.getInstance();
+
+    private int initialHash;
 
     public TransectFindingOtherView(Activity context, TransectFindingOther transectFindingOther) {
         this(context, transectFindingOther.getTransectFindingId());
@@ -54,6 +53,7 @@ public class TransectFindingOtherView {
         age.select(transectFindingOther.getAge());
         substract.select(transectFindingOther.getSubstract());
         SpinnersHelper.setSelected(confidence, transectFindingOther.getConfidence());
+        initialHash = hashCode();
     }
 
     public TransectFindingOther toOtherFinding(){
@@ -71,6 +71,7 @@ public class TransectFindingOtherView {
         transectFindingOther.setObservations(otherObservations.getSelectedCodeListValue());
         transectFindingOther.setAge(age.getSelectedCodeListValue());
         transectFindingOther.setSubstract(substract.getSelectedCodeListValue());
+        initialHash = hashCode();
         return transectFindingOther;
     }
 
@@ -80,5 +81,21 @@ public class TransectFindingOtherView {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + transectFindingId.hashCode();
+        result = 31 * result + otherEvidence.getSelectedCodeListValue().hashCode();
+        result = 31 * result + otherObservations.getSelectedCodeListValue().hashCode();
+        result = 31 * result + confidence.getSelectedItem().toString().hashCode();
+        result = 31 * result + age.getSelectedCodeListValue().hashCode();
+        result = 31 * result + substract.getSelectedCodeListValue().hashCode();
+        return result;
+    }
+
+    public boolean isChanged() {
+        return initialHash != hashCode();
     }
 }

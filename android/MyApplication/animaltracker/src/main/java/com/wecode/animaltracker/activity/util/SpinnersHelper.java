@@ -36,13 +36,12 @@ public class SpinnersHelper {
             spinner.setSelection(position, true);
         } else if (spinner.getAdapter() instanceof CodeListEditingAdapter) {
             final int position = ((CodeListEditingAdapter) spinner.getAdapter()).getPosition(value, false);
-            Log.i(Globals.APP_NAME, value + " has position " + position);
-
-            spinner.post(new Runnable() {
+            spinner.setSelection(position, false);
+            /*spinner.post(new Runnable() {
                 public void run() {
                     spinner.setSelection(position, true);
                 }
-            });
+            });*/
 
         } else {
             throw new RuntimeException("cannot handle " + spinner.getAdapter());

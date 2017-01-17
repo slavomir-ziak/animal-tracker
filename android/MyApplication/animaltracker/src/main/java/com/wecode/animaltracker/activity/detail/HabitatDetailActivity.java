@@ -1,10 +1,14 @@
 package com.wecode.animaltracker.activity.detail;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.common.CommonDetailActivity;
 import com.wecode.animaltracker.service.HabitatDataService;
@@ -37,11 +41,44 @@ public class HabitatDetailActivity extends CommonDetailActivity {
 
     @Override
     public void onBackPressed() {
-        Habitat t = habitatDetailView.toHabitat();
-        habitatService.save(t);
 
+        if (habitatDetailView.isChanged()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_save_changes_before_leave)
+                    .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            save();
+                            endActivity();
+                        }
+                    })
+                    .setNegativeButton(R.string.dialog_discard_and_leave, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            endActivity();
+                        }
+                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            })
+                    .show();
+        } else {
+            endActivity();
+        }
+
+    }
+
+    private void save() {
+        Habitat habitat = habitatDetailView.toHabitat();
+        habitat = habitatService.save(habitat);
+
+        habitatDetailView.setId(habitat.getId());
+        id = habitat.getId();
+
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+    }
+
+    private void endActivity() {
         Intent intent = new Intent();
-        intent.putExtra("id", t.getId());
+        intent.putExtra("id", habitatDetailView.getId());
         setResult(RESULT_OK, intent);
         finish();
     }
@@ -58,6 +95,11 @@ public class HabitatDetailActivity extends CommonDetailActivity {
 
         if (id == android.R.id.home) {
             onBackPressed();
+            return true;
+        }
+
+        if (id == R.id.action_save) {
+            save();
             return true;
         }
 

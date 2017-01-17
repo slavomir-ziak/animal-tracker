@@ -1,5 +1,8 @@
 package com.wecode.animaltracker.activity.detail.findings;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -80,14 +83,53 @@ public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivi
             return true;
         }
 
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (transectFindingFecesView.isChanged()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_save_changes_before_leave)
+                    .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            saveTransectFinding();
+                            endActivity();
+                        }
+                    })
+                    .setNegativeButton(R.string.dialog_discard_and_leave, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            endActivity();
+                        }
+                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            })
+            .show();
+        } else {
+            endActivity();
+        }
+
+    }
+
+    private void endActivity() {
+        Intent intent = new Intent();
+        intent.putExtra("id", id);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     private void saveTransectFinding() {
         TransectFindingFeces transectFindingFeces = transectFindingFecesDataService.save(transectFindingFecesView.toFecesFinding());
         transectFindingFecesView.setId(transectFindingFeces.getId());
         this.id = transectFindingFeces.getId();
-        Toast.makeText(this, R.string.feces_saved, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
     }
 
     @Override
