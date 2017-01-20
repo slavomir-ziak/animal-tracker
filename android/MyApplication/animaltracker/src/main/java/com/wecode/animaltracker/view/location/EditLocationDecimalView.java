@@ -13,6 +13,7 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.LocalisationUtils;
 import com.wecode.animaltracker.activity.util.ValidationException;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
+import com.wecode.animaltracker.activity.util.Validator;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.StringUtils;
 
@@ -48,28 +49,24 @@ public class EditLocationDecimalView {
         }
     }
 
-    public boolean validate(Context context) {
+    public boolean validate(final Context context) {
 
-        try {
+        return ValidationHelper.validate(new Validator(){
 
-            ValidationHelper.assertNotEmpty(context, latitude, longitude, elevation);
-            ValidationHelper.assertDouble(context, latitude, longitude, elevation);
+            @Override
+            public void validate() throws ValidationException {
+                ValidationHelper.assertNotEmpty(context, latitude, longitude, elevation);
+                ValidationHelper.assertDouble(context, latitude, longitude, elevation);
 
-            ValidationHelper.assertMaxValue(context, latitude, 90);
-            ValidationHelper.assertMaxValue(context, longitude, 180);
+                ValidationHelper.assertMaxValue(context, latitude, 90);
+                ValidationHelper.assertMaxValue(context, longitude, 180);
 
-            ValidationHelper.assertMinValue(context, latitude, -90);
-            ValidationHelper.assertMinValue(context, longitude, -180);
+                ValidationHelper.assertMinValue(context, latitude, -90);
+                ValidationHelper.assertMinValue(context, longitude, -180);
+            }
 
-        } catch (ValidationException ex) {
-            Log.i(Globals.APP_NAME, ex.getMessage());
-            return false;
-        } catch (Exception ex) {
-            Log.e(Globals.APP_NAME, "gps validation", ex);
-            throw ex;
-        }
+        });
 
-        return true;
     }
 
     public String getLocation() {

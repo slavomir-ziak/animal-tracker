@@ -43,7 +43,7 @@ public abstract class CommonDetailActivity extends AppCompatActivity {
         id = (Long) intent.getExtras().get("id");
 
         if (action != Action.NEW ) {
-            Assert.assertNotNull("id musi byt zadane", id);
+            Assert.assertNotNullNotZero("id musi byt zadane", id);
         }
 
         parentActivityClass = (Class) getIntent().getExtras().get(Constants.PARENT_ACTIVITY);

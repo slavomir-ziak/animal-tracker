@@ -77,21 +77,22 @@ public class TransectFindingOtherView {
 
     public void setEvidence(String evidence) {
         otherEvidence.select(evidence);
+        initialHash = hashCode();
     }
 
     public void setId(Long id) {
         this.id = id;
+        initialHash = hashCode();
     }
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + transectFindingId.hashCode();
-        result = 31 * result + otherEvidence.getSelectedCodeListValue().hashCode();
-        result = 31 * result + otherObservations.getSelectedCodeListValue().hashCode();
-        result = 31 * result + confidence.getSelectedItem().toString().hashCode();
-        result = 31 * result + age.getSelectedCodeListValue().hashCode();
-        result = 31 * result + substract.getSelectedCodeListValue().hashCode();
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (otherEvidence != null ? otherEvidence.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (otherObservations != null ? otherObservations.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (confidence != null ? confidence.getSelectedItem().hashCode() : 0);
+        result = 31 * result + (age != null ? age.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (substract != null ? substract.getSelectedCodeListValue().hashCode() : 0);
         return result;
     }
 

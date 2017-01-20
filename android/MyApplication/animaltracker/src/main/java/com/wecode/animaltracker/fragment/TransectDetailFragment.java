@@ -60,7 +60,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
 
             action = Action.fromString(getArguments().getString("action"));
             if (transectId == null && action != Action.NEW ) {
-                Assert.assertNotNull("transectId musi byt zadane", transectId);
+                Assert.assertNotNullNotZero("transectId musi byt zadane", transectId);
             }
         }
 
@@ -144,7 +144,6 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         String startDateTime = DateFormat.getDateTimeInstance().format(new Date());
         transectDetailView.getStartDateTime().setText(startDateTime);
 
-        // saveTransect();
         ((TransectDetailActivity) getActivity()).saveAll();
     }
 
@@ -165,7 +164,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
                 String endDateTime = DateFormat.getDateTimeInstance().format(new Date());
                 transectDetailView.getEndDateTime().setText(endDateTime);
 
-                saveTransect();
+                validateAndSaveTransect();
 
                 }
             })
@@ -181,12 +180,12 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == Activity.RESULT_CANCELED) {
-            //Toast.makeText(getActivity(), R.string.operation_canceled, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), R.string.operation_canceled, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(getActivity(), getString(R.string.problem_with_creating, getNameForRequestCode(requestCode)), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), getString(R.string.problem_with_creating, getNameForRequestCode(requestCode)), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -203,11 +202,10 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
                 break;
         }
 
-        //saveTransect();
 
     }
 
-    public Transect saveTransect() {
+    public Transect validateAndSaveTransect() {
         if (transectDetailView == null) {
             return null;
         }
@@ -225,7 +223,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         transectDataService.save(transect);
 
         transectDetailView.setIdValue(transect.getId());
-        this.transectId = transect.getId();
+        transectId = transect.getId();
         action = Action.EDIT;
         transectDetailView.initGuiForEdit();
         return transect;

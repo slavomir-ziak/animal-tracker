@@ -160,11 +160,8 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
                         public void onClick(DialogInterface dialog, int whichButton) {
                             endActivity();
                         }
-                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                }
-            })
-            .show();
+                    })
+                    .show();
         } else {
             endActivity();
         }
@@ -324,22 +321,22 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         initFindings();
 
         if (resultCode == RESULT_CANCELED) {
-            //Toast.makeText(this, "Operation canceled.", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Operation canceled.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, getString(R.string.problem_with_creating, getNameForRequestCode(requestCode)), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.problem_with_creating, getNameForRequestCode(requestCode)), Toast.LENGTH_SHORT).show();
             return;
         }
 
         switch (requestCode) {
             case SET_HABITAT_REQUEST:
                 Long id = data.getExtras().getLong("id");
-                Assert.assertNotNull("HabitatId", id);
+                Assert.assertNotNullNotZero("HabitatId", id);
 
                 int code = transectFindingSiteDetailView.getHabitatId() == null ? R.string.habitat_created : R.string.habitat_modified;
-                Toast.makeText(this, getString(code), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(code), Toast.LENGTH_SHORT).show();
 
                 transectFindingSiteDetailView.setHabitatId(id);
                 saveTransectFinding();
@@ -371,7 +368,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         TransectFindingSite transectFindingSite = transectFindingSiteDataService.save(transectFindingSiteDetailView.toTransectFinding());
         id = transectFindingSite.getId();
 
-        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
 
         transectFindingSiteDetailView.setId(transectFindingSite.getId());
         transectFindingSiteDetailView.initGuiForEdit();

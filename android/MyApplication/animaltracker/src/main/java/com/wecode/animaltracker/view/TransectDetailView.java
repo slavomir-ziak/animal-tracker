@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.LocalisationUtils;
+import com.wecode.animaltracker.activity.util.ValidationException;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
+import com.wecode.animaltracker.activity.util.Validator;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.LocationUtil;
@@ -301,8 +303,14 @@ public class TransectDetailView {
         this.id.setText(idValue.toString());
     }
 
-    public boolean isValid(Context context) {
-        return ValidationHelper.isNotEmpty(context, routeName, column);
+    public boolean isValid(final Context context) {
+        return ValidationHelper.validate(new Validator() {
+            @Override
+            public void validate() throws ValidationException {
+                ValidationHelper.assertNotEmpty(context, routeName, column);
+            }
+        });
+
     }
 
     @Override

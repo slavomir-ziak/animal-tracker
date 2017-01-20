@@ -31,19 +31,15 @@ import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.fragment.PhotosFragment;
 import com.wecode.animaltracker.fragment.TransectDetailFragment;
 import com.wecode.animaltracker.fragment.TransectFindingSiteListFragment;
-import com.wecode.animaltracker.fragment.WeatherFragment;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
-import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.Permissions;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TransectDetailActivity extends PhotoEnabledCommonActivity implements LocationListener, LocationProvidingActivity {
@@ -231,12 +227,12 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         }
 
         if (resultCode == RESULT_CANCELED) {
-            //Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, getString(R.string.problem_with_creating) + getNameForRequestCode(requestCode), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.problem_with_creating) + getNameForRequestCode(requestCode), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -244,8 +240,8 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
             case ADD_FINDING_REQUEST:
                 id = data.getExtras().getLong("id");
-                Assert.assertNotNull("Finding", id);
-                Toast.makeText(this, getString(R.string.transect_finding_saved), Toast.LENGTH_LONG).show();
+                Assert.assertNotNullNotZero("Finding", id);
+                Toast.makeText(this, getString(R.string.transect_finding_saved), Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -301,10 +297,10 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         addPhoto();
     }
 
-    public void saveAll() {
-        Transect transect = transectFragment.saveTransect();
+    public boolean saveAll() {
+        Transect transect = transectFragment.validateAndSaveTransect();
         if (transect == null) {
-            return;
+            return false;
         }
 
 /*        if (weatherFragment != null) {
@@ -319,8 +315,9 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             initTabLayout();
         }
 
-        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
 
+        return true;
     }
 
 
@@ -332,16 +329,14 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
                     .setTitle(R.string.dialog_save_changes_before_leave)
                     .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            saveAll();
-                            endActivity();
+                            if (saveAll()){
+                                endActivity();
+                            }
                         }
                     })
                     .setNegativeButton(R.string.dialog_discard_and_leave, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             endActivity();
-                        }
-                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
                         }
                     })
                     .show();

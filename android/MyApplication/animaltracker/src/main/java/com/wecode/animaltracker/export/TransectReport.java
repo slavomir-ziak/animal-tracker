@@ -61,7 +61,8 @@ public class TransectReport {
 
             createExcel(reportStream, excelFile, transect);
 
-            Toast.makeText(context, context.getString(R.string.excel_export_path,  excelFile.getAbsolutePath()), Toast.LENGTH_LONG).show();
+            String path = Globals.formatForUser(excelFile);
+            Toast.makeText(context, context.getString(R.string.excel_export_path, path), Toast.LENGTH_LONG).show();
 
         } catch (Exception e) {
             Log.e(Globals.APP_NAME, "Problem with excel export", e);

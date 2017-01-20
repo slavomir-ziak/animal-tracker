@@ -107,10 +107,7 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
                         public void onClick(DialogInterface dialog, int whichButton) {
                             endActivity();
                         }
-                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                }
-            })
+                    })
                     .show();
         } else {
             endActivity();
@@ -129,7 +126,7 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
         transectFindingFootprintsView.setId(transectFindingFootprints.getId());
 
         this.id = transectFindingFootprints.getId();
-        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
     }
 
     @Override

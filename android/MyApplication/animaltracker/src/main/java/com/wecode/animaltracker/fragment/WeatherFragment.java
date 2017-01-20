@@ -31,7 +31,7 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
 
         Action action = Action.fromString(getArguments().getString("action"));
         if (action != Action.NEW ) {
-            Assert.assertNotNull("weatherId musi byt zadane", weatherId);
+            Assert.assertNotNullNotZero("weatherId musi byt zadane", weatherId);
         }
 
         if (weatherId != null) {

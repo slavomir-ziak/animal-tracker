@@ -39,6 +39,12 @@ public class Globals {
         }
     }
 
+    public static String formatForUser(File file) {
+        String absoluteFilePath = file.getAbsolutePath();
+        String externalStoragePath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        return "<External storage>" + absoluteFilePath.replace(externalStoragePath, "");
+    }
+
     @SuppressLint("SimpleDateFormat")
     public static String getTransectRootDirectoryName(Transect transect) {
 
@@ -83,4 +89,6 @@ public class Globals {
     public static void refreshFileSystem(Context context) {
         MediaScannerConnection.scanFile(context, new String[]{Globals.getAppRootDir().getAbsolutePath()}, null, null);
     }
+
+
 }

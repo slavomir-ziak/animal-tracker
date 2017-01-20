@@ -88,19 +88,19 @@ public class TransectFindingSiteListFragment extends android.support.v4.app.Frag
 
         refreshTransectFindings(view);
         if (resultCode == Activity.RESULT_CANCELED) {
-            //Toast.makeText(getActivity(), R.string.operation_canceled, Toast.LENGTH_LONG).show();
+            //Toast.makeText(getActivity(), R.string.operation_canceled, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (resultCode != Activity.RESULT_OK) {
-            Toast.makeText(getActivity(), R.string.detail_display_problem, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), R.string.detail_display_problem, Toast.LENGTH_SHORT).show();
             return;
         }
 
         /*switch(requestCode) {
             case DISPLAY_TRANSECT_FINDING_DETAIL:
                 Long id = data.getExtras().getLong("id");
-                Toast.makeText(getActivity(), "Transect finding saved, ID = " + id, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Transect finding saved, ID = " + id, Toast.LENGTH_SHORT).show();
         }*/
 
     }

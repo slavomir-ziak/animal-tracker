@@ -37,7 +37,7 @@ public class HabitatFragment extends android.support.v4.app.Fragment implements 
 
         action = Action.fromString(getArguments().getString("action"));
         if (action != Action.NEW ) {
-            Assert.assertNotNull("habitatId musi byt zadane", habitatId);
+            Assert.assertNotNullNotZero("habitatId musi byt zadane", habitatId);
         }
 
         if (habitatId != null) {

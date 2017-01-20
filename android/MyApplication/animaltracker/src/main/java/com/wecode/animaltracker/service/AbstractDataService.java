@@ -36,7 +36,7 @@ public abstract class AbstractDataService<T extends Persistable> {
     }
 
     public T find(Long id) {
-        Assert.assertNotNull("id cannot be null", id);
+        Assert.assertNotNullNotZero("id cannot be null", id);
         T byId = SugarRecord.findById(persistentClass, id);
         Assert.assertNotNull("entity not found by id:"+id, byId);;
         return byId;

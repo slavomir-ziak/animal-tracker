@@ -111,6 +111,7 @@ public class TransectFindingFootprintsView {
 
     public void setId(Long id) {
         this.id = id;
+        initialHash = hashCode();
     }
 
 

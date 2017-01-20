@@ -99,8 +99,6 @@ public class TransectFindingSiteDetailView {
 
     public TransectFindingSite toTransectFinding() {
 
-        TransectFindingSite transectFindingFeces;
-
         if (id != null) {
             transectFindingSite = service.find(id);
         } else {
@@ -115,14 +113,6 @@ public class TransectFindingSiteDetailView {
             transectFindingSite.setLocationLongitude(parsed[1]);
             transectFindingSite.setLocationElevation(parsed[2]);
         }
-
-        /*if (findingBeforeRecentSnow.isChecked()) {
-            transectFindingSite.setBeforeAfterRecentSnow("BEFORE");
-        }
-
-        if (findingAfterRecentSnow.isChecked()) {
-            transectFindingSite.setBeforeAfterRecentSnow("AFTER");
-        }*/
 
         transectFindingSite.setHabitatId(habitatId);
         transectFindingSite.setTransectId(transectId);

@@ -9,7 +9,9 @@ import android.widget.TextView;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.LocalisationUtils;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.activity.util.ValidationException;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
+import com.wecode.animaltracker.activity.util.Validator;
 import com.wecode.animaltracker.util.LocationUtil;
 
 import java.math.BigDecimal;
@@ -84,28 +86,27 @@ public class EditLocationDMSView {
     }
 
 
-    public boolean validate(Context context) {
+    public boolean validate(final Context context) {
 
-        try {
+        return ValidationHelper.validate(new Validator() {
 
-            ValidationHelper.assertNotEmpty(context,
-                    degreesLatitude, minutesLatitude, secondsLatitude,
-                    degreesLongitude, minutesLongitude, secondsLongitude
-            );
+            @Override
+            public void validate() throws ValidationException {
 
-            ValidationHelper.assertMaxValue(context, degreesLatitude, 90);
-            ValidationHelper.assertMaxValue(context, minutesLatitude, 59);
-            ValidationHelper.assertMaxValue(context, secondsLatitude, 99.99);
+                ValidationHelper.assertNotEmpty(context,
+                        degreesLatitude, minutesLatitude, secondsLatitude,
+                        degreesLongitude, minutesLongitude, secondsLongitude
+                );
 
-            ValidationHelper.assertMaxValue(context, degreesLongitude, 180);
-            ValidationHelper.assertMaxValue(context, minutesLongitude, 59);
-            ValidationHelper.assertMaxValue(context, secondsLongitude, 99.99);
+                ValidationHelper.assertMaxValue(context, degreesLatitude, 90);
+                ValidationHelper.assertMaxValue(context, minutesLatitude, 59);
+                ValidationHelper.assertMaxValue(context, secondsLatitude, 99.99);
 
-        } catch(Exception ex) {
-            return false;
-        }
-
-        return true;
+                ValidationHelper.assertMaxValue(context, degreesLongitude, 180);
+                ValidationHelper.assertMaxValue(context, minutesLongitude, 59);
+                ValidationHelper.assertMaxValue(context, secondsLongitude, 99.99);
+            }
+        });
     }
 
     public String getLocation() {

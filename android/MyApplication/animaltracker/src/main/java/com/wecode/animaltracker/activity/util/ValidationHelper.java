@@ -2,8 +2,10 @@ package com.wecode.animaltracker.activity.util;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 
 import java.text.NumberFormat;
@@ -57,6 +59,8 @@ public class ValidationHelper {
         }
     }
 
+
+
     public static void assertDouble(Context context, TextView ... textViews) throws ValidationException {
         boolean valid = isDouble(context, textViews);
         if (!valid) {
@@ -101,6 +105,21 @@ public class ValidationHelper {
         if (!isMinValue(context, textView, minValue)) {
             throw new ValidationException("min value has to be " + minValue);
         }
+    }
+
+    public static boolean validate(Validator validator) {
+
+        try {
+            validator.validate();
+            return true;
+        } catch (ValidationException ex) {
+            Log.i(Globals.APP_NAME, ex.getMessage());
+            return false;
+        } catch (Exception ex) {
+            Log.e(Globals.APP_NAME, "gps validation", ex);
+            throw ex;
+        }
+
     }
 
 }

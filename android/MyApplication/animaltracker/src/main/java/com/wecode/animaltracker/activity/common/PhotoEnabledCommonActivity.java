@@ -90,7 +90,7 @@ public abstract class PhotoEnabledCommonActivity extends CommonDetailActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_CANCELED) {
-            //Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_SHORT).show();
             return;
         }
 

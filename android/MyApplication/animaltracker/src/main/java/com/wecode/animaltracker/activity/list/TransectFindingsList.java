@@ -76,12 +76,12 @@ public class TransectFindingsList extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         refreshTransectFindings();
         if (resultCode == RESULT_CANCELED) {
-            //Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, R.string.operation_canceled, Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, R.string.detail_display_problem, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.detail_display_problem, Toast.LENGTH_SHORT).show();
             return;
         }
 

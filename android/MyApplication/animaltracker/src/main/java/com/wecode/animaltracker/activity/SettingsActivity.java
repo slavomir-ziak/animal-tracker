@@ -84,7 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
         settings.setLocationFormat(locationFormat);
         settings.setTrackerName(trackerName.getText().toString());
         service.save(settings);
-        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
 
     }
 

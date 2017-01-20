@@ -83,6 +83,7 @@ public class TransectFindingFecesView {
 
     public void setId(Long id) {
         this.id = id;
+        initialHash = hashCode();
     }
 
     @Override

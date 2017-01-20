@@ -89,17 +89,16 @@ public class EditLocationDMSFormatActivity extends CommonDetailActivity implemen
                     .setTitle(R.string.dialog_save_changes_before_leave)
                     .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            endActivity(RESULT_OK);
+                            if (editLocatioView.validate(EditLocationDMSFormatActivity.this)) {
+                                endActivity(RESULT_OK);
+                            }
                         }
                     })
                     .setNegativeButton(R.string.dialog_discard_and_leave, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
                             endActivity(RESULT_CANCELED);
                         }
-                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                }
-            })
+                    })
                     .show();
         } else {
             endActivity(RESULT_CANCELED);

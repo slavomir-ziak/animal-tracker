@@ -43,7 +43,7 @@ public class WeatherDetailActivity extends CommonDetailActivity {
     public void onBackPressed() {
         Weather weather = weatherDetailView.toWeather();
         weatherService.save(weather);
-        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
 
         Intent intent = new Intent();
         intent.putExtra("id", weather.getId());

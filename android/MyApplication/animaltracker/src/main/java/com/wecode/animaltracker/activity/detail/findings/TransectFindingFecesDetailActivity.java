@@ -107,11 +107,8 @@ public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivi
                         public void onClick(DialogInterface dialog, int whichButton) {
                             endActivity();
                         }
-                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                }
-            })
-            .show();
+                    })
+                    .show();
         } else {
             endActivity();
         }
@@ -129,7 +126,7 @@ public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivi
         TransectFindingFeces transectFindingFeces = transectFindingFecesDataService.save(transectFindingFecesView.toFecesFinding());
         transectFindingFecesView.setId(transectFindingFeces.getId());
         this.id = transectFindingFeces.getId();
-        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
     }
 
     @Override

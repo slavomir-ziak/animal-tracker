@@ -48,38 +48,38 @@ public class HabitatDetailActivity extends CommonDetailActivity {
                     .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int whichButton) {
                             save();
-                            endActivity();
+                            endActivity(RESULT_OK);
                         }
                     })
                     .setNegativeButton(R.string.dialog_discard_and_leave, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            endActivity();
+                            endActivity(RESULT_CANCELED);
                         }
-                    }).setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                }
-            })
+                    })
                     .show();
         } else {
-            endActivity();
+            endActivity(RESULT_CANCELED);
         }
 
     }
 
     private void save() {
+
         Habitat habitat = habitatDetailView.toHabitat();
         habitat = habitatService.save(habitat);
 
         habitatDetailView.setId(habitat.getId());
         id = habitat.getId();
 
-        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
     }
 
-    private void endActivity() {
+    private void endActivity(int resultCode) {
         Intent intent = new Intent();
-        intent.putExtra("id", habitatDetailView.getId());
-        setResult(RESULT_OK, intent);
+        if (habitatDetailView.getId() != null && resultCode == RESULT_OK) {
+            intent.putExtra("id", habitatDetailView.getId());
+        }
+        setResult(resultCode, intent);
         finish();
     }
 
