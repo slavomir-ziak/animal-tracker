@@ -107,7 +107,7 @@
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
 
-        <activity android:name=".activity.TransectFindingAddSampleActivity"
+        <activity android:name=".activity.detail.TransectFindingAddSampleActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
 
         <activity android:name=".activity.location.EditLocationDMSFormatActivity"

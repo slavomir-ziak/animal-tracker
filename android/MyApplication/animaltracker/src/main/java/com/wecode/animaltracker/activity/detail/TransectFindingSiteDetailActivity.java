@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingFecesDetailActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingFootprintsDetailActivity;
