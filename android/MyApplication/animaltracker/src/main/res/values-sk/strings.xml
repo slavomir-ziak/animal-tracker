@@ -194,4 +194,7 @@
     <string name="dialog_save_changes_before_leave">Uložiť zmeny pred odchodom?</string>
     <string name="dialog_discard_and_leave">Neuložiť a odísť</string>
     <string name="saved">Uložené</string>
+    <string name="dialog_open_settings">Aplikácia potrebuje vedieť Vaše meno.</string>
+    <string name="dialog_open_settings_message">Vaše meno sa zobrazí v exportovaných dátach v excel formáte
+        a Vaše iniciály budú použité na generovanie čísel pre vzorky, ktoré nazbierate.</string>
 </resources>

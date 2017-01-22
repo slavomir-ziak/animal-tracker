@@ -1,6 +1,8 @@
 package com.wecode.animaltracker.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,18 +19,12 @@ import com.wecode.animaltracker.activity.detail.TransectFindingSiteDetailActivit
 import com.wecode.animaltracker.activity.list.TransectsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.fragment.FragmentDrawer;
+import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.util.Permissions;
+import com.wecode.animaltracker.util.StringUtils;
 
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
-
-
-    public void fd(View view){
-        Intent intent = new Intent(this, TransectFindingSiteDetailActivity.class);
-        intent.putExtra(Constants.PARENT_ACTIVITY, MainActivity.class);
-        intent.setAction(Action.EDIT.toString());
-        intent.putExtra("id", 1L);
-        startActivity(intent);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +49,25 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
             return;
         }
 
+        if (StringUtils.isEmpty(SettingsDataService.getInstance().get().getTrackerName())){
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.dialog_open_settings)
+                    .setMessage(R.string.dialog_open_settings_message)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            openSettings();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }
+                    })
+                    /*.setNeutralButton(R.string.dialog_close_and_dont_show_again, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }
+                    })*/
+                    .show();
+        }
     }
 
     @Override
