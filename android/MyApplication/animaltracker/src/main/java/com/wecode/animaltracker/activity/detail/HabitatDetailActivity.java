@@ -27,7 +27,9 @@ public class HabitatDetailActivity extends CommonDetailActivity {
         setContentView(R.layout.activity_habitat_detail);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         extractParams(getIntent());
 

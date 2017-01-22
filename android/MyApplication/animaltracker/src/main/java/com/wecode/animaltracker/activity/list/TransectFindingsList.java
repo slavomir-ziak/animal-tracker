@@ -34,7 +34,9 @@ public class TransectFindingsList extends AppCompatActivity {
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         Intent intent =  getIntent();
         action = Action.fromString(intent.getAction());

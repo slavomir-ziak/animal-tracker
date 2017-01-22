@@ -72,7 +72,9 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         LocationUtil.initLocationManager(this, ACCESS_FINE_LOCATION_REQUEST);
 

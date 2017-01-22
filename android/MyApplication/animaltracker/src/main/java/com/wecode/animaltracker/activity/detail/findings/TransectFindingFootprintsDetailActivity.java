@@ -41,7 +41,9 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         extractParams(getIntent());
 

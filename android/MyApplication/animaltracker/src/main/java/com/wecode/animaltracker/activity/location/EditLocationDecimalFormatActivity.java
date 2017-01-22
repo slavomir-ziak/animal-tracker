@@ -33,7 +33,9 @@ public class EditLocationDecimalFormatActivity extends CommonDetailActivity impl
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         String location = getIntent().getStringExtra("location");
 
