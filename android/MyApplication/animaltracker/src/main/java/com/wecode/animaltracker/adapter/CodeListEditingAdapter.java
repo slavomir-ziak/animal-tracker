@@ -150,7 +150,7 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
                         setSelected((Spinner) adapterView, position1);
                     }
                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         previousSelected.pop();
                         String value = codeList.get(previousSelected.peek()).getLocalisedValue();

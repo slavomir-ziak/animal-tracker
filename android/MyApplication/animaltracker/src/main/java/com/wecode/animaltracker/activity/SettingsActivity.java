@@ -104,7 +104,7 @@ public class SettingsActivity extends AppCompatActivity {
                     startActivityForResult(new Intent(android.provider.Settings.ACTION_LOCALE_SETTINGS ), 0);
                 }
             })
-            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                 }
             })
