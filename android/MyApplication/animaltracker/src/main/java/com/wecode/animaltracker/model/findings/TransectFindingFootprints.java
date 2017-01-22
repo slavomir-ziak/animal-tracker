@@ -32,6 +32,8 @@ public class TransectFindingFootprints extends Persistable {
 
     private String substract;
 
+    private String groupValue;
+
     public TransectFindingFootprints() {
     }
 
@@ -131,23 +133,6 @@ public class TransectFindingFootprints extends Persistable {
         this.direction = direction;
     }
 
-    @Override
-    public String toString() {
-        return "TransectFindingFootprints{" +
-                "transectFindingId=" + transectFindingId +
-                ", numberOfAnimals=" + numberOfAnimals +
-                ", frontLength=" + frontLength +
-                ", frontWidht=" + frontWidht +
-                ", backLength=" + backLength +
-                ", backWidht=" + backWidht +
-                ", direction='" + direction + '\'' +
-                ", stride=" + stride +
-                ", confidence='" + confidence + '\'' +
-                ", age='" + age + '\'' +
-                ", substract='" + substract + '\'' +
-                "} " + super.toString();
-    }
-
     public String getSubstract() {
         return substract;
     }
@@ -166,5 +151,31 @@ public class TransectFindingFootprints extends Persistable {
 
     public String getBackSizeFormatted() {
         return String.format(Locale.getDefault(), "%.1f x %.1f", getBackLength(), getBackWidht());
+    }
+
+    @Override
+    public String toString() {
+        return "TransectFindingFootprints{" +
+                "transectFindingId=" + transectFindingId +
+                ", numberOfAnimals=" + numberOfAnimals +
+                ", frontLength=" + frontLength +
+                ", frontWidht=" + frontWidht +
+                ", backLength=" + backLength +
+                ", backWidht=" + backWidht +
+                ", direction='" + direction + '\'' +
+                ", stride=" + stride +
+                ", confidence='" + confidence + '\'' +
+                ", age='" + age + '\'' +
+                ", substract='" + substract + '\'' +
+                ", groupValue='" + groupValue + '\'' +
+                "} " + super.toString();
+    }
+
+    public String getGroupValue() {
+        return groupValue;
+    }
+
+    public void setGroupValue(String groupValue) {
+        this.groupValue = groupValue;
     }
 }

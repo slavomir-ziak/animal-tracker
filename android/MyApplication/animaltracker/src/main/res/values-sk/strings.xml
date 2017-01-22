@@ -62,6 +62,19 @@
         <item>Z</item>
     </string-array>
 
+    <string-array name="footprintFindingGroupValues" >
+        <item></item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+    </string-array>
+
     <string name="title_activity_photos_list">Fotografie</string>
     <string name="title_activity_finding_sites">Náleziská</string>
     <string name="title_activity_transects_list">Cesty</string>
@@ -198,4 +211,6 @@
     <string name="dialog_open_settings_message">Vaše meno sa zobrazí v exportovaných dátach v excel formáte
         a Vaše iniciály budú použité na generovanie čísel pre vzorky, ktoré nazbierate.</string>
     <string name="error_occured">Nastala chyba</string>
+    <string name="group">Skupina</string>
+    <string name="collected">Vzorka</string>
 </resources>

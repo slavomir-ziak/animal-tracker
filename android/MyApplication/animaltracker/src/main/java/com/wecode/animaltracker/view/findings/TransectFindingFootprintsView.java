@@ -6,9 +6,7 @@ import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
-import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
-import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
@@ -25,6 +23,7 @@ public class TransectFindingFootprintsView {
 
     private TextView numberOfAnimals;
     private Spinner footprintsDirection;
+    private Spinner footprintsGroup;
     private TextView footprintsBackLength;
     private TextView footprintsBackWidht;
     private TextView footprintsFrontLength;
@@ -48,7 +47,6 @@ public class TransectFindingFootprintsView {
     public TransectFindingFootprintsView(Activity context, Long transectFindingId) {
         this.transectFindingId = transectFindingId;
         confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
-        SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
         numberOfAnimals = (TextView) context.findViewById(R.id.findingCountValue);
         footprintsDirection = (Spinner) context.findViewById(R.id.footprintsDirectionValue);
         footprintsFrontLength = (TextView) context.findViewById(R.id.footprintsFrontLengthValue);
@@ -58,18 +56,15 @@ public class TransectFindingFootprintsView {
         age = new CodeListSpinnerView(R.id.age, "findingAge", context);
         footprintsStride = (TextView) context.findViewById(R.id.footprintsStrideValue);
         substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context);
-
+        footprintsGroup = (Spinner) context.findViewById(R.id.footprintsGroupValue);
+        SpinnersHelper.setSpinnerData(footprintsGroup, R.array.footprintFindingGroupValues);
         SpinnersHelper.setSpinnerData(footprintsDirection, R.array.generalDirection);
+        SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
     }
 
     private void bind(TransectFindingFootprints transectFindingFootprints) {
         id = transectFindingFootprints.getId();
-        SpinnersHelper.setSelected(confidence, transectFindingFootprints.getConfidence());
-
         numberOfAnimals.setText(transectFindingFootprints.getNumberOfAnimals() == null ? "" : transectFindingFootprints.getNumberOfAnimals().toString());
-
-        SpinnersHelper.setSelected(footprintsDirection, transectFindingFootprints.getDirection());
-
         footprintsFrontLength.setText(transectFindingFootprints.getFrontLengthValue());
         footprintsFrontWidht.setText(transectFindingFootprints.getFrontWidthValue());
         footprintsBackLength.setText(transectFindingFootprints.getBackLengthValue());
@@ -77,6 +72,11 @@ public class TransectFindingFootprintsView {
         age.select(transectFindingFootprints.getAge());
         footprintsStride.setText(transectFindingFootprints.getStride() == null ? "" : transectFindingFootprints.getStride().toString());
         substract.select(transectFindingFootprints.getSubstract());
+        SpinnersHelper.setSelected(footprintsGroup, transectFindingFootprints.getGroupValue());
+        SpinnersHelper.setSelected(footprintsDirection, transectFindingFootprints.getDirection());
+        SpinnersHelper.setSelected(confidence, transectFindingFootprints.getConfidence());
+
+
         initialHash = hashCode();
     }
 
@@ -101,6 +101,7 @@ public class TransectFindingFootprintsView {
         transectFindingFootprints.setBackWidht(ConverterUtil.toFloat(footprintsBackWidht.getText().toString()));
         transectFindingFootprints.setStride(ConverterUtil.toFloat(footprintsStride.getText().toString()));
         transectFindingFootprints.setSubstract(substract.getSelectedCodeListValue());
+        transectFindingFootprints.setGroupValue(((String) footprintsGroup.getSelectedItem()));
         initialHash = hashCode();
         return transectFindingFootprints;
     }
@@ -128,6 +129,7 @@ public class TransectFindingFootprintsView {
         result = 31 * result + (confidence != null ? confidence.getSelectedItem().toString().hashCode() : 0);
         result = 31 * result + (age != null ? age.getSelectedCodeListValue().hashCode() : 0);
         result = 31 * result + (substract != null ? substract.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (footprintsGroup != null ? footprintsGroup.getSelectedItem().toString().hashCode() : 0);
         return result;
     }
 

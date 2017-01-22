@@ -20,6 +20,8 @@ public class TransectFindingFeces extends Persistable {
 
     private String substract;
 
+    private boolean collected;
+
     public TransectFindingFeces() {
     }
 
@@ -29,18 +31,6 @@ public class TransectFindingFeces extends Persistable {
 
     public void setTransectFindingId(Long transectFindingId) {
         this.transectFindingId = transectFindingId;
-    }
-
-    @Override
-    public String toString() {
-        return "TransectFindingFeces{" +
-                "transectFindingId=" + transectFindingId +
-                ", state='" + state + '\'' +
-                ", prey='" + prey + '\'' +
-                ", confidence='" + confidence + '\'' +
-                ", age='" + age + '\'' +
-                ", substract='" + substract + '\'' +
-                "} " + super.toString();
     }
 
     public String getSubstract() {
@@ -81,5 +71,26 @@ public class TransectFindingFeces extends Persistable {
 
     public String getAge() {
         return age;
+    }
+
+    @Override
+    public String toString() {
+        return "TransectFindingFeces{" +
+                "transectFindingId=" + transectFindingId +
+                ", state='" + state + '\'' +
+                ", prey='" + prey + '\'' +
+                ", confidence='" + confidence + '\'' +
+                ", age='" + age + '\'' +
+                ", substract='" + substract + '\'' +
+                ", collected=" + collected +
+                "} " + super.toString();
+    }
+
+    public boolean isCollected() {
+        return collected;
+    }
+
+    public void setCollected(boolean collected) {
+        this.collected = collected;
     }
 }

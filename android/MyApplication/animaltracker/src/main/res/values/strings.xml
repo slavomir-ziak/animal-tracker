@@ -70,6 +70,19 @@
         <item>W</item>
     </string-array>
 
+    <string-array name="footprintFindingGroupValues" >
+        <item></item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+    </string-array>
+
     <string name="title_activity_photos_list">Photos</string>
     <string name="title_activity_finding_sites">Finding sites</string>
     <string name="title_activity_transects_list">Transects</string>
@@ -206,5 +219,7 @@
     <string name="dialog_open_settings_message">You name will be shown in data export in Excel format
         and your initials will be used to generate numbers for samples that you collect.</string>
     <string name="error_occured">Error occured</string>
+    <string name="group">Group</string>
+    <string name="collected">Sample</string>
 
 </resources>

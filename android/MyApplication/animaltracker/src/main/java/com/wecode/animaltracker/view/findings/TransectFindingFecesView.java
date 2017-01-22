@@ -1,8 +1,8 @@
 package com.wecode.animaltracker.view.findings;
 
 import android.app.Activity;
+import android.widget.CheckBox;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
@@ -25,9 +25,10 @@ public class TransectFindingFecesView {
     private CodeListSpinnerView fecesState;
     private CodeListSpinnerView age;
     private CodeListSpinnerView substract;
-
+    private CheckBox collected;
     private TransectFindingFecesDataService service = TransectFindingFecesDataService.getInstance();
     private int initialHash;
+
 
     public TransectFindingFecesView(Activity context, TransectFindingFeces transectFindingFeces) {
         this(context, transectFindingFeces.getTransectFindingId());
@@ -46,7 +47,7 @@ public class TransectFindingFecesView {
         fecesState = new CodeListSpinnerView(R.id.findingFecesStateValue, "fecesState", context);
         age = new CodeListSpinnerView(R.id.age, "findingAge", context);
         substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context);
-
+        collected = (CheckBox) context.findViewById(R.id.transect_finding_sample);
     }
 
     private void bind(TransectFindingFeces transectFindingFeces) {
@@ -57,6 +58,8 @@ public class TransectFindingFecesView {
         substract.select(transectFindingFeces.getSubstract());
         SpinnersHelper.setSelected(confidence, transectFindingFeces.getConfidence());
         id = transectFindingFeces.getId();
+        collected.setChecked(transectFindingFeces.isCollected());
+
         initialHash = hashCode();
     }
 
@@ -76,6 +79,8 @@ public class TransectFindingFecesView {
         transectFindingFeces.setState((fecesState.getSelectedCodeListValue()));
         transectFindingFeces.setAge(age.getSelectedCodeListValue());
         transectFindingFeces.setSubstract(substract.getSelectedCodeListValue());
+        transectFindingFeces.setCollected(collected.isChecked());
+
 
         initialHash = hashCode();
         return transectFindingFeces;
@@ -94,6 +99,7 @@ public class TransectFindingFecesView {
         result = 31 * result + (fecesState != null ? fecesState.getSelectedCodeListValue().hashCode() : 0);
         result = 31 * result + (age != null ? age.getSelectedCodeListValue().hashCode() : 0);
         result = 31 * result + (substract != null ? substract.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (collected != null ? collected.isChecked() ? 1 : 0 : 0);
         return result;
     }
 
