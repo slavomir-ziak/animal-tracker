@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.model;
 
+import java.util.Date;
+
 /**
  * Created by SZIAK on 7/31/2016.
  */
@@ -9,11 +11,13 @@ public class Sample extends Persistable {
 
     private Long transectFindingId;
 
+    private Integer sampleSequenceNumber;
+
     public Sample() {
     }
 
-    public Sample(Long id, String sampleNumber, Long transectFindingId) {
-        setId(id);
+    public Sample(String sampleNumber, Long transectFindingId, Integer sampleSequenceNumber) {
+        this.sampleSequenceNumber = sampleSequenceNumber;
         this.sampleNumber = sampleNumber;
         this.transectFindingId = transectFindingId;
     }
@@ -39,7 +43,16 @@ public class Sample extends Persistable {
         return "Sample{" +
                 "sampleNumber='" + sampleNumber + '\'' +
                 ", transectFindingId=" + transectFindingId +
+                ", sampleSequenceNumber=" + sampleSequenceNumber +
                 "} " + super.toString();
+    }
+
+    public Integer getSampleSequenceNumber() {
+        return sampleSequenceNumber;
+    }
+
+    public void setSampleSequenceNumber(Integer sampleSequenceNumber) {
+        this.sampleSequenceNumber = sampleSequenceNumber;
     }
 }
 

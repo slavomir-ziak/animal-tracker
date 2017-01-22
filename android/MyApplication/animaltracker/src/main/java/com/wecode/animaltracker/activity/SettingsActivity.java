@@ -70,6 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (id == R.id.action_save) {
             saveSettings();
+            setResult(RESULT_OK);
             finish();
             return true;
         }

@@ -343,10 +343,11 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
             case ADD_SAMPLE_REQUEST:
                 String sampleNumber = data.getExtras().getString("sampleNumber");
+                int sampleSequenceNumber = data.getExtras().getInt("sampleSequenceNumber", 0);
                 Assert.assertNotNull("sampleNumber", sampleNumber);
+                Assert.assertNotNullNotZero("sampleSequenceNumber", (long) sampleSequenceNumber);
 
-                Log.d(Globals.APP_NAME, "sampleNumber: " + sampleNumber);
-                sampleDataService.save(new Sample(null, sampleNumber, transectFindingSiteDetailView.getId()));
+                sampleDataService.save(new Sample(sampleNumber, transectFindingSiteDetailView.getId(), sampleSequenceNumber));
                 break;
 
             case EDIT_LOCATION_REQUEST:

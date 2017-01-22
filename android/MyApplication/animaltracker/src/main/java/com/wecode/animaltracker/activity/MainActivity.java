@@ -2,6 +2,7 @@ package com.wecode.animaltracker.activity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,25 +51,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         }
 
         if (StringUtils.isEmpty(SettingsDataService.getInstance().get().getTrackerName())){
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_open_settings)
-                    .setMessage(R.string.dialog_open_settings_message)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            openSettings();
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                        }
-                    })
-                    /*.setNeutralButton(R.string.dialog_close_and_dont_show_again, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                        }
-                    })*/
-                    .show();
+            Globals.askForTrackerName(this);
         }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,17 +85,13 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            openSettings();
+            Globals.openSettings(this);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void openSettings() {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-    }
 
 
 }

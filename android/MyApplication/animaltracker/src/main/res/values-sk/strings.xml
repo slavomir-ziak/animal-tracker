@@ -197,4 +197,5 @@
     <string name="dialog_open_settings">Aplikácia potrebuje vedieť Vaše meno.</string>
     <string name="dialog_open_settings_message">Vaše meno sa zobrazí v exportovaných dátach v excel formáte
         a Vaše iniciály budú použité na generovanie čísel pre vzorky, ktoré nazbierate.</string>
+    <string name="error_occured">Nastala chyba</string>
 </resources>

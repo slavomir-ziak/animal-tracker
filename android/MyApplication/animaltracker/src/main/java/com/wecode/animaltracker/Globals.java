@@ -1,11 +1,16 @@
 package com.wecode.animaltracker;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.util.Log;
 
+import com.wecode.animaltracker.activity.SettingsActivity;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
 
@@ -20,6 +25,8 @@ import java.util.Locale;
 public class Globals {
 
     public static final String APP_NAME = "LCSI-WildlifeTracker";
+
+    public static final int REQ_SETTINGS = 1000;
 
     public static File getAppRootDir() {
 
@@ -91,4 +98,29 @@ public class Globals {
     }
 
 
+    public static void openSettings(Activity context) {
+        Intent intent = new Intent(context, SettingsActivity.class);
+        context.startActivityForResult(intent, Globals.REQ_SETTINGS);
+    }
+
+
+    public static void askForTrackerName(final Activity context) {
+        new AlertDialog.Builder(context)
+                .setTitle(R.string.dialog_open_settings)
+                .setMessage(R.string.dialog_open_settings_message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        openSettings(context);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                })
+                /*.setNeutralButton(R.string.dialog_close_and_dont_show_again, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                })*/
+                .show();
+    }
 }

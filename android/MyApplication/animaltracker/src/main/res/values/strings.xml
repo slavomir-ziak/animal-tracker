@@ -205,5 +205,6 @@
     <string name="dialog_open_settings">App needs your name</string>
     <string name="dialog_open_settings_message">You name will be shown in data export in Excel format
         and your initials will be used to generate numbers for samples that you collect.</string>
+    <string name="error_occured">Error occured</string>
 
 </resources>
