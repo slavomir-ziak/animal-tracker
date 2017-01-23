@@ -81,4 +81,9 @@ public class PhotosFragment extends android.support.v4.app.Fragment implements F
         return R.string.photos_fragment_name;
     }
 
+    @Override
+    public boolean isChangedByUser() {
+        return false;
+    }
+
 }

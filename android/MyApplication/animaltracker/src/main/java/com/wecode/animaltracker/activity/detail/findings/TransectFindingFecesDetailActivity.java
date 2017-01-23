@@ -28,7 +28,7 @@ import java.io.File;
  */
 public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivity {
 
-    private long transectFindingId;
+    private long transectFindingSiteId;
 
     private TransectFindingFecesDataService transectFindingFecesDataService = TransectFindingFecesDataService.getInstance();
 
@@ -47,13 +47,13 @@ public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivi
 
         extractParams(getIntent());
 
-        transectFindingId = getIntent().getExtras().getLong("transectFindingId");
+        transectFindingSiteId = getIntent().getExtras().getLong("transectFindingSiteId");
 
         if (id != null) {
             TransectFindingFeces transectFindingFeces = transectFindingFecesDataService.find(id);
             transectFindingFecesView = new TransectFindingFecesView(this, transectFindingFeces);
         } else {
-            transectFindingFecesView = new TransectFindingFecesView(this, transectFindingId);
+            transectFindingFecesView = new TransectFindingFecesView(this, transectFindingSiteId);
         }
 
         //initGui(transectFindingView);
@@ -142,7 +142,7 @@ public class TransectFindingFecesDetailActivity extends PhotoEnabledCommonActivi
     }
 
     private Transect getTransect() {
-        TransectFindingSite transectFindingSite = TransectFindingSiteDataService.getInstance().find(transectFindingId);
+        TransectFindingSite transectFindingSite = TransectFindingSiteDataService.getInstance().find(transectFindingSiteId);
         return TransectDataService.getInstance().find(transectFindingSite.getTransectId());
     }
 

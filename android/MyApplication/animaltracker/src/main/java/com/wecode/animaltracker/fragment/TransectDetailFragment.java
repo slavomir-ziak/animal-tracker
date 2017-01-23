@@ -276,6 +276,7 @@ public class TransectDetailFragment extends android.support.v4.app.Fragment impl
         return transectDetailView.getIdValue();
     }
 
+    @Override
     public boolean isChangedByUser() {
         return transectDetailView.isChanged();
     }

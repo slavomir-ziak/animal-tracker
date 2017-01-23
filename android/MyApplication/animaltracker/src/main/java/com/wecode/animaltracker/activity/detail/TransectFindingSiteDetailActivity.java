@@ -242,7 +242,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
     private void commonEdit(Long id, Class<? extends AppCompatActivity> activityClass){
         Intent intent = new Intent(this, activityClass);
         intent.putExtra("id", id);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
+        intent.putExtra("transectFindingSiteId", transectFindingSiteDetailView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.EDIT.toString());
         startActivityForResult(intent, 0);
@@ -274,7 +274,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
     private void commonAdd(Class<? extends AppCompatActivity> activityClass) {
         Intent intent = new Intent(this, activityClass);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
+        intent.putExtra("transectFindingSiteId", transectFindingSiteDetailView.getId());
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());
         startActivityForResult(intent, 0);

@@ -1,6 +1,7 @@
 package com.wecode.animaltracker.view.findings;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -37,26 +38,26 @@ public class TransectFindingFootprintsView {
 
     private int initialHash;
 
-    public TransectFindingFootprintsView(Activity context, TransectFindingFootprints transectFindingFootprints) {
-        this(context, transectFindingFootprints.getTransectFindingId());
+    public TransectFindingFootprintsView(Activity context, View view, TransectFindingFootprints transectFindingFootprints) {
+        this(context, view, transectFindingFootprints.getTransectFindingId());
 
         Assert.assertNotNull("transectFindingFootprints cannot be null!", transectFindingFootprints);
         bind(transectFindingFootprints);
     }
 
-    public TransectFindingFootprintsView(Activity context, Long transectFindingId) {
+    public TransectFindingFootprintsView(Activity context, View view, Long transectFindingId) {
         this.transectFindingId = transectFindingId;
-        confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
-        numberOfAnimals = (TextView) context.findViewById(R.id.findingCountValue);
-        footprintsDirection = (Spinner) context.findViewById(R.id.footprintsDirectionValue);
-        footprintsFrontLength = (TextView) context.findViewById(R.id.footprintsFrontLengthValue);
-        footprintsFrontWidht = (TextView) context.findViewById(R.id.footprintsFrontWidthValue);
-        footprintsBackLength = (TextView) context.findViewById(R.id.footprintsBackLengthValue);
-        footprintsBackWidht = (TextView) context.findViewById(R.id.footprintsBackWidthValue);
-        age = new CodeListSpinnerView(R.id.age, "findingAge", context);
-        footprintsStride = (TextView) context.findViewById(R.id.footprintsStrideValue);
-        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context);
-        footprintsGroup = (Spinner) context.findViewById(R.id.footprintsGroupValue);
+        confidence = (Spinner) view.findViewById(R.id.findingConfidenceValue);
+        numberOfAnimals = (TextView) view.findViewById(R.id.findingCountValue);
+        footprintsDirection = (Spinner) view.findViewById(R.id.footprintsDirectionValue);
+        footprintsFrontLength = (TextView) view.findViewById(R.id.footprintsFrontLengthValue);
+        footprintsFrontWidht = (TextView) view.findViewById(R.id.footprintsFrontWidthValue);
+        footprintsBackLength = (TextView) view.findViewById(R.id.footprintsBackLengthValue);
+        footprintsBackWidht = (TextView) view.findViewById(R.id.footprintsBackWidthValue);
+        age = new CodeListSpinnerView(R.id.age, "findingAge", context, view);
+        footprintsStride = (TextView) view.findViewById(R.id.footprintsStrideValue);
+        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context, view);
+        footprintsGroup = (Spinner) view.findViewById(R.id.footprintsGroupValue);
         SpinnersHelper.setSpinnerData(footprintsGroup, R.array.footprintFindingGroupValues);
         SpinnersHelper.setSpinnerData(footprintsDirection, R.array.generalDirection);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);

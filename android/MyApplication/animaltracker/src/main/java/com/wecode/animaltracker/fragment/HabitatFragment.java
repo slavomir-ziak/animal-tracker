@@ -64,4 +64,9 @@ public class HabitatFragment extends android.support.v4.app.Fragment implements 
         return R.string.habitat_fragment_name;
     }
 
+    @Override
+    public boolean isChangedByUser() {
+        return habitatDetailView.isChanged();
+    }
+
 }

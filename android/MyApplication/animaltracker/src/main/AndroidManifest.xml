@@ -35,6 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activity.detail.TransectDetailActivity"
             android:label="@string/title_activity_transect_detail"
@@ -42,6 +43,7 @@
             android:parentActivityName=".activity.MainActivity"
             android:windowSoftInputMode="stateHidden"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
+
         <activity
             android:name=".activity.detail.WeatherDetailActivity"
             android:label="@string/title_activity_weather"
@@ -127,6 +129,7 @@
 
         <activity android:name=".activity.detail.findings.TransectFindingFootprintsDetailActivity"
             android:label="@string/footprints_finding_detail"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
@@ -145,6 +148,7 @@
 
         <activity android:name=".activity.SettingsActivity"
             android:label="@string/action_settings"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".activity.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data

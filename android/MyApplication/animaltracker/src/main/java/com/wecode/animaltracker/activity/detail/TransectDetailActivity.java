@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.LocationProvidingActivity;
+import com.wecode.animaltracker.activity.ViewPagerAdapter;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
@@ -165,36 +166,6 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         return currentLocation;
     }
 
-    private class ViewPagerAdapter extends FragmentPagerAdapter {
-
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-
-        private final Activity activity;
-
-        ViewPagerAdapter(FragmentManager manager, Activity activity) {
-            super(manager);
-            this.activity = activity;
-        }
-
-        @Override
-        public android.support.v4.app.Fragment getItem(int position) {
-            return (android.support.v4.app.Fragment) mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        void addFragment(Fragment fragment) {
-            mFragmentList.add(fragment);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return activity.getResources().getString(mFragmentList.get(position).getNameResourceId());
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

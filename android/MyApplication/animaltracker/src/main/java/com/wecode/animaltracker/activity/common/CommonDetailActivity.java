@@ -31,8 +31,6 @@ import java.util.UUID;
  */
 public abstract class CommonDetailActivity extends AppCompatActivity {
 
-    public static String TAG = Globals.APP_NAME;
-
     protected Action action;
     protected Class parentActivityClass;
     protected Long id;

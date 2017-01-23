@@ -4,14 +4,20 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.ViewPagerAdapter;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
+import com.wecode.animaltracker.fragment.PhotosFragment;
+import com.wecode.animaltracker.fragment.TransectFindingFootpritsFindingFragment;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.TransectFindingSite;
@@ -28,16 +34,20 @@ import java.io.File;
  */
 public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonActivity {
 
-    private long transectFindingId;
+    private long transectFindingSiteId;
 
     private TransectFindingFootprintsDataService transectFindingFootprintsDataService = TransectFindingFootprintsDataService.getInstance();
 
-    private TransectFindingFootprintsView transectFindingFootprintsView;
+    private TransectFindingFootpritsFindingFragment transectFindingFootpritsFindingFragment;
+
+    private PhotosFragment photosFragment;
+
+    private ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transect_finding_footprints);
+        setContentView(R.layout.activity_transect_detail);
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
@@ -47,23 +57,68 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
 
         extractParams(getIntent());
 
-        transectFindingId = getIntent().getExtras().getLong("transectFindingId");
+        transectFindingSiteId = getIntent().getExtras().getLong("transectFindingSiteId");
+        entityName = Photo.EntityName.TRANECT_FINDING_FOOTPRINT;
 
-        if (id != null) {
-            TransectFindingFootprints transectFinding = transectFindingFootprintsDataService.find(id);
-            transectFindingFootprintsView = new TransectFindingFootprintsView(this, transectFinding);
-        } else {
-            transectFindingFootprintsView = new TransectFindingFootprintsView(this, transectFindingId);
+        initTabLayout();
+
+    }
+
+    private void initTabLayout() {
+        ViewPager viewPager = setupViewPager(R.id.viewpager);
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private ViewPager setupViewPager(int viewPagerId) {
+
+        ViewPager viewPager = (ViewPager) findViewById(viewPagerId);
+
+        if (adapter == null) {
+            adapter = new ViewPagerAdapter(getSupportFragmentManager(), this);
+            setupFootprintsFragment(adapter);
         }
 
-        //initGui(transectFindingView);
 
-        entityName = Photo.EntityName.TRANECT_FINDING_FOOTPRINT;
+        if (id != null) {
+            setupPhotosFragment(adapter);
+        }
+
+        viewPager.setAdapter(adapter);
+        return viewPager;
+    }
+
+    private void setupPhotosFragment(ViewPagerAdapter adapter) {
+        Bundle bundle = new Bundle();
+        bundle.putLong("entityId", id);
+        bundle.putLong("transectId", getCurrentTransectId());
+        bundle.putString("entityName", Photo.EntityName.TRANECT_FINDING_FOOTPRINT.toString());
+        photosFragment = new PhotosFragment();
+        photosFragment.setArguments(bundle);
+        adapter.addFragment(photosFragment);
+    }
+
+    private void setupFootprintsFragment(ViewPagerAdapter adapter) {
+        transectFindingFootpritsFindingFragment = new TransectFindingFootpritsFindingFragment();
+        Bundle bundle = new Bundle();
+        if (id != null) {
+            bundle.putLong("id", id);
+        }
+
+        bundle.putString("action", action.toString());
+        bundle.putLong("transectFindingSiteId", new Long(transectFindingSiteId));
+        transectFindingFootpritsFindingFragment.setArguments(bundle);
+        adapter.addFragment(transectFindingFootpritsFindingFragment);
+    }
+
+    public void addPhoto(View view) {
+        addPhoto();
     }
 
     @Override
     protected void refreshPhotos() {
-
+        photosFragment.refreshPhotos();
     }
 
     @Override
@@ -96,7 +151,7 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
     @Override
     public void onBackPressed() {
 
-        if (transectFindingFootprintsView.isChanged()) {
+        if (transectFindingFootpritsFindingFragment.isChangedByUser()) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.dialog_save_changes_before_leave)
                     .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
@@ -123,12 +178,9 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
         setResult(RESULT_OK, intent);
         finish();
     }
-    private void saveTransectFinding() {
-        TransectFindingFootprints transectFindingFootprints = transectFindingFootprintsDataService.save(transectFindingFootprintsView.toFootprintsFinding());
-        transectFindingFootprintsView.setId(transectFindingFootprints.getId());
 
-        this.id = transectFindingFootprints.getId();
-        Toast.makeText(this, getString(R.string.saved), Toast.LENGTH_SHORT).show();
+    private void saveTransectFinding() {
+        transectFindingFootpritsFindingFragment.saveTransectFinding();
     }
 
     @Override
@@ -142,7 +194,7 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
     }
 
     private Transect getTransect() {
-        TransectFindingSite transectFindingSite = TransectFindingSiteDataService.getInstance().find(transectFindingId);
+        TransectFindingSite transectFindingSite = TransectFindingSiteDataService.getInstance().find(transectFindingSiteId);
         return TransectDataService.getInstance().find(transectFindingSite.getTransectId());
     }
 }

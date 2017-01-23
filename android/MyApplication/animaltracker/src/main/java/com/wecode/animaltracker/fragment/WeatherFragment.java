@@ -57,5 +57,10 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
         return R.string.weather_fragment_name;
     }
 
+    @Override
+    public boolean isChangedByUser() {
+        return false;
+    }
+
 
 }
