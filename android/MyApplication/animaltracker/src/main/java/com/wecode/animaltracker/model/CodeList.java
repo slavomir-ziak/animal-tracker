@@ -15,6 +15,17 @@ public class CodeList extends Persistable{
 
     private String value;
 
+    @Override
+    public String toString() {
+        return "CodeList{" +
+                "name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                ", icon='" + icon + '\'' +
+                ", valueSk='" + valueSk + '\'' +
+                ", source='" + source + '\'' +
+                "} " + super.toString();
+    }
+
     private String icon;
 
     private String valueSk;
@@ -71,17 +82,6 @@ public class CodeList extends Persistable{
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    @Override
-    public String toString() {
-        return "CodeList{" +
-                "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                ", icon='" + icon + '\'' +
-                ", valueSk='" + valueSk + '\'' +
-                ", source='" + source + '\'' +
-                '}';
     }
 
     public String getValueSk() {

@@ -17,18 +17,6 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/transect_finding_action_samples"
-        android:orderInCategory="100"
-        android:title="@string/transect_finding_action_sampes"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/transect_finding_action_add_sample"
-        android:orderInCategory="100"
-        android:title="@string/transect_finding_action_add_sample"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/transect_finding_action_photos"
         android:orderInCategory="100"
         android:title="@string/transect_finding_action_photos"

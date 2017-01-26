@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.wecode.animaltracker.Globals;
+import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Sample;
 
 import java.text.SimpleDateFormat;
@@ -28,8 +29,8 @@ public class SampleDataService extends AbstractDataService<Sample> {
         return INSTANCE;
     }
 
-    public List<Sample> findByTransectFindingId(Long transectFindingId) {
-        return Sample.find(Sample.class, "transect_finding_id=?", transectFindingId.toString());
+    public List<Sample> findByTransectFindingId(Long transectFindingId, EntityName sampleType) {
+        return Sample.find(Sample.class, "transect_finding_id = ? and sample_type = ?", transectFindingId.toString(), sampleType.toString());
     }
 
     private Integer nextMaxSequenceNumber() {

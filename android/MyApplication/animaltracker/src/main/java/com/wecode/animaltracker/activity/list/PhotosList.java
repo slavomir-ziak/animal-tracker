@@ -1,29 +1,18 @@
 package com.wecode.animaltracker.activity.list;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.adapter.ImageAdapter;
-import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Transect;
-import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
 
 import java.io.File;
-import java.util.List;
-
-import static com.wecode.animaltracker.R.id.transectId;
 
 public class PhotosList extends PhotoEnabledCommonActivity {
 
@@ -57,7 +46,7 @@ public class PhotosList extends PhotoEnabledCommonActivity {
         gridView.setAdapter(imageAdapter);
         gridView.setOnItemClickListener(imageAdapter);
 
-        this.entityName = Photo.EntityName.valueOf(entityName);
+        this.entityName = EntityName.valueOf(entityName);
         this.id = entityId;
     }
 

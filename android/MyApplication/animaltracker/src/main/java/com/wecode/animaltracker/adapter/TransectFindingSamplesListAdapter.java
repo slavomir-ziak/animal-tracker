@@ -1,14 +1,18 @@
 package com.wecode.animaltracker.adapter;
 
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
+import com.wecode.animaltracker.fragment.TransectFindingSamplesListFragment;
+import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Sample;
+import com.wecode.animaltracker.service.SampleDataService;
 
 import java.util.List;
 
@@ -17,12 +21,30 @@ import java.util.List;
  */
 public class TransectFindingSamplesListAdapter extends BaseAdapter {
 
-    private TransectFindingSamplesList context;
+    private SampleDataService sampleDataService = SampleDataService.getInstance();
+
+    private Activity activity;
+    private View view;
+    private final Long transectFindingId;
+    private final EntityName entityName;
+    private final int transectFindingDetailSamplesListView;
+
     private List<Sample> samples;
 
-    public TransectFindingSamplesListAdapter(TransectFindingSamplesList context, List<Sample> samples) {
-        this.context = context;
-        this.samples = samples;
+    public TransectFindingSamplesListAdapter(Activity activity, View view, Long transectFindingId, EntityName entityName, int transectFindingDetailSamplesListView) {
+        this.activity = activity;
+        this.view = view;
+        this.transectFindingId = transectFindingId;
+        this.entityName = entityName;
+        this.transectFindingDetailSamplesListView = transectFindingDetailSamplesListView;
+
+        refreshSamples();
+    }
+
+    public void refreshSamples() {
+        samples = sampleDataService.findByTransectFindingId(transectFindingId, entityName);
+        ListView listView = (ListView) view.findViewById(transectFindingDetailSamplesListView);
+        listView.setAdapter(this);
     }
 
     @Override
@@ -43,7 +65,7 @@ public class TransectFindingSamplesListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
-        LayoutInflater inflater = context.getLayoutInflater();
+        LayoutInflater inflater = activity.getLayoutInflater();
 
         if (view == null) {
             view = inflater.inflate(R.layout.transect_finding_sample_layout, null, true);
@@ -56,4 +78,5 @@ public class TransectFindingSamplesListAdapter extends BaseAdapter {
 
         return view;
     }
+
 }

@@ -7,8 +7,6 @@ import com.orm.dsl.NotNull;
  */
 public class Photo extends Persistable {
 
-    public enum EntityName {TRANSECT, TRANECT_FINDING_SITE, TRANECT_FINDING_FOOTPRINT, TRANECT_FINDING_FECES, TRANECT_FINDING_OTHER}
-
     @NotNull
     private EntityName entityName;
 

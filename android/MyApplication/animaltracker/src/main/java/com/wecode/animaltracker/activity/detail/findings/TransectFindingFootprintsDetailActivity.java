@@ -10,22 +10,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.ViewPagerAdapter;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
+import com.wecode.animaltracker.activity.detail.TransectFindingAddSampleActivity;
 import com.wecode.animaltracker.fragment.PhotosFragment;
 import com.wecode.animaltracker.fragment.TransectFindingFootpritsFindingFragment;
-import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.fragment.TransectFindingSamplesListFragment;
+import com.wecode.animaltracker.model.EntityName;
+import com.wecode.animaltracker.model.Sample;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.TransectFindingSite;
-import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
+import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
-import com.wecode.animaltracker.view.findings.TransectFindingFootprintsView;
+import com.wecode.animaltracker.util.Assert;
 
 import java.io.File;
 
@@ -34,11 +36,17 @@ import java.io.File;
  */
 public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonActivity {
 
+    private static final int ADD_SAMPLE_REQUEST = 100;
+
     private long transectFindingSiteId;
 
     private TransectFindingFootprintsDataService transectFindingFootprintsDataService = TransectFindingFootprintsDataService.getInstance();
 
+    private SampleDataService sampleDataService = SampleDataService.getInstance();
+
     private TransectFindingFootpritsFindingFragment transectFindingFootpritsFindingFragment;
+
+    private TransectFindingSamplesListFragment transectFindingSamplesListFragment;
 
     private PhotosFragment photosFragment;
 
@@ -58,7 +66,7 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
         extractParams(getIntent());
 
         transectFindingSiteId = getIntent().getExtras().getLong("transectFindingSiteId");
-        entityName = Photo.EntityName.TRANECT_FINDING_FOOTPRINT;
+        entityName = EntityName.TRANECT_FINDING_FOOTPRINT;
 
         initTabLayout();
 
@@ -72,7 +80,6 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
     }
 
     private ViewPager setupViewPager(int viewPagerId) {
-
         ViewPager viewPager = (ViewPager) findViewById(viewPagerId);
 
         if (adapter == null) {
@@ -80,20 +87,31 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
             setupFootprintsFragment(adapter);
         }
 
-
         if (id != null) {
             setupPhotosFragment(adapter);
+            setupSampleListFragment(adapter);
         }
 
         viewPager.setAdapter(adapter);
         return viewPager;
     }
 
+    private void setupSampleListFragment(ViewPagerAdapter adapter) {
+        Bundle bundle = new Bundle();
+        bundle.putString("entityName", EntityName.TRANECT_FINDING_FOOTPRINT.toString());
+        bundle.putLong("transectFindingId", id);
+
+        transectFindingSamplesListFragment = new TransectFindingSamplesListFragment();
+        transectFindingSamplesListFragment.setArguments(bundle);
+        adapter.addFragment(transectFindingSamplesListFragment);
+    }
+
     private void setupPhotosFragment(ViewPagerAdapter adapter) {
         Bundle bundle = new Bundle();
         bundle.putLong("entityId", id);
         bundle.putLong("transectId", getCurrentTransectId());
-        bundle.putString("entityName", Photo.EntityName.TRANECT_FINDING_FOOTPRINT.toString());
+        bundle.putString("entityName", EntityName.TRANECT_FINDING_FOOTPRINT.toString());
+
         photosFragment = new PhotosFragment();
         photosFragment.setArguments(bundle);
         adapter.addFragment(photosFragment);
@@ -114,6 +132,11 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
 
     public void addPhoto(View view) {
         addPhoto();
+    }
+
+    public void addSample(View view) {
+        Intent intent = new Intent(this, TransectFindingAddSampleActivity.class);
+        startActivityForResult(intent, ADD_SAMPLE_REQUEST);
     }
 
     @Override
@@ -196,5 +219,23 @@ public class TransectFindingFootprintsDetailActivity extends PhotoEnabledCommonA
     private Transect getTransect() {
         TransectFindingSite transectFindingSite = TransectFindingSiteDataService.getInstance().find(transectFindingSiteId);
         return TransectDataService.getInstance().find(transectFindingSite.getTransectId());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch(requestCode){
+
+            case ADD_SAMPLE_REQUEST:
+                String sampleNumber = data.getExtras().getString("sampleNumber");
+                int sampleSequenceNumber = data.getExtras().getInt("sampleSequenceNumber", 0);
+                Assert.assertNotNull("sampleNumber", sampleNumber);
+                Assert.assertNotNullNotZero("sampleSequenceNumber", (long) sampleSequenceNumber);
+
+                sampleDataService.save(new Sample(sampleNumber, id, sampleSequenceNumber, EntityName.TRANECT_FINDING_FOOTPRINT));
+                transectFindingSamplesListFragment.refreshSamples();
+                break;
+        }
     }
 }

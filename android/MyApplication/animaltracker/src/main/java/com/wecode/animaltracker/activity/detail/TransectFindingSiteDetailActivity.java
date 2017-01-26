@@ -23,15 +23,14 @@ import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingFecesDetailActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingFootprintsDetailActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingOtherDetailActivity;
-import com.wecode.animaltracker.activity.list.TransectFindingSamplesList;
+import com.wecode.animaltracker.fragment.TransectFindingSamplesListFragment;
 import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.adapter.TransectFindingDetailsListAdapter;
+import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Persistable;
-import com.wecode.animaltracker.model.Photo;
-import com.wecode.animaltracker.model.Sample;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
@@ -52,14 +51,11 @@ import java.util.List;
 public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivity implements LocationListener {
 
     private static final int SET_HABITAT_REQUEST = 10;
-    private static final int ADD_SAMPLE_REQUEST = 100;
     private static final int ACCESS_FINE_LOCATION_REQUEST = 400;
 
     private static final int EDIT_LOCATION_REQUEST = 500;
 
     private TransectFindingSiteDataService transectFindingSiteDataService = TransectFindingSiteDataService.getInstance();
-
-    private SampleDataService sampleDataService = SampleDataService.getInstance();
 
     private TransectFindingSiteDetailView transectFindingSiteDetailView;
 
@@ -93,7 +89,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
         initGui();
 
-        entityName = Photo.EntityName.TRANECT_FINDING_SITE;
+        entityName = EntityName.TRANECT_FINDING_SITE;
     }
 
     private void initFindings() {
@@ -186,14 +182,6 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
         int id = item.getItemId();
 
-        if (id == R.id.transect_finding_action_add_sample) {
-            addSample(null);
-            return true;
-        }
-        if (id == R.id.transect_finding_action_samples) {
-            showSamples(null);
-            return true;
-        }
         if (id == R.id.transect_finding_action_habitat) {
             setHabitat(null);
             return true;
@@ -289,16 +277,6 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         startActivityForResult(intent, 0);
     }
 
-    public void showSamples(View view) {
-        Intent intent = new Intent(this, TransectFindingSamplesList.class);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
-        startActivity(intent);
-    }
-
-    public void addSample(View view) {
-        Intent intent = new Intent(this, TransectFindingAddSampleActivity.class);
-        startActivityForResult(intent, ADD_SAMPLE_REQUEST);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -341,15 +319,6 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
                 transectFindingSiteDetailView.setHabitatId(id);
                 saveTransectFinding();
-                break;
-
-            case ADD_SAMPLE_REQUEST:
-                String sampleNumber = data.getExtras().getString("sampleNumber");
-                int sampleSequenceNumber = data.getExtras().getInt("sampleSequenceNumber", 0);
-                Assert.assertNotNull("sampleNumber", sampleNumber);
-                Assert.assertNotNullNotZero("sampleSequenceNumber", (long) sampleSequenceNumber);
-
-                sampleDataService.save(new Sample(sampleNumber, transectFindingSiteDetailView.getId(), sampleSequenceNumber));
                 break;
 
             case EDIT_LOCATION_REQUEST:
@@ -403,8 +372,6 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         switch (requestCode) {
             case SET_HABITAT_REQUEST:
                 return "habitat";
-            case ADD_SAMPLE_REQUEST:
-                return "sample";
             default:
                 return "UNKNOWN";
         }
@@ -427,23 +394,17 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        MenuItem transect_finding_action_add_sample = menu.findItem(R.id.transect_finding_action_add_sample);
         MenuItem transect_finding_action_add_photo = menu.findItem(R.id.transect_finding_action_add_photo);
         MenuItem transect_finding_action_habitat = menu.findItem(R.id.transect_finding_action_habitat);
-        MenuItem transect_finding_action_samples = menu.findItem(R.id.transect_finding_action_samples);
         MenuItem transect_finding_action_photos = menu.findItem(R.id.transect_finding_action_photos);
 
         if (transectFindingSiteDetailView.getId() == null) {
-            transect_finding_action_add_sample.setEnabled(false);
             transect_finding_action_add_photo.setEnabled(false);
             transect_finding_action_habitat.setEnabled(false);
-            transect_finding_action_samples.setEnabled(false);
             transect_finding_action_photos.setEnabled(false);
         } else {
-            transect_finding_action_add_sample.setEnabled(true);
             transect_finding_action_add_photo.setEnabled(true);
             transect_finding_action_habitat.setEnabled(true);
-            transect_finding_action_samples.setEnabled(true);
             transect_finding_action_photos.setEnabled(true);
         }
         return true;

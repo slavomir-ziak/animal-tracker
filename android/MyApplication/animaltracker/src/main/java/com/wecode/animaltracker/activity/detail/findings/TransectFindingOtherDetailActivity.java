@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
-import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
@@ -70,7 +70,7 @@ public class TransectFindingOtherDetailActivity extends PhotoEnabledCommonActivi
         }
         //initGui(transectFindingView);
 
-        entityName = Photo.EntityName.TRANECT_FINDING_OTHER;
+        entityName = EntityName.TRANECT_FINDING_OTHER;
     }
 
     @Override

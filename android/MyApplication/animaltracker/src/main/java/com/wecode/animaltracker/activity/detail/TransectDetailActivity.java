@@ -1,7 +1,6 @@
 package com.wecode.animaltracker.activity.detail;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,8 +9,6 @@ import android.location.LocationListener;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -28,11 +25,10 @@ import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.export.TransectReport;
-import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.fragment.PhotosFragment;
 import com.wecode.animaltracker.fragment.TransectDetailFragment;
 import com.wecode.animaltracker.fragment.TransectFindingSiteListFragment;
-import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
@@ -40,8 +36,6 @@ import com.wecode.animaltracker.util.LocationUtil;
 import com.wecode.animaltracker.util.Permissions;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TransectDetailActivity extends PhotoEnabledCommonActivity implements LocationListener, LocationProvidingActivity {
 
@@ -62,7 +56,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
     private ViewPagerAdapter adapter;
 
     {
-        entityName = Photo.EntityName.TRANSECT;
+        entityName = EntityName.TRANSECT;
     }
 
     @Override
@@ -117,7 +111,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         Bundle bundle = new Bundle();
         bundle.putLong("entityId", id);
         bundle.putLong("transectId", id);
-        bundle.putString("entityName", Photo.EntityName.TRANSECT.toString());
+        bundle.putString("entityName", EntityName.TRANSECT.toString());
         photosFragment = new PhotosFragment();
         photosFragment.setArguments(bundle);
         adapter.addFragment(photosFragment);

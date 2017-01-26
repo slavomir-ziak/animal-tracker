@@ -22,6 +22,7 @@ public class Persistable extends SugarRecord implements Comparable<Persistable> 
     @Override
     public String toString() {
         return "Persistable{" +
+                "id=" + getId() +
                 "created=" + created +
                 '}';
     }

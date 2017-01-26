@@ -9,12 +9,11 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.common.CommonDetailActivity;
 import com.wecode.animaltracker.activity.list.PhotosList;
+import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.util.Permissions;
@@ -35,7 +34,7 @@ public abstract class PhotoEnabledCommonActivity extends CommonDetailActivity {
 
     private static final int ADD_PHOTO_PERMISSION_REQUEST = CODE_START + 3;
 
-    protected Photo.EntityName entityName;
+    protected EntityName entityName;
 
     private File outputPhotoFile;
 

@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.model;
 
+import com.orm.dsl.NotNull;
+
 import java.util.Date;
 
 /**
@@ -7,19 +9,44 @@ import java.util.Date;
  */
 public class Sample extends Persistable {
 
+    @NotNull
     private String sampleNumber;
 
+    @NotNull
     private Long transectFindingId;
 
+    @NotNull
     private Integer sampleSequenceNumber;
+
+    //EntityName
+    private String sampleType;
 
     public Sample() {
     }
 
-    public Sample(String sampleNumber, Long transectFindingId, Integer sampleSequenceNumber) {
+    public Sample(String sampleNumber, Long transectFindingId, Integer sampleSequenceNumber, EntityName sampleType) {
+        this.sampleType = sampleType.toString();
         this.sampleSequenceNumber = sampleSequenceNumber;
         this.sampleNumber = sampleNumber;
         this.transectFindingId = transectFindingId;
+    }
+
+    @Override
+    public String toString() {
+        return "Sample{" +
+                "sampleNumber='" + sampleNumber + '\'' +
+                ", transectFindingId=" + transectFindingId +
+                ", sampleSequenceNumber=" + sampleSequenceNumber +
+                ", sampleType='" + sampleType + '\'' +
+                "} " + super.toString();
+    }
+
+    public String getSampleType() {
+        return sampleType;
+    }
+
+    public void setSampleType(String sampleType) {
+        this.sampleType = sampleType;
     }
 
     public Long getTransectFindingId() {
@@ -36,15 +63,6 @@ public class Sample extends Persistable {
 
     public void setSampleNumber(String sampleNumber) {
         this.sampleNumber = sampleNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "Sample{" +
-                "sampleNumber='" + sampleNumber + '\'' +
-                ", transectFindingId=" + transectFindingId +
-                ", sampleSequenceNumber=" + sampleSequenceNumber +
-                "} " + super.toString();
     }
 
     public Integer getSampleSequenceNumber() {
