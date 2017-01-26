@@ -55,7 +55,7 @@ public class HabitatDetailView {
         forestAgeContainer = view.findViewById(R.id.forestAgeContainer);
         treeTypeContainer = view.findViewById(R.id.habitatTreeTypeContainer);
 
-        type.getSpinner().setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        type.addOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
