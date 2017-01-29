@@ -60,7 +60,7 @@ public class HabitatDetailActivity extends CommonDetailActivity {
                     })
                     .show();
         } else {
-            endActivity(RESULT_CANCELED);
+            endActivity(RESULT_OK);
         }
 
     }

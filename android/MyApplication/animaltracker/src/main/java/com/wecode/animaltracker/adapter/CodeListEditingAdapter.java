@@ -137,17 +137,22 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
                 .setView(textInput)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int whichButton) {
-
+                        Spinner spinnerView = (Spinner) adapterView;
                         String newCodeListItem = textInput.getText().toString();
 
                         CodeList byNameAndValue = codeListService.findByNameAndLocalisedValue(codeListName, newCodeListItem);
                         if (byNameAndValue == null) {
                             codeListService.save(new CodeList(codeListName, newCodeListItem, newCodeListItem, null, CodeList.SOURCE_USER));
                             reloadCodeListValues();
+
+                            // if adaper is not set 'again' spinner doesnt know about added item
+                            //spinnerView.setOnItemSelectedListener(CodeListEditingAdapter.this);
+                            spinnerView.setAdapter(CodeListEditingAdapter.this);
                         }
 
                         int position1 = getPosition(newCodeListItem, true);
-                        setSelected((Spinner) adapterView, position1);
+                        setSelected(spinnerView, position1);
+
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -182,11 +187,13 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
     private static void setSelected(final Spinner spinner, final int position) {
 
+        spinner.setSelection(position, true);
         // this hack is here so spinner correctly shows selected value
-        spinner.postDelayed(new Runnable() {
+        /*spinner.postDelayed(new Runnable() {
             public void run() {
                 spinner.setSelection(position, true);
             }
-        }, 300);
+        }, 1000);
+        */
     }
 }
