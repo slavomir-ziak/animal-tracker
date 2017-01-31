@@ -15,7 +15,6 @@ public class Sample extends Persistable {
     @NotNull
     private Long transectFindingId;
 
-    @NotNull
     private Integer sampleSequenceNumber;
 
     //EntityName
