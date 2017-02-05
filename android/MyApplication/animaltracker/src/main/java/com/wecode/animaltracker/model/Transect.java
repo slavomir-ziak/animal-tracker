@@ -143,7 +143,7 @@ public class Transect extends Persistable {
         this.endElevation = endElevation;
     }
 
-    public List<TransectFindingSite> getFindings() {
+    public List<TransectFindingSite> getFindingSites() {
         if (findings == null) {
             findings = TransectFindingSiteDataService.getInstance().findByTransectId(getId());
         }
