@@ -100,7 +100,7 @@ public class TransectReport {
 
             List<TransectReportRow> allRows = new ArrayList<>();
 
-            for (TransectFindingSite transectFindingSite : transect.getFindings()) {
+            for (TransectFindingSite transectFindingSite : transect.getFindingSites()) {
                 List<TransectReportRow> rows = new ArrayList<>();
                 List<TransectFindingFootprints> footprints = TransectFindingFootprintsDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
 
@@ -170,7 +170,9 @@ public class TransectReport {
                     }
                 }
 
-
+                if (rows.isEmpty()) {
+                    rows.add(new TransectReportRow());
+                }
                 for (TransectReportRow row : rows) {
                     row.setSpecie(transectFindingSite.getSpecies());
                     row.setElevation(transectFindingSite.getLocationElevation());
