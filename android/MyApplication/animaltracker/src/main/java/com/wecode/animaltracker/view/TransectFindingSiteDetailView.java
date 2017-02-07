@@ -140,6 +140,7 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
 
     public void setId(Long id) {
         this.id = id;
+        initialHash = hashCode();
     }
 
     public Long getId() {

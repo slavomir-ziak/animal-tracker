@@ -147,7 +147,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
                     .setTitle(R.string.dialog_save_changes_before_leave)
                     .setPositiveButton(R.string.save, new DialogInterface.OnClickListener(){
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            saveTransectFinding();
+                            saveTransectFindingSite();
                             endActivity();
                         }
                     })
@@ -186,7 +186,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         }
 
         if (id == R.id.action_save) {
-            saveTransectFinding();
+            saveTransectFindingSite();
             return true;
         }
 
@@ -328,7 +328,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
     }
 
-    private void saveTransectFinding() {
+    private void saveTransectFindingSite() {
         TransectFindingSite transectFindingSite = transectFindingSiteDataService.save(transectFindingSiteDetailView.toTransectFinding());
         id = transectFindingSite.getId();
 
