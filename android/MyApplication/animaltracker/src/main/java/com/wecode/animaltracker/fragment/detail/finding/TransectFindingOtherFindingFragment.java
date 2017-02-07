@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.fragment.detail.finding;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,8 @@ public class TransectFindingOtherFindingFragment extends CommonFindingFragment i
 
     private View view;
 
+    private String fragmentTitle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_transect_finding_other, container, false);
@@ -35,10 +38,12 @@ public class TransectFindingOtherFindingFragment extends CommonFindingFragment i
             transectFindingOtherView = new TransectFindingOtherView(getActivity(), view, transectFinding);
         } else {
             transectFindingOtherView = new TransectFindingOtherView(getActivity(), view, transectFindingSiteId);
-            String evidence = getArguments().getString("evidence");
-            if (evidence != null) {
-                transectFindingOtherView.setEvidence(evidence);
-            }
+        }
+
+        String evidence = getArguments().getString("evidence");
+        if (evidence != null) {
+            transectFindingOtherView.setEvidence(evidence);
+            fragmentTitle = evidence;
         }
 
         return view;
@@ -55,6 +60,11 @@ public class TransectFindingOtherFindingFragment extends CommonFindingFragment i
         return transectFindingOtherView.isChanged();
     }
 
+    @Override
+    public String getName() {
+        return fragmentTitle;
+    }
+
     public Long saveTransectFinding() {
         TransectFindingOther transectFindingOther = transectFindingOtherDataService.save(transectFindingOtherView.toOtherFinding());
         transectFindingOtherView.setId(transectFindingOther.getId());
@@ -62,5 +72,9 @@ public class TransectFindingOtherFindingFragment extends CommonFindingFragment i
         this.id = transectFindingOther.getId();
         Toast.makeText(getActivity(), getString(R.string.saved), Toast.LENGTH_SHORT).show();
         return id;
+    }
+
+    public void setFragmentTitle(String fragmentTitle) {
+        this.fragmentTitle = fragmentTitle;
     }
 }

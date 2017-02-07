@@ -11,4 +11,6 @@ public interface Fragment {
     int getNameResourceId();
 
     boolean isChangedByUser();
+
+    String getName();
 }

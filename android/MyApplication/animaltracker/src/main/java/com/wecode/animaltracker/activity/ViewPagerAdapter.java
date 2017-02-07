@@ -35,6 +35,10 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return activity.getResources().getString(mFragmentList.get(position).getNameResourceId());
+        Fragment fragment = mFragmentList.get(position);
+        if (fragment.getName() != null) {
+            return fragment.getName();
+        }
+        return activity.getResources().getString(fragment.getNameResourceId());
     }
 }

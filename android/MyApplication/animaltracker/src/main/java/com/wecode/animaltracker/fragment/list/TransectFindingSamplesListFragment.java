@@ -52,6 +52,11 @@ public class TransectFindingSamplesListFragment extends android.support.v4.app.F
         return false;
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
     public void refreshSamples() {
         adapter.refreshSamples();
     }

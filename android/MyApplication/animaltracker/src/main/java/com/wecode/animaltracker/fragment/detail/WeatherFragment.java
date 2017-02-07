@@ -63,5 +63,10 @@ public class WeatherFragment extends android.support.v4.app.Fragment implements 
         return false;
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
 
 }

@@ -51,6 +51,11 @@ public class TransectFindingFecesFindingFragment extends CommonFindingFragment i
         return transectFindingFecesView.isChanged();
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
     public Long saveTransectFinding() {
         TransectFindingFeces transectFindingFeces = transectFindingFecesDataService.save(transectFindingFecesView.toFecesFinding());
         transectFindingFecesView.setId(transectFindingFeces.getId());
@@ -60,7 +65,4 @@ public class TransectFindingFecesFindingFragment extends CommonFindingFragment i
         return id;
     }
 
-    public void setId() {
-        //this.trafind
-    }
 }

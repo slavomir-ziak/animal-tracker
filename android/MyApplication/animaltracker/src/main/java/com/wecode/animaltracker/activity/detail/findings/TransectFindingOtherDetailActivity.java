@@ -9,6 +9,7 @@ import com.wecode.animaltracker.activity.ViewPagerAdapter;
 import com.wecode.animaltracker.fragment.detail.finding.TransectFindingOtherFindingFragment;
 import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.service.CodeListService;
+import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 
 /**
  * Created by SZIAK on 9/15/2016.
@@ -47,14 +48,18 @@ public class TransectFindingOtherDetailActivity extends TransectFindingCommonAct
         }
         transectFindingOtherFindingFragment = new TransectFindingOtherFindingFragment();
         Bundle bundle = new Bundle();
+        String evidence = intent.getExtras().getString("evidence");
+
         if (id != null) {
             bundle.putLong("id", id);
+            evidence = TransectFindingOtherDataService.getInstance().find(id).getEvidence();
         }
 
-        String evidence = intent.getExtras().getString("evidence");
         if (evidence != null) {
-            bundle.putString("evidence", evidence);
-            setTitle(codeListService.getLocalisedValueByNameAndValue("findingOtherEvidence", evidence));
+            String localized = codeListService.getLocalisedValueByNameAndValue("findingOtherEvidence", evidence);
+            bundle.putString("evidence", localized);
+            transectFindingOtherFindingFragment.setFragmentTitle(localized);
+            setTitle(localized);
         }
 
         bundle.putString("action", action.toString());

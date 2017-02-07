@@ -49,6 +49,11 @@ public class TransectFindingFootpritsFindingFragment extends CommonFindingFragme
         return transectFindingFootprintsView.isChanged();
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
     public Long saveTransectFinding() {
         TransectFindingFootprints transectFindingFootprints = transectFindingFootprintsDataService.save(transectFindingFootprintsView.toFootprintsFinding());
         transectFindingFootprintsView.setId(transectFindingFootprints.getId());

@@ -87,4 +87,9 @@ public class PhotosListFragment extends android.support.v4.app.Fragment implemen
         return false;
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
 }

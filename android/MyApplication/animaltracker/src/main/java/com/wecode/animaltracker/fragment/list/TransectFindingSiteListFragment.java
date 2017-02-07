@@ -117,6 +117,11 @@ public class TransectFindingSiteListFragment extends android.support.v4.app.Frag
         return false;
     }
 
+    @Override
+    public String getName() {
+        return null;
+    }
+
 
     public void refreshFindings() {
         refreshTransectFindings(view);
