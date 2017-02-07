@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
@@ -30,7 +31,7 @@ public class TransectFindingFecesView implements ChangeableView {
     private CheckBox collected;
     private TransectFindingFecesDataService service = TransectFindingFecesDataService.getInstance();
     private int initialHash;
-
+    private TextView comment;
 
     public TransectFindingFecesView(Activity context, View view, TransectFindingFeces transectFindingFeces) {
         this(context, view, transectFindingFeces.getTransectFindingId());
@@ -50,6 +51,7 @@ public class TransectFindingFecesView implements ChangeableView {
         age = new CodeListSpinnerView(R.id.age, "findingAge", context, view);
         substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context, view);
         collected = (CheckBox) view.findViewById(R.id.transect_finding_sample);
+        comment = (TextView) view.findViewById(R.id.comment);
     }
 
     private void bind(TransectFindingFeces transectFindingFeces) {
@@ -61,6 +63,7 @@ public class TransectFindingFecesView implements ChangeableView {
         SpinnersHelper.setSelected(confidence, transectFindingFeces.getConfidence());
         id = transectFindingFeces.getId();
         collected.setChecked(transectFindingFeces.isCollected());
+        comment.setText(transectFindingFeces.getComment());
 
         initialHash = hashCode();
     }
@@ -82,7 +85,7 @@ public class TransectFindingFecesView implements ChangeableView {
         transectFindingFeces.setAge(age.getSelectedCodeListValue());
         transectFindingFeces.setSubstract(substract.getSelectedCodeListValue());
         transectFindingFeces.setCollected(collected.isChecked());
-
+        transectFindingFeces.setComment(comment.getText().toString());
 
         initialHash = hashCode();
         return transectFindingFeces;
@@ -102,6 +105,7 @@ public class TransectFindingFecesView implements ChangeableView {
         result = 31 * result + (age != null ? age.getSelectedCodeListValue().hashCode() : 0);
         result = 31 * result + (substract != null ? substract.getSelectedCodeListValue().hashCode() : 0);
         result = 31 * result + (collected != null ? collected.isChecked() ? 1 : 0 : 0);
+        result = 31 * result + (comment != null ? comment.getText().toString().hashCode() : 0);
         return result;
     }
 

@@ -18,7 +18,7 @@
             android:value="sugar_db_32.db" />
         <meta-data
             android:name="VERSION"
-            android:value="22" />
+            android:value="23" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -120,6 +120,7 @@
 
         <activity android:name=".activity.detail.findings.TransectFindingFecesDetailActivity"
             android:label="@string/feces_finding_detail"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data
@@ -139,6 +140,7 @@
 
         <activity android:name=".activity.detail.findings.TransectFindingOtherDetailActivity"
             android:label="@string/other_finding_detail"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName=".activity.detail.TransectFindingSiteDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <meta-data

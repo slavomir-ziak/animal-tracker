@@ -11,6 +11,8 @@ public class Persistable extends SugarRecord implements Comparable<Persistable> 
 
     private Date created;
 
+    private String comment;
+
     public Date getCreated() {
         return created;
     }
@@ -19,11 +21,20 @@ public class Persistable extends SugarRecord implements Comparable<Persistable> 
         this.created = created;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "Persistable{" +
                 "id=" + getId() +
                 "created=" + created +
+                "comment=" + comment +
                 '}';
     }
 

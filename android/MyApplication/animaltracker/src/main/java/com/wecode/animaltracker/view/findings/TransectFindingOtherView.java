@@ -3,6 +3,7 @@ package com.wecode.animaltracker.view.findings;
 import android.app.Activity;
 import android.view.View;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
@@ -25,6 +26,7 @@ public class TransectFindingOtherView  implements ChangeableView {
     private Spinner confidence;
     private CodeListSpinnerView age;
     private CodeListSpinnerView substract;
+    private TextView comment;
 
     private TransectFindingOtherDataService service = TransectFindingOtherDataService.getInstance();
 
@@ -46,6 +48,7 @@ public class TransectFindingOtherView  implements ChangeableView {
         otherObservations = new CodeListSpinnerView(R.id.findingOtherObservationsValue, "findingOtherObservations", context, view);
         age = new CodeListSpinnerView(R.id.age, "findingAge", context, view);
         substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context, view);
+        comment = (TextView) view.findViewById(R.id.comment);
     }
 
     private void bind(TransectFindingOther transectFindingOther) {
@@ -56,6 +59,7 @@ public class TransectFindingOtherView  implements ChangeableView {
         substract.select(transectFindingOther.getSubstract());
         SpinnersHelper.setSelected(confidence, transectFindingOther.getConfidence());
         initialHash = hashCode();
+        comment.setText(transectFindingOther.getComment());
     }
 
     public TransectFindingOther toOtherFinding(){
@@ -73,6 +77,7 @@ public class TransectFindingOtherView  implements ChangeableView {
         transectFindingOther.setObservations(otherObservations.getSelectedCodeListValue());
         transectFindingOther.setAge(age.getSelectedCodeListValue());
         transectFindingOther.setSubstract(substract.getSelectedCodeListValue());
+        transectFindingOther.setComment(comment.getText().toString());
         initialHash = hashCode();
         return transectFindingOther;
     }
@@ -95,6 +100,7 @@ public class TransectFindingOtherView  implements ChangeableView {
         result = 31 * result + (confidence != null ? confidence.getSelectedItem().hashCode() : 0);
         result = 31 * result + (age != null ? age.getSelectedCodeListValue().hashCode() : 0);
         result = 31 * result + (substract != null ? substract.getSelectedCodeListValue().hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.getText().toString().hashCode() : 0);
         return result;
     }
 

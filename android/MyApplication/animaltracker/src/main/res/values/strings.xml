@@ -221,5 +221,6 @@
     <string name="error_occured">Error occured</string>
     <string name="group">Group</string>
     <string name="collected">Sample</string>
+    <string name="comment">Comment</string>
 
 </resources>

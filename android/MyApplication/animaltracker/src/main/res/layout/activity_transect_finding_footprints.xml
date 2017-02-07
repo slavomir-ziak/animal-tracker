@@ -268,7 +268,8 @@
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
                     android:text="@string/age"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_gravity="center_vertical" />
 
                 <Spinner
                     android:layout_width="fill_parent"
@@ -276,6 +277,30 @@
                     android:id="@+id/age"
                     android:layout_weight="1"
                     android:spinnerMode="dialog" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/animal_tracker_double_row_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/commentLabel"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/comment"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_gravity="center_vertical" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/comment"
+                    android:layout_weight="1"
+                    android:selectAllOnFocus="false" />
+
             </LinearLayout>
 
         </LinearLayout>

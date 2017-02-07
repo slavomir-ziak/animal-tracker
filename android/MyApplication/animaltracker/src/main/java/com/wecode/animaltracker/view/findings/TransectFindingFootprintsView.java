@@ -34,6 +34,7 @@ public class TransectFindingFootprintsView  implements ChangeableView {
     private Spinner confidence;
     private CodeListSpinnerView age;
     private CodeListSpinnerView substract;
+    private TextView comment;
 
     private TransectFindingFootprintsDataService service = TransectFindingFootprintsDataService.getInstance();
 
@@ -62,6 +63,7 @@ public class TransectFindingFootprintsView  implements ChangeableView {
         SpinnersHelper.setSpinnerData(footprintsGroup, R.array.footprintFindingGroupValues);
         SpinnersHelper.setSpinnerData(footprintsDirection, R.array.generalDirection);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
+        comment = (TextView) view.findViewById(R.id.comment);
     }
 
     private void bind(TransectFindingFootprints transectFindingFootprints) {
@@ -77,6 +79,7 @@ public class TransectFindingFootprintsView  implements ChangeableView {
         SpinnersHelper.setSelected(footprintsGroup, transectFindingFootprints.getGroupValue());
         SpinnersHelper.setSelected(footprintsDirection, transectFindingFootprints.getDirection());
         SpinnersHelper.setSelected(confidence, transectFindingFootprints.getConfidence());
+        comment.setText(transectFindingFootprints.getComment());
 
 
         initialHash = hashCode();
@@ -104,6 +107,7 @@ public class TransectFindingFootprintsView  implements ChangeableView {
         transectFindingFootprints.setStride(ConverterUtil.toFloat(footprintsStride.getText().toString()));
         transectFindingFootprints.setSubstract(substract.getSelectedCodeListValue());
         transectFindingFootprints.setGroupValue(((String) footprintsGroup.getSelectedItem()));
+        transectFindingFootprints.setComment(comment.getText().toString());
         initialHash = hashCode();
         return transectFindingFootprints;
     }
@@ -132,6 +136,7 @@ public class TransectFindingFootprintsView  implements ChangeableView {
         result = 31 * result + (age != null ? age.getSelectedCodeListValue().hashCode() : 0);
         result = 31 * result + (substract != null ? substract.getSelectedCodeListValue().hashCode() : 0);
         result = 31 * result + (footprintsGroup != null ? footprintsGroup.getSelectedItem().toString().hashCode() : 0);
+        result = 31 * result + (comment != null ? comment.getText().toString().hashCode() : 0);
         return result;
     }
 

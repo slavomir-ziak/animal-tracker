@@ -213,4 +213,5 @@
     <string name="error_occured">Nastala chyba</string>
     <string name="group">Skupina</string>
     <string name="collected">Vzorka</string>
+    <string name="comment">Poznámka</string>
 </resources>
