@@ -29,7 +29,7 @@ import java.util.List;
 
 public class TransectFindingSiteListFragment extends android.support.v4.app.Fragment implements Fragment {
 
-    private static final int DISPLAY_TRANSECT_FINDING_DETAIL = 0;
+    private static final int DISPLAY_TRANSECT_FINDING_DETAIL = 100;
 
     private static TransectFindingSiteDataService transectFindingSiteDataService = TransectFindingSiteDataService.getInstance();
 
@@ -97,12 +97,6 @@ public class TransectFindingSiteListFragment extends android.support.v4.app.Frag
             Toast.makeText(getActivity(), R.string.detail_display_problem, Toast.LENGTH_SHORT).show();
             return;
         }
-
-        /*switch(requestCode) {
-            case DISPLAY_TRANSECT_FINDING_DETAIL:
-                Long id = data.getExtras().getLong("id");
-                Toast.makeText(getActivity(), "Transect finding saved, ID = " + id, Toast.LENGTH_SHORT).show();
-        }*/
 
     }
 
