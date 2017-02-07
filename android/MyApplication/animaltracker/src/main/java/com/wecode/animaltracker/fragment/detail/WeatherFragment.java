@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.fragment;
+package com.wecode.animaltracker.fragment.detail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.Action;
+import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.util.Assert;

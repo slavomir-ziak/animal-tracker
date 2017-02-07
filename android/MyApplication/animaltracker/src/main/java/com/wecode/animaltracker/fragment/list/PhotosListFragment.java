@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.fragment;
+package com.wecode.animaltracker.fragment.list;
 
 import android.Manifest;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.GridView;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.adapter.ImageAdapter;
+import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.Assert;
@@ -20,7 +21,7 @@ import com.wecode.animaltracker.util.Permissions;
  * Created by SZIAK on 10/2/2016.
  */
 
-public class PhotosFragment extends android.support.v4.app.Fragment implements Fragment {
+public class PhotosListFragment extends android.support.v4.app.Fragment implements Fragment {
 
     private static final int CODE_START = 20;
 

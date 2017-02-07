@@ -100,7 +100,7 @@
                 android:value=".activity.detail.TransectDetailActivity" />
         </activity>
         <activity
-            android:name=".fragment.TransectFindingSamplesListFragment"
+            android:name=".fragment.list.TransectFindingSamplesListFragment"
             android:label="@string/samples"
             android:parentActivityName=".activity.detail.TransectDetailActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">

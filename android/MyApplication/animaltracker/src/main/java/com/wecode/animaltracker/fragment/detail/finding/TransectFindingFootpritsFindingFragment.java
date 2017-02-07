@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.fragment;
+package com.wecode.animaltracker.fragment.detail.finding;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.view.findings.TransectFindingFootprintsView;
@@ -36,11 +36,8 @@ public class TransectFindingFootpritsFindingFragment extends CommonFindingFragme
         } else {
             transectFindingFootprintsView = new TransectFindingFootprintsView(getActivity(), view, transectFindingSiteId);
         }
-
-        // entityName = Photo.EntityName.TRANECT_FINDING_FOOTPRINT;
         return view;
     }
-
 
     @Override
     public int getNameResourceId() {
@@ -52,11 +49,12 @@ public class TransectFindingFootpritsFindingFragment extends CommonFindingFragme
         return transectFindingFootprintsView.isChanged();
     }
 
-    public void saveTransectFinding() {
+    public Long saveTransectFinding() {
         TransectFindingFootprints transectFindingFootprints = transectFindingFootprintsDataService.save(transectFindingFootprintsView.toFootprintsFinding());
         transectFindingFootprintsView.setId(transectFindingFootprints.getId());
 
         this.id = transectFindingFootprints.getId();
         Toast.makeText(getActivity(), getString(R.string.saved), Toast.LENGTH_SHORT).show();
+        return id;
     }
 }

@@ -9,7 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.fragment.TransectFindingSamplesListFragment;
 import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Sample;
 import com.wecode.animaltracker.service.SampleDataService;

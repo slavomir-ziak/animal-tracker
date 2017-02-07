@@ -11,12 +11,13 @@ import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
+import com.wecode.animaltracker.view.ChangeableView;
 import com.wecode.animaltracker.view.CodeListSpinnerView;
 
 /**
  * Created by SZIAK on 9/15/2016.
  */
-public class TransectFindingFootprintsView {
+public class TransectFindingFootprintsView  implements ChangeableView {
 
 
     private Long id;

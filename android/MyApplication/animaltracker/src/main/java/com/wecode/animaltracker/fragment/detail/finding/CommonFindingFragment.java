@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.fragment;
+package com.wecode.animaltracker.fragment.detail.finding;
 
 import android.os.Bundle;
 
@@ -29,7 +29,9 @@ public class CommonFindingFragment extends android.support.v4.app.Fragment {
             }
         }
 
-        id = (Long) bundle.get("id");
+        if (id == null) {
+            id = (Long) bundle.get("id");
+        }
 
         if (action != Action.NEW) {
             Assert.assertNotNullNotZero("id musi byt zadane", id);

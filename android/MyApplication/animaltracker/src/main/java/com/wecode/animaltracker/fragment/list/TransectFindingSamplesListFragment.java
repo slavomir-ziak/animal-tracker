@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.fragment;
+package com.wecode.animaltracker.fragment.list;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.adapter.TransectFindingSamplesListAdapter;
+import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Sample;
 import com.wecode.animaltracker.service.SampleDataService;

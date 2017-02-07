@@ -24,7 +24,7 @@ import java.util.Locale;
 /**
  * Created by sziak on 10/31/2015.
  */
-public class TransectDetailView {
+public class TransectDetailView  implements ChangeableView {
 
 
     private TextView id;

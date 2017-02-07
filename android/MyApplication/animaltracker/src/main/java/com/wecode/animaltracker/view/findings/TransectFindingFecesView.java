@@ -1,6 +1,7 @@
 package com.wecode.animaltracker.view.findings;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 
@@ -10,12 +11,13 @@ import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.ConverterUtil;
+import com.wecode.animaltracker.view.ChangeableView;
 import com.wecode.animaltracker.view.CodeListSpinnerView;
 
 /**
  * Created by SZIAK on 9/15/2016.
  */
-public class TransectFindingFecesView {
+public class TransectFindingFecesView implements ChangeableView {
 
     private Long id;
     private Long transectFindingId;
@@ -30,24 +32,24 @@ public class TransectFindingFecesView {
     private int initialHash;
 
 
-    public TransectFindingFecesView(Activity context, TransectFindingFeces transectFindingFeces) {
-        this(context, transectFindingFeces.getTransectFindingId());
+    public TransectFindingFecesView(Activity context, View view, TransectFindingFeces transectFindingFeces) {
+        this(context, view, transectFindingFeces.getTransectFindingId());
 
         Assert.assertNotNull("transectFindingFeces cannot be null!", transectFindingFeces);
         bind(transectFindingFeces);
     }
 
-    public TransectFindingFecesView(Activity context, Long transectFindingId) {
+    public TransectFindingFecesView(Activity context, View view, Long transectFindingId) {
         this.transectFindingId = transectFindingId;
 
-        confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
+        confidence = (Spinner) view.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
-        fecesPrey = new CodeListSpinnerView(R.id.findingFecesPreySpinner, "fecesPrey", context);
-        fecesState = new CodeListSpinnerView(R.id.findingFecesStateValue, "fecesState", context);
-        age = new CodeListSpinnerView(R.id.age, "findingAge", context);
-        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context);
-        collected = (CheckBox) context.findViewById(R.id.transect_finding_sample);
+        fecesPrey = new CodeListSpinnerView(R.id.findingFecesPreySpinner, "fecesPrey", context, view);
+        fecesState = new CodeListSpinnerView(R.id.findingFecesStateValue, "fecesState", context, view);
+        age = new CodeListSpinnerView(R.id.age, "findingAge", context, view);
+        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context, view);
+        collected = (CheckBox) view.findViewById(R.id.transect_finding_sample);
     }
 
     private void bind(TransectFindingFeces transectFindingFeces) {

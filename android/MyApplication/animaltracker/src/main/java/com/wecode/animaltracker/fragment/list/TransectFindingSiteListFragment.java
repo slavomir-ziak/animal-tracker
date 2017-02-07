@@ -1,4 +1,4 @@
-package com.wecode.animaltracker.fragment;
+package com.wecode.animaltracker.fragment.list;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +17,7 @@ import com.wecode.animaltracker.activity.detail.TransectFindingSiteDetailActivit
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.adapter.TransectFindingListViewDataAdapter;
+import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 

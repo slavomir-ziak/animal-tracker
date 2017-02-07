@@ -23,7 +23,6 @@ import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingFecesDetailActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingFootprintsDetailActivity;
 import com.wecode.animaltracker.activity.detail.findings.TransectFindingOtherDetailActivity;
-import com.wecode.animaltracker.fragment.TransectFindingSamplesListFragment;
 import com.wecode.animaltracker.activity.location.EditLocationDMSFormatActivity;
 import com.wecode.animaltracker.activity.location.EditLocationDecimalFormatActivity;
 import com.wecode.animaltracker.activity.util.Action;
@@ -36,7 +35,6 @@ import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
-import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.service.TransectFindingSiteDataService;
@@ -270,7 +268,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
 
     private void commonOtherAdd(String evidence) {
         Intent intent = new Intent(this, TransectFindingOtherDetailActivity.class);
-        intent.putExtra("transectFindingId", transectFindingSiteDetailView.getId());
+        intent.putExtra("transectFindingSiteId", transectFindingSiteDetailView.getId());
         intent.putExtra("evidence", evidence);
         intent.putExtra(Constants.PARENT_ACTIVITY, getClass());
         intent.setAction(Action.NEW.toString());

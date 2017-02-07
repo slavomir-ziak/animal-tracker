@@ -13,7 +13,7 @@ import com.wecode.animaltracker.service.WeatherDataService;
 /**
  * Created by sziak on 10-Apr-16.
  */
-public class WeatherDetailView {
+public class WeatherDetailView  implements ChangeableView {
 
 
     private Long id;
@@ -103,4 +103,8 @@ public class WeatherDetailView {
         return weather;
     }
 
+    @Override
+    public boolean isChanged() {
+        return false;
+    }
 }

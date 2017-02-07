@@ -25,9 +25,9 @@ import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.export.TransectReport;
-import com.wecode.animaltracker.fragment.PhotosFragment;
-import com.wecode.animaltracker.fragment.TransectDetailFragment;
-import com.wecode.animaltracker.fragment.TransectFindingSiteListFragment;
+import com.wecode.animaltracker.fragment.list.PhotosListFragment;
+import com.wecode.animaltracker.fragment.detail.TransectDetailFragment;
+import com.wecode.animaltracker.fragment.list.TransectFindingSiteListFragment;
 import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
@@ -51,7 +51,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
     private TransectFindingSiteListFragment transectFindingSiteListFragment;
 
-    private PhotosFragment photosFragment;
+    private PhotosListFragment photosListFragment;
 
     private ViewPagerAdapter adapter;
 
@@ -62,7 +62,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transect_detail);
+        setContentView(R.layout.tabbed_activity);
 
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
@@ -112,9 +112,9 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         bundle.putLong("entityId", id);
         bundle.putLong("transectId", id);
         bundle.putString("entityName", EntityName.TRANSECT.toString());
-        photosFragment = new PhotosFragment();
-        photosFragment.setArguments(bundle);
-        adapter.addFragment(photosFragment);
+        photosListFragment = new PhotosListFragment();
+        photosListFragment.setArguments(bundle);
+        adapter.addFragment(photosListFragment);
     }
 
     private void setupTransectFindingListFragment(ViewPagerAdapter adapter) {
@@ -216,7 +216,7 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
 
     @Override
     protected void refreshPhotos() {
-        photosFragment.refreshPhotos();
+        photosListFragment.refreshPhotos();
     }
 
     private String getNameForRequestCode(int requestCode) {

@@ -17,7 +17,7 @@ import com.wecode.animaltracker.util.Assert;
 /**
  * Created by sziak on 11/1/2015.
  */
-public class HabitatDetailView {
+public class HabitatDetailView implements ChangeableView {
 
     private static final String FOREST_TYPE = "Forest";
     private Long id;

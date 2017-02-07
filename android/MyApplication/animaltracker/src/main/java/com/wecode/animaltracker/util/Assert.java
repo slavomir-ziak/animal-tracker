@@ -14,7 +14,7 @@ public class Assert {
     public static void assertNotNullNotZero(String message, Long aLong) {
         assertNotNull(message, (Object)aLong);
         if (aLong == 0) {
-            throw new RuntimeException("cannot be " + aLong);
+            throw new RuntimeException(message);
         }
     }
 

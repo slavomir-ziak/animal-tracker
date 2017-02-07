@@ -17,7 +17,7 @@ import java.util.Locale;
 /**
  * Created by sziak on 10-Apr-16.
  */
-public class TransectFindingSiteDetailView {
+public class TransectFindingSiteDetailView  implements ChangeableView {
 
     private TransectFindingSiteDataService service = TransectFindingSiteDataService.getInstance();
 

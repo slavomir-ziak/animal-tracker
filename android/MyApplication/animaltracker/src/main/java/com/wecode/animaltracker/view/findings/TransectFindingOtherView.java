@@ -1,6 +1,7 @@
 package com.wecode.animaltracker.view.findings;
 
 import android.app.Activity;
+import android.view.View;
 import android.widget.Spinner;
 
 import com.wecode.animaltracker.R;
@@ -8,12 +9,13 @@ import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 import com.wecode.animaltracker.util.Assert;
+import com.wecode.animaltracker.view.ChangeableView;
 import com.wecode.animaltracker.view.CodeListSpinnerView;
 
 /**
  * Created by SZIAK on 9/15/2016.
  */
-public class TransectFindingOtherView {
+public class TransectFindingOtherView  implements ChangeableView {
 
     private Long id;
     private Long transectFindingId;
@@ -28,22 +30,22 @@ public class TransectFindingOtherView {
 
     private int initialHash;
 
-    public TransectFindingOtherView(Activity context, TransectFindingOther transectFindingOther) {
-        this(context, transectFindingOther.getTransectFindingId());
+    public TransectFindingOtherView(Activity context, View view, TransectFindingOther transectFindingOther) {
+        this(context, view, transectFindingOther.getTransectFindingId());
 
         Assert.assertNotNull("transectFindingOther cannot be null!", transectFindingOther);
         bind(transectFindingOther);
     }
 
-    public TransectFindingOtherView(Activity context, Long transectFindingId) {
+    public TransectFindingOtherView(Activity context, View view, Long transectFindingId) {
         this.transectFindingId = transectFindingId;
-        confidence = (Spinner) context.findViewById(R.id.findingConfidenceValue);
+        confidence = (Spinner) view.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
-        otherEvidence = new CodeListSpinnerView(R.id.findingOtherEvidenceValue, "findingOtherEvidence", context);
-        otherObservations = new CodeListSpinnerView(R.id.findingOtherObservationsValue, "findingOtherObservations", context);
-        age = new CodeListSpinnerView(R.id.age, "findingAge", context);
-        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context);
+        otherEvidence = new CodeListSpinnerView(R.id.findingOtherEvidenceValue, "findingOtherEvidence", context, view);
+        otherObservations = new CodeListSpinnerView(R.id.findingOtherObservationsValue, "findingOtherObservations", context, view);
+        age = new CodeListSpinnerView(R.id.age, "findingAge", context, view);
+        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context, view);
     }
 
     private void bind(TransectFindingOther transectFindingOther) {
