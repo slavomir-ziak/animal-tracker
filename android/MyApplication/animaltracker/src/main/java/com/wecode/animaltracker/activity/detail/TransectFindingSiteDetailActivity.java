@@ -311,12 +311,7 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
             case SET_HABITAT_REQUEST:
                 Long id = data.getExtras().getLong("id");
                 Assert.assertNotNullNotZero("HabitatId", id);
-
-                int code = transectFindingSiteDetailView.getHabitatId() == null ? R.string.habitat_created : R.string.habitat_modified;
-                Toast.makeText(this, getString(code), Toast.LENGTH_SHORT).show();
-
                 transectFindingSiteDetailView.setHabitatId(id);
-                saveTransectFinding();
                 break;
 
             case EDIT_LOCATION_REQUEST:
