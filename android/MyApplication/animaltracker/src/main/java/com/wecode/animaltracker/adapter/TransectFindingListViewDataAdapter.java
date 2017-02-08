@@ -80,9 +80,18 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         TextView transectFindingListItemOther = (TextView) rowView.findViewById(R.id.transectFindingListItemOther);
 
         // TODO use resource string to format
-        transectFindingListItemFootprints.setText(String.format(Locale.getDefault(), "%d x " + context.getString(R.string.footprints), footprintsCount));
-        transectFindingListItemFeces.setText(String.format(Locale.getDefault(), "%d x " + context.getString(R.string.feces), fecesCount));
-        transectFindingListItemOther.setText(String.format(Locale.getDefault(), "%d x " + context.getString(R.string.other), othersCount));
+        setDataOrHide(transectFindingListItemFootprints, R.string.footprints, footprintsCount);
+        setDataOrHide(transectFindingListItemFeces, R.string.feces, fecesCount);
+        setDataOrHide(transectFindingListItemOther, R.string.other, othersCount);
+    }
+
+    private void setDataOrHide(TextView transectFindingListItem, int findingLabelResource, long count) {
+        if (count > 0) {
+            transectFindingListItem.setVisibility(View.VISIBLE);
+            transectFindingListItem.setText(String.format(Locale.getDefault(), "%d x " + context.getString(findingLabelResource), count));
+        } else {
+            transectFindingListItem.setVisibility(View.GONE);
+        }
     }
 
     private void initHabitat(View rowView, TransectFindingSite transectFindingSite) {

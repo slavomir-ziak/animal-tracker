@@ -27,8 +27,6 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
     private CodeListSpinnerView species;
 
     private TextView location;
-    //private RadioButton findingBeforeRecentSnow;
-    //private RadioButton findingAfterRecentSnow;
 
     private final Button addFececButton;
     private final Button addFootprintsButton;
@@ -61,9 +59,12 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
         addUrineButton = (Button) context.findViewById(R.id.transectFindingAddUrineButton);
         addHairsButton = (Button) context.findViewById(R.id.transectFindingAddHairsButton);
         addScratchesButton = (Button) context.findViewById(R.id.transectFindingAddScratchesButton);
+        initialHash = hashCode();
     }
 
     private String getDefaultAnimal() {
+
+        // TODO dont hardcode it here
         if (Locale.getDefault().getLanguage().equals("sk")) {
             return "Vlk";
         }
