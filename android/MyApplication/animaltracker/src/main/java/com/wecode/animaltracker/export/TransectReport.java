@@ -1,18 +1,23 @@
 package com.wecode.animaltracker.export;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Habitat;
+import com.wecode.animaltracker.model.Persistable;
+import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.HabitatDataService;
+import com.wecode.animaltracker.service.PhotosDataService;
 import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
@@ -28,7 +33,9 @@ import java.util.List;
 
 import jxl.CellType;
 import jxl.Workbook;
+import jxl.biff.XFRecord;
 import jxl.format.CellFormat;
+import jxl.format.Colour;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableCell;
@@ -42,8 +49,19 @@ import jxl.write.WriteException;
  */
 public class TransectReport {
 
+    private static String EXCEL_REPORT_V1 = "Transects-report.xls";
+
+    private static String EXCEL_REPORT_V2 = "Transects-report_v2.xls";
+
     private Transect transect;
+
     private Activity context;
+
+    private TransectFindingOtherDataService otherDataService = TransectFindingOtherDataService.getInstance();
+
+    private TransectFindingFecesDataService fecesDataService = TransectFindingFecesDataService.getInstance();
+
+    private TransectFindingFootprintsDataService footprintsDataService = TransectFindingFootprintsDataService.getInstance();
 
     private TransectReport(){}
 
@@ -52,15 +70,29 @@ public class TransectReport {
         this.context = context;
     }
 
-    public void exportToExcel() {
+    public void exportToExcel_V1() {
+        exportToExcel(EXCEL_REPORT_V1);
+    }
 
-        File excelFile = getExcelFile();
+    public void exportToExcel_V2() {
+        exportToExcel(EXCEL_REPORT_V2);
+    }
+
+    private void exportToExcel(String excelTemplate) {
+
+        File excelFile = getExcelFile(excelTemplate);
         InputStream reportStream = null;
         try {
 
-            reportStream = context.getAssets().open("Transects-report.xls");
+            reportStream = context.getAssets().open(excelTemplate);
 
-            createExcel(reportStream, excelFile, transect);
+            if (excelTemplate.equals(EXCEL_REPORT_V1)) {
+                createExcel_V1(reportStream, excelFile, transect);
+            } else if (excelTemplate.equals(EXCEL_REPORT_V2)) {
+                createExcel_V2(reportStream, excelFile, transect);
+            } else {
+                throw new RuntimeException("Unknown template: " + excelTemplate);
+            }
 
             String path = Globals.formatForUser(excelFile);
             Toast.makeText(context, context.getString(R.string.excel_export_path, path), Toast.LENGTH_LONG).show();
@@ -69,19 +101,118 @@ public class TransectReport {
             Log.e(Globals.APP_NAME, "Problem with excel export", e);
             throw new RuntimeException(e);
         } finally {
-            if (reportStream != null) {
-                try {
-                    reportStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Globals.refreshFileSystem(context);
-            }
+            close(reportStream);
         }
 
     }
 
-    private void createExcel(InputStream input, File output, Transect transect) throws IOException, WriteException, BiffException {
+    private void createExcel_V2(InputStream input, File output, Transect transect) throws IOException, WriteException, BiffException {
+
+        WritableWorkbook wkr = null;
+
+        try {
+
+            Workbook wk = Workbook.getWorkbook(input);
+            wkr = Workbook.createWorkbook(output, wk);
+            WritableSheet sheet = wkr.getSheet(0);
+
+            List<TransectReportRow_V2> allRows = getTransectReportRows_V2(transect);
+
+            System.out.println(allRows);
+/*
+            int row = 2;
+            for (TransectReportRow_V2 rowData : allRows) {
+
+                for (int col = 0; col < 20; col++) {
+                    Object data = "";
+
+                    switch(col){
+                        case 0: data = String.valueOf(row - 1); break;
+                        case 1: data = rowData.getName(); break;
+                        case 2: data = rowData.getElevationValue(); break;
+                        case 3: data = rowData.getLatitudeValue(); break;
+                        case 4: data = rowData.getLongitudeValue(); break;
+
+                    }
+
+                    if (data != null) {
+                        CellFormat cellFormat = sheet.getCell(col, row).getCellFormat();
+                        Label cell = new Label(col, row, data.toString());
+                        cell.setCellFormat(cellFormat);
+                        sheet.addCell(cell);
+                    }
+
+                }
+
+                row++;
+            }*/
+
+        } finally {
+            close(wkr);
+        }
+    }
+
+
+    @NonNull
+    private List<TransectReportRow_V2> getTransectReportRows_V2(Transect transect) {
+        List<TransectReportRow_V2> allRows = new ArrayList<>();
+
+        for (TransectFindingSite transectFindingSite : transect.getFindingSites()) {
+            List<TransectFindingFootprints> footprints = footprintsDataService.findByTransectFindingId(transectFindingSite.getId());
+
+            for (TransectFindingFootprints footprintFinding : footprints) {
+                TransectReportRow_V2 row = new TransectReportRow_V2(
+                        "FOOTPRINT",
+                        transectFindingSite,
+                        transect,
+                        footprintFinding,
+                        getHabitat(transectFindingSite),
+                        getPhotos(footprintFinding, EntityName.TRANECT_FINDING_FOOTPRINT));
+
+                row.setNumberOfIndividuals(footprintFinding.getNumberOfAnimals());
+            }
+
+            List<TransectFindingFeces> fecesList = fecesDataService.findByTransectFindingId(transectFindingSite.getId());
+            for (TransectFindingFeces fecesFinding: fecesList) {
+                TransectReportRow_V2 row = new TransectReportRow_V2(
+                        "FECES",
+                        transectFindingSite,
+                        transect,
+                        fecesFinding,
+                        getHabitat(transectFindingSite),
+                        getPhotos(fecesFinding, EntityName.TRANECT_FINDING_FECES));
+                allRows.add(row);
+            }
+
+            List<TransectFindingOther> othersList = otherDataService.findByTransectFindingId(transectFindingSite.getId());
+            for (TransectFindingOther otherFinding: othersList) {
+                TransectReportRow_V2 row = new TransectReportRow_V2(
+                        otherFinding.getEvidence(),
+                        transectFindingSite,
+                        transect,
+                        otherFinding,
+                        getHabitat(transectFindingSite),
+                        getPhotos(otherFinding, EntityName.TRANECT_FINDING_OTHER));
+                allRows.add(row);
+            }
+        }
+
+        return allRows;
+    }
+
+    private List<Photo> getPhotos(Persistable finding, EntityName entityName) {
+        return PhotosDataService.getInstance().findByEntityIdAndName(finding.getId(), entityName.name());
+    }
+
+    private Habitat getHabitat(TransectFindingSite transectFindingSite) {
+        if (transectFindingSite.getHabitatId() == null) {
+            return null;
+        }
+
+        return HabitatDataService.getInstance().find(transectFindingSite.getHabitatId());
+    }
+
+    private void createExcel_V1(InputStream input, File output, Transect transect) throws IOException, WriteException, BiffException {
 
         WritableWorkbook wkr = null;
 
@@ -99,93 +230,7 @@ public class TransectReport {
                 }
             }
 
-            List<TransectReportRow> allRows = new ArrayList<>();
-
-            for (TransectFindingSite transectFindingSite : transect.getFindingSites()) {
-                List<TransectReportRow> rows = new ArrayList<>();
-                List<TransectFindingFootprints> footprints = TransectFindingFootprintsDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
-
-                for (TransectFindingFootprints footprintFinding : footprints) {
-                    TransectReportRow row = new TransectReportRow();
-                    row.setFootprintsBackSize(footprintFinding.getBackSizeFormatted());
-                    row.setFootprintsFrontSize(footprintFinding.getFrontSizeFormatted());
-                    row.setFootprintsDirection(footprintFinding.getDirection());
-                    row.setFootprintsNumberOfAnimlas(footprintFinding.getNumberOfAnimals());
-                    row.setFootprintsStride(footprintFinding.getStride());
-                    row.setFootprintsSubstract(footprintFinding.getSubstract());
-                    rows.add(row);
-                }
-
-                List<TransectFindingFeces> fecesList = TransectFindingFecesDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
-                for (int i = 0; i < fecesList.size(); i++) {
-
-                    TransectFindingFeces fecesFinding = fecesList.get(i);
-                    TransectReportRow row;
-                    if (rows.size() >= i + 1) {
-                        row = rows.get(i);
-                    } else {
-                        row = new TransectReportRow();
-                        rows.add(row);
-                    }
-                    row.setFecesPrey(fecesFinding.getPrey());
-                    row.setFecesState(fecesFinding.getState());
-                    row.setFecesSubstract(fecesFinding.getSubstract());
-
-                }
-
-                int rowCounter=0;
-                List<TransectFindingOther> othersList = TransectFindingOtherDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
-                for (int i = 0; i < othersList.size(); i++) {
-                    TransectFindingOther otherFindings = othersList.get(i);
-
-                    if (otherFindings.getEvidence().equalsIgnoreCase("urine")) {
-                        TransectReportRow row;
-                        if (rows.size() >= rowCounter + 1) {
-                            row = rows.get(rowCounter);
-                        } else {
-                            row = new TransectReportRow();
-                            rows.add(row);
-                        }
-                        row.setUrineLocation(otherFindings.getObservations());
-                        rowCounter++;
-                    }
-                }
-
-                rowCounter=0;
-                for (int i = 0; i < othersList.size(); i++) {
-                    TransectFindingOther otherFindings = othersList.get(i);
-
-                    if (!otherFindings.getEvidence().equalsIgnoreCase("urine")) {
-
-                        TransectReportRow row;
-                        if (rows.size() >= rowCounter + 1) {
-                            row = rows.get(rowCounter);
-                        } else {
-                            row = new TransectReportRow();
-                            rows.add(row);
-                        }
-
-                        row.setOtherEvidence(otherFindings.getEvidence());
-                        row.setOtherObservations(otherFindings.getObservations());
-                        rowCounter++;
-                    }
-                }
-
-                if (rows.isEmpty()) {
-                    rows.add(new TransectReportRow());
-                }
-                for (TransectReportRow row : rows) {
-                    row.setSpecie(transectFindingSite.getSpecies());
-                    row.setElevation(transectFindingSite.getLocationElevation());
-                    row.setLatitude(transectFindingSite.getLocationLatitude());
-                    row.setLongitude(transectFindingSite.getLocationLongitude());
-                    if (transectFindingSite.getHabitatId() != null) {
-                        Habitat habitat = HabitatDataService.getInstance().find(transectFindingSite.getHabitatId());
-                        row.setHabitat(habitat);
-                    }
-                }
-                allRows.addAll(rows);
-            }
+            List<TransectReportRow> allRows = getTransectReportRows_V1(transect);
 
             int row = 7;
             for (TransectReportRow rowData : allRows) {
@@ -200,7 +245,7 @@ public class TransectReport {
                         case 3: data = rowData.getLatitudeValue(); break;
                         case 4: data = rowData.getLongitudeValue(); break;
                         case 5: data = rowData.getHabitat(); break;
-                        case 6: data = rowData.getFootprintsNumberOfAnimlas(); break;
+                        case 6: data = rowData.getFootprintsNumberOfAnimals(); break;
                         case 7: data = rowData.getFootprintsSubstract(); break;
                         case 8: data = rowData.getFootprintsDirection(); break;
                         case 9: data = rowData.getFootprintsStride(); break;
@@ -217,28 +262,119 @@ public class TransectReport {
 
                     }
 
+
                     if (data != null) {
                         CellFormat cellFormat = sheet.getCell(col, row).getCellFormat();
-                        if (cellFormat == null) {
-                            cellFormat = new WritableCellFormat();
-                        }
                         Label cell = new Label(col, row, data.toString());
                         cell.setCellFormat(cellFormat);
                         sheet.addCell(cell);
                     }
-
                 }
-
                 row++;
             }
 
 
         } finally {
-            if (wkr != null) {
-                wkr.write();
-                wkr.close();
-            }
+            close(wkr);
         }
+    }
+
+    @NonNull
+    private List<TransectReportRow> getTransectReportRows_V1(Transect transect) {
+        List<TransectReportRow> allRows = new ArrayList<>();
+
+        for (TransectFindingSite transectFindingSite : transect.getFindingSites()) {
+            List<TransectReportRow> rows = new ArrayList<>();
+            List<TransectFindingFootprints> footprints = footprintsDataService.findByTransectFindingId(transectFindingSite.getId());
+
+            for (TransectFindingFootprints footprintFinding : footprints) {
+                addFootprintFindingRow(rows, footprintFinding);
+            }
+
+            List<TransectFindingFeces> fecesList = TransectFindingFecesDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
+            for (int i = 0; i < fecesList.size(); i++) {
+
+                TransectFindingFeces fecesFinding = fecesList.get(i);
+                TransectReportRow row;
+                if (rows.size() >= i + 1) {
+                    row = rows.get(i);
+                } else {
+                    row = new TransectReportRow();
+                    rows.add(row);
+                }
+                row.setFecesPrey(fecesFinding.getPrey());
+                row.setFecesState(fecesFinding.getState());
+                row.setFecesSubstract(fecesFinding.getSubstract());
+
+            }
+
+            int rowCounter=0;
+            List<TransectFindingOther> othersList = TransectFindingOtherDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
+            for (int i = 0; i < othersList.size(); i++) {
+                TransectFindingOther otherFindings = othersList.get(i);
+
+                if (otherFindings.getEvidence().equalsIgnoreCase("urine")) {
+                    TransectReportRow row;
+                    if (rows.size() >= rowCounter + 1) {
+                        row = rows.get(rowCounter);
+                    } else {
+                        row = new TransectReportRow();
+                        rows.add(row);
+                    }
+                    row.setUrineLocation(otherFindings.getObservations());
+                    rowCounter++;
+                }
+            }
+
+            rowCounter=0;
+            for (int i = 0; i < othersList.size(); i++) {
+                TransectFindingOther otherFindings = othersList.get(i);
+
+                if (!otherFindings.getEvidence().equalsIgnoreCase("urine")) {
+
+                    TransectReportRow row;
+                    if (rows.size() >= rowCounter + 1) {
+                        row = rows.get(rowCounter);
+                    } else {
+                        row = new TransectReportRow();
+                        rows.add(row);
+                    }
+
+                    row.setOtherEvidence(otherFindings.getEvidence());
+                    row.setOtherObservations(otherFindings.getObservations());
+                    rowCounter++;
+                }
+            }
+
+            if (rows.isEmpty()) {
+                rows.add(new TransectReportRow());
+            }
+            for (TransectReportRow row : rows) {
+                row.setSpecie(transectFindingSite.getSpecies());
+                row.setElevation(transectFindingSite.getLocationElevation());
+                row.setLatitude(transectFindingSite.getLocationLatitude());
+                row.setLongitude(transectFindingSite.getLocationLongitude());
+                if (transectFindingSite.getHabitatId() != null) {
+                    Habitat habitat = HabitatDataService.getInstance().find(transectFindingSite.getHabitatId());
+                    row.setHabitat(habitat);
+                }
+            }
+            allRows.addAll(rows);
+        }
+        return allRows;
+    }
+
+    private TransectReportRow addFootprintFindingRow(List<TransectReportRow> rows, TransectFindingFootprints footprintFinding) {
+        TransectReportRow row = new TransectReportRow();
+        row.setFootprintsBackSize(footprintFinding.getBackSizeFormatted());
+        row.setFootprintsFrontSize(footprintFinding.getFrontSizeFormatted());
+        row.setFootprintsDirection(footprintFinding.getDirection());
+        row.setFootprintsNumberOfAnimals(footprintFinding.getNumberOfAnimals());
+        row.setFootprintsStride(footprintFinding.getStride());
+        row.setFootprintsSubstract(footprintFinding.getSubstract());
+        rows.add(row);
+
+        return row;
     }
 
     private void setCellText(String text, WritableCell cell) {
@@ -249,10 +385,10 @@ public class TransectReport {
         }
     }
 
-    private File getExcelFile(){
+    private File getExcelFile(String excelReportFile){
         String transectRootDirectory = Globals.getTransectRootDirectoryName(transect);
         File transectDir = new File(Globals.getAppRootDir(), transectRootDirectory);
-        File excelName = new File(transectDir, "transect_report.xls");
+        File excelName = new File(transectDir, excelReportFile);
         int counter = 1;
         while(excelName.exists()) {
             excelName = new File(transectDir, "transect_report_" + counter + ".xls");
@@ -294,5 +430,23 @@ public class TransectReport {
     private String formatWeather(Long weatherId) {
         ///weather.get
         return null;
+    }
+
+    private void close(WritableWorkbook wkr) throws IOException, WriteException {
+        if (wkr != null) {
+            wkr.write();
+            wkr.close();
+        }
+    }
+
+    private void close(InputStream reportStream) {
+        if (reportStream != null) {
+            try {
+                reportStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Globals.refreshFileSystem(context);
+        }
     }
 }

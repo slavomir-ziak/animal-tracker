@@ -26,5 +26,10 @@
         android:orderInCategory="100"
         android:title="Export"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/transect_finding_action_export_v2"
+        android:orderInCategory="100"
+        android:title="Export v2"
+        app:showAsAction="never" />
 
 </menu>

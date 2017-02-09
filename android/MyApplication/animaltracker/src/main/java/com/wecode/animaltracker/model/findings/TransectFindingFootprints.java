@@ -7,7 +7,7 @@ import java.util.Locale;
 /**
  * Created by SZIAK on 9/15/2016.
  */
-public class TransectFindingFootprints extends Persistable {
+public class TransectFindingFootprints extends Persistable implements ITransectFinding  {
 
     // FK
     private Long transectFindingId;

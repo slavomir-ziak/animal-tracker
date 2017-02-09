@@ -1,7 +1,5 @@
 package com.wecode.animaltracker.export;
 
-import android.annotation.SuppressLint;
-
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.util.StringUtils;
 
@@ -19,7 +17,7 @@ public class TransectReportRow {
     private Double longitude;
     private String habitat;
 
-    private Integer footprintsNumberOfAnimlas;
+    private Integer footprintsNumberOfAnimals;
     private String footprintsSubstract;
     private String footprintsDirection;
     private Float footprintsStride;
@@ -116,12 +114,12 @@ public class TransectReportRow {
         this.habitat = sb.toString();
     }
 
-    public Integer getFootprintsNumberOfAnimlas() {
-        return footprintsNumberOfAnimlas;
+    public Integer getFootprintsNumberOfAnimals() {
+        return footprintsNumberOfAnimals;
     }
 
-    public void setFootprintsNumberOfAnimlas(Integer footprintsNumberOfAnimlas) {
-        this.footprintsNumberOfAnimlas = footprintsNumberOfAnimlas;
+    public void setFootprintsNumberOfAnimals(Integer footprintsNumberOfAnimals) {
+        this.footprintsNumberOfAnimals = footprintsNumberOfAnimals;
     }
 
     public String getFootprintsSubstract() {

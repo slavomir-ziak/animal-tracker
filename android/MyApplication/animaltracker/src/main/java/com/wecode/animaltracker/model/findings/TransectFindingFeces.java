@@ -5,7 +5,7 @@ import com.wecode.animaltracker.model.Persistable;
 /**
  * Created by SZIAK on 9/15/2016.
  */
-public class TransectFindingFeces extends Persistable {
+public class TransectFindingFeces extends Persistable implements ITransectFinding {
 
     //FK
     private Long transectFindingId;

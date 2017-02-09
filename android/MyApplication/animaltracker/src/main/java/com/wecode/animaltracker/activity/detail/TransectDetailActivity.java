@@ -248,6 +248,11 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             return true;
         }
 
+        if (id == R.id.transect_finding_action_export_v2) {
+            exportToExcel_v2();
+            return true;
+        }
+
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
@@ -344,13 +349,16 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
         super.onPrepareOptionsMenu(menu);
         MenuItem addFinding = menu.findItem(R.id.transect_action_add_finding);
         MenuItem export = menu.findItem(R.id.transect_finding_action_export);
+        MenuItem export2 = menu.findItem(R.id.transect_finding_action_export_v2);
 
         if (id == null) {
             if (addFinding != null) addFinding.setEnabled(false);
             if (export != null) export.setEnabled(false);
+            if (export2 != null) export2.setEnabled(false);
         } else {
             if (addFinding != null) addFinding.setEnabled(true);
             if (export != null) export.setEnabled(true);
+            if (export2 != null) export2.setEnabled(true);
         }
         return true;
     }
@@ -384,7 +392,17 @@ public class TransectDetailActivity extends PhotoEnabledCommonActivity implement
             return;
         }
 
-        new TransectReport(TransectDataService.getInstance().find(id), this).exportToExcel();
+        new TransectReport(TransectDataService.getInstance().find(id), this).exportToExcel_V1();
+
+    }
+    public void exportToExcel_v2() {
+
+        if (!Permissions.grantedOrRequestPermissions(this, EXPORT_FILE_PERMISSION_REQUEST,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            return;
+        }
+
+        new TransectReport(TransectDataService.getInstance().find(id), this).exportToExcel_V2();
 
     }
 
