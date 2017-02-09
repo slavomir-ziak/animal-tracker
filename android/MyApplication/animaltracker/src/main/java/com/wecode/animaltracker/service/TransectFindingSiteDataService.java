@@ -29,7 +29,7 @@ public class TransectFindingSiteDataService extends AbstractDataService<Transect
         return TransectFindingSite.find(TransectFindingSite.class, "transect_id=? order by id asc", transectId.toString());
     }
 
-    public List<Persistable> findFindingDetails(Long transectFindingId) {
+    public List<Persistable> findTransectFindings(Long transectFindingId) {
 
         List<Persistable> results = new ArrayList<>();
         results.addAll(TransectFindingFeces.find(TransectFindingFeces.class, "transect_finding_id=?", transectFindingId.toString()));

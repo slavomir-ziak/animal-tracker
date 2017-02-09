@@ -179,7 +179,9 @@ public abstract class TransectFindingCommonActivity extends PhotoEnabledCommonAc
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if (data == null) {
+            return;
+        }
         switch(requestCode){
 
             case ADD_SAMPLE_REQUEST:

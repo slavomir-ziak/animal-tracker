@@ -52,11 +52,11 @@ public class TransectFindingSiteListFragment extends android.support.v4.app.Frag
 
         action = Action.fromString(getArguments().getString("action"));
 
-        refreshTransectFindings(view);
+        refreshTransectFindingSites(view);
         return view;
     }
 
-    private void refreshTransectFindings(View view) {
+    private void refreshTransectFindingSites(View view) {
         final List<TransectFindingSite> list = transectFindingSiteDataService.findByTransectId(transectId);
 
         TransectFindingListViewDataAdapter adapter = new TransectFindingListViewDataAdapter(getActivity(), list);
@@ -87,9 +87,8 @@ public class TransectFindingSiteListFragment extends android.support.v4.app.Frag
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        refreshTransectFindings(view);
+        refreshTransectFindingSites(view);
         if (resultCode == Activity.RESULT_CANCELED) {
-            //Toast.makeText(getActivity(), R.string.operation_canceled, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -118,7 +117,7 @@ public class TransectFindingSiteListFragment extends android.support.v4.app.Frag
 
 
     public void refreshFindings() {
-        refreshTransectFindings(view);
+        refreshTransectFindingSites(view);
     }
 
     public Long getTransectId() {

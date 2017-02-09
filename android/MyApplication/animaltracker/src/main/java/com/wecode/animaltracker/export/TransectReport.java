@@ -32,6 +32,7 @@ import jxl.format.CellFormat;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.WritableCell;
+import jxl.write.WritableCellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
@@ -218,6 +219,9 @@ public class TransectReport {
 
                     if (data != null) {
                         CellFormat cellFormat = sheet.getCell(col, row).getCellFormat();
+                        if (cellFormat == null) {
+                            cellFormat = new WritableCellFormat();
+                        }
                         Label cell = new Label(col, row, data.toString());
                         cell.setCellFormat(cellFormat);
                         sheet.addCell(cell);

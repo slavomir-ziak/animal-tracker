@@ -27,6 +27,7 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
     private CodeListSpinnerView species;
 
     private TextView location;
+    private TextView idLabel;
 
     private final Button addFececButton;
     private final Button addFootprintsButton;
@@ -59,6 +60,7 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
         addUrineButton = (Button) context.findViewById(R.id.transectFindingAddUrineButton);
         addHairsButton = (Button) context.findViewById(R.id.transectFindingAddHairsButton);
         addScratchesButton = (Button) context.findViewById(R.id.transectFindingAddScratchesButton);
+        idLabel = (TextView) context.findViewById(R.id.idLabel);
         initialHash = hashCode();
     }
 
@@ -82,7 +84,9 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
         habitatId = transectFindingSite.getHabitatId();
         transectId = transectFindingSite.getTransectId();
         id = transectFindingSite.getId();
-
+        if (id != null) {
+            idLabel.setText(String.format(Locale.getDefault(), "ID: %d", id));
+        }
         initialHash = hashCode();
     }
 
@@ -141,6 +145,7 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
 
     public void setId(Long id) {
         this.id = id;
+        idLabel.setText(String.format(Locale.getDefault(), "ID: %d", id));
         initialHash = hashCode();
     }
 

@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,16 +50,20 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 
-        Persistable detail = transectFindingDetails.get(position);
 
+        Persistable detail = transectFindingDetails.get(position);
+/*
         View rowView;
         if (view != null) {
             rowView = view;
         } else {
             int viewId = getViewId(detail);
             rowView = context.getLayoutInflater().inflate(viewId, parent, false);
-        }
+        }*/
 
+        int viewId = getViewId(detail);
+        @SuppressLint("ViewHolder")
+        View rowView = context.getLayoutInflater().inflate(viewId, parent, false);
         fillRowView(rowView, detail);
 
         return rowView;

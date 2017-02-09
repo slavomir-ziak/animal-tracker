@@ -95,14 +95,14 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
             return;
         }
 
-        final List<Persistable> findingDetails = transectFindingSiteDataService.findFindingDetails(id);
-        ListView findingDetailsView = (ListView) findViewById(R.id.findingDetails);
-        findingDetailsView.setAdapter(new TransectFindingDetailsListAdapter(this, findingDetails));
-        findingDetailsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        final List<Persistable> findings = transectFindingSiteDataService.findTransectFindings(id);
+        ListView transectFindingsView = (ListView) findViewById(R.id.findingDetails);
+        transectFindingsView.setAdapter(new TransectFindingDetailsListAdapter(this, findings));
+        transectFindingsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Persistable persistable = findingDetails.get(position);
+                Persistable persistable = findings.get(position);
                 if (persistable instanceof TransectFindingFootprints) {
                     TransectFindingSiteDetailActivity.this.editFootprints(persistable.getId());
                 } else if (persistable instanceof TransectFindingFeces) {
@@ -298,7 +298,6 @@ public class TransectFindingSiteDetailActivity extends PhotoEnabledCommonActivit
         initFindings();
 
         if (resultCode == RESULT_CANCELED) {
-            //Toast.makeText(this, "Operation canceled.", Toast.LENGTH_SHORT).show();
             return;
         }
 
