@@ -47,13 +47,11 @@ public class TransectsList extends AppCompatActivity {
         itemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                TextView transectId = (TextView) view.findViewById(R.id.transectId);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(TransectsList.this, TransectDetailActivity.class);
                 intent.putExtra(Constants.PARENT_ACTIVITY, TransectsList.class);
-                intent.putExtra("id", Long.valueOf(transectId.getText().toString()));
+                intent.putExtra("id", id);
                 intent.setAction(Action.EDIT.toString());
                 startActivityForResult(intent, DISPLAY_TRANSECT_DETAIL);
             }
