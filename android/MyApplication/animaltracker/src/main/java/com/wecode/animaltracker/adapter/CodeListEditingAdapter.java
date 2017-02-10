@@ -170,7 +170,6 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        System.out.println("Nothing selected");
     }
 
     public int getPosition(String value, boolean localised) {
@@ -186,14 +185,6 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
 
 
     private static void setSelected(final Spinner spinner, final int position) {
-
         spinner.setSelection(position, true);
-        // this hack is here so spinner correctly shows selected value
-        /*spinner.postDelayed(new Runnable() {
-            public void run() {
-                spinner.setSelection(position, true);
-            }
-        }, 1000);
-        */
     }
 }

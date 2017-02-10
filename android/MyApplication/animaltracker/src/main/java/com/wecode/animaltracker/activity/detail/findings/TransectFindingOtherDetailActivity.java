@@ -57,7 +57,7 @@ public class TransectFindingOtherDetailActivity extends TransectFindingCommonAct
 
         if (evidence != null) {
             String localized = codeListService.getLocalisedValueByNameAndValue("findingOtherEvidence", evidence);
-            bundle.putString("evidence", localized);
+            bundle.putString("evidence", evidence);
             transectFindingOtherFindingFragment.setFragmentTitle(localized);
             setTitle(localized);
         }
