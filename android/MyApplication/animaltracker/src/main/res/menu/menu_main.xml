@@ -4,9 +4,15 @@
       tools:context=".MainActivity">
 
     <item android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:icon="@drawable/ic_settings"
-          android:orderInCategory="100"
-          app:showAsAction="ifRoom"/>
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"/>
+
+    <item android:id="@+id/action_test_email"
+        android:title="Send email"
+        android:icon="@drawable/wolf1"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom"/>
 
 </menu>

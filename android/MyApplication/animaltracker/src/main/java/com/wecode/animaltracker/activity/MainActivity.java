@@ -20,8 +20,10 @@ import com.wecode.animaltracker.activity.detail.TransectFindingSiteDetailActivit
 import com.wecode.animaltracker.activity.list.TransectsList;
 import com.wecode.animaltracker.activity.util.Action;
 import com.wecode.animaltracker.activity.util.Constants;
+import com.wecode.animaltracker.async.EmailSendingWorker;
 import com.wecode.animaltracker.fragment.FragmentDrawer;
 import com.wecode.animaltracker.service.SettingsDataService;
+import com.wecode.animaltracker.util.EmailService;
 import com.wecode.animaltracker.util.Permissions;
 import com.wecode.animaltracker.util.StringUtils;
 
@@ -46,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.CAMERA,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.INTERNET)) {
             return;
         }
 
@@ -86,6 +89,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
         if (id == R.id.action_settings) {
             Globals.openSettings(this);
+            return true;
+        }
+        if (id == R.id.action_test_email) {
+            new EmailSendingWorker().execute();
             return true;
         }
 
