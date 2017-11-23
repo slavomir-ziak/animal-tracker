@@ -1,1 +1,1 @@
-include ':animaltracker'
+include ':animaltracker', ':lib'
