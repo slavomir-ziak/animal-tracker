@@ -158,6 +158,16 @@
                 android:value=".activity.MainActivity" />
         </activity>
 
+        <activity android:name=".activity.PrivacyPolicyActivity"
+            android:label="@string/privacyPolicyLabel"
+            android:windowSoftInputMode="stateHidden"
+            android:parentActivityName=".activity.SettingsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.SettingsActivity" />
+
+        </activity>
 
     </application>
 

@@ -222,5 +222,7 @@
     <string name="group">Group</string>
     <string name="collected">Sample</string>
     <string name="comment">Comment</string>
+    <string name="privacyPolicyLabel">Privacy Policy</string>
+    <string name="showPrivacyPolicy">Show Privacy Policy</string>
 
 </resources>

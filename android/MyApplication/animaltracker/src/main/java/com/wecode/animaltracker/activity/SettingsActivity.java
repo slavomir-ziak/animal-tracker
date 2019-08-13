@@ -1,6 +1,5 @@
 package com.wecode.animaltracker.activity;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import com.orm.util.ManifestHelper;
 import com.wecode.animaltracker.BuildConfig;
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.activity.util.Constants;
 import com.wecode.animaltracker.model.Settings;
 import com.wecode.animaltracker.service.SettingsDataService;
 
@@ -112,5 +112,11 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             })
             .show();
+    }
+
+    public void showPrivacyPolicy(View view) {
+        Intent intent = new Intent(this, PrivacyPolicyActivity.class);
+        intent.putExtra(Constants.PARENT_ACTIVITY, SettingsActivity.class);
+        startActivity(intent);
     }
 }

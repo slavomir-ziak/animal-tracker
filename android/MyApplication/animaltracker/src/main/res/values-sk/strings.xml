@@ -214,4 +214,6 @@
     <string name="group">Skupina</string>
     <string name="collected">Vzorka</string>
     <string name="comment">Poznámka</string>
+    <string name="privacyPolicyLabel">Zásady ochrany osobných údajov</string>
+    <string name="showPrivacyPolicy">Zobraziť</string>
 </resources>

@@ -144,6 +144,30 @@
 
 
 
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/privacyPolicyLabel"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/privacyPolicyLabel"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <Button
+                    android:text="@string/showPrivacyPolicy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/privacyPolicyButton"
+                    android:layout_weight="1"
+                    android:onClick="showPrivacyPolicy" />
+
+             </LinearLayout>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -166,7 +190,6 @@
 
 
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
