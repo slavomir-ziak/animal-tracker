@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -64,7 +65,12 @@ public abstract class PhotoEnabledCommonActivity extends CommonDetailActivity {
         Log.d(Globals.APP_NAME, "Picture will be saved:" + outputPhotoFile);
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outputPhotoFile));
+
+        Uri uri = FileProvider.getUriForFile(
+                this,
+                "com.wecode.animaltracker.fileprovider", outputPhotoFile);
+
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
         startActivityForResult(cameraIntent, ADD_PHOTO_REQUEST);
     }

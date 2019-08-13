@@ -1,12 +1,9 @@
 package com.wecode.animaltracker.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +18,6 @@ import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.service.PhotosDataService;
 
 import java.io.File;
-import java.net.URI;
 import java.util.List;
 
 public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
@@ -95,13 +91,18 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         File file = new File(photoDirectory, photos.get(position).getFileName());
-        showPhoto(file);
+
+        Uri uri = FileProvider.getUriForFile(
+                context,
+                "com.wecode.animaltracker.fileprovider", file);
+
+        showPhoto(uri);
     }
 
-    private void showPhoto(File photoUri){
+    private void showPhoto(Uri photoUri){
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(photoUri), "image/*");
+        intent.setDataAndType(photoUri, "image/*");
         context.startActivity(intent);
     }
 }
