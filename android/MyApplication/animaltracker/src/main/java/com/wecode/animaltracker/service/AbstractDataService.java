@@ -5,6 +5,8 @@ import android.util.Log;
 import com.orm.SugarRecord;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.model.Persistable;
+import com.wecode.animaltracker.model.Sample;
+import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.util.Assert;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public abstract class AbstractDataService<T extends Persistable> {
         return byId;
     }
 
-    public List<T> list() {
+    public List<T> listAll() {
         List<T> result = new ArrayList<>();
         Iterator<T> all = SugarRecord.findAll(persistentClass);
         while(all.hasNext()) {
@@ -51,5 +53,8 @@ public abstract class AbstractDataService<T extends Persistable> {
         return result;
     }
 
+    public void deleteAll() {
+        SugarRecord.deleteAll(persistentClass);
+    }
 
 }

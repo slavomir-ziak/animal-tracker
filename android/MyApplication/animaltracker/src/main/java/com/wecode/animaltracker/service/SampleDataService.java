@@ -80,5 +80,4 @@ public class SampleDataService extends AbstractDataService<Sample> {
         return sb.toString().toUpperCase();
     }
 
-
 }

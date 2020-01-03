@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectDetailActivity;
@@ -39,7 +38,7 @@ public class TransectsList extends AppCompatActivity {
     }
 
     private void refreshTransects() {
-        TransectListViewDataAdapter adapter = new TransectListViewDataAdapter(this, transectDataService.list());
+        TransectListViewDataAdapter adapter = new TransectListViewDataAdapter(this, transectDataService.listAll());
 
         ListView itemsListView = (ListView) findViewById(R.id.transectsList);
 

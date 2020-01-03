@@ -27,7 +27,7 @@ public class CodeListService extends AbstractDataService<CodeList> {
     /**
      *
      * @param name
-     * @return LinkedList, because we add to the beginning of this list.
+     * @return LinkedList, because we add to the beginning of this listAll.
      */
     public List<CodeList> findByName(String name) {
         LinkedList<CodeList> codeLists = new LinkedList<>();
@@ -51,4 +51,5 @@ public class CodeListService extends AbstractDataService<CodeList> {
         Assert.isTrue("more than 1 CodeList row with name=" + name + " and " + value + "=" + value, codeLists.size() <= 1);
         return codeLists.size() == 1 ? codeLists.get(0).getLocalisedValue() : value;
     }
+
 }
