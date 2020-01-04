@@ -1,6 +1,5 @@
 package com.wecode.animaltracker.service;
 
-import com.wecode.animaltracker.model.Sample;
 import com.wecode.animaltracker.model.Settings;
 
 /**
@@ -19,6 +18,6 @@ public class SettingsDataService extends AbstractDataService<Settings> {
     }
 
     public Settings get() {
-        return find(1L);
+        return listAll().get(0);
     }
 }
