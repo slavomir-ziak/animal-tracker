@@ -1,28 +1,35 @@
 package com.wecode.animaltracker.service;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Sample;
 
 import junit.framework.TestCase;
 
-import java.time.LocalDate;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+@RunWith(AndroidJUnit4.class)
 public class SampleDataServiceTest extends TestCase {
 
     SampleDataService service = SampleDataService.getInstance();
 
+    @Before
     public void setUp() {
         service.deleteAll();
     }
 
+    @Test
     public void testFindByTransectFindingId() {
 
         Sample sample = service.save(new Sample("1", 2L, 3, EntityName.TRANECT_FINDING_FECES));
@@ -42,12 +49,14 @@ public class SampleDataServiceTest extends TestCase {
 
     }
 
+    @Test
     public void testGenerateSampleNumber_simple() {
         String[] strings = service.generateSampleNumber("test test");
         String sampleNuber = strings[1];
         assertThat(sampleNuber, is("1"));
     }
 
+    @Test
     public void testGenerateSampleNumber_complex() {
 
         Calendar yesterday = Calendar.getInstance();

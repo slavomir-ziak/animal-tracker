@@ -38,7 +38,7 @@ public class Globals {
         return file;
     }
 
-    public static void createDirectory(File file) {
+    private static void createDirectory(File file) {
         if (!file.exists() && !file.mkdirs()) {
             String message = "Directory " + file.getAbsolutePath() + " not created";
             Log.e(Globals.APP_NAME, message);

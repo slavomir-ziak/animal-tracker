@@ -16,6 +16,14 @@ public class Habitat extends Persistable {
     public Habitat() {
     }
 
+    public Habitat(String type, String track, String forestAge, String treeType, String forestType) {
+        this.type = type;
+        this.track = track;
+        this.forestAge = forestAge;
+        this.treeType = treeType;
+        this.forestType = forestType;
+    }
+
     public String getType() {
         return type;
     }

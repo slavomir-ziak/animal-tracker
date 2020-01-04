@@ -1,8 +1,14 @@
 package com.wecode.animaltracker.service;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.wecode.animaltracker.model.CodeList;
 
 import junit.framework.TestCase;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.List;
 import java.util.Locale;
@@ -12,14 +18,17 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 
+@RunWith(AndroidJUnit4.class)
 public class CodeListServiceTest extends TestCase {
 
     private CodeListService service = CodeListService.getInstance();
 
+    @Before
     public void setUp() {
         service.deleteAll();
     }
 
+    @Test
     public void testFindByName() {
 
         CodeList codeList = service.save(new CodeList("test", "value", null, null, null));
@@ -33,6 +42,7 @@ public class CodeListServiceTest extends TestCase {
         assertThat(test.get(0).getName(), is("test"));
     }
 
+    @Test
     public void testFindByNameAndLocalisedValue() {
         assertThat(Locale.getDefault().getLanguage(), is("sk"));
 
@@ -48,6 +58,7 @@ public class CodeListServiceTest extends TestCase {
 
     }
 
+    @Test
     public void testGetLocalisedValueByNameAndValue() {
 
         CodeList codeList = service.save(new CodeList("test", "value", "hodnota", null, null));
@@ -61,6 +72,7 @@ public class CodeListServiceTest extends TestCase {
 
     }
 
+    @Test
     public void testDeleteAll() {
 
         CodeList codeList = service.save(new CodeList("test", "value", "hodnota", null, null));
