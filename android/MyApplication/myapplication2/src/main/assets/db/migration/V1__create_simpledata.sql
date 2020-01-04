@@ -1,0 +1,1 @@
+CREATE TABLE simpledata (date VARCHAR , even SMALLINT , id INTEGER PRIMARY KEY AUTOINCREMENT , millis BIGINT , string VARCHAR );
