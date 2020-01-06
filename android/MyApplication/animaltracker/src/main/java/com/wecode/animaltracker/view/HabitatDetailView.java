@@ -5,13 +5,8 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.util.ValidationException;
-import com.wecode.animaltracker.activity.util.ValidationHelper;
-import com.wecode.animaltracker.activity.util.Validator;
 import com.wecode.animaltracker.model.Habitat;
-import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.service.HabitatDataService;
-import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.Assert;
 
 /**

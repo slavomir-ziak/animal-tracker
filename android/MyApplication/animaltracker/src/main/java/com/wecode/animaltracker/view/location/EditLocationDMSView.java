@@ -14,8 +14,6 @@ import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.activity.util.Validator;
 import com.wecode.animaltracker.util.LocationUtil;
 
-import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.Locale;
 
 /**

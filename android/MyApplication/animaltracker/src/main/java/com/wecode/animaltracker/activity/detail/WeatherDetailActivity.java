@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.common.CommonDetailActivity;
-import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.model.Weather;
+import com.wecode.animaltracker.service.WeatherDataService;
 import com.wecode.animaltracker.view.WeatherDetailView;
 
 public class WeatherDetailActivity extends CommonDetailActivity {

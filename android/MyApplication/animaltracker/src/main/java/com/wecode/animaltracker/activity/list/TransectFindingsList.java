@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.detail.TransectFindingSiteDetailActivity;
 import com.wecode.animaltracker.activity.util.Action;

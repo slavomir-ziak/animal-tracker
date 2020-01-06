@@ -1,11 +1,10 @@
 package com.wecode.animaltracker.view;
 
-import android.app.Activity;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import com.wecode.animaltracker.R;
-import com.wecode.animaltracker.activity.detail.WeatherDetailActivity;
 import com.wecode.animaltracker.activity.util.TextChangingSeekBarListener;
 import com.wecode.animaltracker.model.Weather;
 import com.wecode.animaltracker.service.WeatherDataService;

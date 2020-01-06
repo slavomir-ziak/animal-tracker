@@ -5,11 +5,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
-import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
 import com.wecode.animaltracker.adapter.CodeListEditingAdapter;
 import com.wecode.animaltracker.model.CodeList;
-import com.wecode.animaltracker.service.CodeListService;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,17 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.adapter.TransectFindingSamplesListAdapter;
 import com.wecode.animaltracker.fragment.Fragment;
 import com.wecode.animaltracker.model.EntityName;
-import com.wecode.animaltracker.model.Sample;
-import com.wecode.animaltracker.service.SampleDataService;
-
-import java.util.List;
 
 /**
  * Created by SZIAK on 7/31/2016.

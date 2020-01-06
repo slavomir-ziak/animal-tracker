@@ -3,6 +3,7 @@ package com.wecode.animaltracker.activity.list;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
+
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.common.PhotoEnabledCommonActivity;

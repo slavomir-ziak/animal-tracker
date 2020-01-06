@@ -1,11 +1,8 @@
 package com.wecode.animaltracker.activity.util;
 
-import android.app.Activity;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.adapter.CodeListEditingAdapter;
 

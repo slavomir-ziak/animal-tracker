@@ -3,7 +3,6 @@ package com.wecode.animaltracker.view;
 import android.app.Activity;
 import android.location.Location;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;

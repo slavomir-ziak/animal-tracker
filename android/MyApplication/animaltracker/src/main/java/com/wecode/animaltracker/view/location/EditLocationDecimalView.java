@@ -1,14 +1,10 @@
 package com.wecode.animaltracker.view.location;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Location;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.LocalisationUtils;
 import com.wecode.animaltracker.activity.util.ValidationException;

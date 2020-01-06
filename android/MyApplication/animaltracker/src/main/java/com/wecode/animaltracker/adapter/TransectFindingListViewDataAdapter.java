@@ -1,12 +1,12 @@
 package com.wecode.animaltracker.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.TransectFindingSite;

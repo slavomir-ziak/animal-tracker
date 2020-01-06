@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.R;
 
-import java.text.NumberFormat;
 import java.text.ParseException;
 
 

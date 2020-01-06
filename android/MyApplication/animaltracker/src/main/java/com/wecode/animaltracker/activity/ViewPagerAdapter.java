@@ -1,9 +1,10 @@
 package com.wecode.animaltracker.activity;
 
 import android.app.Activity;
-import com.wecode.animaltracker.fragment.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.wecode.animaltracker.fragment.Fragment;
 
 import java.util.ArrayList;
 import java.util.List;

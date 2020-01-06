@@ -69,7 +69,7 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
         return rowView;
     }
 
-    private void fillRowView(View rowView, Persistable detail) {
+    private void fillRowView(View rowView, Object detail) {
         if (detail instanceof TransectFindingFootprints) {
             fillRowView(rowView, ((TransectFindingFootprints) detail));
         } else if (detail instanceof TransectFindingFeces) {

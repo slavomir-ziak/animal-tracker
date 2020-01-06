@@ -1,11 +1,8 @@
 package com.wecode.animaltracker.activity.detail;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;

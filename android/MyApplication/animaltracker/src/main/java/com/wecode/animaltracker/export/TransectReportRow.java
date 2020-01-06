@@ -1,7 +1,5 @@
 package com.wecode.animaltracker.export;
 
-import android.annotation.SuppressLint;
-
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.util.StringUtils;
 
