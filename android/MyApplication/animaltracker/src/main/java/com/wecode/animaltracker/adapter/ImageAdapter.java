@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import com.wecode.animaltracker.Globals;
 import com.wecode.animaltracker.async.BitmapWorkerTask;
 import com.wecode.animaltracker.model.Photo;
-import com.wecode.animaltracker.service.PhotosDataService;
+import com.wecode.animaltracker.service.PhotoDataService;
 
 import java.io.File;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
 
     private Activity context;
 
-    private PhotosDataService photosDataService = PhotosDataService.getInstance();
+    private PhotoDataService photoDataService = PhotoDataService.getInstance();
 
     public ImageAdapter(Activity context, Long entityId, String entityName, File photoDirectory) {
         this.context = context;
@@ -42,7 +42,7 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
     }
 
     public void refreshPhotos() {
-        photos = photosDataService.findByEntityIdAndName(entityId, entityName);
+        photos = photoDataService.findByEntityIdAndName(entityId, entityName);
 
         for (int i = 0; i < photos.size(); i++) {
             Log.i(Globals.APP_NAME, "photo["+i+"]: " + photos.get(i).toString());

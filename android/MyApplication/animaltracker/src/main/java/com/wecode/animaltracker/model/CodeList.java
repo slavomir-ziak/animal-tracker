@@ -1,38 +1,46 @@
 package com.wecode.animaltracker.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 import java.util.Locale;
 
 /**
  * Created by SZIAK on 8/31/2016.
  */
-public class CodeList extends Persistable{
+@DatabaseTable(tableName = "CODE_LIST")
+public class CodeList extends Persistable {
 
     public static final String SOURCE_USER = "USER";
 
     public static final String SOURCE_APP = "APP";
 
+    public static final String NAME_COLUMN = "NAME";
+
+    public static final String VALUE_COLUMN = "VALUE";
+
+    public static final String VALUE_SK_COLUMN = "VALUE_SK";
+
+    public static final String ICON_COLUMN = "ICON";
+
+    public static final String SOURCE_COLUMN = "SOURCE";
+
+    @DatabaseField(columnName = NAME_COLUMN)
     private String name;
 
+    @DatabaseField(columnName = VALUE_COLUMN)
     private String value;
 
-    @Override
-    public String toString() {
-        return "CodeList{" +
-                "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                ", icon='" + icon + '\'' +
-                ", valueSk='" + valueSk + '\'' +
-                ", source='" + source + '\'' +
-                "} " + super.toString();
-    }
-
-    private String icon;
-
+    @DatabaseField(columnName = VALUE_SK_COLUMN)
     private String valueSk;
+
+    @DatabaseField(columnName = ICON_COLUMN)
+    private String icon;
 
     /**
      * values: USER - user added himself, APP - added by application insert/update
      */
+    @DatabaseField(columnName = SOURCE_COLUMN)
     private String source;
 
     public CodeList() {
@@ -99,4 +107,16 @@ public class CodeList extends Persistable{
             return getValue();
         }
     }
+
+    @Override
+    public String toString() {
+        return "CodeList{" +
+                "name='" + name + '\'' +
+                ", value='" + value + '\'' +
+                ", icon='" + icon + '\'' +
+                ", valueSk='" + valueSk + '\'' +
+                ", source='" + source + '\'' +
+                "} " + super.toString();
+    }
+
 }

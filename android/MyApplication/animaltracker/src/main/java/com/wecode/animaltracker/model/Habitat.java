@@ -1,16 +1,39 @@
 package com.wecode.animaltracker.model;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by sziak on 11/1/2015.
  */
+@DatabaseTable(tableName = "HABITAT")
 public class Habitat extends Persistable {
 
     public static final String FOREST = "Forest";
 
+    public static final String TYPE_COLUMN = "TYPE";
+
+    public static final String TRACK_COLUMN = "TRACK";
+
+    public static final String FOREST_AGE_COLUMN = "FOREST_AGE";
+
+    public static final String TREE_TYPE_COLUMN = "TREE_TYPE";
+
+    public static final String FOREST_TYPE_COLUMN = "FOREST_TYPE";
+
+    @DatabaseField(columnName = TYPE_COLUMN)
     private String type;
+
+    @DatabaseField(columnName = TRACK_COLUMN)
     private String track;
+
+    @DatabaseField(columnName = FOREST_AGE_COLUMN)
     private String forestAge;
+
+    @DatabaseField(columnName = TREE_TYPE_COLUMN)
     private String treeType;
+
+    @DatabaseField(columnName = FOREST_TYPE_COLUMN)
     private String forestType;
 
     public Habitat() {

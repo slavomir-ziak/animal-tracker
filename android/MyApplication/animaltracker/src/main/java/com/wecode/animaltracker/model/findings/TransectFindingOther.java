@@ -1,23 +1,44 @@
 package com.wecode.animaltracker.model.findings;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.wecode.animaltracker.model.Persistable;
 
 /**
  * Created by SZIAK on 9/15/2016.
  */
+@DatabaseTable(tableName = "TRANSECT_FINDING_OTHER")
 public class TransectFindingOther extends Persistable {
+    
+    public static final String TRANSECT_FINDING_ID_COLUMN = "TRANSECT_FINDING_ID";
 
+    public static final String EVIDENCE_COLUMN = "EVIDENCE";
+
+    public static final String OBSERVATIONS_COLUMN = "OBSERVATIONS";
+
+    public static final String CONFIDENCE_COLUMN = "CONFIDENCE";
+
+    public static final String AGE_COLUMN = "AGE";
+
+    public static final String SUBSTRACT_COLUMN = "SUBSTRACT";
+    
     //FK
+    @DatabaseField(columnName = TRANSECT_FINDING_ID_COLUMN)
     private Long transectFindingId;
 
+    @DatabaseField(columnName = EVIDENCE_COLUMN)
     private String evidence;
 
+    @DatabaseField(columnName = OBSERVATIONS_COLUMN)
     private String observations;
 
+    @DatabaseField(columnName = CONFIDENCE_COLUMN)
     private String confidence;
 
+    @DatabaseField(columnName = AGE_COLUMN)
     private String age;
 
+    @DatabaseField(columnName = SUBSTRACT_COLUMN)
     private String substract;
 
     public TransectFindingOther() {

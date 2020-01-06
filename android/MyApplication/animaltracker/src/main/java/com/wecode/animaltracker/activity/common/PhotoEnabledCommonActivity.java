@@ -16,7 +16,7 @@ import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.list.PhotosList;
 import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.model.Photo;
-import com.wecode.animaltracker.service.PhotosDataService;
+import com.wecode.animaltracker.service.PhotoDataService;
 import com.wecode.animaltracker.util.Permissions;
 
 import java.io.File;
@@ -104,7 +104,7 @@ public abstract class PhotoEnabledCommonActivity extends CommonDetailActivity {
             case ADD_PHOTO_REQUEST:
                 Log.d(Globals.APP_NAME, "Pic saved, intent: " + data);
                 Photo photo = new Photo(entityName, id, outputPhotoFile.getName());
-                PhotosDataService.getInstance().save(photo);
+                PhotoDataService.getInstance().save(photo);
                 refreshPhotos();
                 break;
 

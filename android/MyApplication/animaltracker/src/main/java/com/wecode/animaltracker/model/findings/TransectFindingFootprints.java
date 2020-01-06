@@ -1,5 +1,7 @@
 package com.wecode.animaltracker.model.findings;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.wecode.animaltracker.model.Persistable;
 
 import java.util.Locale;
@@ -7,31 +9,68 @@ import java.util.Locale;
 /**
  * Created by SZIAK on 9/15/2016.
  */
+@DatabaseTable(tableName = "TRANSECT_FINDING_FOOTPRINTS")
 public class TransectFindingFootprints extends Persistable {
 
+    public static final String TRANSECT_FINDING_ID_COLUMN = "TRANSECT_FINDING_ID";
+
+    public static final String NUMBER_OF_ANIMALS_COLUMN = "NUMBER_OF_ANIMALS";
+
+    public static final String FRONT_LENGTH_COLUMN = "FRONT_LENGTH";
+
+    public static final String FRONT_WIDHT_COLUMN = "FRONT_WIDHT";
+
+    public static final String BACK_LENGTH_COLUMN = "BACK_LENGTH";
+
+    public static final String BACK_WIDHT_COLUMN = "BACK_WIDHT";
+
+    public static final String DIRECTION_COLUMN = "DIRECTION";
+
+    public static final String STRIDE_COLUMN = "STRIDE";
+
+    public static final String CONFIDENCE_COLUMN = "CONFIDENCE";
+
+    public static final String AGE_COLUMN = "AGE";
+
+    public static final String SUBSTRACT_COLUMN = "SUBSTRACT";
+
+    public static final String GROUP_VALUE_COLUMN = "GROUP_VALUE";
+    
     // FK
+    @DatabaseField(columnName = TRANSECT_FINDING_ID_COLUMN)
     private Long transectFindingId;
 
+    @DatabaseField(columnName = NUMBER_OF_ANIMALS_COLUMN)
     private Integer numberOfAnimals;
 
+    @DatabaseField(columnName = FRONT_LENGTH_COLUMN)
     private Float frontLength;
 
+    @DatabaseField(columnName = FRONT_WIDHT_COLUMN)
     private Float frontWidht;
 
+    @DatabaseField(columnName = BACK_LENGTH_COLUMN)
     private Float backLength;
 
+    @DatabaseField(columnName = BACK_WIDHT_COLUMN)
     private Float backWidht;
 
+    @DatabaseField(columnName = DIRECTION_COLUMN)
     private String direction;
 
+    @DatabaseField(columnName = STRIDE_COLUMN)
     private Float stride;
 
+    @DatabaseField(columnName = CONFIDENCE_COLUMN)
     private String confidence;
 
+    @DatabaseField(columnName = AGE_COLUMN)
     private String age;
 
+    @DatabaseField(columnName = SUBSTRACT_COLUMN)
     private String substract;
 
+    @DatabaseField(columnName = GROUP_VALUE_COLUMN)
     private String groupValue;
 
     public TransectFindingFootprints() {

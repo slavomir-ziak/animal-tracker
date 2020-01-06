@@ -1,26 +1,50 @@
 package com.wecode.animaltracker.model.findings;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.wecode.animaltracker.model.Persistable;
 
 /**
  * Created by SZIAK on 9/15/2016.
  */
+@DatabaseTable(tableName = "TRANSECT_FINDING_FECES")
 public class TransectFindingFeces extends Persistable {
 
+    public static final String TRANSECT_FINDING_ID_COLUMN = "TRANSECT_FINDING_ID";
+
+    public static final String STATE_COLUMN = "STATE";
+
+    public static final String PREY_COLUMN = "PREY";
+
+    public static final String CONFIDENCE_COLUMN = "CONFIDENCE";
+
+    public static final String AGE_COLUMN = "AGE";
+
+    public static final String SUBSTRACT_COLUMN = "SUBSTRACT";
+
+    public static final String COLLECTED_COLUMN = "COLLECTED";
+
     //FK
+    @DatabaseField(columnName = TRANSECT_FINDING_ID_COLUMN)
     private Long transectFindingId;
 
+    @DatabaseField(columnName = STATE_COLUMN)
     private String state;
 
+    @DatabaseField(columnName = PREY_COLUMN)
     private String prey;
 
+    @DatabaseField(columnName = CONFIDENCE_COLUMN)
     private String confidence;
 
+    @DatabaseField(columnName = AGE_COLUMN)
     private String age;
 
+    @DatabaseField(columnName = SUBSTRACT_COLUMN)
     private String substract;
 
-    private boolean collected;
+    @DatabaseField(columnName = COLLECTED_COLUMN)
+    private Boolean collected;
 
     public TransectFindingFeces() {
     }
@@ -86,11 +110,11 @@ public class TransectFindingFeces extends Persistable {
                 "} " + super.toString();
     }
 
-    public boolean isCollected() {
+    public Boolean isCollected() {
         return collected;
     }
 
-    public void setCollected(boolean collected) {
+    public void setCollected(Boolean collected) {
         this.collected = collected;
     }
 }

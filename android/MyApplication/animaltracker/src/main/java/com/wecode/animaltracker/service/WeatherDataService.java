@@ -1,23 +1,28 @@
 package com.wecode.animaltracker.service;
 
+import com.j256.ormlite.dao.Dao;
 import com.wecode.animaltracker.model.Weather;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by sziak on 10/28/2015.
  */
 public class WeatherDataService extends AbstractDataService<Weather> {
 
-    private static final WeatherDataService INSTANCE = new WeatherDataService();
+    private static WeatherDataService INSTANCE;
 
-    private WeatherDataService(){
-        super(Weather.class);
+    private WeatherDataService(Dao<Weather, Long> dao) {
+        super(dao);
     }
 
     public static WeatherDataService getInstance() {
+        if (INSTANCE == null) {
+            throw new IllegalStateException("INSTANCE is null, initialize first");
+        }
         return INSTANCE;
+    }
+
+    public static void initialize(Dao<Weather, Long> dao) {
+        WeatherDataService.INSTANCE = new WeatherDataService(dao);
     }
 
 }

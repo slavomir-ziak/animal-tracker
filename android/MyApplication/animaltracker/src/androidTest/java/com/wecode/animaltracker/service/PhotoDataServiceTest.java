@@ -14,12 +14,12 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
-public class PhotosDataServiceTest {
+public class PhotoDataServiceTest {
 
-    PhotosDataService service = PhotosDataService.getInstance();
+    PhotoDataService service = PhotoDataService.getInstance();
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         service.deleteAll();
     }
 

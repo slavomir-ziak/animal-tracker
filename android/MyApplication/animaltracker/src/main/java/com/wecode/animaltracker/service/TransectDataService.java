@@ -1,25 +1,28 @@
 package com.wecode.animaltracker.service;
 
-import android.location.Location;
+import com.j256.ormlite.dao.Dao;
 import com.wecode.animaltracker.model.Transect;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by sziak on 10/28/2015.
  */
 public class TransectDataService extends AbstractDataService<Transect> {
 
-    private static final TransectDataService INSTANCE = new TransectDataService();
+    private static TransectDataService INSTANCE;
 
-    private TransectDataService(){
-        super(Transect.class);
+    private TransectDataService(Dao<Transect, Long> dao) {
+        super(dao);
     }
 
     public static TransectDataService getInstance() {
+        if (INSTANCE == null) {
+            throw new IllegalStateException("INSTANCE is null, initialize first");
+        }
         return INSTANCE;
+    }
+
+    public static void initialize(Dao<Transect, Long> dao) {
+        TransectDataService.INSTANCE = new TransectDataService(dao);
     }
 
 

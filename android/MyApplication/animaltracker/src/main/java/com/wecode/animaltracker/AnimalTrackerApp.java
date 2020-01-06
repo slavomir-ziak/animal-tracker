@@ -1,78 +1,116 @@
 package com.wecode.animaltracker;
 
-import android.database.sqlite.SQLiteDatabase;
+import android.app.Application;
 import android.util.Log;
 
-import com.orm.SugarApp;
-import com.orm.SugarContext;
-import com.orm.SugarDb;
-import com.orm.util.MigrationFileParser;
+import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.wecode.animaltracker.model.CodeList;
+import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.Photo;
+import com.wecode.animaltracker.model.Sample;
+import com.wecode.animaltracker.model.Settings;
+import com.wecode.animaltracker.model.Transect;
+import com.wecode.animaltracker.model.TransectFindingSite;
+import com.wecode.animaltracker.model.Weather;
+import com.wecode.animaltracker.model.findings.TransectFindingFeces;
+import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
+import com.wecode.animaltracker.model.findings.TransectFindingOther;
+import com.wecode.animaltracker.ormlite.DatabaseHelper;
 import com.wecode.animaltracker.service.CodeListService;
+import com.wecode.animaltracker.service.HabitatDataService;
+import com.wecode.animaltracker.service.PhotoDataService;
+import com.wecode.animaltracker.service.SampleDataService;
 import com.wecode.animaltracker.service.SettingsDataService;
+import com.wecode.animaltracker.service.TransectDataService;
+import com.wecode.animaltracker.service.TransectFindingFecesDataService;
+import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
+import com.wecode.animaltracker.service.TransectFindingOtherDataService;
+import com.wecode.animaltracker.service.TransectFindingSiteDataService;
+import com.wecode.animaltracker.service.WeatherDataService;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Field;
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.android.ContextHolder;
+import org.sqldroid.DroidDataSource;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * Created by SZIAK on 9/4/2016.
  */
-public class AnimalTrackerApp extends SugarApp {
+public class AnimalTrackerApp extends Application {
+
+    private static String TAG = AnimalTrackerApp.class.getSimpleName();
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        if (CodeListService.getInstance().listAll().size() == 0) {
-            executeScript("init_db_codelists.sql");
-        }
-
-        if (SettingsDataService.getInstance().listAll().size() == 0) {
-            executeScript("init_db_settings.sql");
-        }
-
+        flyaway();
     }
 
-    private void executeScript(String file) {
-        try {
-            InputStream is = this.getAssets().open("sugar_upgrades/" + file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            MigrationFileParser migrationFileParser = new MigrationFileParser(sb.toString());
-            for(String statement: migrationFileParser.getStatements()){
-                Log.i("Sugar script", statement);
-                if (!statement.isEmpty()) {
-                    getDb().execSQL(statement);
-                }
+    private void flyaway() {
+
+        DroidDataSource dataSource = new DroidDataSource(getPackageName(), DatabaseHelper.createDbName(this.getPackageName())) {
+
+            @Override
+            public Connection getConnection() throws SQLException {
+
+                // BECAUSE ormlite uses sqlite db on this path:
+                String url = "jdbc:sqldroid:" + "/data/data/" + packageName + "/databases/" + databaseName;
+                return new org.sqldroid.SQLDroidDriver().connect(url , new Properties());
             }
 
-        } catch (IOException e) {
-            Log.e(Globals.APP_NAME, e.getMessage());
-        }
+        };
 
-        Log.i(Globals.APP_NAME, "Script "+file+" executed");
-    }
-
-    private SQLiteDatabase getDb() {
+        ContextHolder.setContext(this);
+        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
+        flyway.migrate();
 
         try {
-            Field f = SugarContext.getSugarContext().getClass().getDeclaredField("sugarDb");
-            f.setAccessible(true);
-            SugarDb db = (SugarDb) f.get(SugarContext.getSugarContext());
-            return db.getDB();
-        } catch (Exception e) {
+
+            HabitatDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(Habitat.class)
+            );
+            CodeListService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(CodeList.class)
+            );
+            PhotoDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(Photo.class)
+            );
+            SampleDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(Sample.class)
+            );
+            SettingsDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(Settings.class)
+            );
+            TransectDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(Transect.class)
+            );
+            TransectFindingFecesDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(TransectFindingFeces.class)
+            );
+            TransectFindingFootprintsDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(TransectFindingFootprints.class)
+            );
+            TransectFindingOtherDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(TransectFindingOther.class)
+            );
+            TransectFindingSiteDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(TransectFindingSite.class)
+            );
+            WeatherDataService.initialize(
+                    OpenHelperManager.getHelper(this, DatabaseHelper.class).createDao(Weather.class)
+            );
+
+        } catch (SQLException e) {
+            Log.e(TAG, "", e);
             throw new RuntimeException(e);
         }
+
+
     }
+
 
 
 }

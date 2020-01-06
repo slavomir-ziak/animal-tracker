@@ -1,21 +1,32 @@
 package com.wecode.animaltracker.model;
 
-import com.orm.dsl.NotNull;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Created by sziak on 16-May-16.
  */
+@DatabaseTable(tableName = "PHOTO")
 public class Photo extends Persistable {
 
-    @NotNull
+    public static final String ENTITY_NAME_COLUMN = "ENTITY_NAME";
+
+    public static final String ENTITY_ID_COLUMN = "ENTITY_ID";
+
+    public static final String FILE_NAME_COLUMN = "FILE_NAME";
+
+    public static final String THUMBNAIL_COLUMN = "THUMBNAIL";
+
+    @DatabaseField(columnName = ENTITY_NAME_COLUMN, canBeNull = false)
     private EntityName entityName;
 
-    @NotNull
+    @DatabaseField(columnName = ENTITY_ID_COLUMN, canBeNull = false)
     private Long entityId;
 
-    @NotNull
+    @DatabaseField(columnName = FILE_NAME_COLUMN, canBeNull = false)
     private String fileName;
 
+    @DatabaseField(columnName = THUMBNAIL_COLUMN)
     private String thumbnail;
 
     public Photo() {

@@ -1,10 +1,10 @@
 package com.wecode.animaltracker.service;
 
+import com.j256.ormlite.dao.Dao;
 import com.wecode.animaltracker.model.CodeList;
-import com.wecode.animaltracker.model.Habitat;
-import com.wecode.animaltracker.model.Photo;
 import com.wecode.animaltracker.util.Assert;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -14,14 +14,21 @@ import java.util.Locale;
  */
 public class CodeListService extends AbstractDataService<CodeList> {
 
-    private static final CodeListService INSTANCE = new CodeListService(CodeList.class);
+    private static CodeListService INSTANCE;
 
-    private CodeListService(Class<CodeList> persistentClass) {
-        super(persistentClass);
+    private CodeListService(Dao<CodeList, Long> dao) {
+        super(dao);
     }
 
     public static CodeListService getInstance() {
+        if (INSTANCE == null) {
+            throw new IllegalStateException("INSTANCE is null, initialize first");
+        }
         return INSTANCE;
+    }
+
+    public static void initialize(Dao<CodeList, Long> dao) {
+        CodeListService.INSTANCE = new CodeListService(dao);
     }
 
     /**
@@ -30,16 +37,28 @@ public class CodeListService extends AbstractDataService<CodeList> {
      * @return LinkedList, because we add to the beginning of this listAll.
      */
     public List<CodeList> findByName(String name) {
-        LinkedList<CodeList> codeLists = new LinkedList<>();
-        codeLists.addAll(CodeList.find(CodeList.class, "name = ?", name));
+        LinkedList<CodeList> codeLists;
+        try {
+            codeLists = new LinkedList<>(dao.queryForEq(CodeList.NAME_COLUMN, name));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return codeLists;
     }
 
     public CodeList findByNameAndLocalisedValue(String name, String localisedValue) {
-        String valueColumn = Locale.getDefault().getLanguage().equals("sk") ? "value_sk" : "value";
-        List<CodeList> codeLists = CodeList.find(CodeList.class, "name = ? and " + valueColumn + " = ?", name, localisedValue);
-        Assert.isTrue("more than 1 CodeList row with name=" + name + " and " + valueColumn + "=" + localisedValue, codeLists.size() <= 1);
-        return codeLists.size() == 1 ? codeLists.get(0) : null;
+        String valueColumn = Locale.getDefault().getLanguage().equals("sk") ? CodeList.VALUE_SK_COLUMN : CodeList.VALUE_COLUMN;
+        try {
+            List<CodeList> codeLists = dao.queryBuilder()
+                    .where().eq(CodeList.NAME_COLUMN, name)
+                    .and().eq(valueColumn, localisedValue)
+                    .query();
+
+            Assert.isTrue("more than 1 CodeList row with name=" + name + " and " + valueColumn + "=" + localisedValue, codeLists.size() <= 1);
+            return codeLists.size() == 1 ? codeLists.get(0) : null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -47,7 +66,15 @@ public class CodeListService extends AbstractDataService<CodeList> {
         if (value == null ) {
             return "";
         }
-        List<CodeList> codeLists = CodeList.find(CodeList.class, "name = ? and value= ?", name, value);
+        List<CodeList> codeLists = null;
+        try {
+            codeLists = dao.queryBuilder()
+                    .where().eq(CodeList.NAME_COLUMN, name)
+                    .and().eq(CodeList.VALUE_COLUMN, value)
+                    .query();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         Assert.isTrue("more than 1 CodeList row with name=" + name + " and " + value + "=" + value, codeLists.size() <= 1);
         return codeLists.size() == 1 ? codeLists.get(0).getLocalisedValue() : value;
     }

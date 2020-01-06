@@ -1,16 +1,28 @@
 package com.wecode.animaltracker.model;
 
-import com.orm.SugarRecord;
+import com.j256.ormlite.field.DatabaseField;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by sziak on 11/1/2015.
  */
-public class Persistable extends SugarRecord implements Comparable<Persistable> {
+public abstract class Persistable implements Comparable<Persistable>, Serializable {
 
+    public static final String ID_COLUMN = "ID";
+
+    public static final String CREATED_COLUMN = "CREATED";
+
+    public static final String COMMENT_COLUMN = "COMMENT";
+
+    @DatabaseField(generatedId = true, columnName = ID_COLUMN)
+    private Long id;
+
+    @DatabaseField(columnName = CREATED_COLUMN)
     private Date created;
 
+    @DatabaseField(columnName = COMMENT_COLUMN)
     private String comment;
 
     public Date getCreated() {
@@ -27,6 +39,14 @@ public class Persistable extends SugarRecord implements Comparable<Persistable> 
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override

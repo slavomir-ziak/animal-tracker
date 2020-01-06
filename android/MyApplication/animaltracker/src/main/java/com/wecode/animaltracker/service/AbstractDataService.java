@@ -1,60 +1,62 @@
 package com.wecode.animaltracker.service;
 
-import android.util.Log;
-
-import com.orm.SugarRecord;
-import com.wecode.animaltracker.Globals;
+import com.j256.ormlite.dao.Dao;
 import com.wecode.animaltracker.model.Persistable;
-import com.wecode.animaltracker.model.Sample;
-import com.wecode.animaltracker.model.findings.TransectFindingFeces;
-import com.wecode.animaltracker.util.Assert;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.sql.SQLException;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by sziak on 10/28/2015.
  */
 public abstract class AbstractDataService<T extends Persistable> {
 
-    private Class<T> persistentClass;
+    protected Dao<T, Long> dao;
 
-    protected AbstractDataService(Class<T> persistentClass) {
-        this.persistentClass = persistentClass;
+    AbstractDataService(Dao<T, Long> dao) {
+        this.dao = dao;
     }
 
     public T save(T t) {
-        if (t.getId() == null) {
-            t.setCreated(new Date());
+
+        try {
+
+            if (t.getId() == null) {
+                t.setCreated(new Date());
+                dao.create(t);
+            } else {
+                dao.update(t);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        Log.i(Globals.APP_NAME, "Saving " + t);
-        long id = t.save();
-        t.setId(id);
         return t;
     }
 
     public T find(Long id) {
-        Assert.assertNotNullNotZero("id cannot be null", id);
-        T byId = SugarRecord.findById(persistentClass, id);
-        Assert.assertNotNull("entity not found by id:"+id, byId);;
-        return byId;
+        try {
+            return dao.queryForId(id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<T> listAll() {
-        List<T> result = new ArrayList<>();
-        Iterator<T> all = SugarRecord.findAll(persistentClass);
-        while(all.hasNext()) {
-            result.add(all.next());
+        try {
+            return dao.queryForAll();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return result;
     }
 
     public void deleteAll() {
-        SugarRecord.deleteAll(persistentClass);
+        try {
+            dao.deleteBuilder().delete();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

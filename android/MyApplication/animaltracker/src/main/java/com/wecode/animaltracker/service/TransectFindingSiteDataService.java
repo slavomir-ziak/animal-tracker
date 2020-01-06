@@ -1,11 +1,10 @@
 package com.wecode.animaltracker.service;
 
+import com.j256.ormlite.dao.Dao;
 import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.model.TransectFindingSite;
-import com.wecode.animaltracker.model.findings.TransectFindingFeces;
-import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
-import com.wecode.animaltracker.model.findings.TransectFindingOther;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,26 +14,38 @@ import java.util.List;
  */
 public class TransectFindingSiteDataService extends AbstractDataService<TransectFindingSite> {
 
-    private static final TransectFindingSiteDataService INSTANCE = new TransectFindingSiteDataService();
+    private static TransectFindingSiteDataService INSTANCE;
 
-    private TransectFindingSiteDataService(){
-        super(TransectFindingSite.class);
+    private TransectFindingSiteDataService(Dao<TransectFindingSite, Long> dao) {
+        super(dao);
     }
 
     public static TransectFindingSiteDataService getInstance() {
+        if (INSTANCE == null) {
+            throw new IllegalStateException("INSTANCE is null, initialize first");
+        }
         return INSTANCE;
     }
 
+    public static void initialize(Dao<TransectFindingSite, Long> dao) {
+        TransectFindingSiteDataService.INSTANCE = new TransectFindingSiteDataService(dao);
+    }
+
     public List<TransectFindingSite> findByTransectId(Long transectId) {
-        return TransectFindingSite.find(TransectFindingSite.class, "transect_id=? order by id asc", transectId.toString());
+
+        try {
+            return dao.queryBuilder().orderBy(TransectFindingSite.ID_COLUMN, true)
+                    .where().eq(TransectFindingSite.TRANSECT_ID, transectId).query();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public List<Persistable> findTransectFindings(Long transectFindingId) {
-
         List<Persistable> results = new ArrayList<>();
-        results.addAll(TransectFindingFeces.find(TransectFindingFeces.class, "transect_finding_id=?", transectFindingId.toString()));
-        results.addAll(TransectFindingFootprints.find(TransectFindingFootprints.class, "transect_finding_id=?", transectFindingId.toString()));
-        results.addAll(TransectFindingOther.find(TransectFindingOther.class, "transect_finding_id=?", transectFindingId.toString()));
+        results.addAll(TransectFindingFecesDataService.getInstance().findByTransectFindingId(transectFindingId));
+        results.addAll(TransectFindingFootprintsDataService.getInstance().findByTransectFindingId(transectFindingId));
+        results.addAll(TransectFindingOtherDataService.getInstance().findByTransectFindingId(transectFindingId));
         Collections.sort(results);
         return results;
     }

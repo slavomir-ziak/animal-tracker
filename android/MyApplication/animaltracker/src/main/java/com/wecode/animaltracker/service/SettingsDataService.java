@@ -1,5 +1,6 @@
 package com.wecode.animaltracker.service;
 
+import com.j256.ormlite.dao.Dao;
 import com.wecode.animaltracker.model.Settings;
 
 /**
@@ -7,16 +8,23 @@ import com.wecode.animaltracker.model.Settings;
  */
 public class SettingsDataService extends AbstractDataService<Settings> {
 
-    private static final SettingsDataService INSTANCE = new SettingsDataService();
+    private static SettingsDataService INSTANCE;
 
-    protected SettingsDataService() {
-        super(Settings.class);
+    private SettingsDataService(Dao<Settings, Long> dao) {
+        super(dao);
     }
 
     public static SettingsDataService getInstance() {
+        if (INSTANCE == null) {
+            throw new IllegalStateException("INSTANCE is null, initialize first");
+        }
         return INSTANCE;
     }
 
+    public static void initialize(Dao<Settings, Long> dao) {
+        SettingsDataService.INSTANCE = new SettingsDataService(dao);
+    }
+    
     public Settings get() {
         return listAll().get(0);
     }

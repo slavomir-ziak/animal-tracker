@@ -1,8 +1,9 @@
 package com.wecode.animaltracker.service;
 
+import com.j256.ormlite.dao.Dao;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
-import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -10,21 +11,38 @@ import java.util.List;
  */
 public class TransectFindingFecesDataService extends AbstractDataService<TransectFindingFeces> {
 
-    private static final TransectFindingFecesDataService INSTANCE = new TransectFindingFecesDataService();
+    private static TransectFindingFecesDataService INSTANCE;
 
-    protected TransectFindingFecesDataService() {
-        super(TransectFindingFeces.class);
+    private TransectFindingFecesDataService(Dao<TransectFindingFeces, Long> dao) {
+        super(dao);
     }
 
     public static TransectFindingFecesDataService getInstance() {
+        if (INSTANCE == null) {
+            throw new IllegalStateException("INSTANCE is null, initialize first");
+        }
         return INSTANCE;
     }
 
+    public static void initialize(Dao<TransectFindingFeces, Long> dao) {
+        TransectFindingFecesDataService.INSTANCE = new TransectFindingFecesDataService(dao);
+    }
+
     public List<TransectFindingFeces> findByTransectFindingId(Long transectFindingId) {
-        return TransectFindingFeces.find(TransectFindingFeces.class, "transect_finding_id=?", transectFindingId.toString());
+        try {
+            return dao.queryForEq(TransectFindingFeces.TRANSECT_FINDING_ID_COLUMN, transectFindingId);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public long countByTransectFindingId(Long transectFindingId) {
-        return TransectFindingFeces.count(TransectFindingFeces.class, "transect_finding_id=?", new String[]{transectFindingId.toString()});
+        try {
+            return dao.queryBuilder()
+                    .where().eq(TransectFindingFeces.TRANSECT_FINDING_ID_COLUMN, transectFindingId)
+                    .countOf();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

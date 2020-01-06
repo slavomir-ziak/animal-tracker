@@ -17,6 +17,7 @@ import com.wecode.animaltracker.service.SettingsDataService;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
+import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 import com.wecode.animaltracker.util.LocationUtil;
 
 import java.io.File;
@@ -100,8 +101,8 @@ public class TransectReport {
             }
 
             List<TransectReportRow> allRows = new ArrayList<>();
-
-            for (TransectFindingSite transectFindingSite : transect.getFindingSites()) {
+            List<TransectFindingSite> sites = TransectFindingSiteDataService.getInstance().findByTransectId(transect.getId());
+            for (TransectFindingSite transectFindingSite : sites) {
                 List<TransectReportRow> rows = new ArrayList<>();
                 List<TransectFindingFootprints> footprints = TransectFindingFootprintsDataService.getInstance().findByTransectFindingId(transectFindingSite.getId());
 

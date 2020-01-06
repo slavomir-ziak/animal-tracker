@@ -1,33 +1,68 @@
 package com.wecode.animaltracker.model;
 
-import com.wecode.animaltracker.service.TransectFindingSiteDataService;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by sziak on 10/28/2015.
  */
+@DatabaseTable(tableName = "TRANSECT")
 public class Transect extends Persistable {
 
+    public static final String SQUARE_COLUMN = "SQUARE";
+    public static final String START_DATE_TIME_COLUMN = "START_DATE_TIME";
+    public static final String END_DATE_TIME_COLUMN = "END_DATE_TIME";
+    public static final String ROUTE_NAME_COLUMN = "ROUTE_NAME";
+    public static final String LOCALISATION_COLUMN = "LOCALISATION";
+    public static final String WEATHER_ID_COLUMN = "WEATHER_ID";
+    public static final String START_LONGITUDE_COLUMN = "START_LONGITUDE";
+    public static final String START_LATITUDE_COLUMN = "START_LATITUDE";
+    public static final String START_ELEVATION_COLUMN = "START_ELEVATION";
+    public static final String END_LONGITUDE_COLUMN = "END_LONGITUDE";
+    public static final String END_LATITUDE_COLUMN = "END_LATITUDE";
+    public static final String END_ELEVATION_COLUMN = "END_ELEVATION";
+    public static final String ROOT_DIRECTORY_NAME_COLUMN = "ROOT_DIRECTORY_NAME";
+
+    @DatabaseField(columnName = SQUARE_COLUMN)
     private Integer square;
+
+    @DatabaseField(columnName = START_DATE_TIME_COLUMN)
     private Date startDateTime;
+
+    @DatabaseField(columnName = END_DATE_TIME_COLUMN)
     private Date endDateTime;
+
+    @DatabaseField(columnName = ROUTE_NAME_COLUMN)
     private String routeName;
+
+    @DatabaseField(columnName = LOCALISATION_COLUMN)
     private String localisation;
+
+    @DatabaseField(columnName = WEATHER_ID_COLUMN)
     private Long weatherId;
 
+    @DatabaseField(columnName = START_LONGITUDE_COLUMN)
     private Double startLongitude;
+
+    @DatabaseField(columnName = START_LATITUDE_COLUMN)
     private Double startLatitude;
+
+    @DatabaseField(columnName = START_ELEVATION_COLUMN)
     private Double startElevation;
 
+    @DatabaseField(columnName = END_LONGITUDE_COLUMN)
     private Double endLongitude;
+
+    @DatabaseField(columnName = END_LATITUDE_COLUMN)
     private Double endLatitude;
+
+    @DatabaseField(columnName = END_ELEVATION_COLUMN)
     private Double endElevation;
 
+    @DatabaseField(columnName = ROOT_DIRECTORY_NAME_COLUMN)
     private String rootDirectoryName;
-
-    private List<TransectFindingSite> findings;
 
     public Transect() {
     }
@@ -143,13 +178,6 @@ public class Transect extends Persistable {
         this.endElevation = endElevation;
     }
 
-    public List<TransectFindingSite> getFindingSites() {
-        if (findings == null) {
-            findings = TransectFindingSiteDataService.getInstance().findByTransectId(getId());
-        }
-        return findings;
-    }
-
     public String getColumn(String defaultValue) {
         return square != null ? square.toString() : defaultValue;
     }
@@ -170,7 +198,6 @@ public class Transect extends Persistable {
                 ", endLatitude=" + endLatitude +
                 ", endElevation=" + endElevation +
                 ", rootDirectoryName='" + rootDirectoryName + '\'' +
-                ", findings=" + findings +
                 "} " + super.toString();
     }
 

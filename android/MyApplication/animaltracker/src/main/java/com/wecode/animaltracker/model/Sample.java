@@ -1,23 +1,33 @@
 package com.wecode.animaltracker.model;
 
-import com.orm.dsl.NotNull;
-
-import java.util.Date;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * Created by SZIAK on 7/31/2016.
  */
+@DatabaseTable(tableName = "SAMPLE")
 public class Sample extends Persistable {
 
-    @NotNull
+    public static final String SERIAL_NUMBER_COLUMN = "SAMPLE_NUMBER";
+
+    public static final String TRANSECT_FINDING_ID_COLUMN = "TRANSECT_FINDING_ID";
+
+    public static final String SAMPLE_SEQUENCE_NUMBER_COLUMN = "SAMPLE_SEQUENCE_NUMBER";
+
+    public static final String SAMPLE_TYPE_COLUMN = "SAMPLE_TYPE";
+
+    @DatabaseField(columnName = SERIAL_NUMBER_COLUMN, canBeNull = false)
     private String sampleNumber;
 
-    @NotNull
+    @DatabaseField(columnName = TRANSECT_FINDING_ID_COLUMN, canBeNull = false)
     private Long transectFindingId;
 
+    @DatabaseField(columnName = SAMPLE_SEQUENCE_NUMBER_COLUMN)
     private Integer sampleSequenceNumber;
 
     //EntityName
+    @DatabaseField(columnName = SAMPLE_TYPE_COLUMN)
     private String sampleType;
 
     public Sample() {
