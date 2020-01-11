@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.service.HabitatDataService;
 import com.wecode.animaltracker.util.Assert;
@@ -40,11 +41,11 @@ public class HabitatDetailView implements ChangeableView {
 
     public HabitatDetailView(Activity context, View view) {
         this.context = context;
-        type = new CodeListSpinnerView(R.id.habitatTypeValue, "habitatTypes", context, view, false);
-        track = new CodeListSpinnerView(R.id.habitatTrackValue, "habitatTrackTypes", context, view);
-        forestAge = new CodeListSpinnerView(R.id.habitatForestAgeValue, "habitatForestAgeTypes", context, view);
-        treeType = new CodeListSpinnerView(R.id.habitatTreeTypeValue, "habitatTreeTypes", context, view);
-        forestType = new CodeListSpinnerView(R.id.habitatForestTypeValue, "habitatForestTypes", context, view);
+        type = new CodeListSpinnerView(R.id.habitatTypeValue, CodeList.Name.habitatTypes.name(), context, view, false);
+        track = new CodeListSpinnerView(R.id.habitatTrackValue, CodeList.Name.habitatTrackTypes.name(), context, view);
+        forestAge = new CodeListSpinnerView(R.id.habitatForestAgeValue, CodeList.Name.habitatForestAgeTypes.name(), context, view);
+        treeType = new CodeListSpinnerView(R.id.habitatTreeTypeValue, CodeList.Name.habitatTreeTypes.name(), context, view);
+        forestType = new CodeListSpinnerView(R.id.habitatForestTypeValue, CodeList.Name.habitatForestTypes.name(), context, view);
 
         forestTypeContainer = view.findViewById(R.id.habitatForestTypeContainer);
         forestAgeContainer = view.findViewById(R.id.forestAgeContainer);

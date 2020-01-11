@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
 import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.util.Assert;
@@ -56,9 +57,9 @@ public class TransectFindingFootprintsView  implements ChangeableView {
         footprintsFrontWidht = (TextView) view.findViewById(R.id.footprintsFrontWidthValue);
         footprintsBackLength = (TextView) view.findViewById(R.id.footprintsBackLengthValue);
         footprintsBackWidht = (TextView) view.findViewById(R.id.footprintsBackWidthValue);
-        age = new CodeListSpinnerView(R.id.age, "findingAge", context, view);
+        age = new CodeListSpinnerView(R.id.age, CodeList.Name.findingAge.name(), context, view);
         footprintsStride = (TextView) view.findViewById(R.id.footprintsStrideValue);
-        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context, view);
+        substract = new CodeListSpinnerView(R.id.substract, CodeList.Name.findingSubstract.name(), context, view);
         footprintsGroup = (Spinner) view.findViewById(R.id.footprintsGroupValue);
         SpinnersHelper.setSpinnerData(footprintsGroup, R.array.footprintFindingGroupValues);
         SpinnersHelper.setSpinnerData(footprintsDirection, R.array.generalDirection);

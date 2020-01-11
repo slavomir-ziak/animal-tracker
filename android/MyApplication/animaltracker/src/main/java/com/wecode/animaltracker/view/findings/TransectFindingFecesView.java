@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.service.TransectFindingFecesDataService;
 import com.wecode.animaltracker.util.Assert;
@@ -46,10 +47,10 @@ public class TransectFindingFecesView implements ChangeableView {
         confidence = (Spinner) view.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
-        fecesPrey = new CodeListSpinnerView(R.id.findingFecesPreySpinner, "fecesPrey", context, view);
-        fecesState = new CodeListSpinnerView(R.id.findingFecesStateValue, "fecesState", context, view);
-        age = new CodeListSpinnerView(R.id.age, "findingAge", context, view);
-        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context, view);
+        fecesPrey = new CodeListSpinnerView(R.id.findingFecesPreySpinner, CodeList.Name.fecesPrey.name(), context, view);
+        fecesState = new CodeListSpinnerView(R.id.findingFecesStateValue, CodeList.Name.fecesState.name(), context, view);
+        age = new CodeListSpinnerView(R.id.age, CodeList.Name.findingAge.name(), context, view);
+        substract = new CodeListSpinnerView(R.id.substract, CodeList.Name.findingSubstract.name(), context, view);
         collected = (CheckBox) view.findViewById(R.id.transect_finding_sample);
         comment = (TextView) view.findViewById(R.id.comment);
     }

@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.SpinnersHelper;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.findings.TransectFindingOther;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 import com.wecode.animaltracker.util.Assert;
@@ -44,10 +45,10 @@ public class TransectFindingOtherView  implements ChangeableView {
         confidence = (Spinner) view.findViewById(R.id.findingConfidenceValue);
         SpinnersHelper.setSpinnerData(confidence, R.array.findingConfidenceTypes);
 
-        otherEvidence = new CodeListSpinnerView(R.id.findingOtherEvidenceValue, "findingOtherEvidence", context, view);
+        otherEvidence = new CodeListSpinnerView(R.id.findingOtherEvidenceValue, CodeList.Name.findingOtherEvidence.name(), context, view);
         otherObservations = new CodeListSpinnerView(R.id.findingOtherObservationsValue, "findingOtherObservations", context, view);
-        age = new CodeListSpinnerView(R.id.age, "findingAge", context, view);
-        substract = new CodeListSpinnerView(R.id.substract, "findingSubstract", context, view);
+        age = new CodeListSpinnerView(R.id.age, CodeList.Name.findingAge.name(), context, view);
+        substract = new CodeListSpinnerView(R.id.substract, CodeList.Name.findingSubstract.name(), context, view);
         comment = (TextView) view.findViewById(R.id.comment);
     }
 

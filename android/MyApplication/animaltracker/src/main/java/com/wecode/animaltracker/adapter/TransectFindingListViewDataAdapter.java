@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.Habitat;
 import com.wecode.animaltracker.model.TransectFindingSite;
 import com.wecode.animaltracker.service.CodeListService;
@@ -65,7 +66,7 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         initFindingCounts(rowView, transectFindingSite);
 
         TextView speciesView = (TextView) rowView.findViewById(R.id.transectFindingListItemSpecies);
-        speciesView.setText(codeListService.getLocalisedValueByNameAndValue("findingSpeciesTypes", transectFindingSite.getSpecies()));
+        speciesView.setText(codeListService.getLocalisedValueByNameAndValue(CodeList.Name.findingSpeciesTypes, transectFindingSite.getSpecies()));
 
         return rowView;
     }
@@ -100,9 +101,9 @@ public class TransectFindingListViewDataAdapter extends ArrayAdapter<TransectFin
         TextView habitatView = (TextView) rowView.findViewById(R.id.transectFindingListItemHabitat);
 
         String value="";
-        value += codeListService.getLocalisedValueByNameAndValue("habitatTypes", habitat.getType());
+        value += codeListService.getLocalisedValueByNameAndValue(CodeList.Name.habitatTypes, habitat.getType());
         value += (value.length() > 0 && habitat.getTrack() != null) ? ", " : "";
-        value += codeListService.getLocalisedValueByNameAndValue("habitatTrackTypes", habitat.getTrack());
+        value += codeListService.getLocalisedValueByNameAndValue(CodeList.Name.habitatTrackTypes, habitat.getTrack());
 
         habitatView.setText(value);
     }

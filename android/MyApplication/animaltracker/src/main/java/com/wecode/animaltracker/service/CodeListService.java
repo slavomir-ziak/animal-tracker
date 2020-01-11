@@ -1,13 +1,15 @@
 package com.wecode.animaltracker.service;
 
+import android.support.annotation.NonNull;
+
 import com.j256.ormlite.dao.Dao;
+import com.wecode.animaltracker.i18n.LocalisationHelper;
 import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.util.Assert;
 
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by SZIAK on 9/1/2016.
@@ -47,7 +49,8 @@ public class CodeListService extends AbstractDataService<CodeList> {
     }
 
     public CodeList findByNameAndLocalisedValue(String name, String localisedValue) {
-        String valueColumn = Locale.getDefault().getLanguage().equals("sk") ? CodeList.VALUE_SK_COLUMN : CodeList.VALUE_COLUMN;
+        String valueColumn = getValueColumn();
+
         try {
             List<CodeList> codeLists = dao.queryBuilder()
                     .where().eq(CodeList.NAME_COLUMN, name)
@@ -61,8 +64,13 @@ public class CodeListService extends AbstractDataService<CodeList> {
         }
     }
 
+    @NonNull
+    private String getValueColumn() {
+        return LocalisationHelper.getValueColumn();
+    }
 
-    public String getLocalisedValueByNameAndValue(String name, String value) {
+
+    public String getLocalisedValueByNameAndValue(CodeList.Name name, String value) {
         if (value == null ) {
             return "";
         }

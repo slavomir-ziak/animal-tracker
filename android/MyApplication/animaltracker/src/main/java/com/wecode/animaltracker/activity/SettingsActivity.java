@@ -13,7 +13,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.orm.util.ManifestHelper;
+import com.wecode.animaltracker.LcsiWildLifeTrackerApp;
 import com.wecode.animaltracker.BuildConfig;
 import com.wecode.animaltracker.R;
 import com.wecode.animaltracker.activity.util.Constants;
@@ -47,17 +47,15 @@ public class SettingsActivity extends AppCompatActivity {
 
         init();
 
-        int databaseVersion = ManifestHelper.getDatabaseVersion(this);
-
         TextView versionTextView = (TextView) findViewById(R.id.versionText);
-        versionTextView.setText(String.format(Locale.getDefault(), "%s.%d.%d", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, databaseVersion));
+        versionTextView.setText(String.format(Locale.getDefault(), "%s.%d.%s", BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE, LcsiWildLifeTrackerApp.databaseVersion));
 
     }
 
     private void init() {
         Settings settings = service.get();
 
-        trackerName = (TextView) findViewById(R.id.settingsTrackerName);
+        trackerName = findViewById(R.id.settingsTrackerName);
         settingsLocationDecimal = (RadioButton) findViewById(R.id.settingsLocationDecimal);
         RadioButton settingsLocationDMS = (RadioButton) findViewById(R.id.settingsLocationDMS);
 

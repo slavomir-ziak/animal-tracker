@@ -12,6 +12,7 @@ import com.wecode.animaltracker.activity.util.LocalisationUtils;
 import com.wecode.animaltracker.activity.util.ValidationException;
 import com.wecode.animaltracker.activity.util.ValidationHelper;
 import com.wecode.animaltracker.activity.util.Validator;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.Transect;
 import com.wecode.animaltracker.service.TransectDataService;
 import com.wecode.animaltracker.util.LocationUtil;
@@ -60,7 +61,7 @@ public class TransectDetailView  implements ChangeableView {
         startLocation = (TextView) context.findViewById(R.id.transectStartLocationValue);
         endLocation = (TextView) context.findViewById(R.id.transectEndLocationValue);
         routeName = (TextView) context.findViewById(R.id.transectRouteNameValue);
-        localisationSpinner = new CodeListSpinnerView(R.id.transectLocalisationSpinner, "transectRegion", activity, context, false);
+        localisationSpinner = new CodeListSpinnerView(R.id.transectLocalisationSpinner, CodeList.Name.transectRegion.name(), activity, context, false);
 
         endTransectButton = (Button) context.findViewById(R.id.endTransectButton);
         startTransectButton = (Button) context.findViewById(R.id.startTransectButton);

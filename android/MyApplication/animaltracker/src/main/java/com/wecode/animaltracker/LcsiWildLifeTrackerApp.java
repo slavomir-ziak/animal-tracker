@@ -27,46 +27,50 @@ import com.wecode.animaltracker.service.TransectFindingFootprintsDataService;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
 import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 import com.wecode.animaltracker.service.WeatherDataService;
+import com.wecode.animaltracker.sqldroid.MyDroidDataSource;
 
 import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.MigrationInfo;
 import org.flywaydb.core.api.android.ContextHolder;
-import org.sqldroid.DroidDataSource;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Properties;
 
 /**
  * Created by SZIAK on 9/4/2016.
  */
-public class AnimalTrackerApp extends Application {
+public class LcsiWildLifeTrackerApp extends Application {
 
-    private static String TAG = AnimalTrackerApp.class.getSimpleName();
+    private static final String TAG = LcsiWildLifeTrackerApp.class.getSimpleName();
+
+    public static String databaseVersion = "n/a";
 
     @Override
     public void onCreate() {
         super.onCreate();
         flyaway();
+        initDaos();
     }
 
     private void flyaway() {
 
-        DroidDataSource dataSource = new DroidDataSource(getPackageName(), DatabaseHelper.createDbName(this.getPackageName())) {
-
-            @Override
-            public Connection getConnection() throws SQLException {
-
-                // BECAUSE ormlite uses sqlite db on this path:
-                String url = "jdbc:sqldroid:" + "/data/data/" + packageName + "/databases/" + databaseName;
-                return new org.sqldroid.SQLDroidDriver().connect(url , new Properties());
-            }
-
-        };
-
         ContextHolder.setContext(this);
+        MyDroidDataSource dataSource = new MyDroidDataSource(getPackageName(), DatabaseHelper.createDbName(this.getPackageName()));
         Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.migrate();
 
+        try {
+            flyway.migrate();
+
+            MigrationInfo[] all = flyway.info().all();
+            if (all.length > 0) {
+                databaseVersion = all[all.length - 1].getVersion().getVersion();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "during flyway migration", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void initDaos() {
         try {
 
             HabitatDataService.initialize(
@@ -104,13 +108,8 @@ public class AnimalTrackerApp extends Application {
             );
 
         } catch (SQLException e) {
-            Log.e(TAG, "", e);
+            Log.e(TAG, "during init daos", e);
             throw new RuntimeException(e);
         }
-
-
     }
-
-
-
 }

@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.wecode.animaltracker.activity.ViewPagerAdapter;
 import com.wecode.animaltracker.fragment.detail.finding.TransectFindingOtherFindingFragment;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.EntityName;
 import com.wecode.animaltracker.service.CodeListService;
 import com.wecode.animaltracker.service.TransectFindingOtherDataService;
@@ -56,7 +57,7 @@ public class TransectFindingOtherDetailActivity extends TransectFindingCommonAct
         }
 
         if (evidence != null) {
-            String localized = codeListService.getLocalisedValueByNameAndValue("findingOtherEvidence", evidence);
+            String localized = codeListService.getLocalisedValueByNameAndValue(CodeList.Name.findingOtherEvidence, evidence);
             bundle.putString("evidence", evidence);
             transectFindingOtherFindingFragment.setFragmentTitle(localized);
             setTitle(localized);

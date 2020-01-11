@@ -6,7 +6,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.TransectFindingSite;
+import com.wecode.animaltracker.service.CodeListService;
 import com.wecode.animaltracker.service.TransectFindingSiteDataService;
 import com.wecode.animaltracker.util.Assert;
 import com.wecode.animaltracker.util.LocationUtil;
@@ -51,7 +53,7 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
 
         this.transectId = transectId;
 
-        species = new CodeListSpinnerView(R.id.findingSpeciesValue, "findingSpeciesTypes", context, false, getDefaultAnimal());
+        species = new CodeListSpinnerView(R.id.findingSpeciesValue, CodeList.Name.findingSpeciesTypes.name(), context, false, getDefaultAnimal());
         location = (TextView) context.findViewById(R.id.findingLocationValue);
         addFececButton = (Button) context.findViewById(R.id.transectFindingAddFecesButton);
         addFootprintsButton = (Button) context.findViewById(R.id.transectFindingAddFootprintsButton);
@@ -64,12 +66,7 @@ public class TransectFindingSiteDetailView  implements ChangeableView {
     }
 
     private String getDefaultAnimal() {
-
-        // TODO dont hardcode it here
-        if (Locale.getDefault().getLanguage().equals("sk")) {
-            return "Vlk";
-        }
-        return "Wolf";
+        return CodeListService.getInstance().getLocalisedValueByNameAndValue(CodeList.Name.findingSpeciesTypes, "Wolf");
     }
 
     private void bind(TransectFindingSite transectFindingSite) {

@@ -1,0 +1,7 @@
+long desc:;
+With this applicatino you can:
+- start new transect, name it, give it a localisation, then
+- collect information about animal findings you found on this transect as:
+- fur, scat, footprints, etc...and save information with then such as:
+- gps location, photo, habitat, 
+- at the end of transect you can export all this information to excel sheet.

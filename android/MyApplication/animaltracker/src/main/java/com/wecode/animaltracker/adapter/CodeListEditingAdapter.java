@@ -135,25 +135,28 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
                 .setTitle(R.string.new_item)
                 .setMessage(R.string.new_item_type_name)
                 .setView(textInput)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener(){
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        Spinner spinnerView = (Spinner) adapterView;
-                        String newCodeListItem = textInput.getText().toString();
+                .setPositiveButton("OK", (dialog, whichButton) -> {
+                    Spinner spinnerView = (Spinner) adapterView;
+                    String newCodeListItem = textInput.getText().toString();
 
-                        CodeList byNameAndValue = codeListService.findByNameAndLocalisedValue(codeListName, newCodeListItem);
-                        if (byNameAndValue == null) {
-                            codeListService.save(new CodeList(codeListName, newCodeListItem, newCodeListItem, null, CodeList.SOURCE_USER));
-                            reloadCodeListValues();
+                    CodeList byNameAndValue = codeListService.findByNameAndLocalisedValue(codeListName, newCodeListItem);
+                    if (byNameAndValue == null) {
+                        CodeList codeList = new CodeList();
+                        codeList.setAllValuesSame(newCodeListItem);
+                        codeList.setName(codeListName);
+                        codeList.setSource(CodeList.SOURCE_USER);
+                        codeListService.save(codeList);
 
-                            // if adaper is not set 'again' spinner doesnt know about added item
-                            //spinnerView.setOnItemSelectedListener(CodeListEditingAdapter.this);
-                            spinnerView.setAdapter(CodeListEditingAdapter.this);
-                        }
+                        reloadCodeListValues();
 
-                        int position1 = getPosition(newCodeListItem, true);
-                        setSelected(spinnerView, position1);
-
+                        // if adaper is not set 'again' spinner doesnt know about added item
+                        //spinnerView.setOnItemSelectedListener(CodeListEditingAdapter.this);
+                        spinnerView.setAdapter(CodeListEditingAdapter.this);
                     }
+
+                    int position1 = getPosition(newCodeListItem, true);
+                    setSelected(spinnerView, position1);
+
                 })
                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {

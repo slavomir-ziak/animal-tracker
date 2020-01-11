@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.wecode.animaltracker.R;
+import com.wecode.animaltracker.model.CodeList;
 import com.wecode.animaltracker.model.Persistable;
 import com.wecode.animaltracker.model.findings.TransectFindingFeces;
 import com.wecode.animaltracker.model.findings.TransectFindingFootprints;
@@ -95,10 +96,10 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
         TextView pray = (TextView) rowView.findViewById(R.id.transectFindingFecesItemPrey);
         TextView state = (TextView) rowView.findViewById(R.id.transectFindingFecesItemState);
         if (pray != null) {
-            pray.setText(codeListService.getLocalisedValueByNameAndValue("", detail.getPrey()));
+            pray.setText(codeListService.getLocalisedValueByNameAndValue(CodeList.Name.fecesPrey, detail.getPrey()));
         }
         if (state!=null) {
-            state.setText(codeListService.getLocalisedValueByNameAndValue("fecesState", detail.getState()));
+            state.setText(codeListService.getLocalisedValueByNameAndValue(CodeList.Name.fecesState, detail.getState()));
         }
     }
 
@@ -107,10 +108,10 @@ public class TransectFindingDetailsListAdapter extends BaseAdapter {
         TextView observations = (TextView) rowView.findViewById(R.id.transectFindingOtherItemObservations);
 
         if (evidence!=null) {
-            evidence.setText(codeListService.getLocalisedValueByNameAndValue("findingOtherEvidence", detail.getEvidence()));
+            evidence.setText(codeListService.getLocalisedValueByNameAndValue(CodeList.Name.findingOtherEvidence, detail.getEvidence()));
         }
         if (observations!=null) {
-            observations.setText(codeListService.getLocalisedValueByNameAndValue("", detail.getObservations()));
+            observations.setText(codeListService.getLocalisedValueByNameAndValue(CodeList.Name.findingObservation, detail.getObservations()));
         }
     }
 

@@ -2,14 +2,29 @@ package com.wecode.animaltracker.model;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
-import java.util.Locale;
+import com.wecode.animaltracker.i18n.LocalisationHelper;
 
 /**
  * Created by SZIAK on 8/31/2016.
  */
 @DatabaseTable(tableName = "CODE_LIST")
 public class CodeList extends Persistable {
+
+    public enum Name {
+        habitatTypes,
+        habitatTrackTypes,
+        habitatForestAgeTypes,
+        habitatTreeTypes,
+        habitatForestTypes,
+        findingSpeciesTypes,
+        findingAge,
+        findingObservation,
+        fecesState,
+        fecesPrey,
+        findingOtherEvidence,
+        transectRegion,
+        findingSubstract
+    }
 
     public static final String SOURCE_USER = "USER";
 
@@ -20,6 +35,10 @@ public class CodeList extends Persistable {
     public static final String VALUE_COLUMN = "VALUE";
 
     public static final String VALUE_SK_COLUMN = "VALUE_SK";
+
+    public static final String VALUE_FR_COLUMN = "VALUE_FR";
+
+    public static final String VALUE_PT_COLUMN = "VALUE_PT";
 
     public static final String ICON_COLUMN = "ICON";
 
@@ -33,6 +52,12 @@ public class CodeList extends Persistable {
 
     @DatabaseField(columnName = VALUE_SK_COLUMN)
     private String valueSk;
+
+    @DatabaseField(columnName = VALUE_PT_COLUMN)
+    private String valuePt;
+
+    @DatabaseField(columnName = VALUE_FR_COLUMN)
+    private String valueFr;
 
     @DatabaseField(columnName = ICON_COLUMN)
     private String icon;
@@ -58,6 +83,22 @@ public class CodeList extends Persistable {
         setId(id);
         this.value = value;
         this.valueSk = valueSk;
+    }
+
+    public String getValuePt() {
+        return valuePt;
+    }
+
+    public void setValuePt(String valuePt) {
+        this.valuePt = valuePt;
+    }
+
+    public String getValueFr() {
+        return valueFr;
+    }
+
+    public void setValueFr(String valueFr) {
+        this.valueFr = valueFr;
     }
 
     public String getName() {
@@ -101,11 +142,11 @@ public class CodeList extends Persistable {
     }
 
     public String getLocalisedValue() {
-        if (Locale.getDefault().getLanguage().equals("sk")) {
-            return getValueSk();
-        } else {
-            return getValue();
-        }
+        return LocalisationHelper.getLocalisedValue(this);
+    }
+
+    public void setAllValuesSame(String value) {
+        LocalisationHelper.setAllValuesSame(value, this);
     }
 
     @Override
@@ -113,10 +154,11 @@ public class CodeList extends Persistable {
         return "CodeList{" +
                 "name='" + name + '\'' +
                 ", value='" + value + '\'' +
-                ", icon='" + icon + '\'' +
                 ", valueSk='" + valueSk + '\'' +
+                ", valuePt='" + valuePt + '\'' +
+                ", valueFr='" + valueFr + '\'' +
+                ", icon='" + icon + '\'' +
                 ", source='" + source + '\'' +
                 "} " + super.toString();
     }
-
 }

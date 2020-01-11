@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_search">Hľadať</string>
     <string name="drawer_open">Otvoriť</string>
     <string name="drawer_close">Zatvorť</string>
 
@@ -12,14 +11,10 @@
     <string name="title_friends">Friends</string>
     <string name="title_home">Home</string>
 
-    <string name="hello_world">Nazdar svet!</string>
     <string name="action_settings">Nastavenia</string>
-    <string name="title_activity_item_detail">ItemDetailActivity</string>
-    <string name="title_activity_item_list">ItemListActivity</string>
     <string name="title_activity_transect_detail">Cesta</string>
     <string name="title_activity_weather">Počasie</string>
     <string name="title_activity_habitat_detail">Habitat</string>
-    <string name="title_activity_finding_detail">Nález</string>
 
     <string-array name="findingConfidenceTypes">
         <item></item>

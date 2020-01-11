@@ -26,7 +26,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
 	@NonNull
 	public static String createDbName(String packageName) {
-		return packageName + "_" + (isTesting() ? "testing_" : "") + "ormlite_1.db";
+		return packageName + "_" + (isTesting() ? "testing_" : "") + "ormlite_2.db";
 	}
 
 	private static boolean isTesting() {
