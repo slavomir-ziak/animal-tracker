@@ -27,15 +27,15 @@ import java.util.Stack;
 public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.OnItemSelectedListener {
 
     private static final Long NEW_ITEM_ID = -1L;
+
     private static final Long EMPTY_ITEM_ID = -2L;
 
     private static final String EMPTY_ITEM_TEXT = "";
-    private static final String NEW_ITEM_TEXT = "..add new item";
-    private static final String NEW_ITEM_TEXT_SK = "...pridať novú položku";
 
     private Activity context;
 
     private String codeListName;
+
     private boolean enableEmptyValue;
 
     private CodeListService codeListService = CodeListService.getInstance();
@@ -73,7 +73,10 @@ public class CodeListEditingAdapter extends BaseAdapter implements AdapterView.O
             setDefaultValueToFirstPlace();
         }
 
-        codeList.add(new CodeList(NEW_ITEM_ID, NEW_ITEM_TEXT, NEW_ITEM_TEXT_SK));
+        CodeList newCodeList = new CodeList();
+        newCodeList.setId(NEW_ITEM_ID);
+        newCodeList.setAllValuesSame(context.getString(R.string.add_new_codelist_item));
+        codeList.add(newCodeList);
     }
 
     private void setDefaultValueToFirstPlace() {

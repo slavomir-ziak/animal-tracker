@@ -213,5 +213,6 @@
     <string name="comment">Comment</string>
     <string name="privacyPolicyLabel">Privacy Policy</string>
     <string name="showPrivacyPolicy">Show Privacy Policy</string>
+    <string name="add_new_codelist_item">...add new</string>
 
 </resources>

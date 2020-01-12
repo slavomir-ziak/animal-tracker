@@ -211,4 +211,5 @@
     <string name="comment">Poznámka</string>
     <string name="privacyPolicyLabel">Zásady ochrany osobných údajov</string>
     <string name="showPrivacyPolicy">Zobraziť</string>
+    <string name="add_new_codelist_item">...pridať novú položku</string>
 </resources>
